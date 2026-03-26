@@ -206,7 +206,62 @@ h2{font-size:18px;margin-bottom:10px}
 .agent-badge{display:inline-flex;align-items:center;gap:6px;background:#006AFF22;border:1px solid #006AFF44;border-radius:8px;padding:4px 12px;font-size:11px;color:#60a5fa;margin-bottom:12px}
 .agent-badge .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid,.form-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}.voice-controls{flex-wrap:wrap}}
+/* BPO Workflow */
+.bpo-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.bpo-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#2d2d5e;color:#94a3b8;border:none;transition:all .2s}
+.bpo-tab:hover{background:#3d3d7e;color:#e2e8f0}
+.bpo-tab.active{background:#006AFF;color:#fff}
+.bpo-tab .count{background:#006AFF44;color:#60a5fa;padding:1px 6px;border-radius:10px;font-size:10px;margin-left:4px}
+.bpo-tab.active .count{background:#ffffff33;color:#fff}
+.bpo-panel{display:none}.bpo-panel.active{display:block}
+.file-zone{border:2px dashed #2d2d5e;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px}
+.file-zone:hover,.file-zone.dragover{border-color:#006AFF;background:#006AFF08}
+.file-zone .fz-icon{font-size:36px;margin-bottom:8px}
+.file-zone p{font-size:13px;color:#94a3b8}
+.file-zone .fz-hint{font-size:11px;color:#64748b;margin-top:4px}
+.file-list{margin-bottom:16px}
+.file-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:10px;margin-bottom:8px;transition:all .2s}
+.file-item:hover{border-color:#006AFF}
+.file-item .fi-icon{font-size:24px;flex-shrink:0}
+.file-item .fi-info{flex:1;min-width:0}
+.file-item .fi-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-item .fi-meta{font-size:11px;color:#64748b;margin-top:2px}
+.file-item .fi-tag{padding:2px 8px;border-radius:12px;font-size:10px;font-weight:600;flex-shrink:0}
+.file-item .fi-actions{display:flex;gap:6px;flex-shrink:0}
+.file-item .fi-btn{width:28px;height:28px;border-radius:6px;border:1px solid #2d2d5e;background:transparent;color:#94a3b8;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s}
+.file-item .fi-btn:hover{border-color:#ef4444;color:#ef4444;background:#ef444411}
+.file-item .fi-btn.view-btn:hover{border-color:#006AFF;color:#006AFF;background:#006AFF11}
+.tag-outbound{background:#006AFF22;color:#60a5fa;border:1px solid #006AFF44}
+.tag-inbound{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
+.tag-menu{background:#eab30822;color:#eab308;border:1px solid #eab30844}
+.tag-migration{background:#a855f722;color:#a855f7;border:1px solid #a855f744}
+.bpo-status-tracker{background:#1a1a3e;border-radius:12px;padding:18px;border:1px solid #2d2d5e;margin-bottom:16px}
+.bpo-status-tracker h3{font-size:14px;margin-bottom:12px;color:#94a3b8}
+.bpo-pipeline{display:flex;gap:0;margin-bottom:12px}
+.bpo-pipe{flex:1;padding:10px 8px;text-align:center;font-size:11px;font-weight:600;background:#2d2d5e;color:#64748b;position:relative;cursor:pointer;transition:all .2s}
+.bpo-pipe:first-child{border-radius:8px 0 0 8px}
+.bpo-pipe:last-child{border-radius:0 8px 8px 0}
+.bpo-pipe.pipe-active{background:#006AFF;color:#fff}
+.bpo-pipe.pipe-done{background:#22c55e;color:#fff}
+.bpo-pipe:hover{opacity:.85}
+.qa-section{background:#1a1a3e;border-radius:12px;padding:18px;border:1px solid #2d2d5e;margin-bottom:16px}
+.qa-section h3{font-size:14px;margin-bottom:12px}
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qa-item{display:flex;align-items:flex-start;gap:8px;padding:10px 14px;background:#0f0f23;border-radius:8px;border:1px solid #2d2d5e;font-size:12px;transition:all .2s}
+.qa-item input[type=checkbox]{width:16px;height:16px;accent-color:#22c55e;cursor:pointer;margin-top:1px;flex-shrink:0}
+.qa-item.qa-done{opacity:.5}
+.qa-item.qa-done span{text-decoration:line-through}
+.qa-notes{width:100%;margin-top:12px}
+.qa-notes textarea{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical;min-height:80px}
+.qa-notes textarea:focus{outline:none;border-color:#006AFF}
+.bpo-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.bpo-stat{background:#0f0f23;border:1px solid #2d2d5e;border-radius:10px;padding:12px;text-align:center}
+.bpo-stat .num{font-size:22px;font-weight:800;margin-bottom:2px}
+.bpo-stat .lbl{font-size:10px;text-transform:uppercase;color:#64748b;letter-spacing:.5px}
+.file-preview{background:#0f0f23;border:1px solid #2d2d5e;border-radius:10px;padding:16px;margin-top:12px;display:none}
+.file-preview pre{font-size:11px;color:#94a3b8;white-space:pre-wrap;max-height:200px;overflow-y:auto;line-height:1.5}
+.file-preview img{max-width:100%;border-radius:8px;margin-top:8px}
+@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid,.form-grid,.qa-grid,.bpo-summary{grid-template-columns:1fr}.pipeline,.bpo-pipeline{flex-direction:column}.voice-controls{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -422,10 +477,184 @@ Examples:
 
 <!-- ===== BPO ===== -->
 <div id="bpo" class="tab">
-<div class="deliv-header"><h1>🔧 BPO DSA Notes</h1><button class="btn btn-green" onclick="copyContent('bpoContent')">📋 Copy</button></div>
+<h1 style="margin-bottom:4px">🔧 BPO Workflow</h1>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Manage your BPO submission: DSA notes, outbound files, and inbound QA review</p>
+
+<!-- BPO Sub-tabs -->
+<div class="bpo-tabs">
+<button class="bpo-tab active" onclick="showBpoPanel('bpoNotes')">📝 DSA Notes</button>
+<button class="bpo-tab" onclick="showBpoPanel('bpoOutbound')">📤 Outbound Files <span class="count" id="outboundCount">0</span></button>
+<button class="bpo-tab" onclick="showBpoPanel('bpoInbound')">📥 Inbound QA <span class="count" id="inboundCount">0</span></button>
+<button class="bpo-tab" onclick="showBpoPanel('bpoTracker')">📊 Status Tracker</button>
+</div>
+
+<!-- Panel 1: DSA Notes (generated content) -->
+<div id="bpoNotes" class="bpo-panel active">
+<div class="deliv-header" style="margin-bottom:12px"><h2 style="margin:0;border:none;padding:0">📝 BPO DSA Activity Notes</h2><button class="btn btn-green btn-sm" onclick="copyContent('bpoContent')">📋 Copy</button></div>
 <div id="bpoContent" class="deliv-content">
 <div class="empty-state"><div class="icon">🔧</div><h3>No BPO Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
-</div></div>
+</div>
+</div>
+
+<!-- Panel 2: Outbound Files (to BPO) -->
+<div id="bpoOutbound" class="bpo-panel">
+<h2 style="color:#60a5fa;font-size:16px;margin-bottom:4px">📤 Files to Send to BPO</h2>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Stage your files here before attaching to the DSA in Salesforce. BPO cannot access Google Docs — only direct attachments.</p>
+
+<div class="bpo-summary">
+<div class="bpo-stat"><div class="num blue" id="outboundFileCount">0</div><div class="lbl">Files Staged</div></div>
+<div class="bpo-stat"><div class="num yellow" id="outboundTotalSize">0 KB</div><div class="lbl">Total Size</div></div>
+<div class="bpo-stat"><div class="num green" id="outboundReadyStatus">Not Ready</div><div class="lbl">Submission Status</div></div>
+</div>
+
+<div class="file-zone" id="outboundDropZone" onclick="document.getElementById('outboundFileInput').click()">
+<div class="fz-icon">📂</div>
+<p>Drop files here or click to browse</p>
+<div class="fz-hint">Menu exports (Excel/PDF), screenshots, reference docs — any format</div>
+</div>
+<input type="file" id="outboundFileInput" multiple style="display:none" onchange="handleOutboundFiles(this.files)">
+
+<div class="file-list" id="outboundFileList"></div>
+
+<div class="warn" style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 8px 8px 0;font-size:12px;margin-bottom:12px">
+⚠️ <b>Remember:</b> Attach these files to the DSA via the <b>Related tab</b> in Salesforce. BPO cannot access Google Docs, shared drives, or links — only direct file attachments.
+</div>
+
+<div style="margin-bottom:12px">
+<h3 style="font-size:14px;color:#94a3b8;margin-bottom:8px">📋 Outbound Checklist</h3>
+<div id="outboundChecklist">
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>Menu file attached (Excel/PDF)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>File format verified (no Google Docs links)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>Special instructions noted in DSA activity notes</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>Difficulty rating set correctly</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>Due date set (3-4 business days)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>DSA status = Initiating</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateOutboundStatus()"><span>Rush checkbox + #gso-bpo Slack (if rush)</span></div>
+</div>
+</div>
+
+<div class="qa-notes">
+<label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#94a3b8;letter-spacing:.5px;display:block;margin-bottom:4px">📝 Notes for BPO Team</label>
+<textarea id="outboundNotes" placeholder="Add any special instructions, context, or warnings for the BPO team...
+
+Examples:
+- Two separate menus — do NOT merge. Period(.)=POS, Underscore(_)=Delivery
+- Base price = lowest modifier (half size)
+- Sizes are modifiers, not variations
+- Alphabetize within categories
+- No gift cards in build"></textarea>
+</div>
+</div>
+
+<!-- Panel 3: Inbound QA (from BPO) -->
+<div id="bpoInbound" class="bpo-panel">
+<h2 style="color:#22c55e;font-size:16px;margin-bottom:4px">📥 BPO Deliverables — QA Review</h2>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Upload the completed build from BPO. QA every item before training.</p>
+
+<div class="bpo-summary">
+<div class="bpo-stat"><div class="num green" id="inboundFileCount">0</div><div class="lbl">Files Received</div></div>
+<div class="bpo-stat"><div class="num" id="qaProgress" style="color:#eab308">0%</div><div class="lbl">QA Progress</div></div>
+<div class="bpo-stat"><div class="num" id="qaVerdict" style="color:#64748b">Pending</div><div class="lbl">QA Verdict</div></div>
+</div>
+
+<div class="file-zone" id="inboundDropZone" onclick="document.getElementById('inboundFileInput').click()">
+<div class="fz-icon">📥</div>
+<p>Drop BPO deliverables here or click to browse</p>
+<div class="fz-hint">Completed menu builds, migration reports, screenshots of finished work</div>
+</div>
+<input type="file" id="inboundFileInput" multiple style="display:none" onchange="handleInboundFiles(this.files)">
+
+<div class="file-list" id="inboundFileList"></div>
+
+<div class="qa-section">
+<h3>🔍 QA Checklist — Menu Build</h3>
+<div class="qa-grid" id="qaChecklist">
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>All categories created correctly</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>All items present (count matches source)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Item names spelled correctly</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Prices match source menu</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Modifier groups assigned correctly</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Modifier pricing correct</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Base price set for online ordering items</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Items alphabetized within categories</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>No duplicate items or modifiers</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>POS vs delivery menus separated (if applicable)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Printer/KDS routing correct</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Square Online items configured (if applicable)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Tax categories assigned</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>No gift cards in menu build</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Images uploaded (if included in scope)</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Test transaction successful</span></div>
+</div>
+</div>
+
+<div class="qa-section">
+<h3>🔍 QA Checklist — Migration (if applicable)</h3>
+<div class="qa-grid" id="qaMigrationChecklist">
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Customer records imported correctly</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Gift card balances match</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>Loyalty points transferred</span></div>
+<div class="qa-item"><input type="checkbox" onchange="updateQAProgress()"><span>No duplicate customer entries</span></div>
+</div>
+</div>
+
+<div class="qa-notes">
+<label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#94a3b8;letter-spacing:.5px;display:block;margin-bottom:4px">📝 QA Findings & Issues</label>
+<textarea id="qaFindings" placeholder="Document any issues found during QA...
+
+Examples:
+- Missing modifier group on 'Wings' category
+- Price mismatch on 'Combo Set' — should be $12.99, shows $11.99
+- 'Half and Half' item missing delivery modifiers
+- Need to add 3 new items seller mentioned after BPO submission"></textarea>
+</div>
+
+<div style="display:flex;gap:10px;margin-top:12px">
+<button class="btn btn-green" onclick="markQAPassed()">✅ QA Passed — Ready for Training</button>
+<button class="btn btn-red" onclick="markQAFailed()">❌ QA Failed — Send Back to BPO</button>
+</div>
+</div>
+
+<!-- Panel 4: Status Tracker -->
+<div id="bpoTracker" class="bpo-panel">
+<h2 style="color:#94a3b8;font-size:16px;margin-bottom:16px">📊 BPO Submission Lifecycle</h2>
+
+<div class="bpo-status-tracker">
+<h3>Current Status</h3>
+<div class="bpo-pipeline" id="bpoPipeline">
+<div class="bpo-pipe pipe-active" onclick="setBpoStatus(0)" data-step="0">📝 Drafting<br>DSA Notes</div>
+<div class="bpo-pipe" onclick="setBpoStatus(1)" data-step="1">📤 Files<br>Staged</div>
+<div class="bpo-pipe" onclick="setBpoStatus(2)" data-step="2">🚀 DSA<br>Submitted</div>
+<div class="bpo-pipe" onclick="setBpoStatus(3)" data-step="3">⏳ BPO<br>In Progress</div>
+<div class="bpo-pipe" onclick="setBpoStatus(4)" data-step="4">📥 Build<br>Received</div>
+<div class="bpo-pipe" onclick="setBpoStatus(5)" data-step="5">🔍 QA<br>Review</div>
+<div class="bpo-pipe" onclick="setBpoStatus(6)" data-step="6">✅ QA<br>Passed</div>
+</div>
+</div>
+
+<div class="gen-section" style="margin-bottom:16px">
+<h2 style="font-size:14px">📅 Timeline</h2>
+<div class="form-grid">
+<div class="form-group"><label>DSA Submitted Date</label><input type="date" id="bpoSubmitDate" onchange="saveBpoTimeline()"></div>
+<div class="form-group"><label>BPO Due Date</label><input type="date" id="bpoDueDate" onchange="saveBpoTimeline()"></div>
+<div class="form-group"><label>Build Received Date</label><input type="date" id="bpoReceivedDate" onchange="saveBpoTimeline()"></div>
+<div class="form-group"><label>QA Completed Date</label><input type="date" id="bpoQADate" onchange="saveBpoTimeline()"></div>
+</div>
+</div>
+
+<div class="gen-section">
+<h2 style="font-size:14px">📋 Activity Log</h2>
+<div id="bpoActivityLog" style="font-size:12px;line-height:1.8;color:#94a3b8">
+<p style="color:#64748b;font-style:italic">No activity yet. Actions will be logged here automatically.</p>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px">
+<input type="text" id="bpoLogEntry" placeholder="Add a manual log entry..." style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:12px;font-family:inherit">
+<button class="btn btn-blue btn-sm" onclick="addBpoLogEntry()">+ Add</button>
+</div>
+</div>
+</div>
+
+</div>
 
 <!-- ===== ANALYSIS ===== -->
 <div id="analysis" class="tab">
@@ -1271,6 +1500,322 @@ function clearForm(){
   if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});}catch(e){}}
   renderSavedDeals();
 })();
+
+// ================================================================
+// ===== BPO WORKFLOW =====
+// ================================================================
+let outboundFiles = JSON.parse(localStorage.getItem('gso-bpo-outbound') || '[]');
+let inboundFiles = JSON.parse(localStorage.getItem('gso-bpo-inbound') || '[]');
+let bpoStatus = parseInt(localStorage.getItem('gso-bpo-status') || '0');
+let bpoLog = JSON.parse(localStorage.getItem('gso-bpo-log') || '[]');
+
+function showBpoPanel(id){
+  document.querySelectorAll('.bpo-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bpo-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // Highlight correct tab
+  const tabMap = {bpoNotes:0, bpoOutbound:1, bpoInbound:2, bpoTracker:3};
+  document.querySelectorAll('.bpo-tab')[tabMap[id]].classList.add('active');
+}
+
+// --- Outbound File Management ---
+const outDropZone = document.getElementById('outboundDropZone');
+outDropZone.addEventListener('dragover',e=>{e.preventDefault();outDropZone.classList.add('dragover')});
+outDropZone.addEventListener('dragleave',()=>outDropZone.classList.remove('dragover'));
+outDropZone.addEventListener('drop',e=>{e.preventDefault();outDropZone.classList.remove('dragover');handleOutboundFiles(e.dataTransfer.files)});
+
+function handleOutboundFiles(fileList){
+  for(const file of fileList){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      const fileData = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        ext: file.name.split('.').pop().toLowerCase(),
+        data: e.target.result,
+        addedAt: new Date().toLocaleString(),
+        tag: guessFileTag(file.name)
+      };
+      outboundFiles.push(fileData);
+      saveOutboundFiles();
+      renderOutboundFiles();
+      addBpoLogAuto('📤 File staged: ' + file.name);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function guessFileTag(name){
+  const n = name.toLowerCase();
+  if(n.includes('menu')||n.includes('item')||n.includes('food')) return 'menu';
+  if(n.includes('migrat')||n.includes('customer')||n.includes('loyalty')||n.includes('gift')) return 'migration';
+  return 'outbound';
+}
+
+function saveOutboundFiles(){
+  // Save metadata only (not full data URLs) to avoid localStorage limits
+  const meta = outboundFiles.map(f=>({name:f.name,size:f.size,type:f.type,ext:f.ext,addedAt:f.addedAt,tag:f.tag}));
+  localStorage.setItem('gso-bpo-outbound', JSON.stringify(meta));
+  document.getElementById('outboundCount').textContent = outboundFiles.length;
+  document.getElementById('outboundFileCount').textContent = outboundFiles.length;
+  const totalKB = outboundFiles.reduce((sum,f)=>sum+f.size,0)/1024;
+  document.getElementById('outboundTotalSize').textContent = totalKB>1024?(totalKB/1024).toFixed(1)+' MB':Math.round(totalKB)+' KB';
+  updateOutboundStatus();
+}
+
+function renderOutboundFiles(){
+  const list = document.getElementById('outboundFileList');
+  if(outboundFiles.length === 0){list.innerHTML='';return}
+  list.innerHTML = outboundFiles.map((f,i)=>{
+    const icon = getFileIcon(f.ext);
+    const sizeStr = f.size>1024*1024?(f.size/1024/1024).toFixed(1)+' MB':(f.size/1024).toFixed(1)+' KB';
+    const tagClass = f.tag==='menu'?'tag-menu':f.tag==='migration'?'tag-migration':'tag-outbound';
+    return `<div class="file-item">
+      <div class="fi-icon">${icon}</div>
+      <div class="fi-info">
+        <div class="fi-name">${f.name}</div>
+        <div class="fi-meta">${sizeStr} • Added ${f.addedAt}</div>
+      </div>
+      <span class="fi-tag ${tagClass}">${f.tag}</span>
+      <div class="fi-actions">
+        <button class="fi-btn" onclick="removeOutboundFile(${i})" title="Remove">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function removeOutboundFile(i){
+  const name = outboundFiles[i].name;
+  outboundFiles.splice(i,1);
+  saveOutboundFiles();
+  renderOutboundFiles();
+  addBpoLogAuto('🗑️ File removed: ' + name);
+}
+
+function updateOutboundStatus(){
+  const checks = document.querySelectorAll('#outboundChecklist .qa-item input[type=checkbox]');
+  let done = 0;
+  checks.forEach(c=>{
+    if(c.checked){done++;c.parentElement.classList.add('qa-done')}
+    else c.parentElement.classList.remove('qa-done');
+  });
+  const ready = done === checks.length && outboundFiles.length > 0;
+  const el = document.getElementById('outboundReadyStatus');
+  el.textContent = ready ? '✅ Ready' : done + '/' + checks.length;
+  el.style.color = ready ? '#22c55e' : '#eab308';
+  // Save checklist state
+  const states = [];checks.forEach(c=>states.push(c.checked));
+  localStorage.setItem('gso-bpo-outbound-checks', JSON.stringify(states));
+}
+
+// --- Inbound File Management ---
+const inDropZone = document.getElementById('inboundDropZone');
+inDropZone.addEventListener('dragover',e=>{e.preventDefault();inDropZone.classList.add('dragover')});
+inDropZone.addEventListener('dragleave',()=>inDropZone.classList.remove('dragover'));
+inDropZone.addEventListener('drop',e=>{e.preventDefault();inDropZone.classList.remove('dragover');handleInboundFiles(e.dataTransfer.files)});
+
+function handleInboundFiles(fileList){
+  for(const file of fileList){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      const fileData = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        ext: file.name.split('.').pop().toLowerCase(),
+        data: e.target.result,
+        addedAt: new Date().toLocaleString(),
+        tag: 'inbound'
+      };
+      inboundFiles.push(fileData);
+      saveInboundFiles();
+      renderInboundFiles();
+      addBpoLogAuto('📥 BPO deliverable received: ' + file.name);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function saveInboundFiles(){
+  const meta = inboundFiles.map(f=>({name:f.name,size:f.size,type:f.type,ext:f.ext,addedAt:f.addedAt,tag:f.tag}));
+  localStorage.setItem('gso-bpo-inbound', JSON.stringify(meta));
+  document.getElementById('inboundCount').textContent = inboundFiles.length;
+  document.getElementById('inboundFileCount').textContent = inboundFiles.length;
+}
+
+function renderInboundFiles(){
+  const list = document.getElementById('inboundFileList');
+  if(inboundFiles.length === 0){list.innerHTML='';return}
+  list.innerHTML = inboundFiles.map((f,i)=>{
+    const icon = getFileIcon(f.ext);
+    const sizeStr = f.size>1024*1024?(f.size/1024/1024).toFixed(1)+' MB':(f.size/1024).toFixed(1)+' KB';
+    return `<div class="file-item">
+      <div class="fi-icon">${icon}</div>
+      <div class="fi-info">
+        <div class="fi-name">${f.name}</div>
+        <div class="fi-meta">${sizeStr} • Received ${f.addedAt}</div>
+      </div>
+      <span class="fi-tag tag-inbound">BPO deliverable</span>
+      <div class="fi-actions">
+        <button class="fi-btn" onclick="removeInboundFile(${i})" title="Remove">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function removeInboundFile(i){
+  const name = inboundFiles[i].name;
+  inboundFiles.splice(i,1);
+  saveInboundFiles();
+  renderInboundFiles();
+  addBpoLogAuto('🗑️ Inbound file removed: ' + name);
+}
+
+// --- QA Progress ---
+function updateQAProgress(){
+  const menuChecks = document.querySelectorAll('#qaChecklist .qa-item input[type=checkbox]');
+  const migChecks = document.querySelectorAll('#qaMigrationChecklist .qa-item input[type=checkbox]');
+  let total = 0, done = 0;
+  menuChecks.forEach(c=>{total++;if(c.checked){done++;c.parentElement.classList.add('qa-done')}else c.parentElement.classList.remove('qa-done')});
+  migChecks.forEach(c=>{total++;if(c.checked){done++;c.parentElement.classList.add('qa-done')}else c.parentElement.classList.remove('qa-done')});
+  const pct = total>0?Math.round(done/total*100):0;
+  document.getElementById('qaProgress').textContent = pct+'%';
+  document.getElementById('qaProgress').style.color = pct===100?'#22c55e':pct>=50?'#eab308':'#ef4444';
+  // Save
+  const states = [];
+  menuChecks.forEach(c=>states.push(c.checked));
+  migChecks.forEach(c=>states.push(c.checked));
+  localStorage.setItem('gso-bpo-qa-checks', JSON.stringify(states));
+}
+
+function markQAPassed(){
+  document.getElementById('qaVerdict').textContent = '✅ Passed';
+  document.getElementById('qaVerdict').style.color = '#22c55e';
+  setBpoStatus(6);
+  addBpoLogAuto('✅ QA PASSED — Build approved for training');
+  showToast('✅ QA Passed — Ready for training!');
+  localStorage.setItem('gso-bpo-qa-verdict','passed');
+}
+
+function markQAFailed(){
+  const findings = document.getElementById('qaFindings').value.trim();
+  document.getElementById('qaVerdict').textContent = '❌ Failed';
+  document.getElementById('qaVerdict').style.color = '#ef4444';
+  addBpoLogAuto('❌ QA FAILED — Sending back to BPO' + (findings ? '. Issues: ' + findings.split('\n')[0] : ''));
+  showToast('❌ QA Failed — Document issues and send back to BPO');
+  localStorage.setItem('gso-bpo-qa-verdict','failed');
+}
+
+// --- BPO Status Pipeline ---
+function setBpoStatus(step){
+  bpoStatus = step;
+  localStorage.setItem('gso-bpo-status', step);
+  renderBpoPipeline();
+}
+
+function renderBpoPipeline(){
+  document.querySelectorAll('.bpo-pipe').forEach((el,i)=>{
+    el.classList.remove('pipe-active','pipe-done');
+    if(i < bpoStatus) el.classList.add('pipe-done');
+    else if(i === bpoStatus) el.classList.add('pipe-active');
+  });
+}
+
+// --- Activity Log ---
+function addBpoLogAuto(msg){
+  const entry = {time: new Date().toLocaleString(), msg: msg, auto: true};
+  bpoLog.push(entry);
+  localStorage.setItem('gso-bpo-log', JSON.stringify(bpoLog));
+  renderBpoLog();
+}
+
+function addBpoLogEntry(){
+  const input = document.getElementById('bpoLogEntry');
+  const msg = input.value.trim();
+  if(!msg) return;
+  const entry = {time: new Date().toLocaleString(), msg: msg, auto: false};
+  bpoLog.push(entry);
+  localStorage.setItem('gso-bpo-log', JSON.stringify(bpoLog));
+  renderBpoLog();
+  input.value = '';
+}
+
+function renderBpoLog(){
+  const el = document.getElementById('bpoActivityLog');
+  if(bpoLog.length === 0){
+    el.innerHTML = '<p style="color:#64748b;font-style:italic">No activity yet. Actions will be logged here automatically.</p>';
+    return;
+  }
+  el.innerHTML = bpoLog.slice().reverse().map(e=>{
+    const color = e.auto ? '#64748b' : '#e2e8f0';
+    return `<div style="padding:4px 0;border-bottom:1px solid #2d2d5e22"><span style="color:#64748b;font-size:10px">${e.time}</span> <span style="color:${color}">${e.msg}</span></div>`;
+  }).join('');
+}
+
+// --- File Icon Helper ---
+function getFileIcon(ext){
+  const icons = {
+    'xlsx':'📊','xls':'📊','csv':'📊',
+    'pdf':'📄','doc':'📝','docx':'📝',
+    'png':'🖼️','jpg':'🖼️','jpeg':'🖼️','gif':'🖼️','webp':'🖼️',
+    'txt':'📃','md':'📃',
+    'zip':'📦','rar':'📦'
+  };
+  return icons[ext] || '📎';
+}
+
+// --- BPO Timeline ---
+function saveBpoTimeline(){
+  const timeline = {
+    submit: document.getElementById('bpoSubmitDate').value,
+    due: document.getElementById('bpoDueDate').value,
+    received: document.getElementById('bpoReceivedDate').value,
+    qa: document.getElementById('bpoQADate').value
+  };
+  localStorage.setItem('gso-bpo-timeline', JSON.stringify(timeline));
+}
+
+function loadBpoTimeline(){
+  const t = JSON.parse(localStorage.getItem('gso-bpo-timeline') || '{}');
+  if(t.submit) document.getElementById('bpoSubmitDate').value = t.submit;
+  if(t.due) document.getElementById('bpoDueDate').value = t.due;
+  if(t.received) document.getElementById('bpoReceivedDate').value = t.received;
+  if(t.qa) document.getElementById('bpoQADate').value = t.qa;
+}
+
+// --- BPO Init ---
+function initBpo(){
+  renderOutboundFiles();
+  renderInboundFiles();
+  renderBpoPipeline();
+  renderBpoLog();
+  loadBpoTimeline();
+  // Restore outbound checklist
+  const outChecks = JSON.parse(localStorage.getItem('gso-bpo-outbound-checks') || '[]');
+  document.querySelectorAll('#outboundChecklist .qa-item input[type=checkbox]').forEach((c,i)=>{if(outChecks[i])c.checked=true});
+  updateOutboundStatus();
+  // Restore QA checklist
+  const qaChecks = JSON.parse(localStorage.getItem('gso-bpo-qa-checks') || '[]');
+  const allQaInputs = [...document.querySelectorAll('#qaChecklist .qa-item input[type=checkbox]'), ...document.querySelectorAll('#qaMigrationChecklist .qa-item input[type=checkbox]')];
+  allQaInputs.forEach((c,i)=>{if(qaChecks[i])c.checked=true});
+  updateQAProgress();
+  // Restore QA verdict
+  const verdict = localStorage.getItem('gso-bpo-qa-verdict');
+  if(verdict==='passed'){document.getElementById('qaVerdict').textContent='✅ Passed';document.getElementById('qaVerdict').style.color='#22c55e'}
+  else if(verdict==='failed'){document.getElementById('qaVerdict').textContent='❌ Failed';document.getElementById('qaVerdict').style.color='#ef4444'}
+  // Restore notes
+  const outNotes = localStorage.getItem('gso-bpo-outbound-notes');
+  if(outNotes) document.getElementById('outboundNotes').value = outNotes;
+  document.getElementById('outboundNotes').addEventListener('input',function(){localStorage.setItem('gso-bpo-outbound-notes',this.value)});
+  const qaFindings = localStorage.getItem('gso-bpo-qa-findings');
+  if(qaFindings) document.getElementById('qaFindings').value = qaFindings;
+  document.getElementById('qaFindings').addEventListener('input',function(){localStorage.setItem('gso-bpo-qa-findings',this.value)});
+  // Update counts
+  document.getElementById('outboundCount').textContent = outboundFiles.length;
+  document.getElementById('inboundCount').textContent = inboundFiles.length;
+}
+initBpo();
 
 // ===== QUIZ =====
 const quizData=[
