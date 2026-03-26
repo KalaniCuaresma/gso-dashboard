@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSO Post-KO Dashboard & Study Tool</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f23;color:#e2e8f0;min-height:100vh}
+nav{position:sticky;top:0;z-index:100;background:#1a1a3e;border-bottom:1px solid #2d2d5e;padding:10px 20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+nav .logo{font-weight:800;font-size:18px;color:#006AFF;margin-right:10px}
+nav .logo span{color:#22c55e;margin-right:4px}
+.tab-btn{padding:7px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;background:transparent;color:#94a3b8;transition:all .2s}
+.tab-btn:hover{background:#2d2d5e;color:#e2e8f0}
+.tab-btn.active{background:#006AFF;color:#fff}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.tab{display:none}.tab.active{display:block}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat{background:#1a1a3e;border-radius:10px;padding:14px;border:1px solid #2d2d5e}
+.stat label{font-size:10px;text-transform:uppercase;color:#64748b;letter-spacing:1px}
+.stat .val{font-size:18px;font-weight:700;margin-top:4px}
+.green{color:#22c55e}.blue{color:#006AFF}.yellow{color:#eab308}.red{color:#ef4444}
+h1{font-size:22px;margin-bottom:16px}
+h2{font-size:18px;margin-bottom:10px}
+.section-title{font-size:18px;font-weight:700;margin-bottom:14px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+.card{background:#1a1a3e;border-radius:10px;padding:18px;border:1px solid #2d2d5e;transition:border-color .2s}
+.card:hover{border-color:#006AFF}
+.card h3{font-size:15px;margin-bottom:4px}
+.card p{font-size:12px;color:#94a3b8;margin-bottom:10px}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600}
+.badge-green{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
+.badge-yellow{background:#eab30822;color:#eab308;border:1px solid #eab30844}
+.btn{display:inline-block;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
+.btn-blue{background:#006AFF;color:#fff}.btn-blue:hover{background:#0055cc}
+.btn-green{background:#22c55e;color:#fff}.btn-green:hover{background:#16a34a}
+.btn-sm{padding:5px 12px;font-size:11px}
+.checklist{background:#1a1a3e;border-radius:10px;padding:18px;border:1px solid #2d2d5e;margin-bottom:24px}
+.checklist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.check-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px}
+.check-item:last-child{border:none}
+.check-item input[type=checkbox]{width:16px;height:16px;accent-color:#22c55e;cursor:pointer}
+.check-item.done span{text-decoration:line-through;color:#64748b}
+.counter{font-size:13px;font-weight:700;color:#22c55e}
+.quick-link{text-align:center;margin:14px 0}
+.quick-link a{color:#006AFF;text-decoration:none;font-weight:600;font-size:13px}
+.deliv-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+.deliv-content{background:#1a1a3e;border-radius:10px;padding:22px;border:1px solid #2d2d5e;line-height:1.7;font-size:13px}
+.deliv-content h2{color:#006AFF;font-size:16px;margin:18px 0 8px;border-bottom:1px solid #2d2d5e;padding-bottom:5px}
+.deliv-content h2:first-child{margin-top:0}
+.deliv-content h3{color:#22c55e;font-size:14px;margin:14px 0 6px}
+.deliv-content ul,.deliv-content ol{margin-left:18px;margin-bottom:8px}
+.deliv-content li{margin-bottom:3px}
+.deliv-content .meta{background:#0f0f23;padding:10px;border-radius:8px;margin-bottom:14px;font-size:12px}
+.deliv-content .meta div{margin-bottom:2px}
+.deliv-content .warn{background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:12px}
+.deliv-content .placeholder{background:#006AFF22;border:1px dashed #006AFF;padding:6px 12px;border-radius:6px;margin:6px 0;font-size:12px;color:#60a5fa}
+.deliv-content table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.deliv-content th{background:#2d2d5e;padding:6px 10px;text-align:left;font-weight:600}
+.deliv-content td{padding:6px 10px;border-bottom:1px solid #2d2d5e33}
+/* Accordion */
+.accordion{margin-bottom:10px}
+.acc-header{background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:14px 18px;cursor:pointer;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center;transition:all .2s;user-select:none}
+.acc-header:hover{border-color:#006AFF}
+.acc-header .arrow{transition:transform .3s;font-size:11px}
+.acc-header.open{border-radius:10px 10px 0 0;border-color:#006AFF;background:#1a1a4e}
+.acc-header.open .arrow{transform:rotate(180deg)}
+.acc-body{display:none;background:#1a1a3e;border:1px solid #2d2d5e;border-top:none;border-radius:0 0 10px 10px;padding:18px;line-height:1.7;font-size:13px}
+.acc-body.open{display:block}
+.acc-body h3{color:#22c55e;font-size:14px;margin:14px 0 6px}
+.acc-body h4{color:#60a5fa;font-size:13px;margin:10px 0 4px}
+.acc-body ul,.acc-body ol{margin-left:18px;margin-bottom:8px}
+.acc-body li{margin-bottom:3px}
+.acc-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
+.acc-body th{background:#2d2d5e;padding:6px 10px;text-align:left;font-weight:600}
+.acc-body td{padding:6px 10px;border-bottom:1px solid #2d2d5e33}
+/* Timeline */
+.timeline{position:relative;padding-left:36px}
+.timeline::before{content:'';position:absolute;left:13px;top:0;bottom:0;width:2px;background:#2d2d5e}
+.tl-step{position:relative;margin-bottom:12px;padding:8px 14px;background:#0f0f23;border-radius:8px;border:1px solid #2d2d5e;font-size:13px}
+.tl-step::before{content:attr(data-num);position:absolute;left:-36px;top:8px;width:24px;height:24px;background:#006AFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;text-align:center;line-height:24px}
+/* Side by side */
+.side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pkg-col{background:#0f0f23;border-radius:10px;padding:14px;border:1px solid #2d2d5e}
+.pkg-col h4{font-size:14px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2d2d5e}
+.pkg-col.plus h4{color:#22c55e}.pkg-col.prem h4{color:#006AFF}.pkg-col.onsite h4{color:#eab308}
+.pkg-item{padding:5px 0;font-size:12px;border-bottom:1px solid #2d2d5e22}
+.pkg-item .time{color:#64748b;font-size:11px}
+.pkg-item.critical{color:#ef4444;font-weight:600}
+.key-diff{background:#eab30815;border:1px solid #eab30844;border-radius:10px;padding:12px;margin-top:14px;font-size:12px}
+/* Critical Q cards */
+.crit-cards{display:grid;gap:8px}
+.crit-card{background:#0f0f23;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:12px 16px}
+.crit-card .q{font-weight:700;font-size:13px;margin-bottom:3px}
+.crit-card .a{color:#94a3b8;font-size:12px}
+/* Pipeline */
+.pipeline{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:8px 0}
+.pipe-step{background:#2d2d5e;padding:5px 10px;border-radius:6px;font-size:10px;font-weight:600;white-space:nowrap}
+.pipe-arrow{color:#64748b;font-size:12px}
+.pipe-step.current{background:#006AFF}
+.pipe-hold{background:#eab30822;color:#eab308;border:1px solid #eab30844;padding:6px 12px;border-radius:8px;margin-top:8px;font-size:11px}
+/* Quiz */
+.quiz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.flip-card{perspective:800px;height:140px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:10px;padding:14px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.4}
+.flip-front{background:#1a1a3e;border:1px solid #2d2d5e;font-weight:600;color:#e2e8f0}
+.flip-back{background:#006AFF;color:#fff;transform:rotateY(180deg);font-weight:500}
+.flip-hint{text-align:center;color:#64748b;font-size:11px;margin-bottom:10px}
+/* Points table */
+.points-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+.points-card{background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.points-card .pts{font-weight:800;font-size:16px;color:#006AFF}
+/* Search */
+.search-box{width:100%;padding:10px 16px;border-radius:8px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:13px;margin-bottom:16px}
+.search-box:focus{outline:none;border-color:#006AFF}
+/* Toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;padding:8px 20px;border-radius:8px;font-weight:600;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+/* Sub-tabs */
+.sub-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.sub-tab{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:#2d2d5e;color:#94a3b8;border:none;transition:all .2s}
+.sub-tab:hover{background:#3d3d7e;color:#e2e8f0}
+.sub-tab.active{background:#006AFF;color:#fff}
+.sub-content{display:none}.sub-content.active{display:block}
+@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}}
+</style>
+</head>
+<body>
+<nav>
+<div class="logo"><span>⚡</span>GSO Post-KO</div>
+<button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
+<button class="tab-btn" onclick="showTab('email')">Seller Email</button>
+<button class="tab-btn" onclick="showTab('dsr')">DSR Chatter</button>
+<button class="tab-btn" onclick="showTab('bpo')">BPO Task</button>
+<button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+<button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
+</nav>
+<div class="container">
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard" class="tab active">
+<div class="stats">
+<div class="stat"><label>Business</label><div class="val">Chicko Chicken Renton</div></div>
+<div class="stat"><label>Package</label><div class="val green">Plus</div></div>
+<div class="stat"><label>Seller</label><div class="val">Unki Kim</div></div>
+<div class="stat"><label>AE</label><div class="val">@Lindsey Logan</div></div>
+</div>
+<div class="section-title">📋 Deliverables</div>
+<div class="cards">
+<div class="card"><h3>📧 Seller Email</h3><p>Recap + Next Steps</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('email')">Open →</button></div>
+<div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('dsr')">Open →</button></div>
+<div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('bpo')">Open →</button></div>
+<div class="card"><h3>🔍 Internal Analysis</h3><p>PM Risk & Coordination</p><span class="badge badge-yellow">Review</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('analysis')">Open →</button></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><div class="section-title" style="margin:0">✅ DSR Update Checklist</div><div class="counter" id="checkCounter">0/10</div></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Complete Consultation DSA (30 min)</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Desired Go-Live Date → TBD</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Next Steps Date → tomorrow</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Next Steps Text → "Submit BPO + 3P DSAs"</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update DSR Status → Consultation Complete</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Verify Regulator Link is active</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Confirm hardware shipped</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Submit BPO DSA for menu build</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Submit 3P Vendor DSA for training</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Send post-call email to seller</span></div>
+</div>
+<div class="quick-link"><a href="https://squareinc.lightning.force.com/lightning/r/Deal_Support_Request__c/a2yV4000004Ah7pIAC/view" target="_blank">🔗 Open DSR in Salesforce →</a></div>
+</div>
+
+<!-- ===== SELLER EMAIL ===== -->
+<div id="email" class="tab">
+<div class="deliv-header"><h1>📧 Post-KO Seller Email</h1><button class="btn btn-green" onclick="copyContent('emailContent')">📋 Copy</button></div>
+<div class="deliv-content" id="emailContent">
+<div class="meta"><div><b>Subject:</b> Recap + Next Steps from Today's Kickoff</div><div><b>To:</b> Unki Kim (chickorenton@gmail.com)</div><div><b>CC:</b> Lindsey Kim, @Lindsey Logan (AE)</div><div><b>From:</b> Josephine Vogt</div></div>
+<p>Hi Unki,</p><p>Thank you for taking the time to meet with me today — it was great connecting with you and Lindsey! I'm glad we were able to use this kickoff to walk through your setup, clarify your workflow, and map out the right next steps for your Square implementation at Chicko Chicken Renton.</p><p>I'll be your primary point of contact throughout this implementation. I'm always available via email. I reply within 24 business hours, and all sessions are by appointment only. I'll follow up with confirmed scheduling within 24 hours.</p>
+<h2>📋 Session Summary</h2>
+<h3>Hardware</h3><ul><li>1 Dual-screen register (front counter) — cash drawer + receipt printer</li><li>3 KDS tablets: Batter → Sauce → Expo/Front Counter</li><li>1 Kitchen printer (backup/ticket holder)</li></ul>
+<h3>Menu</h3><ul><li>Two menus: POS (period suffix) + delivery (underscore suffix) with upcharged pricing</li><li>Clover export received — submitting to build team</li><li>Half-size price as base; sizes as modifiers</li></ul>
+<h3>Online & Delivery</h3><ul><li>DoorDash, Uber Eats, Grubhub</li><li>Square Online — linked to website + Google Business</li><li>On-Demand Delivery — sending info</li></ul>
+<h3>Team & Other</h3><ul><li>Clock in/out only, ~10 employees, new location</li><li>Loyalty/Gift cards: Not at launch</li></ul>
+<h2>📅 What I'm Coordinating Next</h2>
+<p>One <b>90-minute training session</b>:</p><ul><li><b>Thursday</b> 11AM–3PM PT</li><li><b>Monday</b> 9:30AM–12:30PM PT</li><li><b>Tuesday</b> 11AM–2PM PT</li></ul>
+<p>Topics: Menu walkthrough, delivery channels, device/printer config, dashboard overview.</p>
+<h2>📝 Homework</h2><ul><li>✅ Complete <b>Account & Settings Checklist</b> (attached)</li><li>✅ Verify Clover export is current</li><li>✅ Confirm delivery credentials</li><li>✅ Send additional menu files</li><li>✅ Send staff list for training</li><li>✅ Note questions</li></ul>
+<h2>⚠️ Reminder</h2><p><b>Plus = one 90-min session, no post-live support.</b> Videos and articles will be provided.</p>
+<h2>🔗 Recording</h2><div class="placeholder">🔗 [INSERT REVENUE.IO LINK]</div>
+<p style="margin-top:16px">Best,<br>Josephine Vogt<br>GSO | Square</p>
+</div></div>
+
+<!-- ===== DSR CHATTER ===== -->
+<div id="dsr" class="tab">
+<div class="deliv-header"><h1>📝 DSR Chatter Notes</h1><button class="btn btn-green" onclick="copyContent('dsrContent')">📋 Copy</button></div>
+<div class="deliv-content" id="dsrContent">
+<p>Hi <b>@Lindsey Logan</b> — Kickoff is complete for Chicko Chicken Renton.</p>
+<div class="meta"><div><b>Go-live:</b> TBD</div><div><b>Package:</b> Plus</div><div><b>Seller:</b> Unki Kim</div><div><b>Business:</b> Chicko Chicken Renton (fried chicken, new Renton WA)</div></div>
+<h2>Milestone Plan</h2><ul><li>KO completed, Clover export received</li><li>BPO menu build: two separate menus (POS + delivery)</li><li>90-min training after build</li><li>Account & Settings Checklist sent</li></ul>
+<h2>Training Schedule</h2><ul><li>✅ Completed: Kickoff</li><li>🟢 Upcoming: BPO Menu Build</li><li>🟢 Upcoming: 90-min training (Thu/Mon/Tue PT)</li><li>🟡 Future: Handoff — no post-live QA with Plus</li></ul>
+<h2>Risks / AE Actions</h2><ul><li><b>Risk:</b> Dual menus (period=POS, underscore=delivery)</li><li><b>Risk:</b> Base pricing conversion ($0 → half-size)</li><li><b>Risk:</b> Half-and-half unique modifiers (4 POS, 2 delivery)</li><li><b>Risk:</b> Plus = 1 session, no post-live</li><li><b>Risk:</b> No firm Go-Live date</li><li><b>AE action:</b> Stay aligned on timing</li><li><b>AE action:</b> Seller interested in On-Demand Delivery</li></ul>
+<h2>Recording</h2><div class="placeholder">🔗 [INSERT LINK]</div>
+<h2>PM Next Steps</h2><ul><li>Send email + Account & Settings Checklist</li><li>Submit BPO DSA (Medium-High, attach export)</li><li>Submit 3P Vendor DSA (90 min, 3 slots)</li><li>Complete Consultation DSA (30 min)</li><li>DSR: Status → <b>Consultation Complete</b></li></ul>
+</div></div>
+
+<!-- ===== BPO ===== -->
+<div id="bpo" class="tab">
+<div class="deliv-header"><h1>🔧 BPO DSA Notes</h1><button class="btn btn-green" onclick="copyContent('bpoContent')">📋 Copy</button></div>
+<div class="deliv-content" id="bpoContent">
+<div class="meta"><div><b>Business:</b> Chicko Chicken Renton | <b>PM:</b> Josephine Vogt</div><div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> Hard</div><div><b>Source:</b> Clover export (Excel) attached | <b>Due:</b> 3-4 business days</div></div>
+<div class="warn">⚠️ Two separate menus — do NOT merge. Period(.)=POS, Underscore(_)=Delivery</div>
+<div class="warn">⚠️ Base price = lowest modifier (half size). Square requires base price for online ordering.</div>
+<h2>Menu Structure</h2>
+<table><tr><th>Menu</th><th>Suffix</th><th>Purpose</th></tr><tr><td>POS</td><td>Period (.)</td><td>In-store + Square Online</td></tr><tr><td>Delivery</td><td>Underscore (_)</td><td>DoorDash, Uber Eats, Grubhub</td></tr></table>
+<h2>Modifier Rules</h2>
+<table><tr><th>Item Suffix</th><th>Matches</th></tr><tr><td>Period (.)</td><td>Period modifiers ONLY</td></tr><tr><td>Underscore (_)</td><td>Underscore modifiers ONLY</td></tr></table>
+<h3>POS items: 4 modifier groups</h3><ol><li>[Name] Size.</li><li>Choose Flavors.</li><li>Combo Set. <b>(POS ONLY)</b></li><li>Combo Side Sauce. <b>(POS ONLY)</b></li></ol>
+<h3>Delivery items: 2 modifier groups</h3><ol><li>[Name] Size_</li><li>Choose Flavors_</li></ol>
+<h3>Half and Half (special)</h3><p><b>POS:</b> Choice of Cut. → Choose Flavors. → Combo Set. → Combo Side Sauce.</p><p><b>Delivery:</b> Choice of Cut_ → Choose Flavors_</p>
+<p><b>Sizes = MODIFIERS</b> (not variations). Alphabetize within groups. No gift cards. No photos.</p>
+<h2>Printer Routing</h2>
+<table><tr><th>Station</th><th>Device</th></tr><tr><td>Batter</td><td>KDS 1</td></tr><tr><td>Sauce</td><td>KDS 2</td></tr><tr><td>Expo</td><td>KDS 3</td></tr><tr><td>Kitchen</td><td>Printer (backup)</td></tr></table>
+</div></div>
+
+<!-- ===== ANALYSIS ===== -->
+<div id="analysis" class="tab">
+<div class="deliv-header"><h1>🔍 Internal Analysis</h1><button class="btn btn-green" onclick="copyContent('analysisContent')">📋 Copy</button></div>
+<div class="deliv-content" id="analysisContent">
+<h2>Overall Read</h2><p>Productive KO. Seller prepared with Clover export. Core complexity: dual-menu with pricing conversion. Plus constraint (1×90min) means build must be clean.</p>
+<h2>Critical Path</h2><ol><li>BPO menu build turnaround</li><li>Base pricing conversion accuracy</li><li>Seller availability (3 windows)</li><li>No firm Go-Live date</li><li>90 min for 4 topics is tight</li></ol>
+<h2>KO Gaps</h2>
+<table><tr><th>Topic</th><th>Status</th></tr><tr><td>WiFi/network</td><td>⚠️ Not discussed</td></tr><tr><td>Thermal paper</td><td>⚠️ Not confirmed</td></tr><tr><td>Wall mount install</td><td>⚠️ Not discussed</td></tr><tr><td>Tax rules</td><td>⚠️ Not discussed</td></tr><tr><td>Reporting categories</td><td>⚠️ Not discussed</td></tr></table>
+<h2>Momentum</h2>
+<table><tr><th>Factor</th><th>Status</th></tr><tr><td>Engagement</td><td>✅ High</td></tr><tr><td>Tech confidence</td><td>✅ Good</td></tr><tr><td>Decisions</td><td>✅ Strong</td></tr><tr><td>Timeline</td><td>⚠️ Medium</td></tr><tr><td>Build complexity</td><td>⚠️ Med-High</td></tr><tr><td>Training risk</td><td>⚠️ Medium</td></tr></table>
+</div></div>
+
+<!-- ===== STUDY GUIDE ===== -->
+<div id="study" class="tab">
+<h1 style="margin-bottom:6px">📚 GSO Study Guide & Playbook Reference</h1>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Complete reference from the GSO Playbook, Implementation Guide, and Post-KO workflows</p>
+<input type="text" class="search-box" id="studySearch" placeholder="🔍 Search study guide..." oninput="filterAccordions()">
+
+<!-- 1: Post-KO Workflow -->
+<div class="accordion" data-search="post-ko workflow admin steps revenue.io transcript recording email chatter dsa">
+<div class="acc-header" onclick="toggleAcc(this)">1️⃣ Post-KO Admin Workflow (Step-by-Step) <span class="arrow">▼</span></div>
+<div class="acc-body">
+<div class="timeline">
+<div class="tl-step" data-num="1">Wait for Revenue.io transcript + recording</div>
+<div class="tl-step" data-num="2">Revenue.io → Actions → <b>Share Externally</b> → copy link</div>
+<div class="tl-step" data-num="3">Open GSO PM Assistant GPT (or Goose recipe)</div>
+<div class="tl-step" data-num="4">Input: deliverables, session type, recording link, brain dump, transcript</div>
+<div class="tl-step" data-num="5">Review Internal Analysis first — resolve open questions</div>
+<div class="tl-step" data-num="6">Copy email → Gmail → CC AE → attach Account & Settings Checklist → Send</div>
+<div class="tl-step" data-num="7">Copy DSR notes → Salesforce Chatter on DSR</div>
+<div class="tl-step" data-num="8">Submit BPO DSA (menu build) — attach files, set difficulty, due date 3-4 days</div>
+<div class="tl-step" data-num="9">Submit 3P Vendor DSA for training — propose 3 time slots</div>
+<div class="tl-step" data-num="10">Complete Consultation DSA (30 min Plus / 45 min Onsite)</div>
+<div class="tl-step" data-num="11">Update DSR: Go-Live Date, Next Steps, Status → <b>Consultation Complete</b></div>
+</div>
+<h3>Key SLAs (per Playbook)</h3>
+<ul><li>Reply to intro email: <b>within 24 hours</b></li><li>Post-call email: <b>same day, no later than 24 hours</b></li><li>DSR updates: <b>same day as call</b></li><li>BPO submission: <b>no later than 1 business day after assigned</b></li><li>BPO turnaround: <b>3-4 business days</b></li></ul>
+</div></div>
+
+<!-- 2: All Packages -->
+<div class="accordion" data-search="packages plus premium onsite appointments payroll optimization task services pricing">
+<div class="acc-header" onclick="toggleAcc(this)">2️⃣ All GSO Packages & Pricing <span class="arrow">▼</span></div>
+<div class="acc-body">
+<table>
+<tr><th>Package</th><th>What's Included</th><th>SLA</th><th>US Price</th><th>Points</th></tr>
+<tr><td><b>Task Service</b></td><td>Menu build, loyalty/GC/customer migration, MILO</td><td>3-4 days</td><td>$149</td><td>1</td></tr>
+<tr><td><b>Optimization Call</b></td><td>1×60min one-time session via ChiliPiper</td><td>Same day</td><td>$149</td><td>1</td></tr>
+<tr><td><b>Plus</b></td><td>30min KO + 3 tasks + 90min training (1×90 or 2×45)</td><td>5 days</td><td>$699</td><td>2</td></tr>
+<tr><td><b>In-Person Plus</b></td><td>30min KO + 2 tasks + 2-4hr 3P onsite visit</td><td>10 days</td><td>$699</td><td>2</td></tr>
+<tr><td><b>Payroll</b></td><td>Employee migration + training + first run support</td><td>8 days</td><td>$250</td><td>3</td></tr>
+<tr><td><b>Appointments</b></td><td>Import + training for Square Appointments</td><td>8 days</td><td>$799</td><td>4</td></tr>
+<tr><td><b>Premium</b></td><td>30min KO + 6 tasks + Dashboard(90) + SO(60) + POS(60) + Menu Review(30) + QA(60)</td><td>10 days</td><td>$1,499</td><td>4</td></tr>
+<tr><td><b>Onsite</b></td><td>All Premium + 3P site survey + hardware install + in-person POS training</td><td>10 days</td><td>$2,199+</td><td>5</td></tr>
+</table>
+<h3>Plus vs Premium Key Differences</h3>
+<div class="side-by-side">
+<div class="pkg-col plus"><h4>PLUS ($699)</h4>
+<div class="pkg-item">30min KO call</div>
+<div class="pkg-item">1×90min OR 2×45min training</div>
+<div class="pkg-item">3 task services</div>
+<div class="pkg-item red">❌ No Square Online</div>
+<div class="pkg-item red">❌ No post-live support</div>
+<div class="pkg-item red">❌ No follow-up after training</div>
+<div class="pkg-item">Single location only</div>
+<div class="pkg-item">5-day SLA</div>
+</div>
+<div class="pkg-col prem"><h4>PREMIUM ($1,499)</h4>
+<div class="pkg-item">30min KO call</div>
+<div class="pkg-item">Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)</div>
+<div class="pkg-item">6 task services</div>
+<div class="pkg-item green">✅ Square Online included</div>
+<div class="pkg-item green">✅ 1-week post-live QA</div>
+<div class="pkg-item green">✅ Multiple touchpoints</div>
+<div class="pkg-item">Up to 2 locations</div>
+<div class="pkg-item">10-day SLA</div>
+</div></div>
+</div></div>
+
+<!-- 3: KO Questions -->
+<div class="accordion" data-search="kickoff questions plus premium hardware network menu critical">
+<div class="acc-header" onclick="toggleAcc(this)">3️⃣ KO Call Questions — Plus vs Premium <span class="arrow">▼</span></div>
+<div class="acc-body">
+<div class="side-by-side">
+<div class="pkg-col plus"><h4>PLUS (30 min)</h4>
+<div class="pkg-item">Business Overview <span class="time">(5 min)</span></div>
+<div class="pkg-item">Current Setup <span class="time">(5 min)</span></div>
+<div class="pkg-item critical">🚨 Hardware Check <span class="time">(5 min)</span></div>
+<div class="pkg-item critical">🚨 Network Check <span class="time">(3 min)</span></div>
+<div class="pkg-item">Menu/Inventory <span class="time">(5 min)</span></div>
+<div class="pkg-item">Go Live Planning <span class="time">(4 min)</span></div>
+<div class="pkg-item">Training Format <span class="time">(2 min)</span> — 2×45 or 1×90</div>
+<div class="pkg-item">Task Priorities <span class="time">(3 min)</span></div>
+<div class="pkg-item">Set Expectations <span class="time">(2 min)</span> — NO follow-up, NO SO</div>
+<div class="pkg-item">Schedule <span class="time">(1 min)</span></div>
+</div>
+<div class="pkg-col prem"><h4>PREMIUM (30 min)</h4>
+<div class="pkg-item">Business Overview <span class="time">(5 min)</span></div>
+<div class="pkg-item">Current Setup & Migration <span class="time">(5 min)</span></div>
+<div class="pkg-item critical">🚨 Hardware Deep Dive <span class="time">(5 min)</span></div>
+<div class="pkg-item critical">🚨 Network Infrastructure <span class="time">(4 min)</span></div>
+<div class="pkg-item">Menu Deep Dive <span class="time">(5 min)</span></div>
+<div class="pkg-item">Customer Data & Loyalty <span class="time">(3 min)</span></div>
+<div class="pkg-item">Square Online <span class="time">(3 min)</span></div>
+<div class="pkg-item">Team & Permissions <span class="time">(2 min)</span></div>
+<div class="pkg-item">Payment Setup <span class="time">(2 min)</span></div>
+<div class="pkg-item">Integrations <span class="time">(3 min)</span></div>
+<div class="pkg-item">Go Live Strategy <span class="time">(4 min)</span></div>
+<div class="pkg-item">Package Scope <span class="time">(3 min)</span></div>
+<div class="pkg-item">Schedule ALL sessions <span class="time">(2 min)</span></div>
+</div></div>
+<h3>5 Most Critical Questions (Both)</h3>
+<div class="crit-cards">
+<div class="crit-card"><div class="q">"Have you received all your hardware?"</div><div class="a">Can't proceed without it — hard blocker</div></div>
+<div class="crit-card"><div class="q">"Reusing old printers? What brand/model?"</div><div class="a">#1 blocker — compatibility issues</div></div>
+<div class="crit-card"><div class="q">"Tell me about your internet setup"</div><div class="a">Unreliable internet = failed implementation</div></div>
+<div class="crit-card"><div class="q">"When do you want to go live? Flexible?"</div><div class="a">Manage expectations early</div></div>
+<div class="crit-card"><div class="q">"What format is your menu in? When can you provide it?"</div><div class="a">Need for BPO — sooner = faster build</div></div>
+</div></div></div>
+
+<!-- 4: DSR Status -->
+<div class="accordion" data-search="dsr status pipeline progression draft submitted assigned consultation complete on hold lost">
+<div class="acc-header" onclick="toggleAcc(this)">4️⃣ DSR Status Definitions & Pipeline <span class="arrow">▼</span></div>
+<div class="acc-body">
+<div class="pipeline">
+<div class="pipe-step">Draft</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Submitted</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Assigned</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Outreach Complete</div><span class="pipe-arrow">→</span>
+<div class="pipe-step current">Consultation Complete</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Task in Progress</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Dashboard Training</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">App Training</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">SO Training</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">Trainings Complete</div><span class="pipe-arrow">→</span>
+<div class="pipe-step">1st/2nd QA</div><span class="pipe-arrow">→</span>
+<div class="pipe-step" style="background:#22c55e">Implementation Complete</div>
+</div>
+<div class="pipe-hold">⏸️ <b>On Hold</b> — Use when next appointment is 5+ days out. Sub-statuses: Product Blocker, Seller Non-Responsive, Seller Pushed Go-Live, Site/Premise Work, Waiting on AE</div>
+<table style="margin-top:12px">
+<tr><th>Status</th><th>When to Use</th></tr>
+<tr><td>Draft</td><td>AE/AM still building DSR</td></tr>
+<tr><td>Submitted</td><td>In queue, awaiting assignment (24hr SLA)</td></tr>
+<tr><td>Assigned</td><td>Assigned to you — send intro within 24hrs</td></tr>
+<tr><td>Seller Outreach Complete</td><td>Intro email sent</td></tr>
+<tr><td>Consultation Complete</td><td>KO done, Go-Live date set, next steps aligned</td></tr>
+<tr><td>Task in Progress</td><td>BPO task submitted</td></tr>
+<tr><td>Training Complete - Post Impl</td><td>All training done, 1-week post-live period starts</td></tr>
+<tr><td>Implementation Complete</td><td>1-week post-live ends, final email sent</td></tr>
+<tr><td>Lost - No Contact</td><td>No response after 30 days On Hold (don't use if trained)</td></tr>
+<tr><td>Rejected</td><td>Incorrect escalation, not ready for 2-4 weeks</td></tr>
+</table></div></div>
+
+<!-- 5: DSA & BPO -->
+<div class="accordion" data-search="dsa deal support activity bpo submission difficulty rush menu build textblaze snippets">
+<div class="acc-header" onclick="toggleAcc(this)">5️⃣ DSA Filing & BPO Submission Guide <span class="arrow">▼</span></div>
+<div class="acc-body">
+<h3>DSA Types</h3>
+<table><tr><th>Type</th><th>When</th></tr>
+<tr><td><b>GSO Activity</b></td><td>Every time you work on anything with a Seller (calls, emails, admin)</td></tr>
+<tr><td><b>BPO Activity</b></td><td>Menu builds, migrations, MILO — submitted to BPO team</td></tr>
+<tr><td><b>3rd Party Vendor Activity</b></td><td>Onsite visits, virtual training via 3P partners</td></tr></table>
+<h3>BPO DSA Fields</h3>
+<ul><li><b>Activity Notes:</b> Use TextBlaze snippets (/rstmenu, /itemimport, /gc, /milo)</li>
+<li><b>Difficulty:</b> Easy (1-2hr) → Medium (3hr, large but simple) → Hard (3hr+, complex) → Very Hard (5hr+, ambiguous)</li>
+<li><b>Status:</b> Always set to <b>Initiating</b></li>
+<li><b>Due date:</b> 3-4 business days</li>
+<li><b>Rush:</b> Check Rush checkbox + post in #gso-bpo Slack</li>
+<li><b>Files:</b> Attach via Related tab (BPO can't access Google Docs!)</li></ul>
+<h3>F&B Menu Activity Types</h3>
+<ul><li>Item Import / Item + Image Import / Item Import + SO / Menu Build / Menu Build + Online Ordering</li></ul>
+<h3>After BPO Completes</h3>
+<ul><li>BPO chatters you on the DSA</li><li>QA the build for accuracy before training</li><li>Notify AE/AM via Chatter</li><li>Update DSR status</li></ul>
+</div></div>
+
+<!-- 6: Meeting Types -->
+<div class="accordion" data-search="meeting types duration buffer chilipiper scheduling calendar time blocking">
+<div class="acc-header" onclick="toggleAcc(this)">6️⃣ Meeting Types, Scheduling & Calendar <span class="arrow">▼</span></div>
+<div class="acc-body">
+<table><tr><th>Meeting</th><th>Duration</th><th>Buffer</th></tr>
+<tr><td>Kickoff Call</td><td>30 min</td><td>30 min</td></tr>
+<tr><td>Dashboard Training</td><td>90 min</td><td>30 min</td></tr>
+<tr><td>App/POS Training</td><td>60 min</td><td>30 min</td></tr>
+<tr><td>Menu Review</td><td>45 min</td><td>30 min</td></tr>
+<tr><td>Square Online Training</td><td>60 min</td><td>30 min</td></tr>
+<tr><td>Q&A / Final QA</td><td>60 min</td><td>30 min</td></tr>
+<tr><td>Optimization Call</td><td>60 min</td><td>30 min</td></tr>
+<tr><td>Payroll Training</td><td>60 min</td><td>30 min</td></tr></table>
+<h3>Calendar Guidelines</h3>
+<ul><li>Target: ~20 calls per week</li><li>Admin blocks labeled "Admin Work"</li><li>All DSRs updated by end of each day</li><li>Always have a next meeting booked with Seller</li><li>Book ALL sessions during KO via ChiliPiper (Premium)</li></ul>
+<h3>No-Show Protocol</h3>
+<ul><li>5 min late → call via Revenue.io</li><li>10 min late → call again + send email</li><li>15 min late → leave Google Meet, chatter AE/AM</li><li>KO calls: 5 min → call, 10 min → leave</li></ul>
+<h3>Seller Outreach (Unresponsive)</h3>
+<ul><li>3 attempts (every 3rd day)</li><li>4th email: notify cancellation</li><li>Chatter AE after each attempt</li></ul>
+</div></div>
+
+<!-- 7: Pipeline Management -->
+<div class="accordion" data-search="pipeline management best practices email chatter go live date next steps">
+<div class="acc-header" onclick="toggleAcc(this)">7️⃣ Pipeline Management Best Practices <span class="arrow">▼</span></div>
+<div class="acc-body">
+<h3>After EVERY Call</h3>
+<ul><li>Chatter AE/AM: summary, blockers, changes, requests</li><li>Update DSR status</li><li>Outline next steps + set deadlines</li><li>Mark DSA as complete</li><li>Send recap email within 24 hours</li><li>All updates same day as call</li></ul>
+<h3>DSR Fields to Always Maintain</h3>
+<ul><li><b>Desired Go-Live Date</b> — set during KO, update if it changes + Chatter note</li><li><b>Next Steps</b> — always clearly outlined</li><li><b>Next Step Date</b> — always set</li><li><b>Status</b> — always current</li></ul>
+<h3>Key Rules</h3>
+<ul><li>Respond to all Seller emails within 24 hours</li><li>Delegate ALL tasks to BPO unless complexity requires GSO</li><li>Book ALL onsite through 3P unless lead grants exception</li><li>Camera always on (rare exceptions)</li><li>Copy AE on all email communications</li><li>Add AE as Optional attendee on all Seller calls</li><li>GSO does NOT enter sales tax — Seller's responsibility</li></ul>
+</div></div>
+
+<!-- 8: Metrics & Points -->
+<div class="accordion" data-search="metrics points performance dsr completed productivity quality csat">
+<div class="acc-header" onclick="toggleAcc(this)">8️⃣ GSO Metrics & Points System <span class="arrow">▼</span></div>
+<div class="acc-body">
+<h3>4 GSO Metrics</h3>
+<ol><li><b>Full-Service DSRs Completed</b></li><li><b>Points Worked</b> (package-weighted)</li><li><b>Median Days to Complete</b> (Premium/Onsite)</li><li><b>CSAT</b> (post-completion)</li></ol>
+<h3>Points by Package</h3>
+<div class="points-grid">
+<div class="points-card">Optimization Call <span class="pts">1</span></div>
+<div class="points-card">Task Only <span class="pts">1</span></div>
+<div class="points-card">Plus <span class="pts">2</span></div>
+<div class="points-card">In-Person Plus <span class="pts">2</span></div>
+<div class="points-card">Payroll <span class="pts">3</span></div>
+<div class="points-card">Appointments <span class="pts">4</span></div>
+<div class="points-card">Premium <span class="pts">4</span></div>
+<div class="points-card">Onsite <span class="pts">5</span></div>
+</div>
+<p style="margin-top:8px;font-size:12px;color:#94a3b8">+1 point per additional location after first 2 (max +10). Credit for in-flight work captured even if DSR completes next quarter.</p>
+</div></div>
+
+<!-- 9: 3P Partners -->
+<div class="accordion" data-search="3p partners vendor onsite sora apos f3 solio ovation dispatch installation">
+<div class="acc-header" onclick="toggleAcc(this)">9️⃣ 3P Vendor Partners & Dispatch <span class="arrow">▼</span></div>
+<div class="acc-body">
+<table><tr><th>Country</th><th>Vendor</th><th>Strengths</th></tr>
+<tr><td>US</td><td>Sora Partners</td><td>Most experienced, SW US + NYC</td></tr>
+<tr><td>US</td><td>Solio Marlow</td><td>NW US + Dallas</td></tr>
+<tr><td>US</td><td>F3 Technologies</td><td>Midwest + Chicago</td></tr>
+<tr><td>US</td><td>APOS (Absolute POS)</td><td>SE US, traveling resources</td></tr>
+<tr><td>US</td><td>Ovation</td><td>Subcontractor network, site surveys</td></tr>
+<tr><td>AU</td><td>Tech Pantry</td><td>White glove, $1M+</td></tr>
+<tr><td>AU</td><td>OneWorld Rental AU</td><td>Sub $1M</td></tr>
+<tr><td>UK</td><td>OneWorld Rental UK</td><td>Low voltage needs</td></tr>
+<tr><td>UK</td><td>Eposability</td><td>White glove + managed services</td></tr>
+<tr><td>IE</td><td>Bright/Khiron</td><td>Complex network deployments</td></tr></table>
+<h3>Dispatch SLAs</h3>
+<ul><li>Vendor contact: 24 business hours</li><li>Visit scheduled: 3 business days</li><li>Visit completed: 7-10 business days</li><li>Post-visit docs: 24 hours</li></ul>
+<p style="font-size:12px;color:#94a3b8">Travel fee of $750 if >120 miles from nearest tech. Use 3P Regional Heat Map to check.</p>
+</div></div>
+
+<!-- 10: Billing -->
+<div class="accordion" data-search="billing regulator invoice cpq refund ach card">
+<div class="acc-header" onclick="toggleAcc(this)">🔟 Billing & Refunds <span class="arrow">▼</span></div>
+<div class="acc-body">
+<h3>Billing Methods</h3>
+<table><tr><th>Method</th><th>Who</th><th>When</th></tr>
+<tr><td><b>Regulator</b></td><td>BPO (Mon/Wed reports)</td><td>Standard packages</td></tr>
+<tr><td><b>Invoice</b></td><td>BPO or GSO</td><td>Manual payment needed</td></tr>
+<tr><td><b>CPQ</b></td><td>AE/AM</td><td>Strategic/Enterprise deals</td></tr>
+<tr><td><b>Sub2</b></td><td>SFF</td><td>Franchise billing</td></tr></table>
+<h3>Refunds</h3>
+<ul><li><b>ACH:</b> Full refund required (partial = refund full + rebill correct amount)</li><li><b>Card:</b> Via GSO AR account → Transactions → Refund</li><li>Always notify AE via Chatter after refund</li></ul>
+</div></div>
+
+<!-- 11: PM Concepts -->
+<div class="accordion" data-search="project management raid critical path parkinson scoping milestones risk">
+<div class="acc-header" onclick="toggleAcc(this)">1️⃣1️⃣ Project Management Concepts <span class="arrow">▼</span></div>
+<div class="acc-body">
+<h3>Key Frameworks</h3>
+<ul><li><b>Critical Path:</b> The longest sequence of dependent tasks — any delay here delays the whole project</li>
+<li><b>RAID Log:</b> Risk, Assumption, Issue, Decision — track these for every implementation</li>
+<li><b>Parkinson's Law:</b> Work expands to fill the time available — set tight but realistic deadlines</li>
+<li><b>Theory of Constraints:</b> Identify the bottleneck and focus improvement there</li>
+<li><b>Reverse Salient:</b> The component that's falling behind relative to others</li></ul>
+<h3>How GSO Adds Value Without Selling</h3>
+<ul><li>Thoroughly prepare for calls — use Seller terminology</li><li>Camera always on</li><li>Ask questions to uncover needs</li><li>Research open questions — answer within 24 hours</li><li>Push back on conflicting expectations</li></ul>
+</div></div>
+
+<!-- 12: Quiz -->
+<div class="accordion" data-search="quiz test flashcards study practice">
+<div class="acc-header" onclick="toggleAcc(this)">1️⃣2️⃣ Interactive Quiz — Flip Cards <span class="arrow">▼</span></div>
+<div class="acc-body">
+<div class="flip-hint">Click any card to flip. Click again to flip back.</div>
+<div class="quiz-grid" id="quizGrid"></div>
+</div></div>
+
+</div><!-- end study -->
+</div><!-- end container -->
+
+<div class="toast" id="toast">✅ Copied to clipboard!</div>
+
+<script>
+function showTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');const n={dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',study:'📚 Study Guide'};document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===n[id])b.classList.add('active')});window.scrollTo(0,0)}
+function copyContent(id){const t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>{const s=document.getElementById('toast');s.classList.add('show');setTimeout(()=>s.classList.remove('show'),2000)})}
+function updateChecks(){const c=document.querySelectorAll('.check-item input[type=checkbox]');let n=0;const s=[];c.forEach(x=>{if(x.checked){n++;x.parentElement.classList.add('done')}else x.parentElement.classList.remove('done');s.push(x.checked)});document.getElementById('checkCounter').textContent=n+'/10';localStorage.setItem('gso-checks',JSON.stringify(s))}
+function loadChecks(){const s=localStorage.getItem('gso-checks');if(s){const a=JSON.parse(s);document.querySelectorAll('.check-item input[type=checkbox]').forEach((c,i)=>{if(a[i])c.checked=true});updateChecks()}}
+loadChecks();
+function toggleAcc(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open')}
+function filterAccordions(){const q=document.getElementById('studySearch').value.toLowerCase();document.querySelectorAll('.accordion').forEach(a=>{const s=(a.getAttribute('data-search')||'')+' '+a.textContent;a.style.display=s.toLowerCase().includes(q)?'':'none'})}
+const quizData=[
+["First thing after a KO call?","Wait for Revenue.io transcript + recording"],
+["What to CC the AE on?","Every post-call email"],
+["What checklist goes with every post-KO email?","Account & Settings Checklist"],
+["Plus KO call duration?","30 minutes"],
+["#1 hardware blocker?","Printer compatibility — always ask about reused printers"],
+["DSR status after KO?","Consultation Complete"],
+["Plus training sessions?","1×90min OR 2×45min"],
+["Premium includes but Plus doesn't?","Square Online, multiple sessions, post-live QA, 2 locations"],
+["Most critical network question?","'Tell me about your internet setup'"],
+["When to put DSR On Hold?","Next appointment 5+ days out"],
+["BPO file format?","Excel/PDF — BPO can't access Google Docs"],
+["$0 Clover item base pricing rule?","Use lowest modifier (half size) as base price"],
+["Item-based printer routing in Square?","No — must use categories"],
+["PM Next Steps text after KO?","'Submit BPO + 3P DSAs'"],
+["Seller homework after KO?","Account & Settings Checklist, verify menu, send staff list"],
+["BPO turnaround SLA?","3-4 business days"],
+["Points for a Premium DSR?","4 points"],
+["Points for an Onsite DSR?","5 points"],
+["Seller email response SLA?","Within 24 hours"],
+["No-show protocol at 15 min?","Leave Google Meet, chatter AE/AM"],
+["Seller unresponsive — how many attempts?","3 attempts (every 3rd day), then 4th = cancellation"],
+["What does GSO NOT do?","Enter sales tax, post-onboarding Q&A, marketing content, compliance"],
+["BPO DSA status should always be?","Initiating"],
+["How to rush a BPO task?","Check Rush checkbox + post in #gso-bpo Slack"],
+["Premium SLA from KO to completion?","10 business days"],
+["Plus SLA from KO to completion?","5 business days"],
+["Camera rule on calls?","Always on (rare exceptions)"],
+["Who handles billing?","BPO (Regulator, Mon/Wed) or AE/AM (CPQ)"],
+["Travel fee threshold?","$750 if >120 miles from nearest tech"],
+["What is RAID?","Risk, Assumption, Issue, Decision"]
+];
+const g=document.getElementById('quizGrid');
+quizData.forEach(([q,a],i)=>{g.innerHTML+=`<div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div>Q${i+1}: ${q}</div></div><div class="flip-back"><div>${a}</div></div></div></div>`});
+</script>
+</body>
+</html>
