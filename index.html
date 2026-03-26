@@ -13,6 +13,8 @@ nav .logo span{color:#22c55e;margin-right:4px}
 .tab-btn{padding:7px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;background:transparent;color:#94a3b8;transition:all .2s}
 .tab-btn:hover{background:#2d2d5e;color:#e2e8f0}
 .tab-btn.active{background:#006AFF;color:#fff}
+.tab-btn.generator-btn{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
+.tab-btn.generator-btn.active{background:#22c55e;color:#fff}
 .container{max-width:1100px;margin:0 auto;padding:20px}
 .tab{display:none}.tab.active{display:block}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
@@ -31,10 +33,12 @@ h2{font-size:18px;margin-bottom:10px}
 .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600}
 .badge-green{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
 .badge-yellow{background:#eab30822;color:#eab308;border:1px solid #eab30844}
+.badge-gray{background:#64748b22;color:#64748b;border:1px solid #64748b44}
 .btn{display:inline-block;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
 .btn-blue{background:#006AFF;color:#fff}.btn-blue:hover{background:#0055cc}
 .btn-green{background:#22c55e;color:#fff}.btn-green:hover{background:#16a34a}
 .btn-sm{padding:5px 12px;font-size:11px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
 .checklist{background:#1a1a3e;border-radius:10px;padding:18px;border:1px solid #2d2d5e;margin-bottom:24px}
 .checklist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .check-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px}
@@ -58,6 +62,36 @@ h2{font-size:18px;margin-bottom:10px}
 .deliv-content table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
 .deliv-content th{background:#2d2d5e;padding:6px 10px;text-align:left;font-weight:600}
 .deliv-content td{padding:6px 10px;border-bottom:1px solid #2d2d5e33}
+/* Generator Form */
+.gen-section{background:#1a1a3e;border-radius:10px;padding:24px;border:1px solid #2d2d5e;margin-bottom:20px}
+.gen-section h2{color:#22c55e;font-size:16px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #2d2d5e}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:11px;font-weight:600;text-transform:uppercase;color:#94a3b8;letter-spacing:.5px}
+.form-group input,.form-group select{padding:10px 14px;border-radius:8px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:13px;font-family:inherit}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#006AFF}
+.form-group textarea{padding:10px 14px;border-radius:8px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:13px;font-family:inherit;resize:vertical;min-height:100px}
+.form-group .hint{font-size:10px;color:#64748b;margin-top:2px}
+.gen-actions{display:flex;gap:12px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.gen-actions .btn{padding:12px 28px;font-size:14px}
+.gen-status{font-size:13px;color:#94a3b8}
+.gen-status.success{color:#22c55e}
+.gen-status.error{color:#ef4444}
+.transcript-area{position:relative}
+.transcript-area textarea{min-height:200px}
+.transcript-drop{border:2px dashed #2d2d5e;border-radius:10px;padding:30px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px}
+.transcript-drop:hover,.transcript-drop.dragover{border-color:#006AFF;background:#006AFF11}
+.transcript-drop .icon{font-size:32px;margin-bottom:8px}
+.transcript-drop p{font-size:13px;color:#94a3b8}
+.transcript-drop .small{font-size:11px;color:#64748b;margin-top:4px}
+.file-info{background:#22c55e22;border:1px solid #22c55e44;border-radius:8px;padding:8px 14px;font-size:12px;color:#22c55e;display:none;margin-bottom:10px}
+.or-divider{text-align:center;color:#64748b;font-size:11px;margin:10px 0;text-transform:uppercase;letter-spacing:1px}
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:#64748b}
+.empty-state .icon{font-size:48px;margin-bottom:12px}
+.empty-state h3{font-size:18px;color:#94a3b8;margin-bottom:8px}
+.empty-state p{font-size:13px;max-width:400px;margin:0 auto}
 /* Accordion */
 .accordion{margin-bottom:10px}
 .acc-header{background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:14px 18px;cursor:pointer;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center;transition:all .2s;user-select:none}
@@ -124,13 +158,25 @@ h2{font-size:18px;margin-bottom:10px}
 .sub-tab:hover{background:#3d3d7e;color:#e2e8f0}
 .sub-tab.active{background:#006AFF;color:#fff}
 .sub-content{display:none}.sub-content.active{display:block}
-@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}}
+/* Saved deals */
+.saved-deals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.saved-deal{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;background:#0f0f23;color:#94a3b8;border:1px solid #2d2d5e;transition:all .2s;display:flex;align-items:center;gap:6px}
+.saved-deal:hover{border-color:#006AFF;color:#e2e8f0}
+.saved-deal .del{color:#ef4444;font-size:14px;margin-left:4px;opacity:0;transition:opacity .2s}
+.saved-deal:hover .del{opacity:1}
+.saved-deal.active-deal{border-color:#22c55e;color:#22c55e}
+/* Transcript parsed sections */
+.parsed-preview{background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:14px;margin-top:10px;max-height:200px;overflow-y:auto;font-size:12px;line-height:1.6;display:none}
+.parsed-preview .speaker{color:#006AFF;font-weight:600}
+.parsed-preview .timestamp{color:#64748b;font-size:10px}
+@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid,.form-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}}
 </style>
 </head>
 <body>
 <nav>
 <div class="logo"><span>⚡</span>GSO Post-KO</div>
-<button class="tab-btn active" onclick="showTab('dashboard')">Dashboard</button>
+<button class="tab-btn generator-btn active" onclick="showTab('generator')">🚀 Generator</button>
+<button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
 <button class="tab-btn" onclick="showTab('email')">Seller Email</button>
 <button class="tab-btn" onclick="showTab('dsr')">DSR Chatter</button>
 <button class="tab-btn" onclick="showTab('bpo')">BPO Task</button>
@@ -139,25 +185,134 @@ h2{font-size:18px;margin-bottom:10px}
 </nav>
 <div class="container">
 
+<!-- ===== GENERATOR ===== -->
+<div id="generator" class="tab active">
+<h1 style="margin-bottom:4px">🚀 Post-KO Deliverable Generator</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:20px">Enter your deal info and paste the Revenue.io transcript. All 4 deliverables will auto-populate.</p>
+
+<!-- Saved Deals -->
+<div id="savedDealsBar" class="saved-deals" style="display:none"></div>
+
+<!-- Section 1: Deal Info -->
+<div class="gen-section">
+<h2>📋 Deal Information</h2>
+<div class="form-grid">
+<div class="form-group"><label>Business Name *</label><input type="text" id="genBusiness" placeholder="e.g. Chicko Chicken Renton"></div>
+<div class="form-group"><label>Seller Name *</label><input type="text" id="genSeller" placeholder="e.g. Unki Kim"></div>
+<div class="form-group"><label>Seller Email</label><input type="email" id="genSellerEmail" placeholder="e.g. seller@email.com"></div>
+<div class="form-group"><label>AE Name *</label><input type="text" id="genAE" placeholder="e.g. @Lindsey Logan"></div>
+<div class="form-group"><label>PM Name</label><input type="text" id="genPM" placeholder="e.g. Kalani Cuaresma" value="Kalani Cuaresma"></div>
+<div class="form-group"><label>Package Type *</label>
+<select id="genPackage">
+<option value="">Select package...</option>
+<option value="Plus">Plus ($699)</option>
+<option value="In-Person Plus">In-Person Plus ($699)</option>
+<option value="Premium">Premium ($1,499)</option>
+<option value="Onsite">Onsite ($2,199+)</option>
+<option value="Payroll">Payroll ($250)</option>
+<option value="Appointments">Appointments ($799)</option>
+<option value="Optimization">Optimization Call ($149)</option>
+<option value="Task Service">Task Service ($149)</option>
+</select></div>
+</div>
+</div>
+
+<!-- Section 2: Links -->
+<div class="gen-section">
+<h2>🔗 Links & References</h2>
+<div class="form-grid">
+<div class="form-group"><label>DSR Salesforce Link *</label><input type="url" id="genDSR" placeholder="https://squareinc.lightning.force.com/..."></div>
+<div class="form-group"><label>Revenue.io Recording Link</label><input type="url" id="genRecording" placeholder="https://app.revenue.io/..."></div>
+</div>
+</div>
+
+<!-- Section 3: Transcript -->
+<div class="gen-section">
+<h2>📄 Revenue.io Transcript</h2>
+<div class="transcript-area">
+<div class="transcript-drop" id="transcriptDrop" onclick="document.getElementById('transcriptFile').click()">
+<div class="icon">📂</div>
+<p>Drop a .txt or .docx transcript file here, or click to browse</p>
+<div class="small">Supports .txt, .docx, .md files</div>
+</div>
+<input type="file" id="transcriptFile" accept=".txt,.docx,.md,.doc" style="display:none" onchange="handleFileUpload(this)">
+<div class="file-info" id="fileInfo">📎 <span id="fileName"></span></div>
+<div class="or-divider">— or paste transcript below —</div>
+<div class="form-group full">
+<textarea id="genTranscript" placeholder="Paste the full Revenue.io transcript here...
+
+Example format:
+Speaker 1 (00:00): Hi, welcome to the kickoff call...
+Speaker 2 (00:15): Thanks for having me..."></textarea>
+<div class="hint">The more detail you include, the better the deliverables. Include speaker names and timestamps if available.</div>
+</div>
+<div class="parsed-preview" id="parsedPreview"></div>
+</div>
+</div>
+
+<!-- Section 4: PM Notes -->
+<div class="gen-section">
+<h2>🧠 Your Notes & Brain Dump</h2>
+<div class="form-group full">
+<textarea id="genNotes" placeholder="Add any notes, observations, or context from the call that might not be in the transcript...
+
+Examples:
+- Seller seemed hesitant about go-live date
+- Menu is complex — dual POS/delivery
+- Hardware hasn't arrived yet
+- AE mentioned potential upsell to Premium"></textarea>
+<div class="hint">Optional but recommended. Include risks, observations, open questions, or anything the transcript might miss.</div>
+</div>
+</div>
+
+<!-- Section 5: Session Details -->
+<div class="gen-section">
+<h2>📅 Session & Scheduling</h2>
+<div class="form-grid">
+<div class="form-group"><label>Session Type</label>
+<select id="genSessionType">
+<option value="Kickoff">Kickoff Call</option>
+<option value="Dashboard Training">Dashboard Training</option>
+<option value="POS Training">POS/App Training</option>
+<option value="SO Training">Square Online Training</option>
+<option value="Menu Review">Menu Review</option>
+<option value="QA">QA / Follow-up</option>
+<option value="Optimization">Optimization Call</option>
+</select></div>
+<div class="form-group"><label>Go-Live Date</label><input type="text" id="genGoLive" placeholder="e.g. TBD, March 15, ASAP"></div>
+<div class="form-group full"><label>Training Availability (from seller)</label><input type="text" id="genAvailability" placeholder="e.g. Thu 11AM-3PM PT, Mon 9:30AM-12:30PM PT, Tue 11AM-2PM PT"></div>
+</div>
+</div>
+
+<!-- Generate Button -->
+<div class="gen-actions">
+<button class="btn btn-green" style="font-size:16px;padding:14px 36px" onclick="generateDeliverables()">⚡ Generate All Deliverables</button>
+<button class="btn btn-blue" onclick="saveDeal()">💾 Save Deal</button>
+<button class="btn" style="background:#2d2d5e;color:#94a3b8" onclick="clearForm()">🗑️ Clear Form</button>
+<span class="gen-status" id="genStatus"></span>
+</div>
+</div>
+
 <!-- ===== DASHBOARD ===== -->
-<div id="dashboard" class="tab active">
+<div id="dashboard" class="tab">
 <div class="stats">
-<div class="stat"><label>Business</label><div class="val">Chicko Chicken Renton</div></div>
-<div class="stat"><label>Package</label><div class="val green">Plus</div></div>
-<div class="stat"><label>Seller</label><div class="val">Unki Kim</div></div>
-<div class="stat"><label>AE</label><div class="val">@Lindsey Logan</div></div>
+<div class="stat"><label>Business</label><div class="val" id="dashBusiness">—</div></div>
+<div class="stat"><label>Package</label><div class="val green" id="dashPackage">—</div></div>
+<div class="stat"><label>Seller</label><div class="val" id="dashSeller">—</div></div>
+<div class="stat"><label>AE</label><div class="val" id="dashAE">—</div></div>
 </div>
 <div class="section-title">📋 Deliverables</div>
-<div class="cards">
-<div class="card"><h3>📧 Seller Email</h3><p>Recap + Next Steps</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('email')">Open →</button></div>
-<div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('dsr')">Open →</button></div>
-<div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-green">Ready</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('bpo')">Open →</button></div>
-<div class="card"><h3>🔍 Internal Analysis</h3><p>PM Risk & Coordination</p><span class="badge badge-yellow">Review</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('analysis')">Open →</button></div>
+<div class="cards" id="dashCards">
+<div class="card"><h3>📧 Seller Email</h3><p>Recap + Next Steps</p><span class="badge badge-gray" id="badgeEmail">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('email')">Open →</button></div>
+<div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-gray" id="badgeDSR">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('dsr')">Open →</button></div>
+<div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-gray" id="badgeBPO">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('bpo')">Open →</button></div>
+<div class="card"><h3>🔍 Internal Analysis</h3><p>PM Risk & Coordination</p><span class="badge badge-gray" id="badgeAnalysis">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('analysis')">Open →</button></div>
 </div>
 <div class="checklist">
 <div class="checklist-header"><div class="section-title" style="margin:0">✅ DSR Update Checklist</div><div class="counter" id="checkCounter">0/10</div></div>
+<div id="checklistItems">
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Complete Consultation DSA (30 min)</span></div>
-<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Desired Go-Live Date → TBD</span></div>
+<div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Desired Go-Live Date</span></div>
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Next Steps Date → tomorrow</span></div>
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update Next Steps Text → "Submit BPO + 3P DSAs"</span></div>
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Update DSR Status → Consultation Complete</span></div>
@@ -166,72 +321,36 @@ h2{font-size:18px;margin-bottom:10px}
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Submit BPO DSA for menu build</span></div>
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Submit 3P Vendor DSA for training</span></div>
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Send post-call email to seller</span></div>
-</div>
-<div class="quick-link"><a href="https://squareinc.lightning.force.com/lightning/r/Deal_Support_Request__c/a2yV4000004Ah7pIAC/view" target="_blank">🔗 Open DSR in Salesforce →</a></div>
+</div></div>
+<div class="quick-link" id="dsrQuickLink"><a href="#" target="_blank">🔗 Open DSR in Salesforce →</a></div>
 </div>
 
 <!-- ===== SELLER EMAIL ===== -->
 <div id="email" class="tab">
 <div class="deliv-header"><h1>📧 Post-KO Seller Email</h1><button class="btn btn-green" onclick="copyContent('emailContent')">📋 Copy</button></div>
-<div class="deliv-content" id="emailContent">
-<div class="meta"><div><b>Subject:</b> Recap + Next Steps from Today's Kickoff</div><div><b>To:</b> Unki Kim (chickorenton@gmail.com)</div><div><b>CC:</b> Lindsey Kim, @Lindsey Logan (AE)</div><div><b>From:</b> Josephine Vogt</div></div>
-<p>Hi Unki,</p><p>Thank you for taking the time to meet with me today — it was great connecting with you and Lindsey! I'm glad we were able to use this kickoff to walk through your setup, clarify your workflow, and map out the right next steps for your Square implementation at Chicko Chicken Renton.</p><p>I'll be your primary point of contact throughout this implementation. I'm always available via email. I reply within 24 business hours, and all sessions are by appointment only. I'll follow up with confirmed scheduling within 24 hours.</p>
-<h2>📋 Session Summary</h2>
-<h3>Hardware</h3><ul><li>1 Dual-screen register (front counter) — cash drawer + receipt printer</li><li>3 KDS tablets: Batter → Sauce → Expo/Front Counter</li><li>1 Kitchen printer (backup/ticket holder)</li></ul>
-<h3>Menu</h3><ul><li>Two menus: POS (period suffix) + delivery (underscore suffix) with upcharged pricing</li><li>Clover export received — submitting to build team</li><li>Half-size price as base; sizes as modifiers</li></ul>
-<h3>Online & Delivery</h3><ul><li>DoorDash, Uber Eats, Grubhub</li><li>Square Online — linked to website + Google Business</li><li>On-Demand Delivery — sending info</li></ul>
-<h3>Team & Other</h3><ul><li>Clock in/out only, ~10 employees, new location</li><li>Loyalty/Gift cards: Not at launch</li></ul>
-<h2>📅 What I'm Coordinating Next</h2>
-<p>One <b>90-minute training session</b>:</p><ul><li><b>Thursday</b> 11AM–3PM PT</li><li><b>Monday</b> 9:30AM–12:30PM PT</li><li><b>Tuesday</b> 11AM–2PM PT</li></ul>
-<p>Topics: Menu walkthrough, delivery channels, device/printer config, dashboard overview.</p>
-<h2>📝 Homework</h2><ul><li>✅ Complete <b>Account & Settings Checklist</b> (attached)</li><li>✅ Verify Clover export is current</li><li>✅ Confirm delivery credentials</li><li>✅ Send additional menu files</li><li>✅ Send staff list for training</li><li>✅ Note questions</li></ul>
-<h2>⚠️ Reminder</h2><p><b>Plus = one 90-min session, no post-live support.</b> Videos and articles will be provided.</p>
-<h2>🔗 Recording</h2><div class="placeholder">🔗 [INSERT REVENUE.IO LINK]</div>
-<p style="margin-top:16px">Best,<br>Josephine Vogt<br>GSO | Square</p>
+<div id="emailContent" class="deliv-content">
+<div class="empty-state"><div class="icon">📧</div><h3>No Email Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
 
 <!-- ===== DSR CHATTER ===== -->
 <div id="dsr" class="tab">
 <div class="deliv-header"><h1>📝 DSR Chatter Notes</h1><button class="btn btn-green" onclick="copyContent('dsrContent')">📋 Copy</button></div>
-<div class="deliv-content" id="dsrContent">
-<p>Hi <b>@Lindsey Logan</b> — Kickoff is complete for Chicko Chicken Renton.</p>
-<div class="meta"><div><b>Go-live:</b> TBD</div><div><b>Package:</b> Plus</div><div><b>Seller:</b> Unki Kim</div><div><b>Business:</b> Chicko Chicken Renton (fried chicken, new Renton WA)</div></div>
-<h2>Milestone Plan</h2><ul><li>KO completed, Clover export received</li><li>BPO menu build: two separate menus (POS + delivery)</li><li>90-min training after build</li><li>Account & Settings Checklist sent</li></ul>
-<h2>Training Schedule</h2><ul><li>✅ Completed: Kickoff</li><li>🟢 Upcoming: BPO Menu Build</li><li>🟢 Upcoming: 90-min training (Thu/Mon/Tue PT)</li><li>🟡 Future: Handoff — no post-live QA with Plus</li></ul>
-<h2>Risks / AE Actions</h2><ul><li><b>Risk:</b> Dual menus (period=POS, underscore=delivery)</li><li><b>Risk:</b> Base pricing conversion ($0 → half-size)</li><li><b>Risk:</b> Half-and-half unique modifiers (4 POS, 2 delivery)</li><li><b>Risk:</b> Plus = 1 session, no post-live</li><li><b>Risk:</b> No firm Go-Live date</li><li><b>AE action:</b> Stay aligned on timing</li><li><b>AE action:</b> Seller interested in On-Demand Delivery</li></ul>
-<h2>Recording</h2><div class="placeholder">🔗 [INSERT LINK]</div>
-<h2>PM Next Steps</h2><ul><li>Send email + Account & Settings Checklist</li><li>Submit BPO DSA (Medium-High, attach export)</li><li>Submit 3P Vendor DSA (90 min, 3 slots)</li><li>Complete Consultation DSA (30 min)</li><li>DSR: Status → <b>Consultation Complete</b></li></ul>
+<div id="dsrContent" class="deliv-content">
+<div class="empty-state"><div class="icon">📝</div><h3>No Chatter Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
 
 <!-- ===== BPO ===== -->
 <div id="bpo" class="tab">
 <div class="deliv-header"><h1>🔧 BPO DSA Notes</h1><button class="btn btn-green" onclick="copyContent('bpoContent')">📋 Copy</button></div>
-<div class="deliv-content" id="bpoContent">
-<div class="meta"><div><b>Business:</b> Chicko Chicken Renton | <b>PM:</b> Josephine Vogt</div><div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> Hard</div><div><b>Source:</b> Clover export (Excel) attached | <b>Due:</b> 3-4 business days</div></div>
-<div class="warn">⚠️ Two separate menus — do NOT merge. Period(.)=POS, Underscore(_)=Delivery</div>
-<div class="warn">⚠️ Base price = lowest modifier (half size). Square requires base price for online ordering.</div>
-<h2>Menu Structure</h2>
-<table><tr><th>Menu</th><th>Suffix</th><th>Purpose</th></tr><tr><td>POS</td><td>Period (.)</td><td>In-store + Square Online</td></tr><tr><td>Delivery</td><td>Underscore (_)</td><td>DoorDash, Uber Eats, Grubhub</td></tr></table>
-<h2>Modifier Rules</h2>
-<table><tr><th>Item Suffix</th><th>Matches</th></tr><tr><td>Period (.)</td><td>Period modifiers ONLY</td></tr><tr><td>Underscore (_)</td><td>Underscore modifiers ONLY</td></tr></table>
-<h3>POS items: 4 modifier groups</h3><ol><li>[Name] Size.</li><li>Choose Flavors.</li><li>Combo Set. <b>(POS ONLY)</b></li><li>Combo Side Sauce. <b>(POS ONLY)</b></li></ol>
-<h3>Delivery items: 2 modifier groups</h3><ol><li>[Name] Size_</li><li>Choose Flavors_</li></ol>
-<h3>Half and Half (special)</h3><p><b>POS:</b> Choice of Cut. → Choose Flavors. → Combo Set. → Combo Side Sauce.</p><p><b>Delivery:</b> Choice of Cut_ → Choose Flavors_</p>
-<p><b>Sizes = MODIFIERS</b> (not variations). Alphabetize within groups. No gift cards. No photos.</p>
-<h2>Printer Routing</h2>
-<table><tr><th>Station</th><th>Device</th></tr><tr><td>Batter</td><td>KDS 1</td></tr><tr><td>Sauce</td><td>KDS 2</td></tr><tr><td>Expo</td><td>KDS 3</td></tr><tr><td>Kitchen</td><td>Printer (backup)</td></tr></table>
+<div id="bpoContent" class="deliv-content">
+<div class="empty-state"><div class="icon">🔧</div><h3>No BPO Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
 
 <!-- ===== ANALYSIS ===== -->
 <div id="analysis" class="tab">
 <div class="deliv-header"><h1>🔍 Internal Analysis</h1><button class="btn btn-green" onclick="copyContent('analysisContent')">📋 Copy</button></div>
-<div class="deliv-content" id="analysisContent">
-<h2>Overall Read</h2><p>Productive KO. Seller prepared with Clover export. Core complexity: dual-menu with pricing conversion. Plus constraint (1×90min) means build must be clean.</p>
-<h2>Critical Path</h2><ol><li>BPO menu build turnaround</li><li>Base pricing conversion accuracy</li><li>Seller availability (3 windows)</li><li>No firm Go-Live date</li><li>90 min for 4 topics is tight</li></ol>
-<h2>KO Gaps</h2>
-<table><tr><th>Topic</th><th>Status</th></tr><tr><td>WiFi/network</td><td>⚠️ Not discussed</td></tr><tr><td>Thermal paper</td><td>⚠️ Not confirmed</td></tr><tr><td>Wall mount install</td><td>⚠️ Not discussed</td></tr><tr><td>Tax rules</td><td>⚠️ Not discussed</td></tr><tr><td>Reporting categories</td><td>⚠️ Not discussed</td></tr></table>
-<h2>Momentum</h2>
-<table><tr><th>Factor</th><th>Status</th></tr><tr><td>Engagement</td><td>✅ High</td></tr><tr><td>Tech confidence</td><td>✅ Good</td></tr><tr><td>Decisions</td><td>✅ Strong</td></tr><tr><td>Timeline</td><td>⚠️ Medium</td></tr><tr><td>Build complexity</td><td>⚠️ Med-High</td></tr><tr><td>Training risk</td><td>⚠️ Medium</td></tr></table>
+<div id="analysisContent" class="deliv-content">
+<div class="empty-state"><div class="icon">🔍</div><h3>No Analysis Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
 
 <!-- ===== STUDY GUIDE ===== -->
@@ -511,13 +630,591 @@ h2{font-size:18px;margin-bottom:10px}
 <div class="toast" id="toast">✅ Copied to clipboard!</div>
 
 <script>
-function showTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');const n={dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',study:'📚 Study Guide'};document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===n[id])b.classList.add('active')});window.scrollTo(0,0)}
-function copyContent(id){const t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>{const s=document.getElementById('toast');s.classList.add('show');setTimeout(()=>s.classList.remove('show'),2000)})}
-function updateChecks(){const c=document.querySelectorAll('.check-item input[type=checkbox]');let n=0;const s=[];c.forEach(x=>{if(x.checked){n++;x.parentElement.classList.add('done')}else x.parentElement.classList.remove('done');s.push(x.checked)});document.getElementById('checkCounter').textContent=n+'/10';localStorage.setItem('gso-checks',JSON.stringify(s))}
-function loadChecks(){const s=localStorage.getItem('gso-checks');if(s){const a=JSON.parse(s);document.querySelectorAll('.check-item input[type=checkbox]').forEach((c,i)=>{if(a[i])c.checked=true});updateChecks()}}
+// ===== TAB NAVIGATION =====
+function showTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',study:'📚 Study Guide'};
+  document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
+  window.scrollTo(0,0);
+}
+
+// ===== COPY =====
+function copyContent(id){
+  const t=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(()=>{
+    const s=document.getElementById('toast');s.classList.add('show');
+    setTimeout(()=>s.classList.remove('show'),2000);
+  });
+}
+
+// ===== CHECKLIST =====
+function updateChecks(){
+  const c=document.querySelectorAll('#checklistItems input[type=checkbox]');
+  let n=0;const s=[];
+  c.forEach(x=>{if(x.checked){n++;x.parentElement.classList.add('done')}else x.parentElement.classList.remove('done');s.push(x.checked)});
+  document.getElementById('checkCounter').textContent=n+'/'+c.length;
+  localStorage.setItem('gso-checks',JSON.stringify(s));
+}
+function loadChecks(){
+  const s=localStorage.getItem('gso-checks');
+  if(s){const a=JSON.parse(s);document.querySelectorAll('#checklistItems input[type=checkbox]').forEach((c,i)=>{if(a[i])c.checked=true});updateChecks()}
+}
 loadChecks();
+
+// ===== ACCORDION =====
 function toggleAcc(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open')}
 function filterAccordions(){const q=document.getElementById('studySearch').value.toLowerCase();document.querySelectorAll('.accordion').forEach(a=>{const s=(a.getAttribute('data-search')||'')+' '+a.textContent;a.style.display=s.toLowerCase().includes(q)?'':'none'})}
+
+// ===== FILE UPLOAD =====
+const dropZone = document.getElementById('transcriptDrop');
+dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop',e=>{
+  e.preventDefault();dropZone.classList.remove('dragover');
+  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+
+function handleFileUpload(input){if(input.files.length) handleFile(input.files[0])}
+
+function handleFile(file){
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(!['txt','md','docx','doc'].includes(ext)){
+    alert('Please upload a .txt, .md, or .docx file');return;
+  }
+  document.getElementById('fileName').textContent = file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
+  document.getElementById('fileInfo').style.display = 'block';
+
+  if(ext === 'txt' || ext === 'md'){
+    const reader = new FileReader();
+    reader.onload = e => {document.getElementById('genTranscript').value = e.target.result};
+    reader.readAsText(file);
+  } else {
+    // For docx, read as text (basic extraction)
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const zip = e.target.result;
+        // Basic docx text extraction via ArrayBuffer
+        const text = extractDocxText(new Uint8Array(zip));
+        document.getElementById('genTranscript').value = text || '[DOCX detected — paste transcript text manually for best results]';
+      } catch(err) {
+        document.getElementById('genTranscript').value = '[Could not parse DOCX — please paste transcript text manually]';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+// Basic DOCX text extraction (finds <w:t> tags in document.xml)
+function extractDocxText(data){
+  try {
+    // Find PK signature and locate document.xml
+    const decoder = new TextDecoder('utf-8');
+    const str = decoder.decode(data);
+    // Look for word/document.xml content between PK entries
+    const docStart = str.indexOf('<w:document');
+    if(docStart === -1) return null;
+    const docEnd = str.indexOf('</w:document>', docStart);
+    const docXml = str.substring(docStart, docEnd + 14);
+    // Extract text from <w:t> tags
+    const texts = [];
+    const regex = /<w:t[^>]*>([^<]*)<\/w:t>/g;
+    let match;
+    while((match = regex.exec(docXml)) !== null){
+      texts.push(match[1]);
+    }
+    return texts.join(' ').replace(/\s+/g,' ').trim();
+  } catch(e){ return null; }
+}
+
+// ===== PACKAGE INFO HELPER =====
+function getPackageInfo(pkg){
+  const info = {
+    'Plus': {sla:'5 days',sessions:'1×90min OR 2×45min training',tasks:3,points:2,postLive:false,so:false,price:'$699'},
+    'In-Person Plus': {sla:'10 days',sessions:'2-4hr onsite visit',tasks:2,points:2,postLive:false,so:false,price:'$699'},
+    'Premium': {sla:'10 days',sessions:'Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)',tasks:6,points:4,postLive:true,so:true,price:'$1,499'},
+    'Onsite': {sla:'10 days',sessions:'All Premium + 3P site survey + hardware install + in-person POS',tasks:6,points:5,postLive:true,so:true,price:'$2,199+'},
+    'Payroll': {sla:'8 days',sessions:'Employee migration + training + first run',tasks:0,points:3,postLive:false,so:false,price:'$250'},
+    'Appointments': {sla:'8 days',sessions:'Import + training for Square Appointments',tasks:0,points:4,postLive:false,so:false,price:'$799'},
+    'Optimization': {sla:'Same day',sessions:'1×60min one-time session',tasks:0,points:1,postLive:false,so:false,price:'$149'},
+    'Task Service': {sla:'3-4 days',sessions:'No sessions — task only',tasks:1,points:1,postLive:false,so:false,price:'$149'}
+  };
+  return info[pkg] || info['Plus'];
+}
+
+// ===== GENERATE DELIVERABLES =====
+function generateDeliverables(){
+  const biz = document.getElementById('genBusiness').value.trim();
+  const seller = document.getElementById('genSeller').value.trim();
+  const sellerEmail = document.getElementById('genSellerEmail').value.trim();
+  const ae = document.getElementById('genAE').value.trim();
+  const pm = document.getElementById('genPM').value.trim() || 'GSO PM';
+  const pkg = document.getElementById('genPackage').value;
+  const dsrLink = document.getElementById('genDSR').value.trim();
+  const recording = document.getElementById('genRecording').value.trim();
+  const transcript = document.getElementById('genTranscript').value.trim();
+  const notes = document.getElementById('genNotes').value.trim();
+  const sessionType = document.getElementById('genSessionType').value;
+  const goLive = document.getElementById('genGoLive').value.trim() || 'TBD';
+  const availability = document.getElementById('genAvailability').value.trim();
+
+  // Validation
+  if(!biz || !seller || !ae || !pkg){
+    document.getElementById('genStatus').textContent = '⚠️ Please fill in Business Name, Seller Name, AE Name, and Package Type';
+    document.getElementById('genStatus').className = 'gen-status error';
+    return;
+  }
+  if(!dsrLink){
+    document.getElementById('genStatus').textContent = '⚠️ Please provide the DSR Salesforce link';
+    document.getElementById('genStatus').className = 'gen-status error';
+    return;
+  }
+
+  const pkgInfo = getPackageInfo(pkg);
+  const recordingLink = recording || '🔗 [INSERT REVENUE.IO LINK]';
+  const recordingHtml = recording ? `<a href="${recording}" target="_blank" style="color:#006AFF">${recording}</a>` : '<span class="placeholder">🔗 [INSERT REVENUE.IO LINK]</span>';
+  const hasTranscript = transcript.length > 50;
+  const today = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Parse transcript for key details
+  const transcriptNotes = hasTranscript ? parseTranscriptHighlights(transcript) : null;
+  const combinedContext = (notes ? notes + '\n' : '') + (transcriptNotes ? transcriptNotes.summary : '');
+
+  // ===== UPDATE DASHBOARD =====
+  document.getElementById('dashBusiness').textContent = biz;
+  document.getElementById('dashPackage').textContent = pkg;
+  document.getElementById('dashSeller').textContent = seller;
+  document.getElementById('dashAE').textContent = ae;
+  document.getElementById('dsrQuickLink').innerHTML = `<a href="${dsrLink}" target="_blank">🔗 Open DSR in Salesforce →</a>`;
+
+  ['badgeEmail','badgeDSR','badgeBPO','badgeAnalysis'].forEach(id=>{
+    const el = document.getElementById(id);
+    el.textContent = 'Ready';
+    el.className = 'badge badge-green';
+  });
+
+  // ===== GENERATE EMAIL =====
+  const postLiveNote = pkgInfo.postLive
+    ? `<p><b>${pkg} includes 1-week post-live QA support.</b> I'll be available for questions after go-live.</p>`
+    : `<p><b>${pkg} = ${pkgInfo.sessions}, no post-live support.</b> I'll provide videos and articles for reference after training.</p>`;
+
+  const soNote = pkgInfo.so
+    ? `<li>Square Online setup and training included in your package</li>`
+    : `<li>Square Online is not included in ${pkg} — let your AE know if you'd like to add it</li>`;
+
+  const availabilityHtml = availability
+    ? `<p>Based on your availability, I'll be scheduling your training session(s):</p><ul><li>${availability.split(',').map(s=>s.trim()).join('</li><li>')}</li></ul>`
+    : `<p>I'll follow up within 24 hours with confirmed scheduling for your training session(s).</p>`;
+
+  document.getElementById('emailContent').innerHTML = `
+    <div class="meta">
+      <div><b>Subject:</b> Recap + Next Steps from Today's ${sessionType}</div>
+      <div><b>To:</b> ${seller}${sellerEmail ? ' (' + sellerEmail + ')' : ''}</div>
+      <div><b>CC:</b> ${ae} (AE)</div>
+      <div><b>From:</b> ${pm}</div>
+      <div><b>Date:</b> ${today}</div>
+    </div>
+    <p>Hi ${seller.split(' ')[0]},</p>
+    <p>Thank you for taking the time to meet with me today! I'm glad we were able to use this ${sessionType.toLowerCase()} to walk through your setup and map out the right next steps for your Square implementation at ${biz}.</p>
+    <p>I'll be your primary point of contact throughout this implementation. I'm always available via email. I reply within 24 business hours, and all sessions are by appointment only.</p>
+    <h2>📋 Session Summary</h2>
+    ${hasTranscript && transcriptNotes ? transcriptNotes.emailSections : `
+    <h3>Key Topics Discussed</h3>
+    <ul>
+      <li>Business overview and current setup</li>
+      <li>Hardware and network configuration</li>
+      <li>Menu structure and build requirements</li>
+      <li>Go-live planning and timeline</li>
+    </ul>`}
+    ${notes ? `<h3>Additional Notes</h3><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+    <h2>📅 What I'm Coordinating Next</h2>
+    <p><b>Package:</b> ${pkg} (${pkgInfo.sessions})</p>
+    ${availabilityHtml}
+    <h2>📝 Homework</h2>
+    <ul>
+      <li>✅ Complete <b>Account & Settings Checklist</b> (attached)</li>
+      <li>✅ Verify all hardware has been received</li>
+      <li>✅ Send menu files (Excel/PDF — no Google Docs)</li>
+      <li>✅ Confirm any third-party delivery credentials</li>
+      <li>✅ Send staff list for training</li>
+      <li>✅ Note any questions for our next session</li>
+    </ul>
+    <h2>⚠️ Package Reminder</h2>
+    ${postLiveNote}
+    <h2>🔗 Recording</h2>
+    ${recordingHtml}
+    <p style="margin-top:16px">Best,<br>${pm}<br>GSO | Square</p>
+  `;
+
+  // ===== GENERATE DSR CHATTER =====
+  document.getElementById('dsrContent').innerHTML = `
+    <p>Hi <b>${ae}</b> — ${sessionType} is complete for ${biz}.</p>
+    <div class="meta">
+      <div><b>Go-live:</b> ${goLive}</div>
+      <div><b>Package:</b> ${pkg} (${pkgInfo.price}, ${pkgInfo.points} pts)</div>
+      <div><b>Seller:</b> ${seller}</div>
+      <div><b>Business:</b> ${biz}</div>
+      <div><b>SLA:</b> ${pkgInfo.sla}</div>
+    </div>
+    <h2>Milestone Plan</h2>
+    <ul>
+      <li>${sessionType} completed on ${today}</li>
+      <li>Account & Settings Checklist sent to seller</li>
+      ${pkgInfo.tasks > 0 ? '<li>BPO task submission: pending menu/data files</li>' : ''}
+      <li>Training: ${pkgInfo.sessions}</li>
+      ${availability ? '<li>Seller availability: ' + availability + '</li>' : ''}
+    </ul>
+    <h2>Training Schedule</h2>
+    <ul>
+      <li>✅ Completed: ${sessionType}</li>
+      ${pkgInfo.tasks > 0 ? '<li>🟢 Upcoming: BPO task (menu build / migration)</li>' : ''}
+      <li>🟢 Upcoming: Training session(s) — scheduling in progress</li>
+      ${pkgInfo.postLive ? '<li>🟡 Future: 1-week post-live QA</li>' : '<li>🟡 Note: No post-live QA with ' + pkg + '</li>'}
+    </ul>
+    <h2>Risks / Open Items</h2>
+    ${hasTranscript && transcriptNotes ? transcriptNotes.risks : `<ul>
+      <li><b>Risk:</b> Go-live date ${goLive === 'TBD' ? 'not yet confirmed' : goLive}</li>
+      <li><b>Risk:</b> Hardware receipt not yet verified</li>
+      <li><b>Risk:</b> Menu files pending from seller</li>
+      ${!pkgInfo.postLive ? '<li><b>Risk:</b> ' + pkg + ' = limited sessions, no post-live support</li>' : ''}
+    </ul>`}
+    ${notes ? `<h2>PM Notes</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+    <h2>Recording</h2>
+    ${recordingHtml}
+    <h2>PM Next Steps</h2>
+    <ul>
+      <li>Send post-${sessionType.toLowerCase()} email + Account & Settings Checklist</li>
+      ${pkgInfo.tasks > 0 ? '<li>Submit BPO DSA (attach files, set difficulty, due 3-4 days)</li>' : ''}
+      <li>Submit 3P Vendor DSA if applicable</li>
+      <li>Complete Consultation DSA (30 min)</li>
+      <li>DSR: Status → <b>Consultation Complete</b></li>
+      <li>DSR: Go-Live → <b>${goLive}</b></li>
+      <li>DSR: Next Steps → "Submit BPO + schedule training"</li>
+    </ul>
+  `;
+
+  // ===== GENERATE BPO NOTES =====
+  if(pkgInfo.tasks > 0){
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 4);
+    // Skip weekends
+    if(dueDate.getDay() === 0) dueDate.setDate(dueDate.getDate() + 1);
+    if(dueDate.getDay() === 6) dueDate.setDate(dueDate.getDate() + 2);
+    const dueDateStr = dueDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+    document.getElementById('bpoContent').innerHTML = `
+      <div class="meta">
+        <div><b>Business:</b> ${biz} | <b>PM:</b> ${pm}</div>
+        <div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> [SET BASED ON COMPLEXITY]</div>
+        <div><b>Source:</b> [ATTACH FILES — BPO can't access Google Docs!] | <b>Due:</b> ${dueDateStr}</div>
+        <div><b>Status:</b> Initiating</div>
+      </div>
+      <div class="warn">⚠️ Always attach menu files directly to the DSA — BPO cannot access Google Docs or shared drives!</div>
+      <div class="warn">⚠️ Set difficulty: Easy (1-2hr) → Medium (3hr) → Hard (3hr+) → Very Hard (5hr+)</div>
+      ${hasTranscript && transcriptNotes ? transcriptNotes.bpoDetails : `
+      <h2>Menu / Task Details</h2>
+      <p>[Add details from the ${sessionType.toLowerCase()} about menu structure, item count, modifier groups, special requirements, etc.]</p>
+      <h2>Build Rules</h2>
+      <ul>
+        <li>Sizes should be modifiers, not variations (unless specified)</li>
+        <li>Alphabetize items within categories</li>
+        <li>No gift cards in menu build</li>
+        <li>Base price = lowest modifier price for online ordering</li>
+      </ul>`}
+      ${notes ? `<h2>PM Notes for BPO</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+      <h2>Printer Routing</h2>
+      <p>[Add printer/KDS routing details if discussed]</p>
+      <h2>Checklist</h2>
+      <ul>
+        <li>☐ Menu files attached to DSA</li>
+        <li>☐ Difficulty rating set</li>
+        <li>☐ Due date set (${dueDateStr})</li>
+        <li>☐ Status = Initiating</li>
+        <li>☐ Activity notes complete</li>
+        <li>☐ Special instructions noted</li>
+      </ul>
+    `;
+  } else {
+    document.getElementById('bpoContent').innerHTML = `
+      <div class="empty-state" style="padding:40px">
+        <div class="icon">ℹ️</div>
+        <h3>No BPO Task Needed</h3>
+        <p>${pkg} packages typically don't require a BPO submission. If you need a menu build or migration, submit a separate Task Service DSA.</p>
+      </div>
+    `;
+  }
+
+  // ===== GENERATE ANALYSIS =====
+  document.getElementById('analysisContent').innerHTML = `
+    <h2>Overall Read</h2>
+    <p>${sessionType} completed for ${biz}. Package: ${pkg} (${pkgInfo.price}, ${pkgInfo.sla} SLA, ${pkgInfo.points} pts). ${hasTranscript ? 'Transcript analyzed.' : 'No transcript provided — analysis based on form inputs and PM notes.'}</p>
+    ${notes ? `<p><b>PM observations:</b> ${notes.split('\n')[0]}</p>` : ''}
+    <h2>Critical Path Dependencies</h2>
+    <ol>
+      ${pkgInfo.tasks > 0 ? '<li>BPO task turnaround (3-4 business days)</li>' : ''}
+      <li>Seller hardware receipt confirmation</li>
+      <li>Menu/data file delivery from seller</li>
+      <li>Seller availability for training</li>
+      <li>Go-live date ${goLive === 'TBD' ? '(not yet set — needs alignment)' : '(' + goLive + ')'}</li>
+      ${!pkgInfo.postLive ? '<li>' + pkg + ' constraint: limited sessions, no post-live support</li>' : ''}
+    </ol>
+    ${hasTranscript && transcriptNotes ? transcriptNotes.analysisDetails : `
+    <h2>KO Checklist Gaps</h2>
+    <table>
+      <tr><th>Topic</th><th>Status</th></tr>
+      <tr><td>Hardware received</td><td>⚠️ Verify</td></tr>
+      <tr><td>Network/WiFi</td><td>⚠️ Verify</td></tr>
+      <tr><td>Menu files</td><td>⚠️ Pending</td></tr>
+      <tr><td>Go-live date</td><td>${goLive === 'TBD' ? '⚠️ TBD' : '✅ ' + goLive}</td></tr>
+      <tr><td>Tax rules</td><td>⚠️ Seller responsibility — confirm awareness</td></tr>
+      <tr><td>Printer compatibility</td><td>⚠️ Verify</td></tr>
+    </table>`}
+    ${notes ? `<h2>PM Notes & Observations</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+    <h2>DSA Submission Plan</h2>
+    <table>
+      <tr><th>DSA Type</th><th>Action</th><th>Duration</th></tr>
+      <tr><td>GSO Activity</td><td>Consultation DSA</td><td>30 min</td></tr>
+      ${pkgInfo.tasks > 0 ? '<tr><td>BPO Activity</td><td>Menu build / migration</td><td>Per difficulty</td></tr>' : ''}
+      <tr><td>3P Vendor</td><td>Training session(s)</td><td>${pkgInfo.sessions}</td></tr>
+    </table>
+    <h2>DSR Update Checklist</h2>
+    <ul>
+      <li>☐ Status → Consultation Complete</li>
+      <li>☐ Go-Live Date → ${goLive}</li>
+      <li>☐ Next Steps → "Submit BPO + schedule training"</li>
+      <li>☐ Next Step Date → tomorrow</li>
+      <li>☐ Regulator link active</li>
+      <li>☐ Post-call email sent</li>
+      ${pkgInfo.tasks > 0 ? '<li>☐ BPO DSA submitted</li>' : ''}
+      <li>☐ 3P Vendor DSA submitted (if applicable)</li>
+    </ul>
+    <h2>Momentum Assessment</h2>
+    <table>
+      <tr><th>Factor</th><th>Status</th></tr>
+      <tr><td>Seller Engagement</td><td>${hasTranscript ? '✅ Assessed from transcript' : '⚠️ Not yet assessed'}</td></tr>
+      <tr><td>Timeline Clarity</td><td>${goLive === 'TBD' ? '⚠️ No go-live date' : '✅ ' + goLive}</td></tr>
+      <tr><td>Package Fit</td><td>ℹ️ ${pkg} — ${pkgInfo.sessions}</td></tr>
+      <tr><td>Data Readiness</td><td>⚠️ Pending menu/data files</td></tr>
+    </table>
+  `;
+
+  // Update status
+  document.getElementById('genStatus').textContent = '✅ All 4 deliverables generated! Switch to Dashboard →';
+  document.getElementById('genStatus').className = 'gen-status success';
+
+  // Auto-save to localStorage
+  saveCurrentDeal();
+}
+
+// ===== TRANSCRIPT PARSING =====
+function parseTranscriptHighlights(transcript){
+  const lines = transcript.split('\n').filter(l=>l.trim());
+  const lower = transcript.toLowerCase();
+
+  // Detect topics mentioned
+  const topics = [];
+  const topicMap = {
+    'hardware': ['hardware','register','kds','printer','tablet','terminal','receipt','cash drawer','scanner'],
+    'menu': ['menu','item','modifier','category','clover','toast','aloha','revel','export','import'],
+    'online': ['doordash','uber eats','grubhub','delivery','online ordering','square online','website'],
+    'team': ['employee','staff','team','clock in','clock out','timecard','permission','role'],
+    'network': ['wifi','internet','ethernet','network','router','modem'],
+    'loyalty': ['loyalty','gift card','customer','marketing','rewards'],
+    'payment': ['payment','tip','cash','card','apple pay','google pay'],
+    'go-live': ['go live','go-live','launch','open','grand opening','timeline']
+  };
+
+  for(const [topic, keywords] of Object.entries(topicMap)){
+    if(keywords.some(k => lower.includes(k))) topics.push(topic);
+  }
+
+  // Build email sections from detected topics
+  let emailSections = '<h3>Topics Covered</h3><ul>';
+  if(topics.includes('hardware')) emailSections += '<li><b>Hardware:</b> Discussed register, KDS, and printer setup</li>';
+  if(topics.includes('menu')) emailSections += '<li><b>Menu:</b> Reviewed menu structure and build requirements</li>';
+  if(topics.includes('online')) emailSections += '<li><b>Online & Delivery:</b> Discussed delivery channels and online ordering</li>';
+  if(topics.includes('team')) emailSections += '<li><b>Team:</b> Reviewed employee setup and permissions</li>';
+  if(topics.includes('network')) emailSections += '<li><b>Network:</b> Discussed internet and connectivity setup</li>';
+  if(topics.includes('loyalty')) emailSections += '<li><b>Loyalty/Marketing:</b> Discussed loyalty program and gift cards</li>';
+  if(topics.includes('payment')) emailSections += '<li><b>Payments:</b> Reviewed payment methods and tipping</li>';
+  if(topics.includes('go-live')) emailSections += '<li><b>Go-Live:</b> Discussed timeline and launch planning</li>';
+  if(topics.length === 0) emailSections += '<li>General business overview and implementation planning</li>';
+  emailSections += '</ul>';
+
+  // Build risks
+  let risks = '<ul>';
+  if(!topics.includes('network')) risks += '<li><b>Risk:</b> Network/WiFi not discussed — follow up</li>';
+  if(!topics.includes('hardware')) risks += '<li><b>Risk:</b> Hardware not confirmed — verify receipt</li>';
+  if(!topics.includes('go-live')) risks += '<li><b>Risk:</b> No firm go-live date discussed</li>';
+  if(topics.includes('menu')) risks += '<li><b>Note:</b> Menu discussed — ensure files are received for BPO</li>';
+  if(topics.includes('online')) risks += '<li><b>Note:</b> Online/delivery discussed — verify credentials</li>';
+  risks += '</ul>';
+
+  // Build BPO details
+  let bpoDetails = '';
+  if(topics.includes('menu')){
+    bpoDetails = `<h2>Menu Details (from transcript)</h2>
+    <p>Menu was discussed during the call. Key details to capture:</p>
+    <ul>
+      <li>Review transcript for item count, categories, and modifier structure</li>
+      <li>Check for multiple menus (POS vs delivery)</li>
+      <li>Note any pricing conversions needed</li>
+      <li>Identify source system (Clover, Toast, etc.)</li>
+    </ul>`;
+  }
+
+  // Build analysis details
+  let analysisDetails = `<h2>Transcript Coverage Analysis</h2>
+  <table>
+    <tr><th>Topic</th><th>Status</th></tr>
+    <tr><td>Hardware</td><td>${topics.includes('hardware') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Network/WiFi</td><td>${topics.includes('network') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Menu</td><td>${topics.includes('menu') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Online/Delivery</td><td>${topics.includes('online') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Team/Employees</td><td>${topics.includes('team') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Go-Live Date</td><td>${topics.includes('go-live') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
+    <tr><td>Loyalty/Gift Cards</td><td>${topics.includes('loyalty') ? '✅ Discussed' : 'ℹ️ Not mentioned'}</td></tr>
+    <tr><td>Payments</td><td>${topics.includes('payment') ? '✅ Discussed' : 'ℹ️ Not mentioned'}</td></tr>
+  </table>`;
+
+  return {
+    summary: `Topics detected: ${topics.join(', ')}. Transcript: ${lines.length} lines.`,
+    emailSections,
+    risks,
+    bpoDetails,
+    analysisDetails
+  };
+}
+
+// ===== SAVE/LOAD DEALS =====
+function saveCurrentDeal(){
+  const deal = {
+    business: document.getElementById('genBusiness').value,
+    seller: document.getElementById('genSeller').value,
+    sellerEmail: document.getElementById('genSellerEmail').value,
+    ae: document.getElementById('genAE').value,
+    pm: document.getElementById('genPM').value,
+    package: document.getElementById('genPackage').value,
+    dsrLink: document.getElementById('genDSR').value,
+    recording: document.getElementById('genRecording').value,
+    notes: document.getElementById('genNotes').value,
+    sessionType: document.getElementById('genSessionType').value,
+    goLive: document.getElementById('genGoLive').value,
+    availability: document.getElementById('genAvailability').value,
+    timestamp: Date.now()
+  };
+  localStorage.setItem('gso-current-deal', JSON.stringify(deal));
+}
+
+function saveDeal(){
+  const biz = document.getElementById('genBusiness').value.trim();
+  if(!biz){alert('Enter a business name first');return}
+
+  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
+  deals[biz] = {
+    business: document.getElementById('genBusiness').value,
+    seller: document.getElementById('genSeller').value,
+    sellerEmail: document.getElementById('genSellerEmail').value,
+    ae: document.getElementById('genAE').value,
+    pm: document.getElementById('genPM').value,
+    package: document.getElementById('genPackage').value,
+    dsrLink: document.getElementById('genDSR').value,
+    recording: document.getElementById('genRecording').value,
+    notes: document.getElementById('genNotes').value,
+    sessionType: document.getElementById('genSessionType').value,
+    goLive: document.getElementById('genGoLive').value,
+    availability: document.getElementById('genAvailability').value,
+    timestamp: Date.now()
+  };
+  localStorage.setItem('gso-saved-deals', JSON.stringify(deals));
+  renderSavedDeals();
+
+  const s = document.getElementById('toast');
+  s.textContent = '💾 Deal saved: ' + biz;
+  s.classList.add('show');
+  setTimeout(()=>{s.classList.remove('show');s.textContent='✅ Copied to clipboard!'},2000);
+}
+
+function loadDeal(name){
+  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
+  const d = deals[name];
+  if(!d) return;
+
+  document.getElementById('genBusiness').value = d.business || '';
+  document.getElementById('genSeller').value = d.seller || '';
+  document.getElementById('genSellerEmail').value = d.sellerEmail || '';
+  document.getElementById('genAE').value = d.ae || '';
+  document.getElementById('genPM').value = d.pm || '';
+  document.getElementById('genPackage').value = d.package || '';
+  document.getElementById('genDSR').value = d.dsrLink || '';
+  document.getElementById('genRecording').value = d.recording || '';
+  document.getElementById('genNotes').value = d.notes || '';
+  document.getElementById('genSessionType').value = d.sessionType || 'Kickoff';
+  document.getElementById('genGoLive').value = d.goLive || '';
+  document.getElementById('genAvailability').value = d.availability || '';
+
+  renderSavedDeals(name);
+}
+
+function deleteDeal(name, e){
+  e.stopPropagation();
+  if(!confirm('Delete saved deal: ' + name + '?')) return;
+  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
+  delete deals[name];
+  localStorage.setItem('gso-saved-deals', JSON.stringify(deals));
+  renderSavedDeals();
+}
+
+function renderSavedDeals(activeName){
+  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
+  const bar = document.getElementById('savedDealsBar');
+  const names = Object.keys(deals);
+  if(names.length === 0){bar.style.display='none';return}
+  bar.style.display = 'flex';
+  bar.innerHTML = '<span style="font-size:11px;color:#64748b;align-self:center;margin-right:4px">💾 Saved:</span>' +
+    names.map(n => `<div class="saved-deal ${n===activeName?'active-deal':''}" onclick="loadDeal('${n.replace(/'/g,"\\'")}')">
+      ${n} <span class="del" onclick="deleteDeal('${n.replace(/'/g,"\\'")}',event)">×</span>
+    </div>`).join('');
+}
+
+function clearForm(){
+  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability'].forEach(id=>{
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('genPackage').value = '';
+  document.getElementById('genSessionType').value = 'Kickoff';
+  document.getElementById('fileInfo').style.display = 'none';
+  document.getElementById('genStatus').textContent = '';
+  renderSavedDeals();
+}
+
+// ===== INIT =====
+// Load last deal if exists
+(function(){
+  const last = localStorage.getItem('gso-current-deal');
+  if(last){
+    try{
+      const d = JSON.parse(last);
+      if(d.business) document.getElementById('genBusiness').value = d.business;
+      if(d.seller) document.getElementById('genSeller').value = d.seller;
+      if(d.sellerEmail) document.getElementById('genSellerEmail').value = d.sellerEmail;
+      if(d.ae) document.getElementById('genAE').value = d.ae;
+      if(d.pm) document.getElementById('genPM').value = d.pm;
+      if(d.package) document.getElementById('genPackage').value = d.package;
+      if(d.dsrLink) document.getElementById('genDSR').value = d.dsrLink;
+      if(d.recording) document.getElementById('genRecording').value = d.recording;
+      if(d.notes) document.getElementById('genNotes').value = d.notes;
+      if(d.sessionType) document.getElementById('genSessionType').value = d.sessionType;
+      if(d.goLive) document.getElementById('genGoLive').value = d.goLive;
+      if(d.availability) document.getElementById('genAvailability').value = d.availability;
+    }catch(e){}
+  }
+  renderSavedDeals();
+})();
+
+// ===== QUIZ =====
 const quizData=[
 ["First thing after a KO call?","Wait for Revenue.io transcript + recording"],
 ["What to CC the AE on?","Every post-call email"],
