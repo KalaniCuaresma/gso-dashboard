@@ -206,6 +206,14 @@ h2{font-size:18px;margin-bottom:10px}
 .agent-badge{display:inline-flex;align-items:center;gap:6px;background:#006AFF22;border:1px solid #006AFF44;border-radius:8px;padding:4px 12px;font-size:11px;color:#60a5fa;margin-bottom:12px}
 .agent-badge .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* Menu Item Builder */
+.menu-row{display:grid;grid-template-columns:2fr 1.5fr 1fr .5fr;gap:6px;margin-bottom:6px;align-items:center}
+.menu-row input{padding:7px 10px;border-radius:6px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:12px;font-family:inherit}
+.menu-row input:focus{outline:none;border-color:#006AFF}
+.menu-row .menu-del{width:28px;height:28px;border-radius:6px;border:1px solid #2d2d5e;background:transparent;color:#64748b;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .2s}
+.menu-row .menu-del:hover{border-color:#ef4444;color:#ef4444;background:#ef444411}
+.menu-summary{background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:#94a3b8;display:none}
+.menu-summary.visible{display:block}
 /* BPO Workflow */
 .bpo-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
 .bpo-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:#2d2d5e;color:#94a3b8;border:none;transition:all .2s}
@@ -381,7 +389,122 @@ Examples:
 </div>
 </div>
 
-<!-- Section 5: Key Details -->
+<!-- Section 5: Menu & Items -->
+<div class="gen-section">
+<h2>🍽️ Seller Menu & Items</h2>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:14px">Upload the seller's menu export or paste item details. This feeds directly into BPO DSA notes.</p>
+
+<div class="form-grid">
+<div class="form-group"><label>Source POS System</label>
+<select id="genSourcePOS">
+<option value="">Select source...</option>
+<option value="Clover">Clover</option>
+<option value="Toast">Toast</option>
+<option value="Aloha">Aloha</option>
+<option value="Revel">Revel</option>
+<option value="Lightspeed">Lightspeed</option>
+<option value="Shopify">Shopify POS</option>
+<option value="Micros">Micros / Oracle</option>
+<option value="NCR">NCR / Aloha</option>
+<option value="Paper">Paper menu / No POS</option>
+<option value="Other">Other</option>
+</select></div>
+<div class="form-group"><label>Estimated Item Count</label><input type="text" id="genItemCount" placeholder="e.g. ~50 items, 8 categories"></div>
+<div class="form-group"><label>Menu Type</label>
+<select id="genMenuType">
+<option value="">Select type...</option>
+<option value="Single">Single menu (POS only)</option>
+<option value="POS + Online">POS + Square Online</option>
+<option value="POS + Delivery">POS + 3rd Party Delivery</option>
+<option value="Dual">Dual menus (POS + Delivery, separate)</option>
+<option value="Multi-location">Multi-location (different menus)</option>
+</select></div>
+<div class="form-group"><label>BPO Activity Type</label>
+<select id="genBPOActivity">
+<option value="">Select activity...</option>
+<option value="Menu Build">Menu Build</option>
+<option value="Menu Build + Online Ordering">Menu Build + Online Ordering</option>
+<option value="Item Import">Item Import</option>
+<option value="Item + Image Import">Item + Image Import</option>
+<option value="Item Import + SO">Item Import + Square Online</option>
+<option value="Customer Migration">Customer Migration</option>
+<option value="Gift Card Migration">Gift Card Migration</option>
+<option value="Loyalty Migration">Loyalty Migration</option>
+<option value="MILO">MILO</option>
+</select></div>
+</div>
+
+<!-- Menu File Upload -->
+<div style="margin-top:14px">
+<label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#94a3b8;letter-spacing:.5px;display:block;margin-bottom:6px">📂 Menu Files</label>
+<div class="file-zone" id="menuDropZone" onclick="document.getElementById('menuFileInput').click()" style="padding:24px 16px">
+<div class="fz-icon">📊</div>
+<p>Drop menu exports here — Excel, PDF, images, CSV</p>
+<div class="fz-hint">Clover exports, Toast exports, photos of paper menus, spreadsheets</div>
+</div>
+<input type="file" id="menuFileInput" multiple accept=".xlsx,.xls,.csv,.pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,.txt" style="display:none" onchange="handleMenuFiles(this.files)">
+<div class="file-list" id="menuFileList"></div>
+</div>
+
+<!-- Paste Menu Text -->
+<div class="form-group full" style="margin-top:14px">
+<label>📝 Paste Menu / Item List</label>
+<textarea id="genMenuText" style="min-height:160px" placeholder="Paste the seller's menu items here. Any format works:
+
+APPETIZERS
+- Spring Rolls (4pc) .............. $8.99
+- Chicken Wings (6pc) ............ $12.99
+  → Flavors: Original, Soy Garlic, Spicy
+  → Sizes: Half ($12.99), Full ($22.99)
+
+ENTREES
+- Bibimbap ........................ $14.99
+  → Options: Beef, Chicken, Tofu
+- Bulgogi Plate .................. $16.99
+
+DRINKS
+- Soda ........................... $2.99
+- Iced Tea ....................... $3.49
+
+Or paste a raw Clover/Toast export, CSV data, or any structured text."></textarea>
+<div class="hint">Paste categories, items, prices, modifiers, sizes — any format. The more detail, the better the BPO notes.</div>
+</div>
+
+<!-- Menu Complexity Notes -->
+<div class="form-group full" style="margin-top:10px">
+<label>⚠️ Menu Complexity Notes</label>
+<textarea id="genMenuNotes" style="min-height:80px" placeholder="Note any special menu rules, complexity, or gotchas for BPO...
+
+Examples:
+- Two separate menus — Period(.)=POS, Underscore(_)=Delivery — do NOT merge
+- Base price = lowest modifier (half size) for online ordering
+- Sizes are modifiers, not variations
+- 'Half and Half' item has unique modifier structure
+- Combo meals have nested modifiers (side + sauce)
+- Some items POS-only, some delivery-only
+- Seller wants specific category ordering"></textarea>
+</div>
+
+<!-- Quick Add Items (structured) -->
+<div style="margin-top:14px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<label style="font-size:11px;font-weight:600;text-transform:uppercase;color:#94a3b8;letter-spacing:.5px">📋 Quick Item Builder (optional)</label>
+<button class="btn btn-blue btn-sm" onclick="addMenuItem()">+ Add Item</button>
+</div>
+<div id="menuItemBuilder">
+<div style="display:grid;grid-template-columns:2fr 1.5fr 1fr .5fr;gap:6px;margin-bottom:6px">
+<div style="font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase">Item Name</div>
+<div style="font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase">Category</div>
+<div style="font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase">Price</div>
+<div></div>
+</div>
+<div id="menuItemRows"></div>
+</div>
+<div class="hint" style="margin-top:4px">Optional — use this to manually list key items if you don't have a file. These will be included in BPO notes.</div>
+</div>
+</div>
+
+<!-- Section 6: Key Details -->
 <div class="gen-section">
 <h2>📅 Session & Key Details</h2>
 <div class="form-grid">
@@ -988,6 +1111,107 @@ function handleFile(file){
 }
 function extractDocxText(data){try{const d=new TextDecoder('utf-8');const s=d.decode(data);const ds=s.indexOf('<w:document');if(ds===-1)return null;const de=s.indexOf('</w:document>',ds);const dx=s.substring(ds,de+14);const t=[];const r=/<w:t[^>]*>([^<]*)<\/w:t>/g;let m;while((m=r.exec(dx))!==null)t.push(m[1]);return t.join(' ').replace(/\s+/g,' ').trim()}catch(e){return null}}
 
+// ===== MENU FILE UPLOAD =====
+let menuFiles = [];
+const menuDZ = document.getElementById('menuDropZone');
+menuDZ.addEventListener('dragover',e=>{e.preventDefault();menuDZ.classList.add('dragover')});
+menuDZ.addEventListener('dragleave',()=>menuDZ.classList.remove('dragover'));
+menuDZ.addEventListener('drop',e=>{e.preventDefault();menuDZ.classList.remove('dragover');handleMenuFiles(e.dataTransfer.files)});
+
+function handleMenuFiles(fileList){
+  for(const file of fileList){
+    const ext = file.name.split('.').pop().toLowerCase();
+    const reader = new FileReader();
+    reader.onload = function(e){
+      menuFiles.push({name:file.name, size:file.size, ext:ext, data:e.target.result, addedAt:new Date().toLocaleString()});
+      renderMenuFiles();
+      // If it's a text/csv file, try to extract and show preview
+      if(['txt','csv','md'].includes(ext)){
+        const textReader = new FileReader();
+        textReader.onload = ev => {
+          const current = document.getElementById('genMenuText').value;
+          if(!current.trim()){
+            document.getElementById('genMenuText').value = ev.target.result;
+          }
+        };
+        textReader.readAsText(file);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+  // Also stage these in outbound BPO files
+  for(const file of fileList){
+    const reader = new FileReader();
+    reader.onload = function(e){
+      outboundFiles.push({name:file.name, size:file.size, type:file.type, ext:file.name.split('.').pop().toLowerCase(), data:e.target.result, addedAt:new Date().toLocaleString(), tag:'menu'});
+      saveOutboundFiles();
+      renderOutboundFiles();
+    };
+    reader.readAsDataURL(file);
+  }
+  showToast('📊 Menu file(s) added + auto-staged for BPO');
+}
+
+function renderMenuFiles(){
+  const list = document.getElementById('menuFileList');
+  if(menuFiles.length===0){list.innerHTML='';return}
+  list.innerHTML = menuFiles.map((f,i)=>{
+    const icon = getFileIcon(f.ext);
+    const sizeStr = f.size>1024*1024?(f.size/1024/1024).toFixed(1)+' MB':(f.size/1024).toFixed(1)+' KB';
+    return `<div class="file-item">
+      <div class="fi-icon">${icon}</div>
+      <div class="fi-info"><div class="fi-name">${f.name}</div><div class="fi-meta">${sizeStr} • Added ${f.addedAt}</div></div>
+      <span class="fi-tag tag-menu">menu</span>
+      <div class="fi-actions"><button class="fi-btn" onclick="removeMenuFile(${i})" title="Remove">🗑</button></div>
+    </div>`;
+  }).join('');
+}
+
+function removeMenuFile(i){menuFiles.splice(i,1);renderMenuFiles()}
+
+// ===== MENU ITEM BUILDER =====
+let menuItems = JSON.parse(localStorage.getItem('gso-menu-items') || '[]');
+
+function addMenuItem(){
+  menuItems.push({name:'',category:'',price:''});
+  renderMenuItems();
+  // Focus the last name input
+  setTimeout(()=>{
+    const rows = document.querySelectorAll('#menuItemRows .menu-row');
+    if(rows.length) rows[rows.length-1].querySelector('input').focus();
+  },50);
+}
+
+function removeMenuItem(i){
+  menuItems.splice(i,1);
+  saveMenuItems();
+  renderMenuItems();
+}
+
+function updateMenuItem(i, field, value){
+  menuItems[i][field] = value;
+  saveMenuItems();
+}
+
+function saveMenuItems(){
+  localStorage.setItem('gso-menu-items', JSON.stringify(menuItems));
+}
+
+function renderMenuItems(){
+  const container = document.getElementById('menuItemRows');
+  container.innerHTML = menuItems.map((item,i)=>`
+    <div class="menu-row">
+      <input type="text" value="${item.name||''}" placeholder="e.g. Chicken Wings" oninput="updateMenuItem(${i},'name',this.value)">
+      <input type="text" value="${item.category||''}" placeholder="e.g. Appetizers" oninput="updateMenuItem(${i},'category',this.value)">
+      <input type="text" value="${item.price||''}" placeholder="$0.00" oninput="updateMenuItem(${i},'price',this.value)">
+      <button class="menu-del" onclick="removeMenuItem(${i})">✕</button>
+    </div>
+  `).join('');
+}
+
+// Init menu items
+renderMenuItems();
+
 // ===== PACKAGE INFO =====
 function getPackageInfo(pkg){
   const info={
@@ -1149,6 +1373,12 @@ function generateDeliverables(){
   const hardwareStatus = document.getElementById('genHardware').value;
   const menuStatus = document.getElementById('genMenuStatus').value;
   const special = document.getElementById('genSpecial').value.trim();
+  const sourcePOS = document.getElementById('genSourcePOS').value;
+  const itemCount = document.getElementById('genItemCount').value.trim();
+  const menuType = document.getElementById('genMenuType').value;
+  const bpoActivity = document.getElementById('genBPOActivity').value;
+  const menuText = document.getElementById('genMenuText').value.trim();
+  const menuNotes = document.getElementById('genMenuNotes').value.trim();
   const sessionDate = document.getElementById('genDate').value;
 
   // Validation
@@ -1311,26 +1541,98 @@ function generateDeliverables(){
     if(dueDate.getDay()===6)dueDate.setDate(dueDate.getDate()+2);
     const dueDateStr = dueDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
     const difficulty = analysis.complexity==='Complex'?'Hard — 3hr+, complex structure':analysis.complexity==='Moderate'?'Medium — 3hr, moderate complexity':'Easy — 1-2hr, straightforward';
+    const activityType = bpoActivity || 'Menu Build + Online Ordering';
+    const sourceDesc = sourcePOS ? sourcePOS + ' export' : '[ATTACH FILES]';
+    const hasMenuData = menuText.length > 10 || menuItems.length > 0;
+
+    // Parse menu text into categories
+    let menuBreakdownHtml = '';
+    if(menuText){
+      // Try to detect categories and items from pasted text
+      const menuLines = menuText.split('\n').filter(l=>l.trim());
+      const categories = {};
+      let currentCat = 'Uncategorized';
+      menuLines.forEach(line=>{
+        const trimmed = line.trim();
+        // Detect category headers (ALL CAPS, or lines without prices)
+        if(trimmed.match(/^[A-Z\s&/]+$/) && trimmed.length > 2 && !trimmed.match(/\$/)){
+          currentCat = trimmed;
+          if(!categories[currentCat]) categories[currentCat] = [];
+        } else if(trimmed.length > 1){
+          if(!categories[currentCat]) categories[currentCat] = [];
+          categories[currentCat].push(trimmed);
+        }
+      });
+      const catKeys = Object.keys(categories);
+      if(catKeys.length > 0 && !(catKeys.length===1 && catKeys[0]==='Uncategorized' && categories['Uncategorized'].length===0)){
+        menuBreakdownHtml = '<h2>Menu Breakdown (from paste)</h2><table><tr><th>Category</th><th>Items</th><th>Count</th></tr>';
+        let totalItems = 0;
+        catKeys.forEach(cat=>{
+          const items = categories[cat];
+          totalItems += items.length;
+          const preview = items.slice(0,3).map(i=>i.replace(/[\.\s]*\$[\d,.]+/,'').replace(/^[-•*→]\s*/,'').trim()).join(', ');
+          menuBreakdownHtml += `<tr><td><b>${cat}</b></td><td>${preview}${items.length>3?' + '+(items.length-3)+' more':''}</td><td>${items.length}</td></tr>`;
+        });
+        menuBreakdownHtml += `<tr><td colspan="2"><b>Total</b></td><td><b>${totalItems}</b></td></tr></table>`;
+      }
+    }
+
+    // Build items from Quick Item Builder
+    let itemBuilderHtml = '';
+    const validItems = menuItems.filter(i=>i.name.trim());
+    if(validItems.length > 0){
+      const itemCats = {};
+      validItems.forEach(item=>{
+        const cat = item.category.trim() || 'Uncategorized';
+        if(!itemCats[cat]) itemCats[cat] = [];
+        itemCats[cat].push(item);
+      });
+      itemBuilderHtml = '<h2>Items (from builder)</h2><table><tr><th>Category</th><th>Item</th><th>Price</th></tr>';
+      Object.entries(itemCats).forEach(([cat,items])=>{
+        items.forEach((item,i)=>{
+          itemBuilderHtml += `<tr><td>${i===0?'<b>'+cat+'</b>':''}</td><td>${item.name}</td><td>${item.price||'—'}</td></tr>`;
+        });
+      });
+      itemBuilderHtml += '</table>';
+    }
+
+    // Menu files list
+    let menuFilesHtml = '';
+    if(menuFiles.length > 0){
+      menuFilesHtml = '<h2>Attached Files</h2><ul>' + menuFiles.map(f=>`<li>📎 <b>${f.name}</b> (${(f.size/1024).toFixed(1)} KB) — added ${f.addedAt}</li>`).join('') + '</ul>';
+    }
 
     document.getElementById('bpoContent').innerHTML = `
       <div class="meta">
         <div><b>Business:</b> ${biz} | <b>PM:</b> ${pm}</div>
-        <div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> ${difficulty}</div>
-        <div><b>Source:</b> [ATTACH FILES — BPO can't access Google Docs!] | <b>Due:</b> ${dueDateStr}</div>
+        <div><b>Activity Type:</b> ${activityType} | <b>Difficulty:</b> ${difficulty}</div>
+        <div><b>Source:</b> ${sourceDesc}${sourcePOS?' ('+sourcePOS+')':''} — BPO can't access Google Docs! | <b>Due:</b> ${dueDateStr}</div>
         <div><b>Status:</b> Initiating</div>
         <div><b>Complexity Score:</b> ${analysis.complexityScore}/10 (${analysis.complexity})</div>
+        ${menuType?'<div><b>Menu Type:</b> '+menuType+'</div>':''}
+        ${itemCount?'<div><b>Est. Item Count:</b> '+itemCount+'</div>':''}
       </div>
       <div class="warn">⚠️ Always attach menu files directly to the DSA — BPO cannot access Google Docs or shared drives!</div>
       <div class="warn">⚠️ Verify difficulty rating before submitting. Current assessment: ${difficulty}</div>
       ${analysis.complexity==='Complex'?'<div class="risk-flag">🔴 Complex build detected — consider rushing if timeline is tight. Rush = checkbox + #gso-bpo Slack.</div>':''}
+      ${menuType==='Dual'?'<div class="risk-flag">🔴 DUAL MENUS — Build separately. Verify naming convention (e.g. Period=POS, Underscore=Delivery). Do NOT merge.</div>':''}
+
+      ${menuFilesHtml}
+
       <h2>Menu / Task Details</h2>
-      ${ws.menu.detected?'<p>Menu was discussed during the call. Keywords detected: '+ws.menu.signals.join(', ')+'</p>':'<p>Menu details not captured in transcript — add specifics manually.</p>'}
-      <ul>
-        <li>Review transcript for item count, categories, and modifier structure</li>
-        <li>Check for multiple menus (POS vs delivery)</li>
-        <li>Note any pricing conversions needed</li>
-        <li>Identify source system (Clover, Toast, etc.)</li>
-      </ul>
+      ${sourcePOS?'<p><b>Source POS:</b> '+sourcePOS+(sourcePOS==='Clover'?' — expect Clover export format (Excel)':sourcePOS==='Toast'?' — expect Toast export format':sourcePOS==='Paper'?' — manual entry required, no digital source':'')+'</p>':''}
+      ${menuType?'<p><b>Menu Configuration:</b> '+menuType+'</p>':''}
+      ${itemCount?'<p><b>Estimated Items:</b> '+itemCount+'</p>':''}
+      ${!hasMenuData&&ws.menu.detected?'<p>Menu was discussed during the call. Keywords detected: '+ws.menu.signals.join(', ')+'</p>':''}
+      ${!hasMenuData&&!ws.menu.detected?'<p style="color:#eab308">⚠️ No menu data provided — add menu details or attach files before submitting.</p>':''}
+
+      ${menuBreakdownHtml}
+      ${itemBuilderHtml}
+
+      ${menuText&&!menuBreakdownHtml?'<h2>Raw Menu Data</h2><pre style="background:#0f0f23;padding:12px;border-radius:8px;font-size:11px;max-height:300px;overflow-y:auto;white-space:pre-wrap;color:#94a3b8;border:1px solid #2d2d5e">'+menuText.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</pre>':''}
+
+      ${menuNotes?'<h2>⚠️ Menu Complexity Notes</h2><ul>'+menuNotes.split('\n').filter(l=>l.trim()).map(l=>'<li style="color:#eab308">'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')+'</ul>':''}
+
       <h2>Build Rules</h2>
       <ul>
         <li>Sizes = modifiers (not variations) unless specified</li>
@@ -1338,13 +1640,15 @@ function generateDeliverables(){
         <li>No gift cards in menu build</li>
         <li>Base price = lowest modifier price for online ordering</li>
         <li>No item-based printer routing — use categories</li>
+        ${menuType==='Dual'?'<li><b>DUAL MENU:</b> Build POS and Delivery menus separately — do NOT merge</li>':''}
+        ${menuType==='POS + Online'?'<li>Configure Square Online items with base pricing</li>':''}
       </ul>
       ${notes?'<h2>PM Notes for BPO</h2><ul>'+notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')+'</ul>':''}
       <h2>Printer Routing</h2>
       <p>[Add printer/KDS routing details if discussed]</p>
       <h2>Submission Checklist</h2>
       <ul>
-        <li>☐ Menu files attached to DSA (Excel/PDF only)</li>
+        <li>☐ Menu files attached to DSA (Excel/PDF only)${menuFiles.length>0?' — <b>'+menuFiles.length+' file(s) staged</b>':''}</li>
         <li>☐ Difficulty rating set: ${difficulty}</li>
         <li>☐ Due date set: ${dueDateStr}</li>
         <li>☐ Status = Initiating</li>
@@ -1451,7 +1755,9 @@ function generateDeliverables(){
 // ===== SAVE/LOAD DEALS =====
 function saveCurrentDeal(){
   const deal={};
-  ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial'].forEach(id=>{deal[id]=document.getElementById(id).value});
+  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
+  allFields.forEach(id=>{deal[id]=document.getElementById(id).value});
+  deal.menuItems = menuItems;
   deal.timestamp=Date.now();
   localStorage.setItem('gso-current-deal',JSON.stringify(deal));
 }
@@ -1460,7 +1766,9 @@ function saveDeal(){
   if(!biz){alert('Enter a business name first');return}
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
   const deal={};
-  ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial'].forEach(id=>{deal[id]=document.getElementById(id).value});
+  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
+  allFields.forEach(id=>{deal[id]=document.getElementById(id).value});
+  deal.menuItems = menuItems;
   deal.timestamp=Date.now();
   deals[biz]=deal;
   localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
@@ -1470,7 +1778,8 @@ function saveDeal(){
 function loadDeal(name){
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
   const d=deals[name];if(!d)return;
-  Object.keys(d).forEach(id=>{if(id!=='timestamp'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});
+  Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});
+  if(d.menuItems){menuItems=d.menuItems;renderMenuItems();saveMenuItems()}
   renderSavedDeals(name);
 }
 function deleteDeal(name,e){
@@ -1488,8 +1797,10 @@ function renderSavedDeals(activeName){
       ${n} <span class="del" onclick="deleteDeal('${n.replace(/'/g,"\\'")}',event)">×</span></div>`).join('');
 }
 function clearForm(){
-  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability','genAttendees','genDate','genSpecial'].forEach(id=>{document.getElementById(id).value=''});
-  ['genPackage','genSessionType','genHardware','genMenuStatus'].forEach(id=>{document.getElementById(id).selectedIndex=0});
+  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability','genAttendees','genDate','genSpecial','genItemCount','genMenuText','genMenuNotes'].forEach(id=>{document.getElementById(id).value=''});
+  ['genPackage','genSessionType','genHardware','genMenuStatus','genSourcePOS','genMenuType','genBPOActivity'].forEach(id=>{document.getElementById(id).selectedIndex=0});
+  menuItems=[];renderMenuItems();saveMenuItems();
+  menuFiles=[];renderMenuFiles();
   document.getElementById('fileInfo').style.display='none';
   document.getElementById('genStatus').textContent='';renderSavedDeals();
 }
@@ -1497,7 +1808,7 @@ function clearForm(){
 // ===== INIT =====
 (function(){
   const last=localStorage.getItem('gso-current-deal');
-  if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});}catch(e){}}
+  if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});if(d.menuItems){menuItems=d.menuItems;renderMenuItems()}}catch(e){}}
   renderSavedDeals();
 })();
 
