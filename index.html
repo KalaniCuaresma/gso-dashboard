@@ -34,9 +34,11 @@ h2{font-size:18px;margin-bottom:10px}
 .badge-green{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
 .badge-yellow{background:#eab30822;color:#eab308;border:1px solid #eab30844}
 .badge-gray{background:#64748b22;color:#64748b;border:1px solid #64748b44}
+.badge-red{background:#ef444422;color:#ef4444;border:1px solid #ef444444}
 .btn{display:inline-block;padding:7px 16px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all .2s}
 .btn-blue{background:#006AFF;color:#fff}.btn-blue:hover{background:#0055cc}
 .btn-green{background:#22c55e;color:#fff}.btn-green:hover{background:#16a34a}
+.btn-red{background:#ef4444;color:#fff}.btn-red:hover{background:#dc2626}
 .btn-sm{padding:5px 12px;font-size:11px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .checklist{background:#1a1a3e;border-radius:10px;padding:18px;border:1px solid #2d2d5e;margin-bottom:24px}
@@ -58,10 +60,20 @@ h2{font-size:18px;margin-bottom:10px}
 .deliv-content .meta{background:#0f0f23;padding:10px;border-radius:8px;margin-bottom:14px;font-size:12px}
 .deliv-content .meta div{margin-bottom:2px}
 .deliv-content .warn{background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:12px}
+.deliv-content .risk-flag{background:#ef444415;border-left:3px solid #ef4444;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:12px}
+.deliv-content .info-flag{background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:12px}
 .deliv-content .placeholder{background:#006AFF22;border:1px dashed #006AFF;padding:6px 12px;border-radius:6px;margin:6px 0;font-size:12px;color:#60a5fa}
 .deliv-content table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px}
 .deliv-content th{background:#2d2d5e;padding:6px 10px;text-align:left;font-weight:600}
 .deliv-content td{padding:6px 10px;border-bottom:1px solid #2d2d5e33}
+/* Health indicators */
+.health-bar{display:flex;gap:8px;margin:12px 0}
+.health-pill{padding:8px 18px;border-radius:8px;font-weight:700;font-size:14px;text-align:center;flex:1}
+.health-green{background:#22c55e22;color:#22c55e;border:2px solid #22c55e}
+.health-yellow{background:#eab30822;color:#eab308;border:2px solid #eab308}
+.health-red{background:#ef444422;color:#ef4444;border:2px solid #ef4444}
+.health-pill.active-health{transform:scale(1.05)}
+.health-pill:not(.active-health){opacity:.3;border-style:dashed}
 /* Generator Form */
 .gen-section{background:#1a1a3e;border-radius:10px;padding:24px;border:1px solid #2d2d5e;margin-bottom:20px}
 .gen-section h2{color:#22c55e;font-size:16px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #2d2d5e}
@@ -87,6 +99,38 @@ h2{font-size:18px;margin-bottom:10px}
 .transcript-drop .small{font-size:11px;color:#64748b;margin-top:4px}
 .file-info{background:#22c55e22;border:1px solid #22c55e44;border-radius:8px;padding:8px 14px;font-size:12px;color:#22c55e;display:none;margin-bottom:10px}
 .or-divider{text-align:center;color:#64748b;font-size:11px;margin:10px 0;text-transform:uppercase;letter-spacing:1px}
+/* Voice Recorder */
+.voice-section{margin-top:14px;padding:16px;background:#0f0f23;border-radius:10px;border:1px solid #2d2d5e}
+.voice-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.voice-header h3{font-size:14px;color:#94a3b8}
+.voice-controls{display:flex;align-items:center;gap:10px}
+.voice-btn{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;font-size:20px;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.voice-btn.record{background:#ef444433;color:#ef4444;border:2px solid #ef4444}
+.voice-btn.record:hover{background:#ef444455}
+.voice-btn.record.recording{background:#ef4444;color:#fff;animation:pulse 1.5s infinite}
+.voice-btn.stop{background:#64748b33;color:#64748b;border:2px solid #64748b}
+.voice-btn.stop:hover{background:#64748b55}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ef444466}50%{box-shadow:0 0 0 12px #ef444400}}
+.voice-timer{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#ef4444;min-width:60px;text-align:center;opacity:0;transition:opacity .3s}
+.voice-timer.active{opacity:1}
+.voice-wave{display:flex;align-items:center;gap:2px;height:30px;opacity:0;transition:opacity .3s}
+.voice-wave.active{opacity:1}
+.voice-wave .bar{width:3px;background:#ef4444;border-radius:2px;animation:wave 0.8s ease-in-out infinite}
+.voice-wave .bar:nth-child(1){animation-delay:0s;height:8px}
+.voice-wave .bar:nth-child(2){animation-delay:0.1s;height:16px}
+.voice-wave .bar:nth-child(3){animation-delay:0.2s;height:24px}
+.voice-wave .bar:nth-child(4){animation-delay:0.3s;height:16px}
+.voice-wave .bar:nth-child(5){animation-delay:0.4s;height:8px}
+.voice-wave .bar:nth-child(6){animation-delay:0.1s;height:20px}
+.voice-wave .bar:nth-child(7){animation-delay:0.25s;height:12px}
+@keyframes wave{0%,100%{transform:scaleY(0.4)}50%{transform:scaleY(1)}}
+.voice-transcript-live{margin-top:10px;padding:10px;background:#1a1a3e;border-radius:8px;border:1px solid #2d2d5e;font-size:12px;color:#94a3b8;min-height:40px;max-height:120px;overflow-y:auto;display:none}
+.voice-transcript-live.active{display:block}
+.voice-transcript-live .interim{color:#64748b;font-style:italic}
+.voice-transcript-live .final{color:#e2e8f0}
+.voice-status{font-size:11px;color:#64748b;margin-top:6px}
+.voice-append-btn{margin-top:8px;display:none}
+.voice-append-btn.active{display:inline-block}
 /* Empty state */
 .empty-state{text-align:center;padding:60px 20px;color:#64748b}
 .empty-state .icon{font-size:48px;margin-bottom:12px}
@@ -117,11 +161,10 @@ h2{font-size:18px;margin-bottom:10px}
 .side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .pkg-col{background:#0f0f23;border-radius:10px;padding:14px;border:1px solid #2d2d5e}
 .pkg-col h4{font-size:14px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2d2d5e}
-.pkg-col.plus h4{color:#22c55e}.pkg-col.prem h4{color:#006AFF}.pkg-col.onsite h4{color:#eab308}
+.pkg-col.plus h4{color:#22c55e}.pkg-col.prem h4{color:#006AFF}
 .pkg-item{padding:5px 0;font-size:12px;border-bottom:1px solid #2d2d5e22}
 .pkg-item .time{color:#64748b;font-size:11px}
 .pkg-item.critical{color:#ef4444;font-weight:600}
-.key-diff{background:#eab30815;border:1px solid #eab30844;border-radius:10px;padding:12px;margin-top:14px;font-size:12px}
 /* Critical Q cards */
 .crit-cards{display:grid;gap:8px}
 .crit-card{background:#0f0f23;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:12px 16px}
@@ -152,12 +195,6 @@ h2{font-size:18px;margin-bottom:10px}
 /* Toast */
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;padding:8px 20px;border-radius:8px;font-weight:600;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
 .toast.show{opacity:1}
-/* Sub-tabs */
-.sub-tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
-.sub-tab{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:#2d2d5e;color:#94a3b8;border:none;transition:all .2s}
-.sub-tab:hover{background:#3d3d7e;color:#e2e8f0}
-.sub-tab.active{background:#006AFF;color:#fff}
-.sub-content{display:none}.sub-content.active{display:block}
 /* Saved deals */
 .saved-deals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .saved-deal{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;background:#0f0f23;color:#94a3b8;border:1px solid #2d2d5e;transition:all .2s;display:flex;align-items:center;gap:6px}
@@ -165,11 +202,11 @@ h2{font-size:18px;margin-bottom:10px}
 .saved-deal .del{color:#ef4444;font-size:14px;margin-left:4px;opacity:0;transition:opacity .2s}
 .saved-deal:hover .del{opacity:1}
 .saved-deal.active-deal{border-color:#22c55e;color:#22c55e}
-/* Transcript parsed sections */
-.parsed-preview{background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:14px;margin-top:10px;max-height:200px;overflow-y:auto;font-size:12px;line-height:1.6;display:none}
-.parsed-preview .speaker{color:#006AFF;font-weight:600}
-.parsed-preview .timestamp{color:#64748b;font-size:10px}
-@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid,.form-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}}
+/* Agent badge */
+.agent-badge{display:inline-flex;align-items:center;gap:6px;background:#006AFF22;border:1px solid #006AFF44;border-radius:8px;padding:4px 12px;font-size:11px;color:#60a5fa;margin-bottom:12px}
+.agent-badge .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@media(max-width:768px){.stats,.cards,.side-by-side,.quiz-grid,.points-grid,.form-grid{grid-template-columns:1fr}.pipeline{flex-direction:column}.voice-controls{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -188,7 +225,8 @@ h2{font-size:18px;margin-bottom:10px}
 <!-- ===== GENERATOR ===== -->
 <div id="generator" class="tab active">
 <h1 style="margin-bottom:4px">🚀 Post-KO Deliverable Generator</h1>
-<p style="color:#94a3b8;font-size:13px;margin-bottom:20px">Enter your deal info and paste the Revenue.io transcript. All 4 deliverables will auto-populate.</p>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:8px">Enter your deal info, paste the transcript or record a voice note. All deliverables auto-populate.</p>
+<div class="agent-badge"><span class="dot"></span> GSO PM Assistant Agent — Active</div>
 
 <!-- Saved Deals -->
 <div id="savedDealsBar" class="saved-deals" style="display:none"></div>
@@ -214,6 +252,8 @@ h2{font-size:18px;margin-bottom:10px}
 <option value="Optimization">Optimization Call ($149)</option>
 <option value="Task Service">Task Service ($149)</option>
 </select></div>
+<div class="form-group"><label>Attendees</label><input type="text" id="genAttendees" placeholder="e.g. Seller, AE, Technician"></div>
+<div class="form-group"><label>Session Date</label><input type="date" id="genDate"></div>
 </div>
 </div>
 
@@ -246,11 +286,10 @@ Speaker 1 (00:00): Hi, welcome to the kickoff call...
 Speaker 2 (00:15): Thanks for having me..."></textarea>
 <div class="hint">The more detail you include, the better the deliverables. Include speaker names and timestamps if available.</div>
 </div>
-<div class="parsed-preview" id="parsedPreview"></div>
 </div>
 </div>
 
-<!-- Section 4: PM Notes -->
+<!-- Section 4: PM Notes & Brain Dump + Voice Recorder -->
 <div class="gen-section">
 <h2>🧠 Your Notes & Brain Dump</h2>
 <div class="form-group full">
@@ -260,14 +299,36 @@ Examples:
 - Seller seemed hesitant about go-live date
 - Menu is complex — dual POS/delivery
 - Hardware hasn't arrived yet
-- AE mentioned potential upsell to Premium"></textarea>
-<div class="hint">Optional but recommended. Include risks, observations, open questions, or anything the transcript might miss.</div>
+- AE mentioned potential upsell to Premium
+- Trust level feels high — seller is engaged
+- Possible MVP: launch POS first, add online later"></textarea>
+<div class="hint">Include risks, observations, open questions, cognitive signals, trust reads, or anything the transcript might miss. The agent uses this for strategic analysis.</div>
+</div>
+
+<!-- Voice Recorder -->
+<div class="voice-section">
+<div class="voice-header">
+<h3>🎤 Voice Note</h3>
+<div class="voice-controls">
+<div class="voice-wave" id="voiceWave">
+<div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+</div>
+<div class="voice-timer" id="voiceTimer">0:00</div>
+<button class="voice-btn record" id="voiceRecordBtn" onclick="toggleVoiceRecording()" title="Start recording">🎤</button>
+</div>
+</div>
+<div class="voice-transcript-live" id="voiceLiveTranscript">
+<span class="final" id="voiceFinalText"></span>
+<span class="interim" id="voiceInterimText"></span>
+</div>
+<div class="voice-status" id="voiceStatus">Click the microphone to start recording. Speech will be transcribed in real-time.</div>
+<button class="btn btn-blue btn-sm voice-append-btn" id="voiceAppendBtn" onclick="appendVoiceToNotes()">📝 Append to Notes</button>
 </div>
 </div>
 
-<!-- Section 5: Session Details -->
+<!-- Section 5: Key Details -->
 <div class="gen-section">
-<h2>📅 Session & Scheduling</h2>
+<h2>📅 Session & Key Details</h2>
 <div class="form-grid">
 <div class="form-group"><label>Session Type</label>
 <select id="genSessionType">
@@ -277,10 +338,29 @@ Examples:
 <option value="SO Training">Square Online Training</option>
 <option value="Menu Review">Menu Review</option>
 <option value="QA">QA / Follow-up</option>
+<option value="Check-in">Check-in</option>
+<option value="Go-Live QA">Go-Live QA</option>
 <option value="Optimization">Optimization Call</option>
 </select></div>
 <div class="form-group"><label>Go-Live Date</label><input type="text" id="genGoLive" placeholder="e.g. TBD, March 15, ASAP"></div>
+<div class="form-group"><label>Hardware Status</label>
+<select id="genHardware">
+<option value="">Unknown</option>
+<option value="received">All received</option>
+<option value="partial">Partially received</option>
+<option value="not-received">Not received</option>
+<option value="not-discussed">Not discussed</option>
+</select></div>
+<div class="form-group"><label>Menu Status</label>
+<select id="genMenuStatus">
+<option value="">Unknown</option>
+<option value="received">Files received</option>
+<option value="pending">Pending from seller</option>
+<option value="complex">Complex — needs discussion</option>
+<option value="not-discussed">Not discussed</option>
+</select></div>
 <div class="form-group full"><label>Training Availability (from seller)</label><input type="text" id="genAvailability" placeholder="e.g. Thu 11AM-3PM PT, Mon 9:30AM-12:30PM PT, Tue 11AM-2PM PT"></div>
+<div class="form-group full"><label>Special Instructions (optional)</label><input type="text" id="genSpecial" placeholder="e.g. Urgent — seller wants to go live this week. Tone: extra reassuring."></div>
 </div>
 </div>
 
@@ -289,6 +369,7 @@ Examples:
 <button class="btn btn-green" style="font-size:16px;padding:14px 36px" onclick="generateDeliverables()">⚡ Generate All Deliverables</button>
 <button class="btn btn-blue" onclick="saveDeal()">💾 Save Deal</button>
 <button class="btn" style="background:#2d2d5e;color:#94a3b8" onclick="clearForm()">🗑️ Clear Form</button>
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#1a1a3e;color:#60a5fa;border:1px solid #006AFF44">🤖 Open GPT Agent</a>
 <span class="gen-status" id="genStatus"></span>
 </div>
 </div>
@@ -348,7 +429,7 @@ Examples:
 
 <!-- ===== ANALYSIS ===== -->
 <div id="analysis" class="tab">
-<div class="deliv-header"><h1>🔍 Internal Analysis</h1><button class="btn btn-green" onclick="copyContent('analysisContent')">📋 Copy</button></div>
+<div class="deliv-header"><h1>🔍 Internal PM Analysis</h1><button class="btn btn-green" onclick="copyContent('analysisContent')">📋 Copy</button></div>
 <div id="analysisContent" class="deliv-content">
 <div class="empty-state"><div class="icon">🔍</div><h3>No Analysis Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
@@ -397,26 +478,8 @@ Examples:
 </table>
 <h3>Plus vs Premium Key Differences</h3>
 <div class="side-by-side">
-<div class="pkg-col plus"><h4>PLUS ($699)</h4>
-<div class="pkg-item">30min KO call</div>
-<div class="pkg-item">1×90min OR 2×45min training</div>
-<div class="pkg-item">3 task services</div>
-<div class="pkg-item red">❌ No Square Online</div>
-<div class="pkg-item red">❌ No post-live support</div>
-<div class="pkg-item red">❌ No follow-up after training</div>
-<div class="pkg-item">Single location only</div>
-<div class="pkg-item">5-day SLA</div>
-</div>
-<div class="pkg-col prem"><h4>PREMIUM ($1,499)</h4>
-<div class="pkg-item">30min KO call</div>
-<div class="pkg-item">Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)</div>
-<div class="pkg-item">6 task services</div>
-<div class="pkg-item green">✅ Square Online included</div>
-<div class="pkg-item green">✅ 1-week post-live QA</div>
-<div class="pkg-item green">✅ Multiple touchpoints</div>
-<div class="pkg-item">Up to 2 locations</div>
-<div class="pkg-item">10-day SLA</div>
-</div></div>
+<div class="pkg-col plus"><h4>PLUS ($699)</h4><div class="pkg-item">30min KO call</div><div class="pkg-item">1×90min OR 2×45min training</div><div class="pkg-item">3 task services</div><div class="pkg-item red">❌ No Square Online</div><div class="pkg-item red">❌ No post-live support</div><div class="pkg-item red">❌ No follow-up after training</div><div class="pkg-item">Single location only</div><div class="pkg-item">5-day SLA</div></div>
+<div class="pkg-col prem"><h4>PREMIUM ($1,499)</h4><div class="pkg-item">30min KO call</div><div class="pkg-item">Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)</div><div class="pkg-item">6 task services</div><div class="pkg-item green">✅ Square Online included</div><div class="pkg-item green">✅ 1-week post-live QA</div><div class="pkg-item green">✅ Multiple touchpoints</div><div class="pkg-item">Up to 2 locations</div><div class="pkg-item">10-day SLA</div></div></div>
 </div></div>
 
 <!-- 3: KO Questions -->
@@ -424,33 +487,8 @@ Examples:
 <div class="acc-header" onclick="toggleAcc(this)">3️⃣ KO Call Questions — Plus vs Premium <span class="arrow">▼</span></div>
 <div class="acc-body">
 <div class="side-by-side">
-<div class="pkg-col plus"><h4>PLUS (30 min)</h4>
-<div class="pkg-item">Business Overview <span class="time">(5 min)</span></div>
-<div class="pkg-item">Current Setup <span class="time">(5 min)</span></div>
-<div class="pkg-item critical">🚨 Hardware Check <span class="time">(5 min)</span></div>
-<div class="pkg-item critical">🚨 Network Check <span class="time">(3 min)</span></div>
-<div class="pkg-item">Menu/Inventory <span class="time">(5 min)</span></div>
-<div class="pkg-item">Go Live Planning <span class="time">(4 min)</span></div>
-<div class="pkg-item">Training Format <span class="time">(2 min)</span> — 2×45 or 1×90</div>
-<div class="pkg-item">Task Priorities <span class="time">(3 min)</span></div>
-<div class="pkg-item">Set Expectations <span class="time">(2 min)</span> — NO follow-up, NO SO</div>
-<div class="pkg-item">Schedule <span class="time">(1 min)</span></div>
-</div>
-<div class="pkg-col prem"><h4>PREMIUM (30 min)</h4>
-<div class="pkg-item">Business Overview <span class="time">(5 min)</span></div>
-<div class="pkg-item">Current Setup & Migration <span class="time">(5 min)</span></div>
-<div class="pkg-item critical">🚨 Hardware Deep Dive <span class="time">(5 min)</span></div>
-<div class="pkg-item critical">🚨 Network Infrastructure <span class="time">(4 min)</span></div>
-<div class="pkg-item">Menu Deep Dive <span class="time">(5 min)</span></div>
-<div class="pkg-item">Customer Data & Loyalty <span class="time">(3 min)</span></div>
-<div class="pkg-item">Square Online <span class="time">(3 min)</span></div>
-<div class="pkg-item">Team & Permissions <span class="time">(2 min)</span></div>
-<div class="pkg-item">Payment Setup <span class="time">(2 min)</span></div>
-<div class="pkg-item">Integrations <span class="time">(3 min)</span></div>
-<div class="pkg-item">Go Live Strategy <span class="time">(4 min)</span></div>
-<div class="pkg-item">Package Scope <span class="time">(3 min)</span></div>
-<div class="pkg-item">Schedule ALL sessions <span class="time">(2 min)</span></div>
-</div></div>
+<div class="pkg-col plus"><h4>PLUS (30 min)</h4><div class="pkg-item">Business Overview <span class="time">(5 min)</span></div><div class="pkg-item">Current Setup <span class="time">(5 min)</span></div><div class="pkg-item critical">🚨 Hardware Check <span class="time">(5 min)</span></div><div class="pkg-item critical">🚨 Network Check <span class="time">(3 min)</span></div><div class="pkg-item">Menu/Inventory <span class="time">(5 min)</span></div><div class="pkg-item">Go Live Planning <span class="time">(4 min)</span></div><div class="pkg-item">Training Format <span class="time">(2 min)</span> — 2×45 or 1×90</div><div class="pkg-item">Task Priorities <span class="time">(3 min)</span></div><div class="pkg-item">Set Expectations <span class="time">(2 min)</span> — NO follow-up, NO SO</div><div class="pkg-item">Schedule <span class="time">(1 min)</span></div></div>
+<div class="pkg-col prem"><h4>PREMIUM (30 min)</h4><div class="pkg-item">Business Overview <span class="time">(5 min)</span></div><div class="pkg-item">Current Setup & Migration <span class="time">(5 min)</span></div><div class="pkg-item critical">🚨 Hardware Deep Dive <span class="time">(5 min)</span></div><div class="pkg-item critical">🚨 Network Infrastructure <span class="time">(4 min)</span></div><div class="pkg-item">Menu Deep Dive <span class="time">(5 min)</span></div><div class="pkg-item">Customer Data & Loyalty <span class="time">(3 min)</span></div><div class="pkg-item">Square Online <span class="time">(3 min)</span></div><div class="pkg-item">Team & Permissions <span class="time">(2 min)</span></div><div class="pkg-item">Payment Setup <span class="time">(2 min)</span></div><div class="pkg-item">Integrations <span class="time">(3 min)</span></div><div class="pkg-item">Go Live Strategy <span class="time">(4 min)</span></div><div class="pkg-item">Package Scope <span class="time">(3 min)</span></div><div class="pkg-item">Schedule ALL sessions <span class="time">(2 min)</span></div></div></div>
 <h3>5 Most Critical Questions (Both)</h3>
 <div class="crit-cards">
 <div class="crit-card"><div class="q">"Have you received all your hardware?"</div><div class="a">Can't proceed without it — hard blocker</div></div>
@@ -464,156 +502,67 @@ Examples:
 <div class="accordion" data-search="dsr status pipeline progression draft submitted assigned consultation complete on hold lost">
 <div class="acc-header" onclick="toggleAcc(this)">4️⃣ DSR Status Definitions & Pipeline <span class="arrow">▼</span></div>
 <div class="acc-body">
-<div class="pipeline">
-<div class="pipe-step">Draft</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Submitted</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Assigned</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Outreach Complete</div><span class="pipe-arrow">→</span>
-<div class="pipe-step current">Consultation Complete</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Task in Progress</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Dashboard Training</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">App Training</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">SO Training</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">Trainings Complete</div><span class="pipe-arrow">→</span>
-<div class="pipe-step">1st/2nd QA</div><span class="pipe-arrow">→</span>
-<div class="pipe-step" style="background:#22c55e">Implementation Complete</div>
-</div>
+<div class="pipeline"><div class="pipe-step">Draft</div><span class="pipe-arrow">→</span><div class="pipe-step">Submitted</div><span class="pipe-arrow">→</span><div class="pipe-step">Assigned</div><span class="pipe-arrow">→</span><div class="pipe-step">Outreach Complete</div><span class="pipe-arrow">→</span><div class="pipe-step current">Consultation Complete</div><span class="pipe-arrow">→</span><div class="pipe-step">Task in Progress</div><span class="pipe-arrow">→</span><div class="pipe-step">Dashboard Training</div><span class="pipe-arrow">→</span><div class="pipe-step">App Training</div><span class="pipe-arrow">→</span><div class="pipe-step">SO Training</div><span class="pipe-arrow">→</span><div class="pipe-step">Trainings Complete</div><span class="pipe-arrow">→</span><div class="pipe-step">1st/2nd QA</div><span class="pipe-arrow">→</span><div class="pipe-step" style="background:#22c55e">Implementation Complete</div></div>
 <div class="pipe-hold">⏸️ <b>On Hold</b> — Use when next appointment is 5+ days out. Sub-statuses: Product Blocker, Seller Non-Responsive, Seller Pushed Go-Live, Site/Premise Work, Waiting on AE</div>
-<table style="margin-top:12px">
-<tr><th>Status</th><th>When to Use</th></tr>
-<tr><td>Draft</td><td>AE/AM still building DSR</td></tr>
-<tr><td>Submitted</td><td>In queue, awaiting assignment (24hr SLA)</td></tr>
-<tr><td>Assigned</td><td>Assigned to you — send intro within 24hrs</td></tr>
-<tr><td>Seller Outreach Complete</td><td>Intro email sent</td></tr>
-<tr><td>Consultation Complete</td><td>KO done, Go-Live date set, next steps aligned</td></tr>
-<tr><td>Task in Progress</td><td>BPO task submitted</td></tr>
-<tr><td>Training Complete - Post Impl</td><td>All training done, 1-week post-live period starts</td></tr>
-<tr><td>Implementation Complete</td><td>1-week post-live ends, final email sent</td></tr>
-<tr><td>Lost - No Contact</td><td>No response after 30 days On Hold (don't use if trained)</td></tr>
-<tr><td>Rejected</td><td>Incorrect escalation, not ready for 2-4 weeks</td></tr>
-</table></div></div>
+<table style="margin-top:12px"><tr><th>Status</th><th>When to Use</th></tr><tr><td>Draft</td><td>AE/AM still building DSR</td></tr><tr><td>Submitted</td><td>In queue, awaiting assignment (24hr SLA)</td></tr><tr><td>Assigned</td><td>Assigned to you — send intro within 24hrs</td></tr><tr><td>Seller Outreach Complete</td><td>Intro email sent</td></tr><tr><td>Consultation Complete</td><td>KO done, Go-Live date set, next steps aligned</td></tr><tr><td>Task in Progress</td><td>BPO task submitted</td></tr><tr><td>Training Complete - Post Impl</td><td>All training done, 1-week post-live period starts</td></tr><tr><td>Implementation Complete</td><td>1-week post-live ends, final email sent</td></tr><tr><td>Lost - No Contact</td><td>No response after 30 days On Hold (don't use if trained)</td></tr><tr><td>Rejected</td><td>Incorrect escalation, not ready for 2-4 weeks</td></tr></table>
+</div></div>
 
 <!-- 5: DSA & BPO -->
 <div class="accordion" data-search="dsa deal support activity bpo submission difficulty rush menu build textblaze snippets">
 <div class="acc-header" onclick="toggleAcc(this)">5️⃣ DSA Filing & BPO Submission Guide <span class="arrow">▼</span></div>
 <div class="acc-body">
-<h3>DSA Types</h3>
-<table><tr><th>Type</th><th>When</th></tr>
-<tr><td><b>GSO Activity</b></td><td>Every time you work on anything with a Seller (calls, emails, admin)</td></tr>
-<tr><td><b>BPO Activity</b></td><td>Menu builds, migrations, MILO — submitted to BPO team</td></tr>
-<tr><td><b>3rd Party Vendor Activity</b></td><td>Onsite visits, virtual training via 3P partners</td></tr></table>
-<h3>BPO DSA Fields</h3>
-<ul><li><b>Activity Notes:</b> Use TextBlaze snippets (/rstmenu, /itemimport, /gc, /milo)</li>
-<li><b>Difficulty:</b> Easy (1-2hr) → Medium (3hr, large but simple) → Hard (3hr+, complex) → Very Hard (5hr+, ambiguous)</li>
-<li><b>Status:</b> Always set to <b>Initiating</b></li>
-<li><b>Due date:</b> 3-4 business days</li>
-<li><b>Rush:</b> Check Rush checkbox + post in #gso-bpo Slack</li>
-<li><b>Files:</b> Attach via Related tab (BPO can't access Google Docs!)</li></ul>
-<h3>F&B Menu Activity Types</h3>
-<ul><li>Item Import / Item + Image Import / Item Import + SO / Menu Build / Menu Build + Online Ordering</li></ul>
-<h3>After BPO Completes</h3>
-<ul><li>BPO chatters you on the DSA</li><li>QA the build for accuracy before training</li><li>Notify AE/AM via Chatter</li><li>Update DSR status</li></ul>
+<h3>DSA Types</h3><table><tr><th>Type</th><th>When</th></tr><tr><td><b>GSO Activity</b></td><td>Every time you work on anything with a Seller (calls, emails, admin)</td></tr><tr><td><b>BPO Activity</b></td><td>Menu builds, migrations, MILO — submitted to BPO team</td></tr><tr><td><b>3rd Party Vendor Activity</b></td><td>Onsite visits, virtual training via 3P partners</td></tr></table>
+<h3>BPO DSA Fields</h3><ul><li><b>Activity Notes:</b> Use TextBlaze snippets (/rstmenu, /itemimport, /gc, /milo)</li><li><b>Difficulty:</b> Easy (1-2hr) → Medium (3hr, large but simple) → Hard (3hr+, complex) → Very Hard (5hr+, ambiguous)</li><li><b>Status:</b> Always set to <b>Initiating</b></li><li><b>Due date:</b> 3-4 business days</li><li><b>Rush:</b> Check Rush checkbox + post in #gso-bpo Slack</li><li><b>Files:</b> Attach via Related tab (BPO can't access Google Docs!)</li></ul>
+<h3>After BPO Completes</h3><ul><li>BPO chatters you on the DSA</li><li>QA the build for accuracy before training</li><li>Notify AE/AM via Chatter</li><li>Update DSR status</li></ul>
 </div></div>
 
 <!-- 6: Meeting Types -->
 <div class="accordion" data-search="meeting types duration buffer chilipiper scheduling calendar time blocking">
 <div class="acc-header" onclick="toggleAcc(this)">6️⃣ Meeting Types, Scheduling & Calendar <span class="arrow">▼</span></div>
 <div class="acc-body">
-<table><tr><th>Meeting</th><th>Duration</th><th>Buffer</th></tr>
-<tr><td>Kickoff Call</td><td>30 min</td><td>30 min</td></tr>
-<tr><td>Dashboard Training</td><td>90 min</td><td>30 min</td></tr>
-<tr><td>App/POS Training</td><td>60 min</td><td>30 min</td></tr>
-<tr><td>Menu Review</td><td>45 min</td><td>30 min</td></tr>
-<tr><td>Square Online Training</td><td>60 min</td><td>30 min</td></tr>
-<tr><td>Q&A / Final QA</td><td>60 min</td><td>30 min</td></tr>
-<tr><td>Optimization Call</td><td>60 min</td><td>30 min</td></tr>
-<tr><td>Payroll Training</td><td>60 min</td><td>30 min</td></tr></table>
-<h3>Calendar Guidelines</h3>
-<ul><li>Target: ~20 calls per week</li><li>Admin blocks labeled "Admin Work"</li><li>All DSRs updated by end of each day</li><li>Always have a next meeting booked with Seller</li><li>Book ALL sessions during KO via ChiliPiper (Premium)</li></ul>
-<h3>No-Show Protocol</h3>
-<ul><li>5 min late → call via Revenue.io</li><li>10 min late → call again + send email</li><li>15 min late → leave Google Meet, chatter AE/AM</li><li>KO calls: 5 min → call, 10 min → leave</li></ul>
-<h3>Seller Outreach (Unresponsive)</h3>
-<ul><li>3 attempts (every 3rd day)</li><li>4th email: notify cancellation</li><li>Chatter AE after each attempt</li></ul>
+<table><tr><th>Meeting</th><th>Duration</th><th>Buffer</th></tr><tr><td>Kickoff Call</td><td>30 min</td><td>30 min</td></tr><tr><td>Dashboard Training</td><td>90 min</td><td>30 min</td></tr><tr><td>App/POS Training</td><td>60 min</td><td>30 min</td></tr><tr><td>Menu Review</td><td>45 min</td><td>30 min</td></tr><tr><td>Square Online Training</td><td>60 min</td><td>30 min</td></tr><tr><td>Q&A / Final QA</td><td>60 min</td><td>30 min</td></tr><tr><td>Optimization Call</td><td>60 min</td><td>30 min</td></tr><tr><td>Payroll Training</td><td>60 min</td><td>30 min</td></tr></table>
+<h3>No-Show Protocol</h3><ul><li>5 min late → call via Revenue.io</li><li>10 min late → call again + send email</li><li>15 min late → leave Google Meet, chatter AE/AM</li></ul>
+<h3>Seller Outreach (Unresponsive)</h3><ul><li>3 attempts (every 3rd day)</li><li>4th email: notify cancellation</li><li>Chatter AE after each attempt</li></ul>
 </div></div>
 
 <!-- 7: Pipeline Management -->
 <div class="accordion" data-search="pipeline management best practices email chatter go live date next steps">
 <div class="acc-header" onclick="toggleAcc(this)">7️⃣ Pipeline Management Best Practices <span class="arrow">▼</span></div>
 <div class="acc-body">
-<h3>After EVERY Call</h3>
-<ul><li>Chatter AE/AM: summary, blockers, changes, requests</li><li>Update DSR status</li><li>Outline next steps + set deadlines</li><li>Mark DSA as complete</li><li>Send recap email within 24 hours</li><li>All updates same day as call</li></ul>
-<h3>DSR Fields to Always Maintain</h3>
-<ul><li><b>Desired Go-Live Date</b> — set during KO, update if it changes + Chatter note</li><li><b>Next Steps</b> — always clearly outlined</li><li><b>Next Step Date</b> — always set</li><li><b>Status</b> — always current</li></ul>
-<h3>Key Rules</h3>
-<ul><li>Respond to all Seller emails within 24 hours</li><li>Delegate ALL tasks to BPO unless complexity requires GSO</li><li>Book ALL onsite through 3P unless lead grants exception</li><li>Camera always on (rare exceptions)</li><li>Copy AE on all email communications</li><li>Add AE as Optional attendee on all Seller calls</li><li>GSO does NOT enter sales tax — Seller's responsibility</li></ul>
+<h3>After EVERY Call</h3><ul><li>Chatter AE/AM: summary, blockers, changes, requests</li><li>Update DSR status</li><li>Outline next steps + set deadlines</li><li>Mark DSA as complete</li><li>Send recap email within 24 hours</li><li>All updates same day as call</li></ul>
+<h3>Key Rules</h3><ul><li>Respond to all Seller emails within 24 hours</li><li>Delegate ALL tasks to BPO unless complexity requires GSO</li><li>Camera always on (rare exceptions)</li><li>Copy AE on all email communications</li><li>GSO does NOT enter sales tax — Seller's responsibility</li></ul>
 </div></div>
 
 <!-- 8: Metrics & Points -->
 <div class="accordion" data-search="metrics points performance dsr completed productivity quality csat">
 <div class="acc-header" onclick="toggleAcc(this)">8️⃣ GSO Metrics & Points System <span class="arrow">▼</span></div>
 <div class="acc-body">
-<h3>4 GSO Metrics</h3>
-<ol><li><b>Full-Service DSRs Completed</b></li><li><b>Points Worked</b> (package-weighted)</li><li><b>Median Days to Complete</b> (Premium/Onsite)</li><li><b>CSAT</b> (post-completion)</li></ol>
-<h3>Points by Package</h3>
-<div class="points-grid">
-<div class="points-card">Optimization Call <span class="pts">1</span></div>
-<div class="points-card">Task Only <span class="pts">1</span></div>
-<div class="points-card">Plus <span class="pts">2</span></div>
-<div class="points-card">In-Person Plus <span class="pts">2</span></div>
-<div class="points-card">Payroll <span class="pts">3</span></div>
-<div class="points-card">Appointments <span class="pts">4</span></div>
-<div class="points-card">Premium <span class="pts">4</span></div>
-<div class="points-card">Onsite <span class="pts">5</span></div>
-</div>
-<p style="margin-top:8px;font-size:12px;color:#94a3b8">+1 point per additional location after first 2 (max +10). Credit for in-flight work captured even if DSR completes next quarter.</p>
+<h3>4 GSO Metrics</h3><ol><li><b>Full-Service DSRs Completed</b></li><li><b>Points Worked</b> (package-weighted)</li><li><b>Median Days to Complete</b> (Premium/Onsite)</li><li><b>CSAT</b> (post-completion)</li></ol>
+<h3>Points by Package</h3><div class="points-grid"><div class="points-card">Optimization Call <span class="pts">1</span></div><div class="points-card">Task Only <span class="pts">1</span></div><div class="points-card">Plus <span class="pts">2</span></div><div class="points-card">In-Person Plus <span class="pts">2</span></div><div class="points-card">Payroll <span class="pts">3</span></div><div class="points-card">Appointments <span class="pts">4</span></div><div class="points-card">Premium <span class="pts">4</span></div><div class="points-card">Onsite <span class="pts">5</span></div></div>
 </div></div>
 
 <!-- 9: 3P Partners -->
 <div class="accordion" data-search="3p partners vendor onsite sora apos f3 solio ovation dispatch installation">
 <div class="acc-header" onclick="toggleAcc(this)">9️⃣ 3P Vendor Partners & Dispatch <span class="arrow">▼</span></div>
 <div class="acc-body">
-<table><tr><th>Country</th><th>Vendor</th><th>Strengths</th></tr>
-<tr><td>US</td><td>Sora Partners</td><td>Most experienced, SW US + NYC</td></tr>
-<tr><td>US</td><td>Solio Marlow</td><td>NW US + Dallas</td></tr>
-<tr><td>US</td><td>F3 Technologies</td><td>Midwest + Chicago</td></tr>
-<tr><td>US</td><td>APOS (Absolute POS)</td><td>SE US, traveling resources</td></tr>
-<tr><td>US</td><td>Ovation</td><td>Subcontractor network, site surveys</td></tr>
-<tr><td>AU</td><td>Tech Pantry</td><td>White glove, $1M+</td></tr>
-<tr><td>AU</td><td>OneWorld Rental AU</td><td>Sub $1M</td></tr>
-<tr><td>UK</td><td>OneWorld Rental UK</td><td>Low voltage needs</td></tr>
-<tr><td>UK</td><td>Eposability</td><td>White glove + managed services</td></tr>
-<tr><td>IE</td><td>Bright/Khiron</td><td>Complex network deployments</td></tr></table>
-<h3>Dispatch SLAs</h3>
-<ul><li>Vendor contact: 24 business hours</li><li>Visit scheduled: 3 business days</li><li>Visit completed: 7-10 business days</li><li>Post-visit docs: 24 hours</li></ul>
-<p style="font-size:12px;color:#94a3b8">Travel fee of $750 if >120 miles from nearest tech. Use 3P Regional Heat Map to check.</p>
+<table><tr><th>Country</th><th>Vendor</th><th>Strengths</th></tr><tr><td>US</td><td>Sora Partners</td><td>Most experienced, SW US + NYC</td></tr><tr><td>US</td><td>Solio Marlow</td><td>NW US + Dallas</td></tr><tr><td>US</td><td>F3 Technologies</td><td>Midwest + Chicago</td></tr><tr><td>US</td><td>APOS (Absolute POS)</td><td>SE US, traveling resources</td></tr><tr><td>US</td><td>Ovation</td><td>Subcontractor network, site surveys</td></tr><tr><td>AU</td><td>Tech Pantry</td><td>White glove, $1M+</td></tr><tr><td>AU</td><td>OneWorld Rental AU</td><td>Sub $1M</td></tr><tr><td>UK</td><td>OneWorld Rental UK</td><td>Low voltage needs</td></tr><tr><td>UK</td><td>Eposability</td><td>White glove + managed services</td></tr><tr><td>IE</td><td>Bright/Khiron</td><td>Complex network deployments</td></tr></table>
+<h3>Dispatch SLAs</h3><ul><li>Vendor contact: 24 business hours</li><li>Visit scheduled: 3 business days</li><li>Visit completed: 7-10 business days</li><li>Post-visit docs: 24 hours</li></ul>
 </div></div>
 
 <!-- 10: Billing -->
 <div class="accordion" data-search="billing regulator invoice cpq refund ach card">
 <div class="acc-header" onclick="toggleAcc(this)">🔟 Billing & Refunds <span class="arrow">▼</span></div>
 <div class="acc-body">
-<h3>Billing Methods</h3>
-<table><tr><th>Method</th><th>Who</th><th>When</th></tr>
-<tr><td><b>Regulator</b></td><td>BPO (Mon/Wed reports)</td><td>Standard packages</td></tr>
-<tr><td><b>Invoice</b></td><td>BPO or GSO</td><td>Manual payment needed</td></tr>
-<tr><td><b>CPQ</b></td><td>AE/AM</td><td>Strategic/Enterprise deals</td></tr>
-<tr><td><b>Sub2</b></td><td>SFF</td><td>Franchise billing</td></tr></table>
-<h3>Refunds</h3>
-<ul><li><b>ACH:</b> Full refund required (partial = refund full + rebill correct amount)</li><li><b>Card:</b> Via GSO AR account → Transactions → Refund</li><li>Always notify AE via Chatter after refund</li></ul>
+<h3>Billing Methods</h3><table><tr><th>Method</th><th>Who</th><th>When</th></tr><tr><td><b>Regulator</b></td><td>BPO (Mon/Wed reports)</td><td>Standard packages</td></tr><tr><td><b>Invoice</b></td><td>BPO or GSO</td><td>Manual payment needed</td></tr><tr><td><b>CPQ</b></td><td>AE/AM</td><td>Strategic/Enterprise deals</td></tr><tr><td><b>Sub2</b></td><td>SFF</td><td>Franchise billing</td></tr></table>
+<h3>Refunds</h3><ul><li><b>ACH:</b> Full refund required (partial = refund full + rebill correct amount)</li><li><b>Card:</b> Via GSO AR account → Transactions → Refund</li><li>Always notify AE via Chatter after refund</li></ul>
 </div></div>
 
 <!-- 11: PM Concepts -->
 <div class="accordion" data-search="project management raid critical path parkinson scoping milestones risk">
 <div class="acc-header" onclick="toggleAcc(this)">1️⃣1️⃣ Project Management Concepts <span class="arrow">▼</span></div>
 <div class="acc-body">
-<h3>Key Frameworks</h3>
-<ul><li><b>Critical Path:</b> The longest sequence of dependent tasks — any delay here delays the whole project</li>
-<li><b>RAID Log:</b> Risk, Assumption, Issue, Decision — track these for every implementation</li>
-<li><b>Parkinson's Law:</b> Work expands to fill the time available — set tight but realistic deadlines</li>
-<li><b>Theory of Constraints:</b> Identify the bottleneck and focus improvement there</li>
-<li><b>Reverse Salient:</b> The component that's falling behind relative to others</li></ul>
-<h3>How GSO Adds Value Without Selling</h3>
-<ul><li>Thoroughly prepare for calls — use Seller terminology</li><li>Camera always on</li><li>Ask questions to uncover needs</li><li>Research open questions — answer within 24 hours</li><li>Push back on conflicting expectations</li></ul>
+<h3>Key Frameworks</h3><ul><li><b>Critical Path:</b> The longest sequence of dependent tasks — any delay here delays the whole project</li><li><b>RAID Log:</b> Risk, Assumption, Issue, Decision — track these for every implementation</li><li><b>Parkinson's Law:</b> Work expands to fill the time available — set tight but realistic deadlines</li><li><b>Theory of Constraints:</b> Identify the bottleneck and focus improvement there</li><li><b>Reverse Salient:</b> The component that's falling behind relative to others</li></ul>
+<h3>Agent Philosophy (Embedded)</h3><ul><li><b>MVP-first:</b> Transact > perfect setup — get seller live, refine later</li><li><b>Flow efficiency:</b> Prioritize throughput over keeping everyone busy</li><li><b>Timeboxing:</b> Prevent drift with tight but realistic deadlines</li><li><b>Risk visibility:</b> RAID thinking on every implementation</li><li><b>Trust = system variable:</b> Missed expectations erode trust, which erodes velocity</li><li><b>Cognitive traps:</b> Watch for assumptions, false agreement, narrative bias</li></ul>
 </div></div>
 
 <!-- 12: Quiz -->
@@ -643,108 +592,316 @@ function showTab(id){
 // ===== COPY =====
 function copyContent(id){
   const t=document.getElementById(id).innerText;
-  navigator.clipboard.writeText(t).then(()=>{
-    const s=document.getElementById('toast');s.classList.add('show');
-    setTimeout(()=>s.classList.remove('show'),2000);
-  });
+  navigator.clipboard.writeText(t).then(()=>{const s=document.getElementById('toast');s.classList.add('show');setTimeout(()=>s.classList.remove('show'),2000)});
 }
 
 // ===== CHECKLIST =====
 function updateChecks(){
-  const c=document.querySelectorAll('#checklistItems input[type=checkbox]');
-  let n=0;const s=[];
+  const c=document.querySelectorAll('#checklistItems input[type=checkbox]');let n=0;const s=[];
   c.forEach(x=>{if(x.checked){n++;x.parentElement.classList.add('done')}else x.parentElement.classList.remove('done');s.push(x.checked)});
-  document.getElementById('checkCounter').textContent=n+'/'+c.length;
-  localStorage.setItem('gso-checks',JSON.stringify(s));
+  document.getElementById('checkCounter').textContent=n+'/'+c.length;localStorage.setItem('gso-checks',JSON.stringify(s));
 }
-function loadChecks(){
-  const s=localStorage.getItem('gso-checks');
-  if(s){const a=JSON.parse(s);document.querySelectorAll('#checklistItems input[type=checkbox]').forEach((c,i)=>{if(a[i])c.checked=true});updateChecks()}
-}
+function loadChecks(){const s=localStorage.getItem('gso-checks');if(s){const a=JSON.parse(s);document.querySelectorAll('#checklistItems input[type=checkbox]').forEach((c,i)=>{if(a[i])c.checked=true});updateChecks()}}
 loadChecks();
 
 // ===== ACCORDION =====
 function toggleAcc(el){el.classList.toggle('open');el.nextElementSibling.classList.toggle('open')}
 function filterAccordions(){const q=document.getElementById('studySearch').value.toLowerCase();document.querySelectorAll('.accordion').forEach(a=>{const s=(a.getAttribute('data-search')||'')+' '+a.textContent;a.style.display=s.toLowerCase().includes(q)?'':'none'})}
 
+// ===== VOICE RECORDER (Web Speech API) =====
+let voiceRecognition = null;
+let voiceIsRecording = false;
+let voiceFullTranscript = '';
+let voiceTimerInterval = null;
+let voiceSeconds = 0;
+
+function initVoiceRecognition(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){
+    document.getElementById('voiceStatus').textContent = '⚠️ Speech recognition not supported in this browser. Use Chrome for best results.';
+    document.getElementById('voiceRecordBtn').disabled = true;
+    return;
+  }
+  voiceRecognition = new SR();
+  voiceRecognition.continuous = true;
+  voiceRecognition.interimResults = true;
+  voiceRecognition.lang = 'en-US';
+
+  voiceRecognition.onresult = function(e){
+    let interim = '';
+    let final = '';
+    for(let i = e.resultIndex; i < e.results.length; i++){
+      const t = e.results[i][0].transcript;
+      if(e.results[i].isFinal){
+        final += t + ' ';
+      } else {
+        interim += t;
+      }
+    }
+    if(final){
+      voiceFullTranscript += final;
+      document.getElementById('voiceFinalText').textContent = voiceFullTranscript;
+    }
+    document.getElementById('voiceInterimText').textContent = interim;
+    // Auto-scroll
+    const container = document.getElementById('voiceLiveTranscript');
+    container.scrollTop = container.scrollHeight;
+  };
+
+  voiceRecognition.onerror = function(e){
+    if(e.error === 'no-speech') return; // Ignore no-speech
+    console.error('Speech error:', e.error);
+    document.getElementById('voiceStatus').textContent = '⚠️ Error: ' + e.error + '. Try again.';
+    stopVoiceRecording();
+  };
+
+  voiceRecognition.onend = function(){
+    if(voiceIsRecording){
+      // Auto-restart if still recording (browser stops after silence)
+      try { voiceRecognition.start(); } catch(e){}
+    }
+  };
+}
+
+function toggleVoiceRecording(){
+  if(voiceIsRecording){
+    stopVoiceRecording();
+  } else {
+    startVoiceRecording();
+  }
+}
+
+function startVoiceRecording(){
+  if(!voiceRecognition) initVoiceRecognition();
+  if(!voiceRecognition) return;
+
+  voiceIsRecording = true;
+  voiceFullTranscript = '';
+  voiceSeconds = 0;
+  document.getElementById('voiceFinalText').textContent = '';
+  document.getElementById('voiceInterimText').textContent = '';
+
+  const btn = document.getElementById('voiceRecordBtn');
+  btn.classList.add('recording');
+  btn.innerHTML = '⏹';
+  btn.title = 'Stop recording';
+
+  document.getElementById('voiceWave').classList.add('active');
+  document.getElementById('voiceTimer').classList.add('active');
+  document.getElementById('voiceLiveTranscript').classList.add('active');
+  document.getElementById('voiceStatus').textContent = '🔴 Recording... Speak naturally. Click stop when done.';
+  document.getElementById('voiceAppendBtn').classList.remove('active');
+
+  voiceTimerInterval = setInterval(()=>{
+    voiceSeconds++;
+    const m = Math.floor(voiceSeconds/60);
+    const s = voiceSeconds%60;
+    document.getElementById('voiceTimer').textContent = m+':'+(s<10?'0':'')+s;
+  },1000);
+
+  try { voiceRecognition.start(); } catch(e){ voiceRecognition.stop(); setTimeout(()=>voiceRecognition.start(),100); }
+}
+
+function stopVoiceRecording(){
+  voiceIsRecording = false;
+  if(voiceRecognition) try { voiceRecognition.stop(); } catch(e){}
+
+  clearInterval(voiceTimerInterval);
+
+  const btn = document.getElementById('voiceRecordBtn');
+  btn.classList.remove('recording');
+  btn.innerHTML = '🎤';
+  btn.title = 'Start recording';
+
+  document.getElementById('voiceWave').classList.remove('active');
+  document.getElementById('voiceTimer').classList.remove('active');
+
+  const transcript = voiceFullTranscript.trim();
+  if(transcript){
+    document.getElementById('voiceStatus').textContent = '✅ Recording complete — ' + voiceSeconds + 's captured. Click "Append to Notes" to add.';
+    document.getElementById('voiceAppendBtn').classList.add('active');
+  } else {
+    document.getElementById('voiceStatus').textContent = 'No speech detected. Try again — speak clearly into your microphone.';
+  }
+}
+
+function appendVoiceToNotes(){
+  const transcript = voiceFullTranscript.trim();
+  if(!transcript) return;
+  const notes = document.getElementById('genNotes');
+  const prefix = notes.value.trim() ? '\n\n🎤 Voice Note:\n' : '🎤 Voice Note:\n';
+  notes.value += prefix + transcript;
+  document.getElementById('voiceAppendBtn').classList.remove('active');
+  document.getElementById('voiceLiveTranscript').classList.remove('active');
+  document.getElementById('voiceStatus').textContent = '✅ Voice note appended to your brain dump.';
+  showToast('🎤 Voice note added to notes');
+}
+
+function showToast(msg){
+  const s=document.getElementById('toast');s.textContent=msg;s.classList.add('show');setTimeout(()=>{s.classList.remove('show');s.textContent='✅ Copied to clipboard!'},2000);
+}
+
+initVoiceRecognition();
+
 // ===== FILE UPLOAD =====
 const dropZone = document.getElementById('transcriptDrop');
 dropZone.addEventListener('dragover',e=>{e.preventDefault();dropZone.classList.add('dragover')});
 dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop',e=>{
-  e.preventDefault();dropZone.classList.remove('dragover');
-  if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
-});
-
-function handleFileUpload(input){if(input.files.length) handleFile(input.files[0])}
-
+dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])});
+function handleFileUpload(input){if(input.files.length)handleFile(input.files[0])}
 function handleFile(file){
-  const ext = file.name.split('.').pop().toLowerCase();
-  if(!['txt','md','docx','doc'].includes(ext)){
-    alert('Please upload a .txt, .md, or .docx file');return;
-  }
-  document.getElementById('fileName').textContent = file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
-  document.getElementById('fileInfo').style.display = 'block';
-
-  if(ext === 'txt' || ext === 'md'){
-    const reader = new FileReader();
-    reader.onload = e => {document.getElementById('genTranscript').value = e.target.result};
-    reader.readAsText(file);
-  } else {
-    // For docx, read as text (basic extraction)
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const zip = e.target.result;
-        // Basic docx text extraction via ArrayBuffer
-        const text = extractDocxText(new Uint8Array(zip));
-        document.getElementById('genTranscript').value = text || '[DOCX detected — paste transcript text manually for best results]';
-      } catch(err) {
-        document.getElementById('genTranscript').value = '[Could not parse DOCX — please paste transcript text manually]';
-      }
-    };
-    reader.readAsArrayBuffer(file);
-  }
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(!['txt','md','docx','doc'].includes(ext)){alert('Please upload a .txt, .md, or .docx file');return}
+  document.getElementById('fileName').textContent=file.name+' ('+(file.size/1024).toFixed(1)+' KB)';
+  document.getElementById('fileInfo').style.display='block';
+  if(ext==='txt'||ext==='md'){const r=new FileReader();r.onload=e=>{document.getElementById('genTranscript').value=e.target.result};r.readAsText(file)}
+  else{const r=new FileReader();r.onload=e=>{try{const t=extractDocxText(new Uint8Array(e.target.result));document.getElementById('genTranscript').value=t||'[DOCX detected — paste transcript text manually for best results]'}catch(err){document.getElementById('genTranscript').value='[Could not parse DOCX — please paste transcript text manually]'}};r.readAsArrayBuffer(file)}
 }
+function extractDocxText(data){try{const d=new TextDecoder('utf-8');const s=d.decode(data);const ds=s.indexOf('<w:document');if(ds===-1)return null;const de=s.indexOf('</w:document>',ds);const dx=s.substring(ds,de+14);const t=[];const r=/<w:t[^>]*>([^<]*)<\/w:t>/g;let m;while((m=r.exec(dx))!==null)t.push(m[1]);return t.join(' ').replace(/\s+/g,' ').trim()}catch(e){return null}}
 
-// Basic DOCX text extraction (finds <w:t> tags in document.xml)
-function extractDocxText(data){
-  try {
-    // Find PK signature and locate document.xml
-    const decoder = new TextDecoder('utf-8');
-    const str = decoder.decode(data);
-    // Look for word/document.xml content between PK entries
-    const docStart = str.indexOf('<w:document');
-    if(docStart === -1) return null;
-    const docEnd = str.indexOf('</w:document>', docStart);
-    const docXml = str.substring(docStart, docEnd + 14);
-    // Extract text from <w:t> tags
-    const texts = [];
-    const regex = /<w:t[^>]*>([^<]*)<\/w:t>/g;
-    let match;
-    while((match = regex.exec(docXml)) !== null){
-      texts.push(match[1]);
-    }
-    return texts.join(' ').replace(/\s+/g,' ').trim();
-  } catch(e){ return null; }
-}
-
-// ===== PACKAGE INFO HELPER =====
+// ===== PACKAGE INFO =====
 function getPackageInfo(pkg){
-  const info = {
-    'Plus': {sla:'5 days',sessions:'1×90min OR 2×45min training',tasks:3,points:2,postLive:false,so:false,price:'$699'},
-    'In-Person Plus': {sla:'10 days',sessions:'2-4hr onsite visit',tasks:2,points:2,postLive:false,so:false,price:'$699'},
-    'Premium': {sla:'10 days',sessions:'Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)',tasks:6,points:4,postLive:true,so:true,price:'$1,499'},
-    'Onsite': {sla:'10 days',sessions:'All Premium + 3P site survey + hardware install + in-person POS',tasks:6,points:5,postLive:true,so:true,price:'$2,199+'},
-    'Payroll': {sla:'8 days',sessions:'Employee migration + training + first run',tasks:0,points:3,postLive:false,so:false,price:'$250'},
-    'Appointments': {sla:'8 days',sessions:'Import + training for Square Appointments',tasks:0,points:4,postLive:false,so:false,price:'$799'},
-    'Optimization': {sla:'Same day',sessions:'1×60min one-time session',tasks:0,points:1,postLive:false,so:false,price:'$149'},
-    'Task Service': {sla:'3-4 days',sessions:'No sessions — task only',tasks:1,points:1,postLive:false,so:false,price:'$149'}
+  const info={
+    'Plus':{sla:'5 days',sessions:'1×90min OR 2×45min training',tasks:3,points:2,postLive:false,so:false,price:'$699'},
+    'In-Person Plus':{sla:'10 days',sessions:'2-4hr onsite visit',tasks:2,points:2,postLive:false,so:false,price:'$699'},
+    'Premium':{sla:'10 days',sessions:'Dashboard(90) + POS(60) + SO(60) + Menu Review(30) + QA(60)',tasks:6,points:4,postLive:true,so:true,price:'$1,499'},
+    'Onsite':{sla:'10 days',sessions:'All Premium + 3P site survey + hardware install + in-person POS',tasks:6,points:5,postLive:true,so:true,price:'$2,199+'},
+    'Payroll':{sla:'8 days',sessions:'Employee migration + training + first run',tasks:0,points:3,postLive:false,so:false,price:'$250'},
+    'Appointments':{sla:'8 days',sessions:'Import + training for Square Appointments',tasks:0,points:4,postLive:false,so:false,price:'$799'},
+    'Optimization':{sla:'Same day',sessions:'1×60min one-time session',tasks:0,points:1,postLive:false,so:false,price:'$149'},
+    'Task Service':{sla:'3-4 days',sessions:'No sessions — task only',tasks:1,points:1,postLive:false,so:false,price:'$149'}
   };
-  return info[pkg] || info['Plus'];
+  return info[pkg]||info['Plus'];
 }
 
+// ================================================================
+// ===== GSO PM ASSISTANT AGENT — ANALYSIS ENGINE =====
+// ================================================================
+// Replicates the 6-step analysis pipeline from the GPT agent
+
+function analyzeTranscript(transcript, notes, hardwareStatus, menuStatus){
+  const lower = (transcript + ' ' + notes).toLowerCase();
+  const lines = transcript.split('\n').filter(l=>l.trim());
+
+  // ===== STEP 1: EXTRACT STRUCTURE =====
+  const structure = {
+    lineCount: lines.length,
+    hasTimestamps: /\(\d{1,2}:\d{2}\)/.test(transcript),
+    hasSpeakers: /speaker|pm|seller|ae|tech/i.test(transcript),
+    wordCount: transcript.split(/\s+/).length
+  };
+
+  // ===== STEP 2: IDENTIFY CORE WORKSTREAMS =====
+  const workstreams = {
+    menu: {detected:false, keywords:['menu','item','modifier','category','clover','toast','aloha','revel','export','import','food','dish','price','pricing','combo','size'], signals:[]},
+    hardware: {detected:false, keywords:['hardware','register','kds','printer','tablet','terminal','receipt','cash drawer','scanner','ipad','stand','mount'], signals:[]},
+    online: {detected:false, keywords:['doordash','uber eats','grubhub','delivery','online ordering','square online','website','pickup','curbside'], signals:[]},
+    payments: {detected:false, keywords:['payment','tip','tipping','cash','card','apple pay','google pay','contactless','processing'], signals:[]},
+    team: {detected:false, keywords:['employee','staff','team','clock in','clock out','timecard','permission','role','manager','training'], signals:[]},
+    network: {detected:false, keywords:['wifi','internet','ethernet','network','router','modem','connection','bandwidth'], signals:[]},
+    loyalty: {detected:false, keywords:['loyalty','gift card','customer','marketing','rewards','coupon','discount'], signals:[]},
+    integrations: {detected:false, keywords:['integration','api','third party','3rd party','accounting','quickbooks','xero'], signals:[]},
+    goLive: {detected:false, keywords:['go live','go-live','launch','open','grand opening','timeline','deadline','target date'], signals:[]}
+  };
+
+  for(const [key, ws] of Object.entries(workstreams)){
+    ws.keywords.forEach(kw=>{
+      if(lower.includes(kw)){ws.detected=true;if(!ws.signals.includes(kw))ws.signals.push(kw)}
+    });
+  }
+
+  // ===== STEP 3: DETECT RAID SIGNALS =====
+  const raid = {risks:[], issues:[], decisions:[], dependencies:[]};
+
+  // Risk detection patterns
+  const riskPatterns = [
+    {pattern:/we'll figure it out|figure that out later|not sure yet|haven't decided/gi, label:'Vague timeline or deferred decision'},
+    {pattern:/soon|later|eventually|at some point|when we get to it/gi, label:'Non-specific timing language'},
+    {pattern:/i think|maybe|probably|not sure|i guess/gi, label:'Uncertainty in seller responses'},
+    {pattern:/no.*date|tbd|to be determined|flexible|whenever/gi, label:'No firm anchor date'},
+  ];
+  riskPatterns.forEach(({pattern,label})=>{if(pattern.test(lower)&&!raid.risks.includes(label))raid.risks.push(label)});
+
+  // Edge case: missing workstreams = risk
+  if(!workstreams.hardware.detected && hardwareStatus !== 'received') raid.risks.push('Hardware status not confirmed — potential downstream delay');
+  if(!workstreams.network.detected) raid.risks.push('Network/WiFi not discussed — connectivity risk');
+  if(!workstreams.goLive.detected) raid.risks.push('No anchor date — sequencing risk across all workstreams');
+  if(!workstreams.menu.detected && menuStatus !== 'received') raid.risks.push('Menu structure not validated — risk to build timeline');
+  if(hardwareStatus === 'not-received') raid.issues.push('Hardware not received — hard blocker for go-live');
+  if(hardwareStatus === 'partial') raid.risks.push('Hardware partially received — verify missing items');
+  if(menuStatus === 'complex') raid.risks.push('Menu flagged as complex — higher BPO difficulty, longer build time');
+
+  // Decision detection
+  const decisionPatterns = [
+    {pattern:/we('ll| will) (go with|use|do|start|skip|keep)/gi, label:'Direction confirmed'},
+    {pattern:/decided|decision|confirmed|agreed|let's do/gi, label:'Explicit decision made'},
+  ];
+  decisionPatterns.forEach(({pattern,label})=>{if(pattern.test(lower)&&!raid.decisions.includes(label))raid.decisions.push(label)});
+
+  // Dependency detection
+  const depPatterns = [
+    {pattern:/can't.*until|need.*before|waiting on|depends on|blocked by/gi, label:'Dependency identified'},
+    {pattern:/once.*then|after.*we can|first.*then/gi, label:'Sequential dependency'},
+  ];
+  depPatterns.forEach(({pattern,label})=>{if(pattern.test(lower)&&!raid.dependencies.includes(label))raid.dependencies.push(label)});
+
+  // ===== STEP 4: COMPLEXITY ASSESSMENT =====
+  let complexity = 'Simple';
+  let complexityScore = 0;
+  if(workstreams.menu.detected) complexityScore += 2;
+  if(workstreams.online.detected) complexityScore += 2;
+  if(workstreams.integrations.detected) complexityScore += 2;
+  if(workstreams.loyalty.detected) complexityScore += 1;
+  if(menuStatus === 'complex') complexityScore += 3;
+  if(lower.includes('modifier')) complexityScore += 2;
+  if(lower.includes('multiple menu') || lower.includes('dual menu') || lower.includes('two menu')) complexityScore += 3;
+  if(lower.includes('migration') || lower.includes('import')) complexityScore += 1;
+  if(complexityScore >= 7) complexity = 'Complex';
+  else if(complexityScore >= 3) complexity = 'Moderate';
+
+  // ===== STEP 5: MOMENTUM CHECK =====
+  const momentum = {
+    nextStepsClear: /next step|action item|homework|follow up|to do/i.test(lower),
+    deadlinesExplicit: /by.*date|deadline|due|target.*date|\d{1,2}\/\d{1,2}/i.test(lower),
+    sellerEngaged: /excited|ready|can't wait|looking forward|great|perfect|sounds good|absolutely/i.test(lower),
+    sellerPassive: /okay|sure|i guess|whatever you think|up to you/i.test(lower),
+    ownershipClear: /i'll|i will|my team|we'll handle|seller will|ae will/i.test(lower)
+  };
+
+  // ===== STEP 6: COGNITIVE & TRUST RISKS =====
+  const cognitiveRisks = [];
+  const trustRisks = [];
+
+  // Cognitive traps
+  if(raid.risks.some(r=>r.includes('Vague'))) cognitiveRisks.push('False agreement — seller may have agreed without full understanding');
+  if(!momentum.deadlinesExplicit) cognitiveRisks.push('Assumption of shared timeline — no explicit dates confirmed');
+  if(momentum.sellerPassive && !momentum.sellerEngaged) cognitiveRisks.push('Narrative bias — seller passivity may be mistaken for agreement');
+  if(raid.risks.length === 0 && structure.wordCount < 200) cognitiveRisks.push('Insufficient data — analysis based on limited input, risks may be hidden');
+
+  // Trust risks
+  if(!momentum.ownershipClear) trustRisks.push('Ownership not explicitly confirmed — risk of drift');
+  if(!momentum.nextStepsClear) trustRisks.push('Next steps not clearly stated — seller may lose confidence in process');
+  if(raid.issues.length > 0) trustRisks.push('Active blockers present — unresolved issues erode trust over time');
+
+  // ===== MVP OPPORTUNITIES =====
+  const mvpOpps = [];
+  if(workstreams.online.detected && workstreams.menu.detected) mvpOpps.push('Launch POS-only first, add online ordering post go-live');
+  if(workstreams.loyalty.detected) mvpOpps.push('Defer loyalty/gift card setup — not required for transacting');
+  if(workstreams.integrations.detected) mvpOpps.push('Skip non-critical integrations for MVP — add after stable');
+  if(complexity === 'Complex') mvpOpps.push('Reduce menu scope for initial build — expand after go-live');
+  if(mvpOpps.length === 0) mvpOpps.push('Standard implementation — no obvious scope reduction needed');
+
+  // ===== PROJECT HEALTH =====
+  let health = 'Green';
+  if(raid.issues.length > 0 || raid.risks.length >= 4) health = 'Red';
+  else if(raid.risks.length >= 2 || !momentum.deadlinesExplicit) health = 'Yellow';
+
+  return {structure, workstreams, raid, complexity, complexityScore, momentum, cognitiveRisks, trustRisks, mvpOpps, health};
+}
+
+// ================================================================
 // ===== GENERATE DELIVERABLES =====
+// ================================================================
 function generateDeliverables(){
   const biz = document.getElementById('genBusiness').value.trim();
   const seller = document.getElementById('genSeller').value.trim();
@@ -759,28 +916,31 @@ function generateDeliverables(){
   const sessionType = document.getElementById('genSessionType').value;
   const goLive = document.getElementById('genGoLive').value.trim() || 'TBD';
   const availability = document.getElementById('genAvailability').value.trim();
+  const attendees = document.getElementById('genAttendees').value.trim();
+  const hardwareStatus = document.getElementById('genHardware').value;
+  const menuStatus = document.getElementById('genMenuStatus').value;
+  const special = document.getElementById('genSpecial').value.trim();
+  const sessionDate = document.getElementById('genDate').value;
 
   // Validation
-  if(!biz || !seller || !ae || !pkg){
-    document.getElementById('genStatus').textContent = '⚠️ Please fill in Business Name, Seller Name, AE Name, and Package Type';
-    document.getElementById('genStatus').className = 'gen-status error';
-    return;
+  if(!biz||!seller||!ae||!pkg){
+    document.getElementById('genStatus').textContent='⚠️ Fill in Business Name, Seller Name, AE Name, and Package Type';
+    document.getElementById('genStatus').className='gen-status error';return;
   }
   if(!dsrLink){
-    document.getElementById('genStatus').textContent = '⚠️ Please provide the DSR Salesforce link';
-    document.getElementById('genStatus').className = 'gen-status error';
-    return;
+    document.getElementById('genStatus').textContent='⚠️ Please provide the DSR Salesforce link';
+    document.getElementById('genStatus').className='gen-status error';return;
   }
 
   const pkgInfo = getPackageInfo(pkg);
-  const recordingLink = recording || '🔗 [INSERT REVENUE.IO LINK]';
   const recordingHtml = recording ? `<a href="${recording}" target="_blank" style="color:#006AFF">${recording}</a>` : '<span class="placeholder">🔗 [INSERT REVENUE.IO LINK]</span>';
-  const hasTranscript = transcript.length > 50;
-  const today = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const today = sessionDate ? new Date(sessionDate+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const sellerFirst = seller.split(' ')[0];
 
-  // Parse transcript for key details
-  const transcriptNotes = hasTranscript ? parseTranscriptHighlights(transcript) : null;
-  const combinedContext = (notes ? notes + '\n' : '') + (transcriptNotes ? transcriptNotes.summary : '');
+  // ===== RUN AGENT ANALYSIS =====
+  const analysis = analyzeTranscript(transcript, notes, hardwareStatus, menuStatus);
+  const ws = analysis.workstreams;
+  const hasTranscript = transcript.length > 50;
 
   // ===== UPDATE DASHBOARD =====
   document.getElementById('dashBusiness').textContent = biz;
@@ -788,429 +948,327 @@ function generateDeliverables(){
   document.getElementById('dashSeller').textContent = seller;
   document.getElementById('dashAE').textContent = ae;
   document.getElementById('dsrQuickLink').innerHTML = `<a href="${dsrLink}" target="_blank">🔗 Open DSR in Salesforce →</a>`;
-
   ['badgeEmail','badgeDSR','badgeBPO','badgeAnalysis'].forEach(id=>{
-    const el = document.getElementById(id);
-    el.textContent = 'Ready';
-    el.className = 'badge badge-green';
+    const el=document.getElementById(id);el.textContent='Ready';el.className='badge badge-green';
   });
 
-  // ===== GENERATE EMAIL =====
-  const postLiveNote = pkgInfo.postLive
-    ? `<p><b>${pkg} includes 1-week post-live QA support.</b> I'll be available for questions after go-live.</p>`
-    : `<p><b>${pkg} = ${pkgInfo.sessions}, no post-live support.</b> I'll provide videos and articles for reference after training.</p>`;
+  // ================================================================
+  // ===== DELIVERABLE 1: SELLER EMAIL (External, warm, structured) =====
+  // ================================================================
+  const emailTopics = [];
+  if(ws.hardware.detected) emailTopics.push('<li><b>Hardware & Setup:</b> Reviewed your register, printer, and device configuration</li>');
+  if(ws.menu.detected) emailTopics.push('<li><b>Menu:</b> Discussed your menu structure and build requirements</li>');
+  if(ws.online.detected) emailTopics.push('<li><b>Online & Delivery:</b> Covered delivery platform setup and online ordering</li>');
+  if(ws.team.detected) emailTopics.push('<li><b>Team:</b> Reviewed employee setup, roles, and permissions</li>');
+  if(ws.network.detected) emailTopics.push('<li><b>Network:</b> Discussed your internet and connectivity setup</li>');
+  if(ws.payments.detected) emailTopics.push('<li><b>Payments:</b> Reviewed payment methods and tipping configuration</li>');
+  if(ws.loyalty.detected) emailTopics.push('<li><b>Loyalty & Marketing:</b> Discussed loyalty program and gift cards</li>');
+  if(ws.integrations.detected) emailTopics.push('<li><b>Integrations:</b> Covered third-party connections and data sync</li>');
+  if(ws.goLive.detected) emailTopics.push('<li><b>Go-Live:</b> Aligned on timeline and launch planning</li>');
+  if(emailTopics.length === 0) emailTopics.push('<li>Business overview, current setup, and implementation planning</li>');
 
-  const soNote = pkgInfo.so
-    ? `<li>Square Online setup and training included in your package</li>`
-    : `<li>Square Online is not included in ${pkg} — let your AE know if you'd like to add it</li>`;
-
-  const availabilityHtml = availability
-    ? `<p>Based on your availability, I'll be scheduling your training session(s):</p><ul><li>${availability.split(',').map(s=>s.trim()).join('</li><li>')}</li></ul>`
-    : `<p>I'll follow up within 24 hours with confirmed scheduling for your training session(s).</p>`;
+  const notesForEmail = notes ? notes.split('\n').filter(l=>l.trim()&&!l.startsWith('🎤')).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('') : '';
 
   document.getElementById('emailContent').innerHTML = `
     <div class="meta">
       <div><b>Subject:</b> Recap + Next Steps from Today's ${sessionType}</div>
-      <div><b>To:</b> ${seller}${sellerEmail ? ' (' + sellerEmail + ')' : ''}</div>
+      <div><b>To:</b> ${seller}${sellerEmail?' ('+sellerEmail+')':''}</div>
       <div><b>CC:</b> ${ae} (AE)</div>
       <div><b>From:</b> ${pm}</div>
       <div><b>Date:</b> ${today}</div>
     </div>
-    <p>Hi ${seller.split(' ')[0]},</p>
-    <p>Thank you for taking the time to meet with me today! I'm glad we were able to use this ${sessionType.toLowerCase()} to walk through your setup and map out the right next steps for your Square implementation at ${biz}.</p>
-    <p>I'll be your primary point of contact throughout this implementation. I'm always available via email. I reply within 24 business hours, and all sessions are by appointment only.</p>
-    <h2>📋 Session Summary</h2>
-    ${hasTranscript && transcriptNotes ? transcriptNotes.emailSections : `
-    <h3>Key Topics Discussed</h3>
+    <p>Hi ${sellerFirst},</p>
+    <p>Thank you again for your time today. We made strong progress on your Square implementation, and we're in a good position to continue building toward your go-live${goLive!=='TBD'?' on '+goLive:''}.</p>
+    <p>I'll be your primary point of contact throughout this process. I'm always available via email — I respond within 24 business hours, and all sessions are by appointment only.</p>
+    <h2>Session Summary</h2>
+    <ul>${emailTopics.join('')}</ul>
+    ${notesForEmail?'<h3>Key Confirmations</h3><ul>'+notesForEmail+'</ul>':''}
+    <h2>What I'm Coordinating Next</h2>
     <ul>
-      <li>Business overview and current setup</li>
-      <li>Hardware and network configuration</li>
-      <li>Menu structure and build requirements</li>
-      <li>Go-live planning and timeline</li>
-    </ul>`}
-    ${notes ? `<h3>Additional Notes</h3><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
-    <h2>📅 What I'm Coordinating Next</h2>
+      ${pkgInfo.tasks>0?'<li>Submitting your menu build to our build team (turnaround: 3-4 business days)</li>':''}
+      <li>Scheduling your training session(s): ${pkgInfo.sessions}</li>
+      ${availability?'<li>Working with your availability: '+availability+'</li>':''}
+      <li>Completing all backend configuration and setup</li>
+    </ul>
+    <h2>Upcoming Sessions + Preparation</h2>
     <p><b>Package:</b> ${pkg} (${pkgInfo.sessions})</p>
-    ${availabilityHtml}
-    <h2>📝 Homework</h2>
+    ${availability?'<p>Based on your availability, I\'ll confirm scheduling within 24 hours.</p>':'<p>I\'ll follow up within 24 hours with confirmed scheduling.</p>'}
+    <h2>Your Next Steps</h2>
+    <p><i>(Recommended within 48 hours)</i></p>
     <ul>
-      <li>✅ Complete <b>Account & Settings Checklist</b> (attached)</li>
-      <li>✅ Verify all hardware has been received</li>
-      <li>✅ Send menu files (Excel/PDF — no Google Docs)</li>
-      <li>✅ Confirm any third-party delivery credentials</li>
-      <li>✅ Send staff list for training</li>
+      <li>✅ Complete the <b>Account & Settings Checklist</b> (attached)</li>
+      <li>✅ Verify all hardware has been received and unboxed</li>
+      ${ws.menu.detected||pkgInfo.tasks>0?'<li>✅ Send menu files (Excel/PDF — no Google Docs)</li>':''}
+      ${ws.online.detected?'<li>✅ Confirm third-party delivery credentials</li>':''}
+      <li>✅ Send staff list for training preparation</li>
       <li>✅ Note any questions for our next session</li>
     </ul>
-    <h2>⚠️ Package Reminder</h2>
-    ${postLiveNote}
-    <h2>🔗 Recording</h2>
-    ${recordingHtml}
-    <p style="margin-top:16px">Best,<br>${pm}<br>GSO | Square</p>
-  `;
-
-  // ===== GENERATE DSR CHATTER =====
-  document.getElementById('dsrContent').innerHTML = `
-    <p>Hi <b>${ae}</b> — ${sessionType} is complete for ${biz}.</p>
-    <div class="meta">
-      <div><b>Go-live:</b> ${goLive}</div>
-      <div><b>Package:</b> ${pkg} (${pkgInfo.price}, ${pkgInfo.points} pts)</div>
-      <div><b>Seller:</b> ${seller}</div>
-      <div><b>Business:</b> ${biz}</div>
-      <div><b>SLA:</b> ${pkgInfo.sla}</div>
-    </div>
-    <h2>Milestone Plan</h2>
-    <ul>
-      <li>${sessionType} completed on ${today}</li>
-      <li>Account & Settings Checklist sent to seller</li>
-      ${pkgInfo.tasks > 0 ? '<li>BPO task submission: pending menu/data files</li>' : ''}
-      <li>Training: ${pkgInfo.sessions}</li>
-      ${availability ? '<li>Seller availability: ' + availability + '</li>' : ''}
-    </ul>
-    <h2>Training Schedule</h2>
-    <ul>
-      <li>✅ Completed: ${sessionType}</li>
-      ${pkgInfo.tasks > 0 ? '<li>🟢 Upcoming: BPO task (menu build / migration)</li>' : ''}
-      <li>🟢 Upcoming: Training session(s) — scheduling in progress</li>
-      ${pkgInfo.postLive ? '<li>🟡 Future: 1-week post-live QA</li>' : '<li>🟡 Note: No post-live QA with ' + pkg + '</li>'}
-    </ul>
-    <h2>Risks / Open Items</h2>
-    ${hasTranscript && transcriptNotes ? transcriptNotes.risks : `<ul>
-      <li><b>Risk:</b> Go-live date ${goLive === 'TBD' ? 'not yet confirmed' : goLive}</li>
-      <li><b>Risk:</b> Hardware receipt not yet verified</li>
-      <li><b>Risk:</b> Menu files pending from seller</li>
-      ${!pkgInfo.postLive ? '<li><b>Risk:</b> ' + pkg + ' = limited sessions, no post-live support</li>' : ''}
-    </ul>`}
-    ${notes ? `<h2>PM Notes</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+    ${!pkgInfo.postLive?'<div class="warn">⚠️ <b>Package Note:</b> '+pkg+' includes '+pkgInfo.sessions+'. There is no post-live QA support — I\'ll provide reference materials and videos after training.</div>':'<div class="info-flag">ℹ️ <b>'+pkg+' includes 1-week post-live QA support.</b> I\'ll be available for questions after go-live.</div>'}
     <h2>Recording</h2>
     ${recordingHtml}
-    <h2>PM Next Steps</h2>
+    <p style="margin-top:16px">Please reach out if anything comes up before our next session — I'll continue driving things forward on my end as well.</p>
+    <p>Best,<br>${pm}<br>GSO | Square</p>
+  `;
+
+  // ================================================================
+  // ===== DELIVERABLE 2: DSR CHATTER (Internal, direct, RAID format) =====
+  // ================================================================
+  const goLiveStatus = analysis.health === 'Red' ? '🔴 BLOCKED' : analysis.health === 'Yellow' ? '🟡 AT RISK' : '🟢 ON TRACK';
+
+  // Build risks/issues/decisions HTML
+  let raidHtml = '<h2>RISKS</h2>';
+  if(analysis.raid.risks.length > 0){
+    raidHtml += '<ul>' + analysis.raid.risks.map(r=>'<li><b>Risk:</b> '+r+'</li>').join('') + '</ul>';
+  } else {
+    raidHtml += '<p style="color:#22c55e">No significant risks identified at this stage.</p>';
+  }
+  raidHtml += '<h2>ISSUES</h2>';
+  if(analysis.raid.issues.length > 0){
+    raidHtml += '<ul>' + analysis.raid.issues.map(r=>'<li><b>Issue:</b> '+r+'</li>').join('') + '</ul>';
+  } else {
+    raidHtml += '<p style="color:#22c55e">No active blockers.</p>';
+  }
+  raidHtml += '<h2>DECISIONS</h2>';
+  if(analysis.raid.decisions.length > 0){
+    raidHtml += '<ul>' + analysis.raid.decisions.map(r=>'<li>'+r+'</li>').join('') + '</ul>';
+  } else {
+    raidHtml += '<p style="color:#94a3b8">No explicit decisions captured — follow up to confirm direction.</p>';
+  }
+
+  document.getElementById('dsrContent').innerHTML = `
+    <p>Hi <b>${ae}</b>,</p>
+    <p>Completed ${sessionType} with ${biz}. Overall progress is <b>${goLiveStatus.split(' ')[1]}</b>.</p>
+    <div class="meta">
+      <div><b>GO-LIVE STATUS:</b> ${goLiveStatus} ${goLive!=='TBD'?'— Target: '+goLive:'— No anchor date set'}</div>
+    </div>
+    <h2>TRAINING STATUS</h2>
+    <ul>
+      <li>✅ <b>Completed:</b> ${sessionType} (${today})</li>
+      ${pkgInfo.tasks>0?'<li>🟢 <b>Upcoming:</b> BPO task (menu build / migration)</li>':''}
+      <li>🟢 <b>Upcoming:</b> Training session(s) — scheduling in progress${availability?' | Seller avail: '+availability:''}</li>
+      ${pkgInfo.postLive?'<li>🟡 <b>Future:</b> 1-week post-live QA</li>':'<li>🟡 <b>Note:</b> No post-live QA with '+pkg+'</li>'}
+    </ul>
+    ${raidHtml}
+    <h2>SELLER HOMEWORK</h2>
+    <ul>
+      <li>Complete Account & Settings Checklist</li>
+      <li>Verify hardware receipt</li>
+      ${ws.menu.detected||pkgInfo.tasks>0?'<li>Send menu files (Excel/PDF)</li>':''}
+      <li>Send staff list</li>
+    </ul>
+    <h2>PM NEXT STEPS</h2>
     <ul>
       <li>Send post-${sessionType.toLowerCase()} email + Account & Settings Checklist</li>
-      ${pkgInfo.tasks > 0 ? '<li>Submit BPO DSA (attach files, set difficulty, due 3-4 days)</li>' : ''}
+      ${pkgInfo.tasks>0?'<li>Submit BPO DSA (attach files, set difficulty, due 3-4 days)</li>':''}
       <li>Submit 3P Vendor DSA if applicable</li>
       <li>Complete Consultation DSA (30 min)</li>
       <li>DSR: Status → <b>Consultation Complete</b></li>
       <li>DSR: Go-Live → <b>${goLive}</b></li>
       <li>DSR: Next Steps → "Submit BPO + schedule training"</li>
     </ul>
+    <h2>RECORDING</h2>
+    ${recordingHtml}
+    <h2>SUMMARY</h2>
+    <p>${sessionType} completed for ${biz} (${pkg}, ${pkgInfo.price}). ${hasTranscript?'Transcript analyzed — '+Object.entries(ws).filter(([k,v])=>v.detected).map(([k])=>k).join(', ')+' discussed.':'No transcript provided — analysis based on form inputs.'}</p>
+    ${notes?'<h2>DETAILED NOTES</h2><ul>'+notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')+'</ul>':''}
   `;
 
-  // ===== GENERATE BPO NOTES =====
+  // ================================================================
+  // ===== DELIVERABLE 3: BPO DSA NOTES =====
+  // ================================================================
   if(pkgInfo.tasks > 0){
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 4);
-    // Skip weekends
-    if(dueDate.getDay() === 0) dueDate.setDate(dueDate.getDate() + 1);
-    if(dueDate.getDay() === 6) dueDate.setDate(dueDate.getDate() + 2);
+    const dueDate = new Date();dueDate.setDate(dueDate.getDate()+4);
+    if(dueDate.getDay()===0)dueDate.setDate(dueDate.getDate()+1);
+    if(dueDate.getDay()===6)dueDate.setDate(dueDate.getDate()+2);
     const dueDateStr = dueDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    const difficulty = analysis.complexity==='Complex'?'Hard — 3hr+, complex structure':analysis.complexity==='Moderate'?'Medium — 3hr, moderate complexity':'Easy — 1-2hr, straightforward';
 
     document.getElementById('bpoContent').innerHTML = `
       <div class="meta">
         <div><b>Business:</b> ${biz} | <b>PM:</b> ${pm}</div>
-        <div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> [SET BASED ON COMPLEXITY]</div>
+        <div><b>Activity Type:</b> Menu Build + Online Ordering | <b>Difficulty:</b> ${difficulty}</div>
         <div><b>Source:</b> [ATTACH FILES — BPO can't access Google Docs!] | <b>Due:</b> ${dueDateStr}</div>
         <div><b>Status:</b> Initiating</div>
+        <div><b>Complexity Score:</b> ${analysis.complexityScore}/10 (${analysis.complexity})</div>
       </div>
       <div class="warn">⚠️ Always attach menu files directly to the DSA — BPO cannot access Google Docs or shared drives!</div>
-      <div class="warn">⚠️ Set difficulty: Easy (1-2hr) → Medium (3hr) → Hard (3hr+) → Very Hard (5hr+)</div>
-      ${hasTranscript && transcriptNotes ? transcriptNotes.bpoDetails : `
+      <div class="warn">⚠️ Verify difficulty rating before submitting. Current assessment: ${difficulty}</div>
+      ${analysis.complexity==='Complex'?'<div class="risk-flag">🔴 Complex build detected — consider rushing if timeline is tight. Rush = checkbox + #gso-bpo Slack.</div>':''}
       <h2>Menu / Task Details</h2>
-      <p>[Add details from the ${sessionType.toLowerCase()} about menu structure, item count, modifier groups, special requirements, etc.]</p>
+      ${ws.menu.detected?'<p>Menu was discussed during the call. Keywords detected: '+ws.menu.signals.join(', ')+'</p>':'<p>Menu details not captured in transcript — add specifics manually.</p>'}
+      <ul>
+        <li>Review transcript for item count, categories, and modifier structure</li>
+        <li>Check for multiple menus (POS vs delivery)</li>
+        <li>Note any pricing conversions needed</li>
+        <li>Identify source system (Clover, Toast, etc.)</li>
+      </ul>
       <h2>Build Rules</h2>
       <ul>
-        <li>Sizes should be modifiers, not variations (unless specified)</li>
+        <li>Sizes = modifiers (not variations) unless specified</li>
         <li>Alphabetize items within categories</li>
         <li>No gift cards in menu build</li>
         <li>Base price = lowest modifier price for online ordering</li>
-      </ul>`}
-      ${notes ? `<h2>PM Notes for BPO</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
+        <li>No item-based printer routing — use categories</li>
+      </ul>
+      ${notes?'<h2>PM Notes for BPO</h2><ul>'+notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')+'</ul>':''}
       <h2>Printer Routing</h2>
       <p>[Add printer/KDS routing details if discussed]</p>
-      <h2>Checklist</h2>
+      <h2>Submission Checklist</h2>
       <ul>
-        <li>☐ Menu files attached to DSA</li>
-        <li>☐ Difficulty rating set</li>
-        <li>☐ Due date set (${dueDateStr})</li>
+        <li>☐ Menu files attached to DSA (Excel/PDF only)</li>
+        <li>☐ Difficulty rating set: ${difficulty}</li>
+        <li>☐ Due date set: ${dueDateStr}</li>
         <li>☐ Status = Initiating</li>
-        <li>☐ Activity notes complete</li>
+        <li>☐ Activity notes complete with TextBlaze snippet</li>
         <li>☐ Special instructions noted</li>
+        <li>☐ QA build when BPO chatters completion</li>
       </ul>
     `;
   } else {
-    document.getElementById('bpoContent').innerHTML = `
-      <div class="empty-state" style="padding:40px">
-        <div class="icon">ℹ️</div>
-        <h3>No BPO Task Needed</h3>
-        <p>${pkg} packages typically don't require a BPO submission. If you need a menu build or migration, submit a separate Task Service DSA.</p>
-      </div>
-    `;
+    document.getElementById('bpoContent').innerHTML = `<div class="empty-state" style="padding:40px"><div class="icon">ℹ️</div><h3>No BPO Task Needed</h3><p>${pkg} packages typically don't require a BPO submission. If you need a menu build or migration, submit a separate Task Service DSA.</p></div>`;
   }
 
-  // ===== GENERATE ANALYSIS =====
+  // ================================================================
+  // ===== DELIVERABLE 4: INTERNAL PM ANALYSIS (Strategic, candid) =====
+  // ================================================================
+  const healthClass = analysis.health==='Green'?'health-green':analysis.health==='Yellow'?'health-yellow':'health-red';
+
+  let workstreamTable = '<table><tr><th>Workstream</th><th>Status</th><th>Signals</th></tr>';
+  for(const [key, ws_item] of Object.entries(ws)){
+    const status = ws_item.detected ? '✅ Discussed' : '⚠️ Not discussed';
+    workstreamTable += `<tr><td>${key.charAt(0).toUpperCase()+key.slice(1)}</td><td>${status}</td><td>${ws_item.signals.length>0?ws_item.signals.slice(0,3).join(', '):'—'}</td></tr>`;
+  }
+  workstreamTable += '</table>';
+
   document.getElementById('analysisContent').innerHTML = `
-    <h2>Overall Read</h2>
-    <p>${sessionType} completed for ${biz}. Package: ${pkg} (${pkgInfo.price}, ${pkgInfo.sla} SLA, ${pkgInfo.points} pts). ${hasTranscript ? 'Transcript analyzed.' : 'No transcript provided — analysis based on form inputs and PM notes.'}</p>
-    ${notes ? `<p><b>PM observations:</b> ${notes.split('\n')[0]}</p>` : ''}
-    <h2>Critical Path Dependencies</h2>
-    <ol>
-      ${pkgInfo.tasks > 0 ? '<li>BPO task turnaround (3-4 business days)</li>' : ''}
-      <li>Seller hardware receipt confirmation</li>
-      <li>Menu/data file delivery from seller</li>
-      <li>Seller availability for training</li>
-      <li>Go-live date ${goLive === 'TBD' ? '(not yet set — needs alignment)' : '(' + goLive + ')'}</li>
-      ${!pkgInfo.postLive ? '<li>' + pkg + ' constraint: limited sessions, no post-live support</li>' : ''}
-    </ol>
-    ${hasTranscript && transcriptNotes ? transcriptNotes.analysisDetails : `
-    <h2>KO Checklist Gaps</h2>
-    <table>
-      <tr><th>Topic</th><th>Status</th></tr>
-      <tr><td>Hardware received</td><td>⚠️ Verify</td></tr>
-      <tr><td>Network/WiFi</td><td>⚠️ Verify</td></tr>
-      <tr><td>Menu files</td><td>⚠️ Pending</td></tr>
-      <tr><td>Go-live date</td><td>${goLive === 'TBD' ? '⚠️ TBD' : '✅ ' + goLive}</td></tr>
-      <tr><td>Tax rules</td><td>⚠️ Seller responsibility — confirm awareness</td></tr>
-      <tr><td>Printer compatibility</td><td>⚠️ Verify</td></tr>
-    </table>`}
-    ${notes ? `<h2>PM Notes & Observations</h2><ul>${notes.split('\n').filter(l=>l.trim()).map(l=>'<li>'+l.replace(/^[-•*]\s*/,'')+'</li>').join('')}</ul>` : ''}
-    <h2>DSA Submission Plan</h2>
-    <table>
-      <tr><th>DSA Type</th><th>Action</th><th>Duration</th></tr>
-      <tr><td>GSO Activity</td><td>Consultation DSA</td><td>30 min</td></tr>
-      ${pkgInfo.tasks > 0 ? '<tr><td>BPO Activity</td><td>Menu build / migration</td><td>Per difficulty</td></tr>' : ''}
-      <tr><td>3P Vendor</td><td>Training session(s)</td><td>${pkgInfo.sessions}</td></tr>
-    </table>
-    <h2>DSR Update Checklist</h2>
+    <div class="agent-badge"><span class="dot"></span> GSO PM Assistant Agent — Analysis Output</div>
+    <h2>PROJECT HEALTH</h2>
+    <div class="health-bar">
+      <div class="health-pill health-green ${analysis.health==='Green'?'active-health':''}">🟢 GREEN</div>
+      <div class="health-pill health-yellow ${analysis.health==='Yellow'?'active-health':''}">🟡 YELLOW</div>
+      <div class="health-pill health-red ${analysis.health==='Red'?'active-health':''}">🔴 RED</div>
+    </div>
+    <div class="meta">
+      <div><b>Business:</b> ${biz} | <b>Package:</b> ${pkg} (${pkgInfo.price}, ${pkgInfo.points} pts)</div>
+      <div><b>Session:</b> ${sessionType} on ${today} | <b>Complexity:</b> ${analysis.complexity} (${analysis.complexityScore}/10)</div>
+      <div><b>Go-Live:</b> ${goLive} | <b>SLA:</b> ${pkgInfo.sla}</div>
+      <div><b>Transcript:</b> ${hasTranscript?analysis.structure.wordCount+' words, '+analysis.structure.lineCount+' lines':'Not provided'}</div>
+    </div>
+
+    <h2>KEY RISKS</h2>
+    ${analysis.raid.risks.length>0?'<ul>'+analysis.raid.risks.map(r=>'<li class="risk-flag" style="list-style:none;margin-left:0">⚠️ '+r+'</li>').join('')+'</ul>':'<p style="color:#22c55e">No significant risks identified. Verify with transcript review.</p>'}
+
+    <h2>BOTTLENECKS</h2>
     <ul>
-      <li>☐ Status → Consultation Complete</li>
-      <li>☐ Go-Live Date → ${goLive}</li>
-      <li>☐ Next Steps → "Submit BPO + schedule training"</li>
-      <li>☐ Next Step Date → tomorrow</li>
-      <li>☐ Regulator link active</li>
-      <li>☐ Post-call email sent</li>
-      ${pkgInfo.tasks > 0 ? '<li>☐ BPO DSA submitted</li>' : ''}
-      <li>☐ 3P Vendor DSA submitted (if applicable)</li>
+      ${pkgInfo.tasks>0?'<li><b>Menu build turnaround</b> — 3-4 business days, complexity: '+analysis.complexity+'</li>':''}
+      <li><b>Seller data delivery</b> — menu files, staff list, credentials</li>
+      <li><b>Scheduling</b> — ${availability?'Seller available: '+availability:'Availability not confirmed'}</li>
+      ${hardwareStatus==='not-received'||hardwareStatus===''?'<li><b>Hardware</b> — not confirmed received</li>':''}
+      ${goLive==='TBD'?'<li><b>No anchor date</b> — all sequencing is floating</li>':''}
     </ul>
-    <h2>Momentum Assessment</h2>
+
+    <h2>DEPENDENCIES</h2>
+    <ul>
+      ${analysis.raid.dependencies.length>0?analysis.raid.dependencies.map(d=>'<li>'+d+'</li>').join(''):''}
+      ${pkgInfo.tasks>0?'<li>Training blocked on BPO menu build completion</li>':''}
+      <li>Go-live blocked on training completion</li>
+      <li>BPO submission blocked on menu file delivery from seller</li>
+      ${!pkgInfo.postLive?'<li>No post-live safety net — training must be comprehensive</li>':''}
+    </ul>
+
+    <h2>WORKSTREAM COVERAGE</h2>
+    ${workstreamTable}
+
+    <h2>MVP OPPORTUNITIES</h2>
+    <ul>${analysis.mvpOpps.map(o=>'<li>💡 '+o+'</li>').join('')}</ul>
+
+    <h2>COGNITIVE RISKS</h2>
+    ${analysis.cognitiveRisks.length>0?'<ul>'+analysis.cognitiveRisks.map(r=>'<li>🧠 '+r+'</li>').join('')+'</ul>':'<p style="color:#94a3b8">No cognitive traps detected. Stay vigilant for assumptions.</p>'}
+
+    <h2>TRUST RISKS</h2>
+    ${analysis.trustRisks.length>0?'<ul>'+analysis.trustRisks.map(r=>'<li>🤝 '+r+'</li>').join('')+'</ul>':'<p style="color:#22c55e">Trust indicators healthy. Maintain momentum.</p>'}
+
+    <h2>MOMENTUM CHECK</h2>
     <table>
-      <tr><th>Factor</th><th>Status</th></tr>
-      <tr><td>Seller Engagement</td><td>${hasTranscript ? '✅ Assessed from transcript' : '⚠️ Not yet assessed'}</td></tr>
-      <tr><td>Timeline Clarity</td><td>${goLive === 'TBD' ? '⚠️ No go-live date' : '✅ ' + goLive}</td></tr>
-      <tr><td>Package Fit</td><td>ℹ️ ${pkg} — ${pkgInfo.sessions}</td></tr>
-      <tr><td>Data Readiness</td><td>⚠️ Pending menu/data files</td></tr>
+      <tr><th>Signal</th><th>Status</th></tr>
+      <tr><td>Next steps clear?</td><td>${analysis.momentum.nextStepsClear?'✅ Yes':'⚠️ Not explicitly stated'}</td></tr>
+      <tr><td>Deadlines explicit?</td><td>${analysis.momentum.deadlinesExplicit?'✅ Yes':'⚠️ No firm dates'}</td></tr>
+      <tr><td>Seller engaged?</td><td>${analysis.momentum.sellerEngaged?'✅ Positive signals':'⚠️ Unclear'}</td></tr>
+      <tr><td>Seller passive?</td><td>${analysis.momentum.sellerPassive?'⚠️ Passive language detected':'✅ No passive signals'}</td></tr>
+      <tr><td>Ownership clear?</td><td>${analysis.momentum.ownershipClear?'✅ Roles assigned':'⚠️ Ownership ambiguous'}</td></tr>
     </table>
+
+    <h2>RECOMMENDED PM ACTIONS</h2>
+    <ol>
+      <li><b>Immediate:</b> Send post-call email with Account & Settings Checklist</li>
+      ${pkgInfo.tasks>0?'<li><b>Immediate:</b> Submit BPO DSA — difficulty: '+analysis.complexity+', due 3-4 days</li>':''}
+      ${goLive==='TBD'?'<li><b>Priority:</b> Establish anchor date — no sequencing possible without it</li>':''}
+      ${analysis.raid.risks.some(r=>r.includes('Hardware'))?'<li><b>Priority:</b> Confirm hardware receipt — hard blocker</li>':''}
+      ${analysis.raid.risks.some(r=>r.includes('Network'))?'<li><b>Follow-up:</b> Discuss network setup in next session</li>':''}
+      <li><b>Standard:</b> Update DSR status → Consultation Complete</li>
+      <li><b>Standard:</b> Schedule training within seller availability window</li>
+      ${analysis.cognitiveRisks.length>0?'<li><b>Strategic:</b> Re-confirm key decisions — cognitive risk flags present</li>':''}
+    </ol>
+
+    ${special?'<h2>SPECIAL INSTRUCTIONS</h2><div class="info-flag">'+special+'</div>':''}
   `;
 
   // Update status
-  document.getElementById('genStatus').textContent = '✅ All 4 deliverables generated! Switch to Dashboard →';
+  document.getElementById('genStatus').textContent = '✅ All deliverables generated (Agent analysis: '+analysis.health+' | Complexity: '+analysis.complexity+') → Switch to Dashboard';
   document.getElementById('genStatus').className = 'gen-status success';
-
-  // Auto-save to localStorage
   saveCurrentDeal();
-}
-
-// ===== TRANSCRIPT PARSING =====
-function parseTranscriptHighlights(transcript){
-  const lines = transcript.split('\n').filter(l=>l.trim());
-  const lower = transcript.toLowerCase();
-
-  // Detect topics mentioned
-  const topics = [];
-  const topicMap = {
-    'hardware': ['hardware','register','kds','printer','tablet','terminal','receipt','cash drawer','scanner'],
-    'menu': ['menu','item','modifier','category','clover','toast','aloha','revel','export','import'],
-    'online': ['doordash','uber eats','grubhub','delivery','online ordering','square online','website'],
-    'team': ['employee','staff','team','clock in','clock out','timecard','permission','role'],
-    'network': ['wifi','internet','ethernet','network','router','modem'],
-    'loyalty': ['loyalty','gift card','customer','marketing','rewards'],
-    'payment': ['payment','tip','cash','card','apple pay','google pay'],
-    'go-live': ['go live','go-live','launch','open','grand opening','timeline']
-  };
-
-  for(const [topic, keywords] of Object.entries(topicMap)){
-    if(keywords.some(k => lower.includes(k))) topics.push(topic);
-  }
-
-  // Build email sections from detected topics
-  let emailSections = '<h3>Topics Covered</h3><ul>';
-  if(topics.includes('hardware')) emailSections += '<li><b>Hardware:</b> Discussed register, KDS, and printer setup</li>';
-  if(topics.includes('menu')) emailSections += '<li><b>Menu:</b> Reviewed menu structure and build requirements</li>';
-  if(topics.includes('online')) emailSections += '<li><b>Online & Delivery:</b> Discussed delivery channels and online ordering</li>';
-  if(topics.includes('team')) emailSections += '<li><b>Team:</b> Reviewed employee setup and permissions</li>';
-  if(topics.includes('network')) emailSections += '<li><b>Network:</b> Discussed internet and connectivity setup</li>';
-  if(topics.includes('loyalty')) emailSections += '<li><b>Loyalty/Marketing:</b> Discussed loyalty program and gift cards</li>';
-  if(topics.includes('payment')) emailSections += '<li><b>Payments:</b> Reviewed payment methods and tipping</li>';
-  if(topics.includes('go-live')) emailSections += '<li><b>Go-Live:</b> Discussed timeline and launch planning</li>';
-  if(topics.length === 0) emailSections += '<li>General business overview and implementation planning</li>';
-  emailSections += '</ul>';
-
-  // Build risks
-  let risks = '<ul>';
-  if(!topics.includes('network')) risks += '<li><b>Risk:</b> Network/WiFi not discussed — follow up</li>';
-  if(!topics.includes('hardware')) risks += '<li><b>Risk:</b> Hardware not confirmed — verify receipt</li>';
-  if(!topics.includes('go-live')) risks += '<li><b>Risk:</b> No firm go-live date discussed</li>';
-  if(topics.includes('menu')) risks += '<li><b>Note:</b> Menu discussed — ensure files are received for BPO</li>';
-  if(topics.includes('online')) risks += '<li><b>Note:</b> Online/delivery discussed — verify credentials</li>';
-  risks += '</ul>';
-
-  // Build BPO details
-  let bpoDetails = '';
-  if(topics.includes('menu')){
-    bpoDetails = `<h2>Menu Details (from transcript)</h2>
-    <p>Menu was discussed during the call. Key details to capture:</p>
-    <ul>
-      <li>Review transcript for item count, categories, and modifier structure</li>
-      <li>Check for multiple menus (POS vs delivery)</li>
-      <li>Note any pricing conversions needed</li>
-      <li>Identify source system (Clover, Toast, etc.)</li>
-    </ul>`;
-  }
-
-  // Build analysis details
-  let analysisDetails = `<h2>Transcript Coverage Analysis</h2>
-  <table>
-    <tr><th>Topic</th><th>Status</th></tr>
-    <tr><td>Hardware</td><td>${topics.includes('hardware') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Network/WiFi</td><td>${topics.includes('network') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Menu</td><td>${topics.includes('menu') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Online/Delivery</td><td>${topics.includes('online') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Team/Employees</td><td>${topics.includes('team') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Go-Live Date</td><td>${topics.includes('go-live') ? '✅ Discussed' : '⚠️ Not discussed'}</td></tr>
-    <tr><td>Loyalty/Gift Cards</td><td>${topics.includes('loyalty') ? '✅ Discussed' : 'ℹ️ Not mentioned'}</td></tr>
-    <tr><td>Payments</td><td>${topics.includes('payment') ? '✅ Discussed' : 'ℹ️ Not mentioned'}</td></tr>
-  </table>`;
-
-  return {
-    summary: `Topics detected: ${topics.join(', ')}. Transcript: ${lines.length} lines.`,
-    emailSections,
-    risks,
-    bpoDetails,
-    analysisDetails
-  };
 }
 
 // ===== SAVE/LOAD DEALS =====
 function saveCurrentDeal(){
-  const deal = {
-    business: document.getElementById('genBusiness').value,
-    seller: document.getElementById('genSeller').value,
-    sellerEmail: document.getElementById('genSellerEmail').value,
-    ae: document.getElementById('genAE').value,
-    pm: document.getElementById('genPM').value,
-    package: document.getElementById('genPackage').value,
-    dsrLink: document.getElementById('genDSR').value,
-    recording: document.getElementById('genRecording').value,
-    notes: document.getElementById('genNotes').value,
-    sessionType: document.getElementById('genSessionType').value,
-    goLive: document.getElementById('genGoLive').value,
-    availability: document.getElementById('genAvailability').value,
-    timestamp: Date.now()
-  };
-  localStorage.setItem('gso-current-deal', JSON.stringify(deal));
+  const deal={};
+  ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial'].forEach(id=>{deal[id]=document.getElementById(id).value});
+  deal.timestamp=Date.now();
+  localStorage.setItem('gso-current-deal',JSON.stringify(deal));
 }
-
 function saveDeal(){
-  const biz = document.getElementById('genBusiness').value.trim();
+  const biz=document.getElementById('genBusiness').value.trim();
   if(!biz){alert('Enter a business name first');return}
-
-  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
-  deals[biz] = {
-    business: document.getElementById('genBusiness').value,
-    seller: document.getElementById('genSeller').value,
-    sellerEmail: document.getElementById('genSellerEmail').value,
-    ae: document.getElementById('genAE').value,
-    pm: document.getElementById('genPM').value,
-    package: document.getElementById('genPackage').value,
-    dsrLink: document.getElementById('genDSR').value,
-    recording: document.getElementById('genRecording').value,
-    notes: document.getElementById('genNotes').value,
-    sessionType: document.getElementById('genSessionType').value,
-    goLive: document.getElementById('genGoLive').value,
-    availability: document.getElementById('genAvailability').value,
-    timestamp: Date.now()
-  };
-  localStorage.setItem('gso-saved-deals', JSON.stringify(deals));
-  renderSavedDeals();
-
-  const s = document.getElementById('toast');
-  s.textContent = '💾 Deal saved: ' + biz;
-  s.classList.add('show');
-  setTimeout(()=>{s.classList.remove('show');s.textContent='✅ Copied to clipboard!'},2000);
+  const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
+  const deal={};
+  ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial'].forEach(id=>{deal[id]=document.getElementById(id).value});
+  deal.timestamp=Date.now();
+  deals[biz]=deal;
+  localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
+  renderSavedDeals(biz);
+  showToast('💾 Deal saved: '+biz);
 }
-
 function loadDeal(name){
-  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
-  const d = deals[name];
-  if(!d) return;
-
-  document.getElementById('genBusiness').value = d.business || '';
-  document.getElementById('genSeller').value = d.seller || '';
-  document.getElementById('genSellerEmail').value = d.sellerEmail || '';
-  document.getElementById('genAE').value = d.ae || '';
-  document.getElementById('genPM').value = d.pm || '';
-  document.getElementById('genPackage').value = d.package || '';
-  document.getElementById('genDSR').value = d.dsrLink || '';
-  document.getElementById('genRecording').value = d.recording || '';
-  document.getElementById('genNotes').value = d.notes || '';
-  document.getElementById('genSessionType').value = d.sessionType || 'Kickoff';
-  document.getElementById('genGoLive').value = d.goLive || '';
-  document.getElementById('genAvailability').value = d.availability || '';
-
+  const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
+  const d=deals[name];if(!d)return;
+  Object.keys(d).forEach(id=>{if(id!=='timestamp'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});
   renderSavedDeals(name);
 }
-
-function deleteDeal(name, e){
-  e.stopPropagation();
-  if(!confirm('Delete saved deal: ' + name + '?')) return;
-  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
-  delete deals[name];
-  localStorage.setItem('gso-saved-deals', JSON.stringify(deals));
-  renderSavedDeals();
+function deleteDeal(name,e){
+  e.stopPropagation();if(!confirm('Delete saved deal: '+name+'?'))return;
+  const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
+  delete deals[name];localStorage.setItem('gso-saved-deals',JSON.stringify(deals));renderSavedDeals();
 }
-
 function renderSavedDeals(activeName){
-  const deals = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
-  const bar = document.getElementById('savedDealsBar');
-  const names = Object.keys(deals);
-  if(names.length === 0){bar.style.display='none';return}
-  bar.style.display = 'flex';
-  bar.innerHTML = '<span style="font-size:11px;color:#64748b;align-self:center;margin-right:4px">💾 Saved:</span>' +
-    names.map(n => `<div class="saved-deal ${n===activeName?'active-deal':''}" onclick="loadDeal('${n.replace(/'/g,"\\'")}')">
-      ${n} <span class="del" onclick="deleteDeal('${n.replace(/'/g,"\\'")}',event)">×</span>
-    </div>`).join('');
+  const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
+  const bar=document.getElementById('savedDealsBar');const names=Object.keys(deals);
+  if(names.length===0){bar.style.display='none';return}
+  bar.style.display='flex';
+  bar.innerHTML='<span style="font-size:11px;color:#64748b;align-self:center;margin-right:4px">💾 Saved:</span>'+
+    names.map(n=>`<div class="saved-deal ${n===activeName?'active-deal':''}" onclick="loadDeal('${n.replace(/'/g,"\\'")}')">
+      ${n} <span class="del" onclick="deleteDeal('${n.replace(/'/g,"\\'")}',event)">×</span></div>`).join('');
 }
-
 function clearForm(){
-  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability'].forEach(id=>{
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('genPackage').value = '';
-  document.getElementById('genSessionType').value = 'Kickoff';
-  document.getElementById('fileInfo').style.display = 'none';
-  document.getElementById('genStatus').textContent = '';
-  renderSavedDeals();
+  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability','genAttendees','genDate','genSpecial'].forEach(id=>{document.getElementById(id).value=''});
+  ['genPackage','genSessionType','genHardware','genMenuStatus'].forEach(id=>{document.getElementById(id).selectedIndex=0});
+  document.getElementById('fileInfo').style.display='none';
+  document.getElementById('genStatus').textContent='';renderSavedDeals();
 }
 
 // ===== INIT =====
-// Load last deal if exists
 (function(){
-  const last = localStorage.getItem('gso-current-deal');
-  if(last){
-    try{
-      const d = JSON.parse(last);
-      if(d.business) document.getElementById('genBusiness').value = d.business;
-      if(d.seller) document.getElementById('genSeller').value = d.seller;
-      if(d.sellerEmail) document.getElementById('genSellerEmail').value = d.sellerEmail;
-      if(d.ae) document.getElementById('genAE').value = d.ae;
-      if(d.pm) document.getElementById('genPM').value = d.pm;
-      if(d.package) document.getElementById('genPackage').value = d.package;
-      if(d.dsrLink) document.getElementById('genDSR').value = d.dsrLink;
-      if(d.recording) document.getElementById('genRecording').value = d.recording;
-      if(d.notes) document.getElementById('genNotes').value = d.notes;
-      if(d.sessionType) document.getElementById('genSessionType').value = d.sessionType;
-      if(d.goLive) document.getElementById('genGoLive').value = d.goLive;
-      if(d.availability) document.getElementById('genAvailability').value = d.availability;
-    }catch(e){}
-  }
+  const last=localStorage.getItem('gso-current-deal');
+  if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});}catch(e){}}
   renderSavedDeals();
 })();
 
@@ -1245,7 +1303,11 @@ const quizData=[
 ["Camera rule on calls?","Always on (rare exceptions)"],
 ["Who handles billing?","BPO (Regulator, Mon/Wed) or AE/AM (CPQ)"],
 ["Travel fee threshold?","$750 if >120 miles from nearest tech"],
-["What is RAID?","Risk, Assumption, Issue, Decision"]
+["What is RAID?","Risk, Assumption, Issue, Decision"],
+["What is MVP-first thinking?","Transact > perfect setup — get seller live, refine later"],
+["What is a cognitive trap in PM?","Assumptions, false agreement, narrative bias"],
+["Trust = system variable means?","Missed expectations erode trust, which erodes velocity"],
+["Flow efficiency vs resource efficiency?","Prioritize throughput over keeping everyone busy"]
 ];
 const g=document.getElementById('quizGrid');
 quizData.forEach(([q,a],i)=>{g.innerHTML+=`<div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div>Q${i+1}: ${q}</div></div><div class="flip-back"><div>${a}</div></div></div></div>`});
