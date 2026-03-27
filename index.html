@@ -1094,6 +1094,130 @@ Examples:
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 </div>
 
+<!-- Retail Conversation Guide -->
+<div class="cl-section" style="border-color:#a855f744;background:#a855f708">
+<h3><span class="cl-icon">🏪</span> Retail Conversation Guide <span style="font-size:10px;background:#a855f722;color:#a855f7;padding:2px 8px;border-radius:10px;border:1px solid #a855f744;margin-left:6px">RETAIL ONLY</span></h3>
+<p style="color:#94a3b8;font-size:12px;margin:8px 0 14px">Use this section during the KO call when the seller is a <b>retail business</b>. Walk through each item to map their data to Square's import format.</p>
+
+<!-- RTL Subscription -->
+<div style="background:#0f0f23;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #2d2d5e">
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>"Is your account subscribed to Square for Retail (RTL)?"</b>
+<div class="cl-sub">This determines feature access — item variations, purchase orders, vendor management, stock counts. If not on RTL, flag with AE.</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="RTL status notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Column Mapping -->
+<div style="background:#0f0f23;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #2d2d5e">
+<p style="color:#a855f7;font-weight:700;font-size:13px;margin-bottom:10px">📊 Column Mapping — Square ↔ Seller's File</p>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:12px">"I'm going to walk through the fields we need for your item import. For each one, tell me which column in your file matches — or if it doesn't exist, we'll note that."</p>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Item Name</b> = ?
+<div class="cl-sub">"What column has your product names?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Description</b> = ?
+<div class="cl-sub">"Do you have product descriptions? Which column?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Category</b> = ?
+<div class="cl-sub">"How are your products grouped? Department, type, collection?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>SKU</b> = ?
+<div class="cl-sub">"Do you use SKU numbers? Which column?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>GTIN / Barcode</b> = ?
+<div class="cl-sub">"Do you scan barcodes? UPC, EAN, ISBN — which column has those?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Price</b> = ?
+<div class="cl-sub">"Which column has your retail/selling price?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Variation</b> = ?
+<div class="cl-sub">"Do items come in different sizes, colors, or styles? Which columns?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Default Unit Cost</b> = ?
+<div class="cl-sub">"Do you track what you pay for each item? Which column has your cost?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Default Vendor Name</b> = ?
+<div class="cl-sub">"Do you track which supplier each product comes from?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>Default Vendor Code</b> = ?
+<div class="cl-sub">"Does your supplier use their own product codes? Which column?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>New Quantity (Stock Count)</b> = ?
+<div class="cl-sub">"Do you have current inventory counts? Which column has on-hand quantities?"</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Maps to: ..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Option Sets -->
+<div style="background:#0f0f23;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #2d2d5e">
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>"Do you need Option Sets instead of Variations?"</b>
+<div class="cl-sub">Option Sets = shared attributes across many items (e.g., Size: S/M/L/XL applies to all shirts). Variations = unique per item. If they have consistent attributes across products, Option Sets save time.</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Option Sets needed? List sets + values here...
+
+Example:
+- Size: XS, S, M, L, XL, 2XL
+- Color: Black, White, Navy, Red
+- Material: Cotton, Polyester, Blend" oninput="saveKOQNotes()" style="min-height:80px"></textarea></div>
+</div>
+
+<!-- Online Items -->
+<div style="background:#0f0f23;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #2d2d5e">
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>"Which items or categories do you sell online?"</b>
+<div class="cl-sub">Need to know what gets published to Square Online vs. POS-only. Some sellers want everything online, some only specific categories.</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Online items/categories...
+
+Example:
+- All apparel → online
+- Accessories → online
+- Clearance → POS only
+- Gift cards → both" oninput="saveKOQNotes()" style="min-height:60px"></textarea></div>
+</div>
+
+<!-- Special Instructions -->
+<div style="background:#0f0f23;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #2d2d5e">
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text"><b>"Any other special instructions about the file or your catalog?"</b>
+<div class="cl-sub">Catch-all for anything unique: custom fields, seasonal items, items to exclude, tax-exempt products, consignment items, etc.</div></span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Special instructions...
+
+Example:
+- Exclude discontinued items (marked 'D' in status column)
+- Tax-exempt on grocery items
+- Some items have multiple barcodes
+- Need reporting categories for accounting" oninput="saveKOQNotes()" style="min-height:60px"></textarea></div>
+</div>
+
+<!-- Retail Quick Reference -->
+<div style="background:#1a1a3e;border-radius:10px;padding:14px;border:1px solid #2d2d5e;margin-top:12px">
+<p style="color:#a855f7;font-weight:700;font-size:12px;margin-bottom:8px">📎 Retail Quick Reference</p>
+<table style="width:100%;border-collapse:collapse;font-size:11px">
+<tr><th style="background:#2d2d5e;padding:5px 8px;text-align:left">Square Field</th><th style="background:#2d2d5e;padding:5px 8px;text-align:left">What It Is</th><th style="background:#2d2d5e;padding:5px 8px;text-align:left">Required?</th></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Item Name</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Product display name</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#ef4444">✱ Required</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Description</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Product details (shows online)</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Category</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Grouping for POS + reporting</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#eab308">Recommended</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">SKU</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Internal tracking number</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">GTIN</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Barcode (UPC/EAN/ISBN)</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional (needed for scanning)</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Price</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Selling price per variation</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#ef4444">✱ Required</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Variation</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Size, color, style per item</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">If applicable</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Default Unit Cost</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">What you pay (for margin tracking)</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional (RTL)</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Vendor Name</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Supplier name</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional (RTL)</td></tr>
+<tr><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Vendor Code</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33">Supplier's product code</td><td style="padding:5px 8px;border-bottom:1px solid #2d2d5e33;color:#94a3b8">Optional (RTL)</td></tr>
+<tr><td style="padding:5px 8px">New Quantity</td><td style="padding:5px 8px">Current stock on hand</td><td style="padding:5px 8px;color:#eab308">Recommended (RTL)</td></tr>
+</table>
+</div>
+
+<div style="margin-top:10px">
+<button class="btn btn-sm" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744" onclick="exportRetailMapping()">📊 Export Column Mapping</button>
+</div>
+</div>
+
 <div class="cl-tip">🧠 <b>Live Call Rule:</b> If you're asking more than this → you're over-discovering. Keep momentum.</div>
 
 <div class="cl-reset" style="display:flex;gap:8px">
@@ -2233,6 +2357,22 @@ SET EXPECTATIONS:
 
 "Sound good? Any questions before we dive in?"`;
   navigator.clipboard.writeText(script).then(()=>showToast('📋 Opening script copied!'));
+}
+
+function exportRetailMapping(){
+  // Grab all the retail section notes
+  const retailSection = document.querySelector('.cl-section[style*="a855f7"]');
+  if(!retailSection) return;
+  const textareas = retailSection.querySelectorAll('textarea[data-notes="koQ"]');
+  const fields = ['RTL Subscription','Item Name','Description','Category','SKU','GTIN / Barcode','Price','Variation','Default Unit Cost','Default Vendor Name','Default Vendor Code','New Quantity','Option Sets','Online Items/Categories','Special Instructions'];
+  let output = '📊 RETAIL COLUMN MAPPING\n' + '='.repeat(40) + '\n\n';
+  output += 'Square Field → Seller\'s Column\n' + '-'.repeat(40) + '\n';
+  textareas.forEach((t,i)=>{
+    const field = fields[i] || 'Field '+(i+1);
+    const val = t.value.trim() || '[Not mapped]';
+    output += field + ' → ' + val + '\n';
+  });
+  navigator.clipboard.writeText(output).then(()=>showToast('📊 Retail mapping exported to clipboard!'));
 }
 
 function resetChecklist(prefix){
