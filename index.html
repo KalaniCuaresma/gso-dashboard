@@ -943,6 +943,54 @@ Examples:
 <h1 style="margin-bottom:4px">❓ Plus Kickoff Call Question Checklist</h1>
 <p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Check off each question as you cover it during the KO call. Add notes inline.</p>
 
+<!-- KO Opening Script -->
+<div class="cl-section" style="border-color:#006AFF44;background:#006AFF08">
+<h3><span class="cl-icon">🎯</span> Opening Script — Set the Agenda (First 2 min)</h3>
+<div style="background:#0f0f23;border-radius:10px;padding:18px;margin-top:8px;line-height:1.8;font-size:13px">
+<p style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Read this (or adapt to your style):</p>
+
+<p>"Hey <b>[Seller Name]</b>, thanks for taking the time today — I'm <b>[Your Name]</b>, your implementation project manager here at Square. I'll be your main point of contact from here through go-live."</p>
+
+<p>"Before we jump in, I want to give you a quick roadmap for what we're doing today so we make the most of our 30 minutes together."</p>
+
+<div style="background:#1a1a3e;border-radius:8px;padding:14px;margin:12px 0;border-left:3px solid #006AFF">
+<p style="color:#006AFF;font-weight:700;margin-bottom:6px">🎯 Purpose of This Call</p>
+<p>"The purpose of this kickoff is to <b>understand your business, confirm your setup, and build a plan</b> so that when we get to training, we're not figuring things out — we're executing. I want to make sure your Square system is built the way <i>you</i> need it, not the other way around."</p>
+</div>
+
+<div style="background:#1a1a3e;border-radius:8px;padding:14px;margin:12px 0;border-left:3px solid #22c55e">
+<p style="color:#22c55e;font-weight:700;margin-bottom:6px">📋 Agenda — What We'll Cover</p>
+<p>"Here's what we'll walk through today:"</p>
+<ol style="margin-left:18px;margin-top:6px">
+<li><b>Quick intros</b> — who's on the call and what you do day to day</li>
+<li><b>Your current setup</b> — what you're using now and why you're making the switch</li>
+<li><b>Hardware & network</b> — making sure everything's ready to go</li>
+<li><b>Menu & items</b> — how your menu is structured so we can build it right</li>
+<li><b>Go-live plan</b> — your target date and what needs to happen before then</li>
+<li><b>Training & next steps</b> — how and when we'll get you trained up</li>
+</ol>
+</div>
+
+<div style="background:#1a1a3e;border-radius:8px;padding:14px;margin:12px 0;border-left:3px solid #eab308">
+<p style="color:#eab308;font-weight:700;margin-bottom:6px">⚡ Set Expectations</p>
+<p>"A couple things I want to be upfront about with the Plus package:"</p>
+<ul style="margin-left:18px;margin-top:6px">
+<li>"We have <b>one training session together</b> — either 90 minutes straight or two 45-minute sessions. I want to make sure we use that time on what matters most to you."</li>
+<li>"I'll be handling your <b>menu build, any data imports, and backend setup</b> — you don't need to worry about that."</li>
+<li>"After training, I'll send you <b>resources and guides</b> so you're not left hanging — but there isn't a formal follow-up session with this package, so we want to make training count."</li>
+<li>"Everything I do is <b>by appointment</b> and I respond to emails <b>within 24 hours</b>."</li>
+</ul>
+</div>
+
+<p>"Sound good? Any questions before we dive in?"</p>
+
+<p style="color:#64748b;font-size:11px;margin-top:12px">⏱️ This should take ~2 minutes. Then move into Intros + Alignment below.</p>
+</div>
+<div style="margin-top:10px">
+<button class="btn btn-green btn-sm" onclick="copyKOOpening()">📋 Copy Opening Script</button>
+</div>
+</div>
+
 <div class="cl-progress">
 <div class="cl-progress-label">Coverage</div>
 <div class="cl-progress-bar"><div class="cl-progress-fill" id="koQProgressFill" style="width:0%"></div></div>
@@ -2155,6 +2203,36 @@ function exportKOQNotes(){
     output += '\n';
   });
   navigator.clipboard.writeText(output).then(()=>showToast('📋 KO notes exported to clipboard!'));
+}
+
+function copyKOOpening(){
+  const script = `KO OPENING SCRIPT
+==================
+
+"Hey [Seller Name], thanks for taking the time today — I'm [Your Name], your implementation project manager here at Square. I'll be your main point of contact from here through go-live."
+
+"Before we jump in, I want to give you a quick roadmap for what we're doing today so we make the most of our 30 minutes together."
+
+PURPOSE:
+"The purpose of this kickoff is to understand your business, confirm your setup, and build a plan so that when we get to training, we're not figuring things out — we're executing. I want to make sure your Square system is built the way you need it, not the other way around."
+
+AGENDA:
+1. Quick intros — who's on the call and what you do day to day
+2. Your current setup — what you're using now and why you're making the switch
+3. Hardware & network — making sure everything's ready to go
+4. Menu & items — how your menu is structured so we can build it right
+5. Go-live plan — your target date and what needs to happen before then
+6. Training & next steps — how and when we'll get you trained up
+
+SET EXPECTATIONS:
+"A couple things I want to be upfront about with the Plus package:"
+- "We have one training session together — either 90 minutes straight or two 45-minute sessions. I want to make sure we use that time on what matters most to you."
+- "I'll be handling your menu build, any data imports, and backend setup — you don't need to worry about that."
+- "After training, I'll send you resources and guides so you're not left hanging — but there isn't a formal follow-up session with this package, so we want to make training count."
+- "Everything I do is by appointment and I respond to emails within 24 hours."
+
+"Sound good? Any questions before we dive in?"`;
+  navigator.clipboard.writeText(script).then(()=>showToast('📋 Opening script copied!'));
 }
 
 function resetChecklist(prefix){
