@@ -206,6 +206,31 @@ h2{font-size:18px;margin-bottom:10px}
 .agent-badge{display:inline-flex;align-items:center;gap:6px;background:#006AFF22;border:1px solid #006AFF44;border-radius:8px;padding:4px 12px;font-size:11px;color:#60a5fa;margin-bottom:12px}
 .agent-badge .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* Checklist Tabs */
+.cl-section{background:#1a1a3e;border-radius:12px;padding:20px;border:1px solid #2d2d5e;margin-bottom:16px}
+.cl-section h3{font-size:15px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #2d2d5e;display:flex;align-items:center;gap:8px}
+.cl-section h3 .cl-icon{font-size:18px}
+.cl-section h3 .cl-count{margin-left:auto;font-size:12px;font-weight:600;color:#64748b}
+.cl-section h3 .cl-count.done{color:#22c55e}
+.cl-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;transition:all .2s}
+.cl-item:last-child{border:none}
+.cl-item input[type=checkbox]{width:18px;height:18px;accent-color:#22c55e;cursor:pointer;margin-top:1px;flex-shrink:0}
+.cl-item.cl-done span{text-decoration:line-through;color:#64748b}
+.cl-item .cl-text{flex:1}
+.cl-item .cl-sub{font-size:11px;color:#64748b;margin-top:2px}
+.cl-item .cl-indent{padding-left:28px}
+.cl-progress{background:#0f0f23;border-radius:10px;padding:16px;border:1px solid #2d2d5e;margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.cl-progress-bar{flex:1;height:8px;background:#2d2d5e;border-radius:4px;overflow:hidden}
+.cl-progress-fill{height:100%;background:#22c55e;border-radius:4px;transition:width .3s}
+.cl-progress-text{font-size:14px;font-weight:700;min-width:50px;text-align:right}
+.cl-progress-label{font-size:12px;color:#94a3b8}
+.cl-tip{background:#eab30811;border:1px solid #eab30833;border-radius:10px;padding:14px 18px;font-size:12px;color:#eab308;margin-top:16px;line-height:1.6}
+.cl-tip b{color:#eab308}
+.cl-notes{margin-top:6px}
+.cl-notes textarea{width:100%;padding:6px 10px;border-radius:6px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical;min-height:32px;transition:min-height .2s}
+.cl-notes textarea:focus{outline:none;border-color:#006AFF;min-height:60px}
+.cl-notes textarea::placeholder{color:#4a4a6a}
+.cl-reset{margin-top:12px}
 /* Menu Item Builder */
 .menu-row{display:grid;grid-template-columns:2fr 1.5fr 1fr .5fr;gap:6px;margin-bottom:6px;align-items:center}
 .menu-row input{padding:7px 10px;border-radius:6px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:12px;font-family:inherit}
@@ -281,6 +306,8 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('dsr')">DSR Chatter</button>
 <button class="tab-btn" onclick="showTab('bpo')">BPO Task</button>
 <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+<button class="tab-btn" onclick="showTab('preKO')">🧾 Pre-KO</button>
+<button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Questions</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 </nav>
 <div class="container">
@@ -786,6 +813,247 @@ Examples:
 <div class="empty-state"><div class="icon">🔍</div><h3>No Analysis Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
 </div></div>
 
+<!-- ===== PRE-KO CHECKLIST ===== -->
+<div id="preKO" class="tab">
+<h1 style="margin-bottom:4px">🧾 Pre-Kickoff Call Checklist (Plus)</h1>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Complete every item before your KO call. Progress saves automatically.</p>
+
+<div class="cl-progress">
+<div class="cl-progress-label">Progress</div>
+<div class="cl-progress-bar"><div class="cl-progress-fill" id="preKOProgressFill" style="width:0%"></div></div>
+<div class="cl-progress-text" id="preKOProgressText" style="color:#eab308">0%</div>
+</div>
+
+<!-- DSR Assigned -->
+<div class="cl-section">
+<h3><span class="cl-icon">📥</span> DSR Assigned <span class="cl-count" id="preKO-s1-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Confirm DSR assigned to you</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Open and review immediately</span></div>
+</div>
+
+<!-- Review DSR Notes -->
+<div class="cl-section">
+<h3><span class="cl-icon">🔍</span> Review DSR Notes <span class="cl-count" id="preKO-s2-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Check suggested Go Live date</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Review AE/AM notes for context</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Clarify any gaps or concerns</span></div>
+</div>
+
+<!-- Attachments & Files -->
+<div class="cl-section">
+<h3><span class="cl-icon">📎</span> Attachments & Files <span class="cl-count" id="preKO-s3-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Confirm files uploaded (menu, catalog, etc.)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Flag missing files with AE</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Review files before KO</span></div>
+</div>
+
+<!-- Regulator Check -->
+<div class="cl-section">
+<h3><span class="cl-icon">🔗</span> Regulator Check <span class="cl-count" id="preKO-s4-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Confirm Regulator link exists</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">IDV completed</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Hardware ordered (check Shipping History)<div class="cl-sub">👉 If issues: Chatter AE/AM for IDV completion + hardware order</div></span></div>
+</div>
+
+<!-- Align with AE/AM -->
+<div class="cl-section">
+<h3><span class="cl-icon">💬</span> Align with AE/AM <span class="cl-count" id="preKO-s5-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Reach out if anything unclear</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Request sync (Slack/Huddle) if needed</span></div>
+</div>
+
+<!-- Acknowledge DSR -->
+<div class="cl-section">
+<h3><span class="cl-icon">✅</span> Acknowledge DSR <span class="cl-count" id="preKO-s6-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Chatter AE/AM (intro + expectations)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Set Next Step Date</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Update DSR status</span></div>
+</div>
+
+<!-- KO Scheduling Tracking -->
+<div class="cl-section">
+<h3><span class="cl-icon">📅</span> KO Scheduling Tracking <span class="cl-count" id="preKO-s7-count">0/8</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text"><b>If NO AE intro email yet:</b> Check after 24 hrs</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text cl-indent">Chatter AE/AM to send intro</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text"><b>If intro sent but no booking:</b> Set Next Step Date (+3 days)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text cl-indent">Send reminder intro email</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text cl-indent">Chatter AE/AM to follow up</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text"><b>If still no booking:</b> Send final reminder</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text cl-indent">Chatter AE/AM re: closing DSR</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text cl-indent">Set close date (+3 days)</span></div>
+</div>
+
+<!-- Your Intro Email -->
+<div class="cl-section">
+<h3><span class="cl-icon">📧</span> Your Intro Email <span class="cl-count" id="preKO-s8-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Respond within 24 hrs</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Use correct TextBlaze: <code>/plus</code> or <code>/seplusintroPM</code></span></div>
+</div>
+
+<!-- When KO is Booked -->
+<div class="cl-section">
+<h3><span class="cl-icon">📌</span> When KO is Booked <span class="cl-count" id="preKO-s9-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Chatter AE/AM with date/time</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Update Next Step Date (KO or day before)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Update Next Step Notes</span></div>
+</div>
+
+<!-- DSA Check -->
+<div class="cl-section">
+<h3><span class="cl-icon">📄</span> DSA Check <span class="cl-count" id="preKO-s10-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Confirm DSA attached</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">If missing → create Consultation DSA</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Set correct duration (30 min for Plus)</span></div>
+</div>
+
+<!-- KO Call Prep -->
+<div class="cl-section">
+<h3><span class="cl-icon">🧠</span> KO Call Prep <span class="cl-count" id="preKO-s11-count">0/6</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Block 15–30 min before call</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Review all files (menu/catalog)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Review DSR notes again</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Prepare questions in advance</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Check hardware (Shipping History)<div class="cl-sub">👉 If unclear: Chatter AE/AM for hardware details</div></span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Confirm device list is clear</span></div>
+</div>
+
+<!-- Slide Deck -->
+<div class="cl-section">
+<h3><span class="cl-icon">🖥️</span> Slide Deck (if applicable) <span class="cl-count" id="preKO-s12-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Copy Plus KO Slide Deck</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Add business name</span></div>
+</div>
+
+<!-- Final Readiness -->
+<div class="cl-section">
+<h3><span class="cl-icon">🚨</span> Final Readiness Check <span class="cl-count" id="preKO-s13-count">0/4</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Timeline realistic</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Files ready</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">Hardware confirmed</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">No major blockers</span></div>
+</div>
+
+<div class="cl-tip">💡 <b>Tip:</b> If you feel confused going into the KO call, the seller will feel it too — always over-prepare here.</div>
+
+<div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('preKO')">🔄 Reset All</button></div>
+</div>
+
+<!-- ===== KO QUESTIONS CHECKLIST ===== -->
+<div id="koQuestions" class="tab">
+<h1 style="margin-bottom:4px">❓ Plus Kickoff Call Question Checklist</h1>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Check off each question as you cover it during the KO call. Add notes inline.</p>
+
+<div class="cl-progress">
+<div class="cl-progress-label">Coverage</div>
+<div class="cl-progress-bar"><div class="cl-progress-fill" id="koQProgressFill" style="width:0%"></div></div>
+<div class="cl-progress-text" id="koQProgressText" style="color:#eab308">0%</div>
+</div>
+
+<!-- Intros + Alignment -->
+<div class="cl-section">
+<h3><span class="cl-icon">👋</span> Intros + Alignment + Timeline <span class="cl-count" id="koQ-s1-count">0/6</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can everyone briefly introduce themselves and share their role in the business?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can you give me a quick overview of your business and how you operate day to day?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"You selected the Plus implementation package — does that still sound right for what you need?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Our goal is to help you feel confident using the parts of Square that matter most — how does that sound?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What is your ideal go-live date with Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What are you hoping Square helps improve or solve for your business?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- POS -->
+<div class="cl-section">
+<h3><span class="cl-icon">💳</span> POS (Hardware + Checkout) <span class="cl-count" id="koQ-s2-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can you walk me through what a typical checkout looks like today and how you plan to use each device?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What hardware/devices will you be using, and have they already been ordered?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you have someone handling the set-up of your cabling and network?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Menu / Catalog -->
+<div class="cl-section">
+<h3><span class="cl-icon">📋</span> Menu / Catalog / Data Review <span class="cl-count" id="koQ-s3-count">0/5</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Is everything you sell reflected in the files we reviewed, or is anything missing?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Are there any key modifiers, variations, or discounts we need to account for?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Are there any changes or updates you expect before go-live?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you want multiple menus or just one main menu?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you rely on inventory tracking today, and should we plan for a stock import?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Staff + Labor -->
+<div class="cl-section">
+<h3><span class="cl-icon">👥</span> Staff + Labor <span class="cl-count" id="koQ-s4-count">0/1</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Will you be tracking staff time or scheduling in Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Categories + Reporting -->
+<div class="cl-section">
+<h3><span class="cl-icon">📂</span> Categories + Reporting <span class="cl-count" id="koQ-s5-count">0/1</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Does your current setup match how you want categories and reporting to work in Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Loyalty + Marketing -->
+<div class="cl-section">
+<h3><span class="cl-icon">🎁</span> Loyalty + Marketing + Gift Cards <span class="cl-count" id="koQ-s6-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you have an existing loyalty or marketing program, or will you be starting fresh with Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you have any gift card data you will need to transfer over to Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What data should we bring over (customers, inventory, gift cards, etc.)?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Online + Fulfillment -->
+<div class="cl-section">
+<h3><span class="cl-icon">🌐</span> Online + Fulfillment <span class="cl-count" id="koQ-s7-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you plan to use Square Online or keep things in-store only?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Will you offer pickup, delivery, shipping, or QR ordering?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Scheduling -->
+<div class="cl-section">
+<h3><span class="cl-icon">🕒</span> Scheduling + Availability <span class="cl-count" id="koQ-s8-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What does your availability look like over the next week for training?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Would you prefer one 90-minute training or two 45-minute training sessions?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Who should attend each training session?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<!-- Wrap-Up -->
+<div class="cl-section">
+<h3><span class="cl-icon">🏁</span> Wrap-Up <span class="cl-count" id="koQ-s9-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you have any questions or concerns before we wrap today?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Are you comfortable with the timeline and next steps we discussed?"</span></div>
+<div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
+</div>
+
+<div class="cl-tip">🧠 <b>Live Call Rule:</b> If you're asking more than this → you're over-discovering. Keep momentum.</div>
+
+<div class="cl-reset" style="display:flex;gap:8px">
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('koQ')">🔄 Reset All</button>
+<button class="btn btn-green btn-sm" onclick="exportKOQNotes()">📋 Export Notes</button>
+</div>
+</div>
+
 <!-- ===== STUDY GUIDE ===== -->
 <div id="study" class="tab">
 <h1 style="margin-bottom:6px">📚 GSO Study Guide & Playbook Reference</h1>
@@ -936,7 +1204,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',study:'📚 Study Guide'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -1810,6 +2078,112 @@ function clearForm(){
   const last=localStorage.getItem('gso-current-deal');
   if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});if(d.menuItems){menuItems=d.menuItems;renderMenuItems()}}catch(e){}}
   renderSavedDeals();
+})();
+
+// ================================================================
+// ===== PRE-KO & KO QUESTION CHECKLISTS =====
+// ================================================================
+
+function updatePreKO(){
+  const checks = document.querySelectorAll('input[data-cl="preKO"]');
+  let total = 0, done = 0;
+  const states = [];
+  checks.forEach(c=>{
+    total++;
+    if(c.checked){done++;c.closest('.cl-item').classList.add('cl-done')}
+    else c.closest('.cl-item').classList.remove('cl-done');
+    states.push(c.checked);
+  });
+  const pct = total>0?Math.round(done/total*100):0;
+  document.getElementById('preKOProgressFill').style.width = pct+'%';
+  document.getElementById('preKOProgressText').textContent = pct+'%';
+  document.getElementById('preKOProgressText').style.color = pct===100?'#22c55e':pct>=50?'#eab308':'#ef4444';
+  localStorage.setItem('gso-preKO-checks', JSON.stringify(states));
+  // Update section counts
+  updateSectionCounts('preKO');
+}
+
+function updateKOQ(){
+  const checks = document.querySelectorAll('input[data-cl="koQ"]');
+  let total = 0, done = 0;
+  const states = [];
+  checks.forEach(c=>{
+    total++;
+    if(c.checked){done++;c.closest('.cl-item').classList.add('cl-done')}
+    else c.closest('.cl-item').classList.remove('cl-done');
+    states.push(c.checked);
+  });
+  const pct = total>0?Math.round(done/total*100):0;
+  document.getElementById('koQProgressFill').style.width = pct+'%';
+  document.getElementById('koQProgressText').textContent = pct+'%';
+  document.getElementById('koQProgressText').style.color = pct===100?'#22c55e':pct>=50?'#eab308':'#ef4444';
+  localStorage.setItem('gso-koQ-checks', JSON.stringify(states));
+  updateSectionCounts('koQ');
+}
+
+function updateSectionCounts(prefix){
+  const tab = prefix==='preKO'?document.getElementById('preKO'):document.getElementById('koQuestions');
+  const sections = tab.querySelectorAll('.cl-section');
+  sections.forEach((sec,i)=>{
+    const checks = sec.querySelectorAll('input[type=checkbox]');
+    let done = 0;
+    checks.forEach(c=>{if(c.checked)done++});
+    const countEl = sec.querySelector('.cl-count');
+    if(countEl){
+      countEl.textContent = done+'/'+checks.length;
+      countEl.classList.toggle('done', done===checks.length);
+    }
+  });
+}
+
+function saveKOQNotes(){
+  const notes = [];
+  document.querySelectorAll('#koQuestions textarea[data-notes="koQ"]').forEach(t=>notes.push(t.value));
+  localStorage.setItem('gso-koQ-notes', JSON.stringify(notes));
+}
+
+function exportKOQNotes(){
+  const checks = document.querySelectorAll('input[data-cl="koQ"]');
+  const textareas = document.querySelectorAll('#koQuestions textarea[data-notes="koQ"]');
+  let output = '📋 KO CALL NOTES\n' + '='.repeat(40) + '\n\n';
+  checks.forEach((c,i)=>{
+    const q = c.closest('.cl-item').querySelector('.cl-text').textContent.trim();
+    const note = textareas[i] ? textareas[i].value.trim() : '';
+    const status = c.checked ? '✅' : '☐';
+    output += status + ' ' + q + '\n';
+    if(note) output += '   → ' + note + '\n';
+    output += '\n';
+  });
+  navigator.clipboard.writeText(output).then(()=>showToast('📋 KO notes exported to clipboard!'));
+}
+
+function resetChecklist(prefix){
+  if(!confirm('Reset all checkboxes? This cannot be undone.')) return;
+  const key = prefix==='preKO'?'preKO':'koQ';
+  document.querySelectorAll(`input[data-cl="${key}"]`).forEach(c=>{c.checked=false;c.closest('.cl-item').classList.remove('cl-done')});
+  localStorage.removeItem('gso-'+key+'-checks');
+  if(prefix==='preKO') updatePreKO();
+  else {
+    updateKOQ();
+    document.querySelectorAll('#koQuestions textarea[data-notes="koQ"]').forEach(t=>t.value='');
+    localStorage.removeItem('gso-koQ-notes');
+  }
+  showToast('🔄 Checklist reset');
+}
+
+// Load saved states
+(function(){
+  // Pre-KO
+  const preKOStates = JSON.parse(localStorage.getItem('gso-preKO-checks')||'[]');
+  document.querySelectorAll('input[data-cl="preKO"]').forEach((c,i)=>{if(preKOStates[i])c.checked=true});
+  updatePreKO();
+  // KO Questions
+  const koQStates = JSON.parse(localStorage.getItem('gso-koQ-checks')||'[]');
+  document.querySelectorAll('input[data-cl="koQ"]').forEach((c,i)=>{if(koQStates[i])c.checked=true});
+  updateKOQ();
+  // KO Notes
+  const koQNotes = JSON.parse(localStorage.getItem('gso-koQ-notes')||'[]');
+  document.querySelectorAll('#koQuestions textarea[data-notes="koQ"]').forEach((t,i)=>{if(koQNotes[i])t.value=koQNotes[i]});
 })();
 
 // ================================================================
