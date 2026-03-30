@@ -231,6 +231,12 @@ h2{font-size:18px;margin-bottom:10px}
 .cl-notes textarea:focus{outline:none;border-color:#006AFF;min-height:60px}
 .cl-notes textarea::placeholder{color:#4a4a6a}
 .cl-reset{margin-top:12px}
+/* Slide Indicators */
+.slide-badge{display:inline-flex;align-items:center;gap:4px;background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;margin-left:6px;vertical-align:middle}
+.slide-badge .slide-num{background:#ff6b35;color:#fff;width:16px;height:16px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px}
+.slide-cue{background:#ff6b3510;border:1px solid #ff6b3533;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:12px;color:#ff6b35}
+.slide-cue b{color:#ffaa80}
+.slide-cue .slide-content{color:#94a3b8;margin-top:4px;font-size:11px;font-style:italic}
 /* Menu Item Builder */
 .menu-row{display:grid;grid-template-columns:2fr 1.5fr 1fr .5fr;gap:6px;margin-bottom:6px;align-items:center}
 .menu-row input{padding:7px 10px;border-radius:6px;border:1px solid #2d2d5e;background:#0f0f23;color:#e2e8f0;font-size:12px;font-family:inherit}
@@ -941,21 +947,74 @@ Examples:
 <!-- ===== KO QUESTIONS CHECKLIST ===== -->
 <div id="koQuestions" class="tab">
 <h1 style="margin-bottom:4px">❓ Plus Kickoff Call Question Checklist</h1>
-<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Check off each question as you cover it during the KO call. Add notes inline.</p>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Check off each question as you cover it during the KO call. Add notes inline. <span class="slide-badge" style="font-size:10px">🖥️ Slide cues</span> show when to advance your deck.</p>
+
+<!-- Slide Flow Overview -->
+<div style="background:#1a1a3e;border-radius:10px;padding:14px 18px;border:1px solid #ff6b3533;margin-bottom:16px">
+<p style="color:#ff6b35;font-weight:700;font-size:13px;margin-bottom:10px">🖥️ Slide Deck Flow — 8 Slides / 30 Minutes</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>1</b> Welcome</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>2</b> Intros</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>3</b> Who Am I</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>4</b> Success</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>5</b> What to Expect</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>6</b> Virtual Sessions</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>7</b> Import Timeline</div>
+<span style="color:#64748b">→</span>
+<div style="background:#ff6b3522;border:1px solid #ff6b3544;border-radius:6px;padding:4px 10px;font-size:11px;color:#ffaa80"><b>8</b> After Today</div>
+</div>
+<div style="margin-top:10px;font-size:11px;color:#94a3b8">
+<b>Slides 1–4:</b> Opening (5 min) → <b>Slide 5:</b> Hardware/POS (5 min) → <b>Slide 7:</b> Menu/Data (10 min) → <b>Slide 6:</b> Training/Scheduling (5 min) → <b>Slide 8:</b> Wrap-up (5 min)
+</div>
+</div>
 
 <!-- KO Opening Script -->
 <div class="cl-section" style="border-color:#006AFF44;background:#006AFF08">
-<h3><span class="cl-icon">🎯</span> Opening Script — Set the Agenda (First 2 min)</h3>
+<h3><span class="cl-icon">🎯</span> Opening Script — Set the Agenda (First 5 min) <span class="slide-badge"><span class="slide-num">1</span>–<span class="slide-num">4</span></span></h3>
 <div style="background:#0f0f23;border-radius:10px;padding:18px;margin-top:8px;line-height:1.8;font-size:13px">
-<p style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Read this (or adapt to your style):</p>
+<p style="color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 Walk through slides 1–4 while delivering this:</p>
 
-<p>"Hey <b>[Seller Name]</b>, thanks for taking the time today — I'm <b>[Your Name]</b>, your implementation project manager here at Square. I'll be your main point of contact from here through go-live."</p>
+<!-- Slide 1: Welcome -->
+<div class="slide-cue">🖥️ <b>SLIDE 1 — Welcome to Square Onboarding</b>
+<div class="slide-content">Show the welcome slide with the seller's business name. Sets a professional, personalized tone.</div>
+</div>
 
-<p>"Before we jump in, I want to give you a quick roadmap for what we're doing today so we make the most of our 30 minutes together."</p>
+<p>"Hey <b>[Seller Name]</b>, thanks for taking the time today — welcome to Square Onboarding! I'm <b>[Your Name]</b>, and I'll be walking you through everything today. Let's make the most of our time together."</p>
+
+<!-- Slide 2: Introductions -->
+<div class="slide-cue">🖥️ <b>SLIDE 2 — Introductions</b>
+<div class="slide-content">Transition to intros. Keep it brief — you want to learn about them, not pitch yourself.</div>
+</div>
+
+<p>"Before we get into the details, let's do quick intros — I'd love to hear who's on the call and what your role is in the business."</p>
+
+<!-- Slide 3: Who Am I -->
+<div class="slide-cue">🖥️ <b>SLIDE 3 — Who Am I?</b>
+<div class="slide-content">Establish your role: PM, primary contact, manages the full Plus implementation. Mention recap emails after each session. Reachable via email during business hours.</div>
+</div>
+
+<p>"So a little about my role — I'm your <b>Project Manager and primary point of contact</b>. I'll manage your Plus implementation from this kickoff all the way through your final session. After each session, you'll get a clear <b>recap email with next steps and resources</b>. Best way to reach me is via email during normal business hours."</p>
+
+<!-- Slide 4: What Success Looks Like -->
+<div class="slide-cue">🖥️ <b>SLIDE 4 — What Success Looks Like</b>
+<div class="slide-content">Frame the outcome. By the end of Plus, they will: feel confident, make progress on priorities, have clear next steps and a support path.</div>
+</div>
 
 <div style="background:#1a1a3e;border-radius:8px;padding:14px;margin:12px 0;border-left:3px solid #006AFF">
 <p style="color:#006AFF;font-weight:700;margin-bottom:6px">🎯 Purpose of This Call</p>
-<p>"The purpose of this kickoff is to <b>understand your business, confirm your setup, and build a plan</b> so that when we get to training, we're not figuring things out — we're executing. I want to make sure your Square system is built the way <i>you</i> need it, not the other way around."</p>
+<p>"By the end of our time together, the goal is for you to:</p>
+<ul style="margin-left:18px;margin-top:4px">
+<li><b>Feel confident</b> in the Square areas that matter most to your business</li>
+<li><b>Make meaningful progress</b> on your highest-priority needs</li>
+<li><b>Leave with clear next steps</b> and a defined support path</li>
+</ul>
+<p style="margin-top:6px">"Today's kickoff is about understanding your business so I can build everything the right way before we get to training."</p>
 </div>
 
 <div style="background:#1a1a3e;border-radius:8px;padding:14px;margin:12px 0;border-left:3px solid #22c55e">
@@ -984,7 +1043,7 @@ Examples:
 
 <p>"Sound good? Any questions before we dive in?"</p>
 
-<p style="color:#64748b;font-size:11px;margin-top:12px">⏱️ This should take ~2 minutes. Then move into Intros + Alignment below.</p>
+<p style="color:#64748b;font-size:11px;margin-top:12px">⏱️ Slides 1–4 should take ~5 minutes. Then move into the discovery questions below.</p>
 </div>
 <div style="margin-top:10px">
 <button class="btn btn-green btn-sm" onclick="copyKOOpening()">📋 Copy Opening Script</button>
@@ -1000,6 +1059,7 @@ Examples:
 <!-- Intros + Alignment -->
 <div class="cl-section">
 <h3><span class="cl-icon">👋</span> Intros + Alignment + Timeline <span class="cl-count" id="koQ-s1-count">0/6</span></h3>
+<div class="slide-cue">🖥️ <b>Still on SLIDE 4</b> — You've set the agenda. Now transition into discovery: "Let's start by getting to know your business."</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can everyone briefly introduce themselves and share their role in the business?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can you give me a quick overview of your business and how you operate day to day?"</span></div>
@@ -1016,7 +1076,10 @@ Examples:
 
 <!-- POS -->
 <div class="cl-section">
-<h3><span class="cl-icon">💳</span> POS (Hardware + Checkout) <span class="cl-count" id="koQ-s2-count">0/3</span></h3>
+<h3><span class="cl-icon">💳</span> POS (Hardware + Checkout) <span class="cl-count" id="koQ-s2-count">0/3</span> <span class="slide-badge"><span class="slide-num">5</span></span></h3>
+<div class="slide-cue">🖥️ <b>ADVANCE TO SLIDE 5 — What to Expect</b>
+<div class="slide-content">Transition: "Now let's talk about your setup — hardware, devices, and how checkout works today." This slide frames the practical side of implementation.</div>
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Can you walk me through what a typical checkout looks like today and how you plan to use each device?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What hardware/devices will you be using, and have they already been ordered?"</span></div>
@@ -1027,7 +1090,10 @@ Examples:
 
 <!-- Menu / Catalog -->
 <div class="cl-section">
-<h3><span class="cl-icon">📋</span> Menu / Catalog / Data Review <span class="cl-count" id="koQ-s3-count">0/5</span></h3>
+<h3><span class="cl-icon">📋</span> Menu / Catalog / Data Review <span class="cl-count" id="koQ-s3-count">0/5</span> <span class="slide-badge"><span class="slide-num">7</span></span></h3>
+<div class="slide-cue">🖥️ <b>ADVANCE TO SLIDE 7 — Import Timeline</b>
+<div class="slide-content">Show the import process: "Today we review your files and confirm formatting. After the call, we begin importing up to 3 supported file types. Imports complete in alignment with your training timeline." This is where you dig into their menu/catalog.</div>
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Is everything you sell reflected in the files we reviewed, or is anything missing?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Are there any key modifiers, variations, or discounts we need to account for?"</span></div>
@@ -1043,6 +1109,7 @@ Examples:
 <!-- Staff + Labor -->
 <div class="cl-section">
 <h3><span class="cl-icon">👥</span> Staff + Labor <span class="cl-count" id="koQ-s4-count">0/1</span></h3>
+<div class="slide-cue">🖥️ <b>Still on SLIDE 7</b> — Continue discovery. "While we're talking about your setup, let me ask about your team."</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Will you be tracking staff time or scheduling in Square?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 </div>
@@ -1076,7 +1143,10 @@ Examples:
 
 <!-- Scheduling -->
 <div class="cl-section">
-<h3><span class="cl-icon">🕒</span> Scheduling + Availability <span class="cl-count" id="koQ-s8-count">0/3</span></h3>
+<h3><span class="cl-icon">🕒</span> Scheduling + Availability <span class="cl-count" id="koQ-s8-count">0/3</span> <span class="slide-badge"><span class="slide-num">6</span></span></h3>
+<div class="slide-cue">🖥️ <b>ADVANCE TO SLIDE 6 — Virtual Sessions</b>
+<div class="slide-content">Show the training format: "90 minutes of focused training time — delivered as either one 90-minute session or two 45-minute sessions. Topics prioritized based on your goals discussed today." This is where you lock in scheduling.</div>
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"What does your availability look like over the next week for training?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Would you prefer one 90-minute training or two 45-minute training sessions?"</span></div>
@@ -1087,7 +1157,10 @@ Examples:
 
 <!-- Wrap-Up -->
 <div class="cl-section">
-<h3><span class="cl-icon">🏁</span> Wrap-Up <span class="cl-count" id="koQ-s9-count">0/2</span></h3>
+<h3><span class="cl-icon">🏁</span> Wrap-Up <span class="cl-count" id="koQ-s9-count">0/2</span> <span class="slide-badge"><span class="slide-num">8</span></span></h3>
+<div class="slide-cue">🖥️ <b>ADVANCE TO SLIDE 8 — What Happens After Today</b>
+<div class="slide-content">Close with clarity: "You'll receive a recap email summarizing our discussion and helpful resources. Attend the scheduled session(s) via Google Meet with me. In the meantime, I recommend exploring your Square Dashboard and hardware setup so we can use our training time efficiently."</div>
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Do you have any questions or concerns before we wrap today?"</span></div>
 <div class="cl-notes"><textarea data-notes="koQ" placeholder="Notes..." oninput="saveKOQNotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="koQ" onchange="updateKOQ()"><span class="cl-text">"Are you comfortable with the timeline and next steps we discussed?"</span></div>
