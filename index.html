@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GSO Post-KO Dashboard & Study Tool</title>
+<title>GSO DSR Workflow</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f23;color:#e2e8f0;min-height:100vh}
@@ -305,7 +305,7 @@ h2{font-size:18px;margin-bottom:10px}
 </head>
 <body>
 <nav>
-<div class="logo"><span>⚡</span>GSO Post-KO</div>
+<div class="logo"><span>⚡</span>GSO DSR Workflow</div>
 <button class="tab-btn generator-btn active" onclick="showTab('generator')">🚀 Generator</button>
 <button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
 <button class="tab-btn" onclick="showTab('email')">Seller Email</button>
@@ -315,6 +315,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('preKO')">🧾 Pre-KO</button>
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Questions</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
+<button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 Training Guide</button>
 </nav>
 <div class="container">
 
@@ -1467,6 +1468,250 @@ Example:
 </div></div>
 
 </div><!-- end study -->
+
+<!-- ===== TRAINING GUIDE ===== -->
+<div id="training" class="tab">
+<h1 style="margin-bottom:4px">&#127891; RST Training Facilitator Guide</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square Dashboard Training (Restaurant) &mdash; DO / SAY / ASK framework. KO call data auto-populates where applicable.</p>
+<div id="trainingSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="trainingSeller" style="font-weight:700"></span> &mdash; <span id="trainingPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO &mdash; Actions to take</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY &mdash; Suggested verbiage</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK &mdash; Key questions</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA &mdash; From your generator</div>
+</div>
+<input type="text" id="trainingSearch" oninput="filterTraining()" placeholder="&#128269; Search training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="trainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="trainingBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+<div class="training-section" data-tsearch="introduction agenda screen sharing call overview">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Introduction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Introduce yourself and greet everyone on the call. Let the seller know that the call will be recorded for quality and training purposes.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Agenda</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Ask the seller if they have completed the Account & Settings Checklist. Ensure a bank account and EIN have been added and receipts are set up. Remind the seller of the duration of the session (90 min). Give the seller an overview of what will be covered.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Screen Sharing</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Ask the seller if they prefer to screen share and walk through the Dashboard on their own or if they prefer you to share your screen.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="dashboard home account settings tax sales">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 2. Dashboard Home Page / Account & Settings <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Dashboard Home Page</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Open Square Dashboard and give a quick overview. Display the navigation menu on the left and explain how the seller can customize it.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Each time you open Square Dashboard, you'll be brought to this home page. From here, you can access Account & Settings, Items, Staff, Transactions, etc. If you remember the final destination, type it into the Search bar at the top left."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Any questions on the home page before we dive deeper into Square Dashboard?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Account & Settings</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Ask if they had questions while working through their Account & Settings Checklist. Assist with setting up Sales Taxes. Verify they are added correctly.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "This is your Account & Settings tab which you may be familiar with after completing the checklist. Here you'll update business information like bank accounts, transfers, email notifications, etc. While we're here, let's ensure you've properly added your sales taxes."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Do you have special tax rules? Do all items have the same tax rate? Do your item prices include tax? If applicable: Do items have the same tax regardless of dining option?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="reliability outage notifications authorized representatives">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 3. Reliability <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Outage Notifications</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk the seller through signing up for outage notifications.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "You can receive SMS or email notifications whenever there is a service disruption. Live system updates can always be found at issquareup.com. I highly recommend bookmarking this page!"</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Would you like to set up outage notifications?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Authorized Representatives</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Encourage the seller to set up authorized representative(s).</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "It's important to add authorized representatives to your Square account. They can contact Square Support on behalf of your business about sensitive account information and transaction details."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Would you like any assistance setting up authorized representatives?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="device management modes device codes offline payments checkout security">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 4. Device Management & Device Codes <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Modes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through creating ALL Device Modes. Name them distinctly (Handheld, Countertop, Register w/Cash). Cover Checkout and Security settings. Enable offline payments. Highlight: Cash Management, Gift Cards, Open Checks, Time Tracking, Loyalty.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "To set up a hardware device, assign it to a Mode. A Mode is a specific configuration of device settings. Offline payments allow you to continue processing without internet. We recommend turning this on so you never miss a sale. If you'd like to track seating, ensure Track Seating is enabled."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Will you be utilizing more than one device Mode? What types of devices will you be using? What will you be using the devices for?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Creating Device Codes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Once Modes are created, walk through creating device codes. Assign to the Modes just created.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Now let's create device codes so we can assign those profiles to specific devices. Since you're using Square for Restaurants, ensure you select that when asked. Name this device something you'll remember."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> How many devices do you have to set up? What will these devices be used for? Square for Restaurants or Square KDS?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Service Settings</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through all applicable Service Settings: Closing Procedures, Seated Status, Bar tabs/Pre Auth, Menu Behavior, Printed Receipt, Automatic Gratuity, Tip Adjustment, Courses, Instant Payout, Reopen Checks.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Service Settings customize your restaurant's workflow. Closing Procedures are actions before running close of day. Automatic Gratuity can be applied based on party-size. Tip adjustment: tips assigned to employee who opened or closed the check. Reopen check allows reopening within 1 hour after closing."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> What closing procedures should employees go through? Do you plan on using a reservation integration? Do you wish to add automatic gratuity? Will you partner with a delivery service?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Printer Profiles</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through creating ALL printer profiles. Run a print test or practice order.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Printer profiles configure settings for your printers. Printer profile settings are shared across all assigned devices. This can cause multiple copies if more than one profile has order tickets enabled."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> How many printer profiles will you be creating? Do you have any questions about printer profiles?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px">
+<strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="training-ko-hardware">Check the Generator tab for hardware details discussed during KO.</span></div>
+</div></div>
+<div class="training-section" data-tsearch="menus items modifiers categories discounts POS layout comp void">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 5. Menus and Item Settings <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Menu Management / Display Groups</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through their menu(s). Explain menus are a visual representation of items on the POS, not the item library.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Menus are the visual representation of your items within the POS. Items can be added to display groups to help employees ring in items faster. You can have multiple menus (happy hour, brunch) displayed at certain days/times."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> What questions do you have about Menus?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Create / Edit an Item</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through creating an item from the Menu-build page. Explain relevant fields. Demonstrate editing.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Let's walk through creating an item. Select Add Item, enter the item name, Price, and Category. From there, add additional details like variations, kitchen name, images, etc."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Any questions on creating items? Questions on the item library?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Variations / Options</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Brief summary of item variations and options. Show how to set up a variation and option set.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "An item variation is a unique version of an item with its own price, SKU, cost. Options are attributes you can apply to multiple variations like colors, sizes."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> What questions do you have about item variations or options?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Modifiers</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through creating a modifier set. Demonstrate applying it to items.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Modifiers add customizable options like toppings, add-ons, or special requests. When selected on the POS, this translates directly to the kitchen nested under the Item Name. You can apply modifier sets to any items in your Item Library."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Any questions on Modifiers?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Categories</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Explain category functionality. Instruct on creating a category.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Categories organize your items, enable sales reporting, and route items to specific printers."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> How are we feeling about categories?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Edit POS Layout</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Navigate to Edit POS Layout. Walk through customization (tile size, color, position). Highlight action buttons. Add Clock In/Out, Dining Options, Discounts if relevant.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "With the POS layout editor, customize how items, display groups, categories, or functions appear on your POS. Action buttons are shortcuts to common functions like clocking in/out."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Are there action buttons that would be useful? Questions about the POS layout editor?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Discounts</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Ask what discounts they offer/plan to offer. Create one or two together if needed.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "There are two types of discounts: manual (set dollar or percentage at checkout) and automatic (applied when pre-set conditions are met)."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> What discounts do you plan to offer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Item Settings (Comp/Void)</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through Item Settings if comp/void and dining options are relevant.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "With comp and void, you can remove an item from a sale without losing track. Comp = item removed from inventory. Void = item remains in inventory."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Will comping and voiding items be relevant to your business?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px">
+<strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="training-ko-menu">Check the Generator tab for menu structure and BPO details discussed during KO.</span></div>
+</div></div>
+<div class="training-section" data-tsearch="staff team management roles permissions time cards wages">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 6. Staff & Team Management <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Team Members & Roles</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Walk through creating team members and assigning roles/permissions. Cover time tracking and wages if applicable.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Your Team section lets you add employees, assign roles with specific permissions, and manage time tracking. Each role can have customized access levels for different parts of the POS and Dashboard."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> How many team members will you need to add? What roles do you need (manager, server, bartender)? Will you be using Square for time tracking?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="loyalty program rewards points">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 7. Loyalty Program <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Loyalty Setup</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> If the seller has a loyalty subscription, walk through setting up their loyalty program. Cover earning rules, reward tiers, and enrollment options.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Square Loyalty lets you create a digital rewards program. Customers can earn points and redeem rewards directly from the POS. You can customize earning rules, reward tiers, and how customers enroll."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Do you plan to offer a loyalty program? What kind of rewards would you like to offer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="square online website ordering delivery pickup">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 8. Square Online <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Online Ordering</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> If applicable, walk through Square Online setup. Cover online menu, ordering settings, fulfillment options (pickup, delivery, shipping).</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "Square Online lets you accept orders through your website. Your online menu syncs with your item library. You can set up pickup, delivery, and shipping options. Orders appear directly on your POS."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> Will you be using Square Online for ordering? What fulfillment options do you need (pickup, delivery, shipping)?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="training-section" data-tsearch="wrap up next steps homework follow up closing">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">CLOSE</span> 9. Wrap-Up & Next Steps <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Session Recap</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#22c55e">DO:</strong> Recap what was covered. Confirm any open action items. Schedule follow-up if needed. Send recap email after the call.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#006AFF">SAY:</strong> "We covered a lot today! Let me recap the key items we set up and any homework items for you before our next session."</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0">
+<strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Is there anything we didn't cover that you'd like to discuss? Do you feel comfortable navigating the Dashboard on your own?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="training-check" onchange="updateTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+</div><!-- end training -->
 </div><!-- end container -->
 
 <div class="toast" id="toast">✅ Copied to clipboard!</div>
@@ -1477,7 +1722,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 Training Guide'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -2860,6 +3105,74 @@ const quizData=[
 ];
 const g=document.getElementById('quizGrid');
 quizData.forEach(([q,a],i)=>{g.innerHTML+=`<div class="flip-card" onclick="this.classList.toggle('flipped')"><div class="flip-inner"><div class="flip-front"><div>Q${i+1}: ${q}</div></div><div class="flip-back"><div>${a}</div></div></div></div>`});
+
+// ===== TRAINING GUIDE =====
+function filterTraining(){
+  const q=document.getElementById('trainingSearch').value.toLowerCase();
+  document.querySelectorAll('.training-section').forEach(s=>{
+    const txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateTrainingProgress(){
+  const checks=document.querySelectorAll('.training-check');
+  let done=0;
+  checks.forEach(c=>{if(c.checked)done++});
+  const el=document.getElementById('trainingCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  const bar=document.getElementById('trainingBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  // save
+  const states=[];checks.forEach(c=>states.push(c.checked));
+  localStorage.setItem('gso-training-checks',JSON.stringify(states));
+}
+function loadTrainingChecks(){
+  const s=localStorage.getItem('gso-training-checks');
+  if(s){
+    const a=JSON.parse(s);
+    document.querySelectorAll('.training-check').forEach((c,i)=>{if(a[i])c.checked=true});
+    updateTrainingProgress();
+  } else {
+    updateTrainingProgress();
+  }
+}
+function syncTrainingFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('trainingSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('trainingSeller').textContent=name;
+    document.getElementById('trainingPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+    // Populate KO data hints
+    var hw=document.querySelectorAll('.training-ko-hardware');
+    var mn=document.querySelectorAll('.training-ko-menu');
+    var notes=document.getElementById('genNotes');
+    var notesText=notes?notes.value:'';
+    hw.forEach(function(el){if(notesText)el.textContent='KO Notes: '+notesText.substring(0,200)+'...'});
+    var src=document.getElementById('genSourcePOS');
+    var cnt=document.getElementById('genItemCount');
+    var mt=document.getElementById('genMenuType');
+    var menuInfo=[];
+    if(src&&src.value)menuInfo.push('Source POS: '+src.value);
+    if(cnt&&cnt.value)menuInfo.push('Items: '+cnt.value);
+    if(mt&&mt.value)menuInfo.push('Menu: '+mt.value);
+    mn.forEach(function(el){if(menuInfo.length)el.textContent=menuInfo.join(' | ')});
+  }
+}
+// Init on load
+document.addEventListener('DOMContentLoaded',function(){
+  loadTrainingChecks();
+  // Also sync when switching to training tab
+  const origShowTab=window.showTab;
+  window.showTab=function(id){
+    origShowTab(id);
+    if(id==='training')syncTrainingFromGenerator();
+  };
+});
+
 </script>
 </body>
 </html>
