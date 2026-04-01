@@ -1,11 +1,22 @@
 // === PASTE THIS INTO Google Apps Script (Extensions > Apps Script) ===
-// Then Deploy > New Deployment > Web App > Anyone can access
+// Deploy > New Deployment > Web App > Anyone can access
+// IMPORTANT: After pasting, click Deploy > Manage Deployments > Edit (pencil) > New Version > Deploy
 
 function doGet(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
   if (!sheet) sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+
+  // Check if this is a save/delete action via GET
+  if (e && e.parameter && e.parameter.payload) {
+    var payload = JSON.parse(decodeURIComponent(e.parameter.payload));
+    return handleAction(sheet, payload);
+  }
+
+  // Otherwise return all deals
   var data = sheet.getDataRange().getValues();
-  if (data.length <= 1) return ContentService.createTextOutput(JSON.stringify({})).setMimeType(ContentService.MimeType.JSON);
+  if (data.length <= 1) {
+    return ContentService.createTextOutput(JSON.stringify({})).setMimeType(ContentService.MimeType.JSON);
+  }
   var headers = data[0];
   var deals = {};
   for (var i = 1; i < data.length; i++) {
@@ -23,18 +34,20 @@ function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
   if (!sheet) sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   var payload = JSON.parse(e.postData.contents);
+  return handleAction(sheet, payload);
+}
+
+function handleAction(sheet, payload) {
   var action = payload.action;
 
   if (action === 'save') {
     var deal = payload.deal;
     var headers = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes','timestamp','savedBy'];
 
-    // Set headers if empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(headers);
     }
 
-    // Check if deal exists (update) or new (append)
     var data = sheet.getDataRange().getValues();
     var found = -1;
     for (var i = 1; i < data.length; i++) {
@@ -61,5 +74,5 @@ function doPost(e) {
     return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
   }
 
-  return ContentService.createTextOutput(JSON.stringify({status:'unknown action'})).setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify({status:'unknown'})).setMimeType(ContentService.MimeType.JSON);
 }

@@ -2001,21 +2001,20 @@ function loadCloudDeals() {
 }
 
 function saveToCloud(deal) {
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ action: 'save', deal: deal })
-  }).catch(function(err){ console.log('Cloud save failed:', err); });
+  // Use GET with query params to avoid CORS issues with Apps Script
+  var params = encodeURIComponent(JSON.stringify({ action: 'save', deal: deal }));
+  fetch(SHEETS_URL + '?payload=' + params, { redirect: 'follow' })
+    .then(function(r){ return r.text() })
+    .then(function(t){ console.log('Cloud save:', t); })
+    .catch(function(err){ console.log('Cloud save failed:', err); });
 }
 
 function deleteFromCloud(name) {
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ action: 'delete', name: name })
-  }).catch(function(err){ console.log('Cloud delete failed:', err); });
+  var params = encodeURIComponent(JSON.stringify({ action: 'delete', name: name }));
+  fetch(SHEETS_URL + '?payload=' + params, { redirect: 'follow' })
+    .then(function(r){ return r.text() })
+    .then(function(t){ console.log('Cloud delete:', t); })
+    .catch(function(err){ console.log('Cloud delete failed:', err); });
 }
 
 // ===== TAB NAVIGATION =====
