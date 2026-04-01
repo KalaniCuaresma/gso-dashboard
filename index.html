@@ -2903,6 +2903,41 @@ function clearForm(){
   loadCloudDeals();
 })();
 
+// ===== CHROME EXTENSION RECEIVER =====
+(function(){
+  if(window.location.search.includes('fromExtension=true')){
+    if(typeof chrome!=='undefined'&&chrome.storage&&chrome.storage.local){
+      chrome.storage.local.get(['gsoCockpitDSR'],function(result){
+        if(result.gsoCockpitDSR){
+          var d=result.gsoCockpitDSR;
+          ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genHardware','genSourcePOS','genGoLive','genAttendees','genNotes','genSessionType','genMenuStatus','genItemCount','genMenuType'].forEach(function(id){
+            var el=document.getElementById(id);
+            if(el&&d[id]){
+              if(el.tagName==='SELECT'){for(var i=0;i<el.options.length;i++){if(el.options[i].value.toLowerCase()===d[id].toLowerCase()){el.selectedIndex=i;break}}}
+              else{el.value=d[id]}
+            }
+          });
+          showToast('⚡ DSR data loaded from Salesforce!');
+          chrome.storage.local.remove(['gsoCockpitDSR']);
+        }
+      });
+    }
+  }
+  window.addEventListener('message',function(event){
+    if(event.data&&event.data.type==='GSO_COCKPIT_DSR'){
+      var d=event.data.data;
+      ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genHardware','genSourcePOS','genGoLive','genAttendees','genNotes','genSessionType','genMenuStatus','genItemCount','genMenuType'].forEach(function(id){
+        var el=document.getElementById(id);
+        if(el&&d[id]){
+          if(el.tagName==='SELECT'){for(var i=0;i<el.options.length;i++){if(el.options[i].value.toLowerCase()===d[id].toLowerCase()){el.selectedIndex=i;break}}}
+          else{el.value=d[id]}
+        }
+      });
+      showToast('⚡ DSR data loaded from Salesforce!');
+    }
+  });
+})();
+
 // ================================================================
 // ===== PRE-KO & KO QUESTION CHECKLISTS =====
 // ================================================================
