@@ -1975,6 +1975,49 @@ Example:
 <div class="toast" id="toast">✅ Copied to clipboard!</div>
 
 <script>
+// ===== GOOGLE SHEETS BACKEND =====
+var SHEETS_URL = 'https://script.google.com/a/macros/block.xyz/s/AKfycbx_-1uY1z81Edn_UKpTBPLdZ99leVH07AnXht_IdmFWBSvs-3kHG7xLydDmhucd0KsWLw/exec';
+var cloudDeals = {};
+var cloudLoaded = false;
+
+function loadCloudDeals() {
+  fetch(SHEETS_URL)
+    .then(function(r){ return r.json() })
+    .then(function(data){
+      cloudDeals = data || {};
+      cloudLoaded = true;
+      // Merge cloud deals into localStorage
+      var local = JSON.parse(localStorage.getItem('gso-saved-deals') || '{}');
+      Object.keys(cloudDeals).forEach(function(k){
+        if (!local[k] || (cloudDeals[k].timestamp && (!local[k].timestamp || cloudDeals[k].timestamp > local[k].timestamp))) {
+          local[k] = cloudDeals[k];
+        }
+      });
+      localStorage.setItem('gso-saved-deals', JSON.stringify(local));
+      renderSavedDeals();
+      showToast('\u2601\uFE0F Synced ' + Object.keys(cloudDeals).length + ' deals from cloud');
+    })
+    .catch(function(err){ console.log('Cloud sync failed:', err); });
+}
+
+function saveToCloud(deal) {
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: 'save', deal: deal })
+  }).catch(function(err){ console.log('Cloud save failed:', err); });
+}
+
+function deleteFromCloud(name) {
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ action: 'delete', name: name })
+  }).catch(function(err){ console.log('Cloud delete failed:', err); });
+}
+
 // ===== TAB NAVIGATION =====
 function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -2816,8 +2859,9 @@ function saveDeal(){
   deal.timestamp=Date.now();
   deals[biz]=deal;
   localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
+  saveToCloud(deal);
   renderSavedDeals(biz);
-  showToast('💾 Deal saved: '+biz);
+  showToast('💾 Deal saved + synced to cloud: '+biz);
 }
 function loadDeal(name){
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
@@ -2829,7 +2873,10 @@ function loadDeal(name){
 function deleteDeal(name,e){
   e.stopPropagation();if(!confirm('Delete saved deal: '+name+'?'))return;
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
-  delete deals[name];localStorage.setItem('gso-saved-deals',JSON.stringify(deals));renderSavedDeals();
+  delete deals[name];localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
+  deleteFromCloud(name);
+  renderSavedDeals();
+  showToast('\u2601\uFE0F Deal deleted from cloud: '+name);
 }
 function renderSavedDeals(activeName){
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
@@ -2854,6 +2901,7 @@ function clearForm(){
   const last=localStorage.getItem('gso-current-deal');
   if(last){try{const d=JSON.parse(last);Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});if(d.menuItems){menuItems=d.menuItems;renderMenuItems()}}catch(e){}}
   renderSavedDeals();
+  loadCloudDeals();
 })();
 
 // ================================================================
