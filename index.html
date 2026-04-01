@@ -316,6 +316,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Questions</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 <button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 RST DB Training</button>
+<button class="tab-btn" onclick="showTab('rtlTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛍️ RTL DB Training</button>
 </nav>
 <div class="container">
 
@@ -1712,6 +1713,263 @@ Example:
 </div></div>
 
 </div><!-- end training -->
+
+<!-- ===== RTL DB TRAINING GUIDE ===== -->
+<div id="rtlTraining" class="tab">
+<h1 style="margin-bottom:4px">&#127891; RTL DB Training Guide</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square Dashboard Training (Retail) &mdash; DO / SAY / ASK framework. Retail-specific sections include Inventory Management, Purchase Orders, COGS, and Sell-Through reports.</p>
+<div id="rtlTrainingSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="rtlTrainingSeller" style="font-weight:700"></span> &mdash; <span id="rtlTrainingPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA</div>
+<div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">RETAIL-SPECIFIC</div>
+</div>
+<input type="text" id="rtlTrainingSearch" oninput="filterRtlTraining()" placeholder="&#128269; Search retail training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="rtlTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="rtlTrainingBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+<div class="rtl-training-section" data-tsearch="introduction agenda screen sharing call overview retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Introduction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Introduce yourself and greet everyone on the call. Let the seller know that the call will be recorded for quality and training purposes.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Agenda</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask the seller if they have completed the Account & Settings Checklist. Ensure a bank account and EIN have been added and receipts are set up. Remind the seller of the duration of the session (90 min). Give the seller an overview of what will be covered.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="dashboard home account settings tax sales retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 2. Dashboard Home Page / Account & Settings <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Dashboard Home Page</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Open Square Dashboard and give a quick overview. Display the navigation menu on the left and explain how the seller can customize it.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Each time you open Square Dashboard, you'll be brought to this home page. From here, you can access Account & Settings, Items, Staff, Transactions, etc. If you remember the final destination, type it into the Search bar at the top left.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Any questions on the home page before we dive deeper into Square Dashboard?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Account & Settings</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask if they had questions while working through their Account & Settings Checklist. Assist with setting up Sales Taxes. Verify they are added correctly.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;This is your Account & Settings tab which you may be familiar with after completing the checklist. Here you'll update business information like bank accounts, transfers, email notifications, etc. While we're here, let's ensure you've properly added your sales taxes.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have special tax rules? Do all items have the same tax rate? Do your item prices include tax?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="reliability outage notifications authorized representatives retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 3. Reliability <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Outage Notifications</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk the seller through signing up for outage notifications.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;You can receive SMS or email notifications whenever there is a service disruption. Live system updates can always be found at issquareup.com. I highly recommend bookmarking this page!&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to set up outage notifications?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Authorized Representatives</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Encourage the seller to set up authorized representative(s).</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;It's important to add authorized representatives to your Square account. They can contact Square Support on behalf of your business about sensitive account information and transaction details.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like any assistance setting up authorized representatives?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="items item library create edit variations options SKU GTIN barcode categories discounts modifiers retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 4. Items & Item Library <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Create / Edit an Item</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through creating an item. Explain ALL relevant fields: Details, Categories, Options, Variations, Units, Cost, Vendor, SKU/GTIN, Stock Management, Modifiers, Custom Attributes, Checkout behavior, Sell Online, Subscriptions.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;We're going to start in the item library. Items can be created manually, by import, or by scanning a barcode. Item name will appear on receipts and online. You can add photos, set location availability, and enable age restrictions. Unit cost is what you pay your supplier - used for Projected Profit and COGS reports. SKUs are individual to your account; GTINs are globally recognized manufacturer numbers. Enable Tracking to track stock counts - they go down as you sell.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Any questions on creating items or any of the fields we just covered? How are you feeling about creating items on your own?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Item Actions</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain Actions dropdown: Export/Import Item Library, Generate SKUs, Print labels, Transfer stock (multi-location). Highlight bulk edit functionality.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;You can import and export your library as .csv or .xls to make bulk changes. Pro Tip: Only keep the line items you want to change when reimporting. Generate SKUs fills in missing SKUs automatically. Print barcode labels by selecting label size or Avery template. Transfer stock between locations if you have multiple.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about the Actions tab? Are there any actions you'd like additional information for?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Categories</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain category functionality. Instruct on creating a category.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Categories organize your items, enable sales reporting, route items to printers, and assign online visibility. An item can belong to multiple categories but can only have one reporting category. You can rearrange categories for your online site.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How are we feeling about categories?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Discounts</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask what discounts they offer/plan to offer. Create one or two together if needed.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;There are two types: manual (set dollar or percentage at checkout) and automatic (applied when pre-set conditions are met).&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What discounts do you plan to offer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Item Settings</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through Item Settings. Make sure to cover Inventory Settings.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Square for Retail doesn't support void - the only way to 'void' is to refund. You can set up comp reasons for the POS. In Inventory Settings, enable auto-generated SKUs, inventory tracking for new items, and automatic inventory adjustment through invoices.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will comping items from a sale be relevant to your business?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rtl-training-ko-items">Check the Generator tab for item/catalog details discussed during KO.</span></div>
+</div></div>
+<div class="rtl-training-section" data-tsearch="inventory stock overview stock history purchase orders vendors pending restocks retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">RETAIL</span> 5. Inventory Management <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Stock Overview</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain Stock Overview functionality. Cover search and filtering. Show how to receive items or account for low stock.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Stock Overview mirrors your Item Library with a focus on inventory levels. Filter by location, category, inventory, and vendor. Update stock counts using adjustment types: stock received, inventory recount, damage, loss, and restock return.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any additional questions about stock overview?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Stock History</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain Stock History functionality. Cover search and filtering. Show how to retroactively adjust received items.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Stock history tracks adjustment types: lost, damaged, stolen, recounted, received, restocked, and transferred items. Filter by location, adjustment type, cost, vendor, and team member. Square highlights items with missing vendor or cost data.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any additional questions about stock history?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Purchase Orders</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through creating a test purchase order. Highlight: creating new items directly, importing existing items, partially receiving, marking damaged, additional costs.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Purchase Orders help you stay on top of products, vendors, and receiving. Create new-to-Square items right from the PO page. Import items using recommended formatting. Receive All, Receive None, or partially receive. Mark items as damaged or will not be fulfilled. Add taxes or fees - these are distributed among received items and factored into COGS.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Does your business utilize purchase orders?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Vendors</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Give an overview of Vendors.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Vendor management allows you to create, import, and deactivate your vendor list. See all items associated to each Vendor. Enter or update unit costs and vendor codes to match items with vendor product codes.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will you be using the vendor functionality? What questions do you have about vendors?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Pending Restocks</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through the Pending Restocks section. Explain functionality.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;When an item is returned or exchanged, you can add it back to stock or skip. Skipped items live here. From this screen you can restock or mark as damaged.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any additional questions about pending restocks?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rtl-training-ko-inventory">Check the Generator tab for inventory and vendor details discussed during KO.</span></div>
+</div></div>
+<div class="rtl-training-section" data-tsearch="gift cards egift physical retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 6. Gift Cards <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Gift Cards</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Assist with setting up eGift cards. Explain they can start using gift cards at any time. Explain how to order physical gift cards.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;eGift cards allow you to sell digital gift cards online and in-store, redeemable from your POS. You can also order physical gift cards from Dashboard under Payments > Gift Cards.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to set up eGift cards? Do you plan on ordering physical gift cards?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="staff permissions team members permission sets access points passcode retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 7. Staff / Permissions <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Overview</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Provide a brief overview of Square Staff and Permissions. Note: Advanced Access is transitioning to be included in all paid Square subscriptions.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Square's staff management features make it easy to manage your team. All Square for Retail accounts have unlimited team member profiles with personal passcodes, two customizable permission sets, and basic sales reporting.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Have you explored our staff management features? What questions do you have?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Team Members, Permission Sets & Access Points</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Guide through creating a permission set. Explain difference between permission sets and access points. Make suggestions for permissions. Create at least one team member. Explain personal passcodes.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Permission sets define what team members can and cannot do. Name them something memorable like a job title. Access points specify where team members can use Square features (shared POS, personal device, Dashboard). Personal passcodes are unique 4-digit codes tied to a permission set for tracking sales, time, and actions.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about creating or managing team members, permission sets, or access points?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="device management modes device codes offline payments checkout security retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 8. Device Management & Device Codes <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Device Modes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through creating ALL Device Modes. Name them distinctly (Register Settings, Handheld Settings). Cover Checkout and Security settings. Enable offline payments. Highlight: Cash Management, Gift Cards, Open Checks.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;A mode is a specific configuration of device settings. If you have 3-4 POS stations, create them through the mode and assign to all devices. Enable offline payments so you never miss a sale. Configure checkout settings, payment settings, tipping, receipt settings, customer engagement, and buyer-facing screen. Security settings: passcode requirements and POS timeout.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will you be utilizing more than one mode? What types of devices will you be using? What will you be using the devices for?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Creating Device Codes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through creating device codes. Assign to Modes. Encourage signing in with the code since it disappears in 24-48 hours if unpaired.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;You can create up to 100 device codes at once. Since you're using Square for Retail, ensure you select that option. If you have multiple locations, tie the device code to one of your locations. The device code is used to sign into a particular POS device - one code per device, no need to re-enter unless you fully sign out.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many devices do you have to set up? What will these devices be used for?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rtl-training-ko-hardware">Check the Generator tab for hardware details discussed during KO.</span></div>
+</div></div>
+<div class="rtl-training-section" data-tsearch="printer profiles receipts order tickets retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 9. Printer Profiles <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Printer Profiles</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through creating ALL printer profiles.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Printer profiles configure the behavior of your printers. Name the profile, then choose what it's used for: receipts, order tickets, online orders, void tickets, etc. Settings are shared across all assigned devices - this can cause multiple copies if more than one profile has order tickets enabled.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many printer profiles will you be creating? Do you have any questions about printer profiles?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="shifts scheduling timecard management tips labor costs retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 10. Shifts & Time Management <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Scheduling</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain Square Shifts and scheduling team members.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;With Square Shifts and Shifts Plus you can create, manage, and publish schedules for your employees.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Are there questions about shift scheduling?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Timecard Management</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain difference between Workday and labor costs. Highlight how to export shifts for external payroll.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Workday shows all shifts from a 24-hour period. The Square Teams App lets you manage timecards without Dashboard. View projected labor costs by selecting the dollar amount next to a shift. Export pay period hours from the Timecards section for external payroll.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will you be tracking employee shifts with Square? Questions about workday and labor costs?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Shifts Settings</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Point out Team app permissions for clocking in/out. Discuss tipping method if applicable.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;By default, clock in/out from the Teams App is enabled. Turn it off to require POS-only clock in, or use geofencing. For tips: default is per-transaction. With Shifts Plus, choose pooled tips: per transaction, by hours worked, or by percentages tied to job titles.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will they always clock in from the POS? Do you accept tips from card transactions? How do you distribute tips?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="reports sales summary item sales cash drawer activity log COGS vendor sales projected profit inventory sell-through retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">RETAIL</span> 11. Reports <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Square Reports Overview</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain available reports and filtering. Highlight: Sales Summary, Item Sales, Cash Drawer, Activity Log.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;The Reports tab shows past sales reporting. Filter by date, time, items, or source. Sales Summary is a general overview. Item sales reports show details for all items sold. Cash drawer reports track sessions and history. Activity Log shows actions taken within the POS.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Are there any reports you'd like to review or currently run that you want to ensure we cover?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Retail-Specific Reports</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Overview of retail reports: Cost of Goods Sold, Vendor Sales, Projected Profit, Inventory by Category, Inventory Sell-Through, Aging Inventory.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Most retail reports update after end of day, not live. Aging Inventory shows item age based on when first received. COGS report uses FIFO (First In, First Out) - not Average Cost. Vendor Sales groups sales by vendor. Projected Profit calculates based on total stock with unit cost (generated 1 hour after close of day, past 70 days only). Sell-Through compares inventory received vs. actually sold.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will your business be utilizing these retail-specific reports?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="transactions filter refund receipt resend retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 12. Transactions <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Filter Transactions</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Demonstrate how to filter and locate transactions.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Filter transactions by time, payment method, payment type, payment status, location, source, team member, and fees. Export any transaction report from Dashboard.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about locating a transaction?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Resend Receipt</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through resending a receipt.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Locate the transaction, select it, and tap send receipt (Dashboard) or New receipt (POS app).&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Any questions on resending a receipt?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Issue Refund</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how to issue a refund.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Issue full, partial, or itemized refunds up to one year after the original transaction. Especially useful from Dashboard if using Square Register (limited search on device). You can also issue refunds from the POS during Retail POS training.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you rely on transactional details for anything outside of what we've walked through?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="balance transfer reports close of day banking retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">FEATURE</span> 13. Balance & Close of Day <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Transfer Reports</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show where to view transfer reports. Explain their relevance.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Navigate to Banking > Balance to view transfer reports. 'View all transfers' shows which transactions ended up in a particular transfer. Helpful if confused about a transfer amount or timing.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What time does your business close? For Square Online sellers: Do you want online sales included in that day's transfer? Which is more important: quick deposits or keeping all daily sales in one transfer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Close of Day</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain close of day. Show how to set it up if applicable.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Square groups and sends payments based on your close of day. Default is 8PM Eastern / 5PM Pacific. You can customize it to match your business hours.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How are we feeling about close of day?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-training-section" data-tsearch="wrap up next steps homework follow up closing retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">CLOSE</span> 14. Wrap-Up & Next Steps <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Session Recap</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Recap what was covered. Confirm open action items. Schedule follow-up if needed. Send recap email after the call.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;We covered a lot today! Let me recap the key items we set up and any homework items for you before our next session.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Is there anything we didn't cover? Do you feel comfortable navigating the Dashboard on your own?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+</div><!-- end rtlTraining -->
 </div><!-- end container -->
 
 <div class="toast" id="toast">✅ Copied to clipboard!</div>
@@ -1722,7 +1980,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rtlTraining:'🛍️ RTL DB Training'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -3170,6 +3428,55 @@ document.addEventListener('DOMContentLoaded',function(){
   window.showTab=function(id){
     origShowTab(id);
     if(id==='training')syncTrainingFromGenerator();
+  };
+});
+
+
+// ===== RTL TRAINING GUIDE =====
+function filterRtlTraining(){
+  var q=document.getElementById('rtlTrainingSearch').value.toLowerCase();
+  document.querySelectorAll('.rtl-training-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRtlTrainingProgress(){
+  var checks=document.querySelectorAll('.rtl-training-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rtlTrainingCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rtlTrainingBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rtl-training-checks',JSON.stringify(states));
+}
+function loadRtlTrainingChecks(){
+  var s=localStorage.getItem('gso-rtl-training-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rtl-training-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRtlTrainingProgress();
+}
+function syncRtlTrainingFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rtlTrainingSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rtlTrainingSeller').textContent=name;
+    document.getElementById('rtlTrainingPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRtlTrainingChecks();
+  var origShow=window.showTab;
+  window.showTab=function(id){
+    origShow(id);
+    if(id==='rtlTraining')syncRtlTrainingFromGenerator();
   };
 });
 
