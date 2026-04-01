@@ -315,7 +315,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('preKO')">🧾 Pre-KO</button>
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Questions</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
-<button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 Training Guide</button>
+<button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 RST DB Training</button>
 </nav>
 <div class="container">
 
@@ -1471,7 +1471,7 @@ Example:
 
 <!-- ===== TRAINING GUIDE ===== -->
 <div id="training" class="tab">
-<h1 style="margin-bottom:4px">&#127891; RST Training Facilitator Guide</h1>
+<h1 style="margin-bottom:4px">&#127891; RST DB Training Guide</h1>
 <p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square Dashboard Training (Restaurant) &mdash; DO / SAY / ASK framework. KO call data auto-populates where applicable.</p>
 <div id="trainingSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
 <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1722,7 +1722,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 Training Guide'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
