@@ -2039,12 +2039,22 @@ Example:
 </div>
 </div>
 
-<div style="text-align:center;margin-top:16px">
-<button class="btn btn-green" id="ptGenerateBtn" onclick="generateAIDeliverables()" style="padding:12px 40px;font-size:15px">&#9889; Analyze & Generate Deliverables</button>
-<div id="ptSpinner" style="display:none;margin-top:12px">
-<div style="display:inline-block;width:20px;height:20px;border:3px solid #2d2d5e;border-top:3px solid #22c55e;border-radius:50%;animation:spin 1s linear infinite"></div>
-<span style="color:#94a3b8;font-size:13px;margin-left:8px" id="ptSpinnerText">Analyzing transcript with AI...</span>
+<div style="text-align:center;margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-green" onclick="copyPtPrompt()" style="padding:12px 32px;font-size:14px">&#128203; Copy Prompt for ChatGPT</button>
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn btn-blue" style="padding:12px 32px;font-size:14px;text-decoration:none">&#128640; Open GSO PM Assistant</a>
 </div>
+<div id="ptPromptCopied" style="display:none;margin-top:12px;text-align:center">
+<p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste it into ChatGPT, then paste the response below:</p>
+</div>
+</div>
+
+<!-- STEP 2: Paste ChatGPT Response -->
+<div id="ptStep2" style="background:#1a1a3e;border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-bottom:16px;display:none">
+<h3 style="font-size:14px;margin-bottom:8px">&#128229; Step 2: Paste ChatGPT Response</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:10px">Copy the entire response from ChatGPT and paste it below. The cockpit will split it into the 3 deliverables automatically.</p>
+<textarea id="ptChatGPTResponse" rows="10" placeholder="Paste the full ChatGPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+<div style="text-align:center;margin-top:12px">
+<button class="btn btn-green" onclick="parsePtResponse()" style="padding:10px 28px;font-size:14px">&#9889; Parse into Deliverables</button>
 </div>
 </div>
 
@@ -3676,41 +3686,23 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 
 
-// ===== POST-TRAINING AI DELIVERABLES =====
-var PT_API_KEY=localStorage.getItem('gso-openai-key')||'';
-var PT_TEAM_UNLOCKED=localStorage.getItem('gso-team-unlocked')==='true';
-// Team password: gso2026 -> unlocks the embedded key
-function unlockPtTeam(){
-  if(PT_TEAM_UNLOCKED&&PT_API_KEY)return true;
-  var pw=prompt('Enter the GSO team password to use AI analysis:');
-  if(!pw)return false;
-  if(pw.trim().toLowerCase()==='gso2026'){
-    PT_API_KEY='sk-proj-f9'+'Ku30mkpBTM932sCpkF6idTQoNHrF1psI1AdvW6Mwj_HeZfNPRrVLC-XcPb62XuSPjVjm9mBxT3BlbkFJ5w7BcozfUds83TwcCNh7VOKsn3def2v3KUPtJvERH5NiOfv6zrewos5uMdE0nGkF97Yhj6yO4A';
-    localStorage.setItem('gso-openai-key',PT_API_KEY);
-    localStorage.setItem('gso-team-unlocked','true');
-    PT_TEAM_UNLOCKED=true;
-    return true;
-  } else {
-    alert('Incorrect password. Ask your team lead for access.');
-    return false;
-  }
-}
+// ===== POST-TRAINING DELIVERABLES (PROMPT BUILDER) =====
 
 // Auto-sync deal info when switching to this tab
 (function(){
-  var orig=window.showTab;
+  var origPT=window.showTab;
   window.showTab=function(id){
-    orig(id);
+    origPT(id);
     if(id==='postTraining') syncPtDealInfo();
   };
 })();
 
 function syncPtDealInfo(){
-  var fields={ptAutoBiz:'genBusiness',ptAutoSeller:'genSeller',ptAutoAE:'genAE',ptAutoPkg:'genPackage'};
-  Object.keys(fields).forEach(function(ptId){
-    var src=document.getElementById(fields[ptId]);
+  var map={ptAutoBiz:'genBusiness',ptAutoSeller:'genSeller',ptAutoAE:'genAE',ptAutoPkg:'genPackage'};
+  Object.keys(map).forEach(function(ptId){
+    var src=document.getElementById(map[ptId]);
     var tgt=document.getElementById(ptId);
-    if(src&&tgt) tgt.textContent=src.value||'—';
+    if(src&&tgt) tgt.textContent=src.value||'\u2014';
   });
 }
 
@@ -3724,7 +3716,7 @@ function handlePtFile(event){
   reader.onload=function(e){
     document.getElementById('ptTranscript').value=e.target.result;
     document.getElementById('ptTranscriptCount').textContent=e.target.result.length+' characters';
-    showToast('📄 File loaded: '+file.name);
+    showToast('\ud83d\udcc4 File loaded: '+file.name);
   };
   reader.readAsText(file);
 }
@@ -3738,18 +3730,18 @@ function showPtOut(id){
 
 function getPtDealContext(){
   var ids=['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genHardware','genSourcePOS','genGoLive','genAttendees','genDate','genMenuStatus','genSpecial','genNotes'];
-  var ctx='';
+  var lines=[];
   ids.forEach(function(id){
     var el=document.getElementById(id);
     if(el&&el.value){
       var label=id.replace('gen','').replace(/([A-Z])/g,' $1').trim();
-      ctx+=label+': '+el.value+'\n';
+      lines.push(label+': '+el.value);
     }
   });
-  return ctx;
+  return lines.join('\n');
 }
 
-async function generateAIDeliverables(){
+function copyPtPrompt(){
   var transcript=document.getElementById('ptTranscript').value.trim();
   var brainDump=document.getElementById('ptBrainDump').value.trim();
   var sessionType=document.getElementById('ptSessionType').value;
@@ -3758,108 +3750,73 @@ async function generateAIDeliverables(){
   var wantDSR=document.getElementById('ptWantDSR').checked;
   var wantAnalysis=document.getElementById('ptWantAnalysis').checked;
 
-  if(!unlockPtTeam())return;
   if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
 
   var dealCtx=getPtDealContext();
-  var btn=document.getElementById('ptGenerateBtn');
-  var spinner=document.getElementById('ptSpinner');
-  btn.disabled=true;btn.style.opacity='0.5';
-  spinner.style.display='block';
-
   var deliverables=[];
-  if(wantEmail) deliverables.push('A) Seller Recap Email');
-  if(wantDSR) deliverables.push('B) DSR Chatter Notes (for Salesforce)');
-  if(wantAnalysis) deliverables.push('C) Internal PM Risk & Coordination Analysis');
+  if(wantEmail) deliverables.push('(A Email)');
+  if(wantDSR) deliverables.push('(B DSR)');
+  if(wantAnalysis) deliverables.push('(C Internal Analysis)');
 
-  var systemPrompt=`You are the GSO PM Assistant — a strategic PM co-pilot for high-volume Square POS onboarding. You turn training call transcripts into clear plans, risk visibility, and forward momentum.
+  var prompt='DELIVERABLES REQUESTED: '+deliverables.join(' ')+'\n\n';
+  prompt+='SESSION TYPE: '+sessionType+'\n\n';
+  if(recording) prompt+='RECORDING LINK: '+recording+'\n\n';
+  if(dealCtx) prompt+='DEAL CONTEXT (from DSR):\n'+dealCtx+'\n\n';
+  if(brainDump) prompt+='MY NOTES (brain dump using speech to text):\n'+brainDump+'\n\n';
+  prompt+='CALL TRANSCRIPT:\n'+(transcript||'No transcript provided - use brain dump notes only.');
 
-Your job is to analyze the training call transcript and deal context below, then produce the requested deliverables.
+  navigator.clipboard.writeText(prompt).then(function(){
+    showToast('\u2705 Prompt copied! Paste into ChatGPT');
+    document.getElementById('ptPromptCopied').style.display='block';
+    document.getElementById('ptStep2').style.display='block';
+    document.getElementById('ptStep2').scrollIntoView({behavior:'smooth'});
+  });
+}
 
-RULES:
-- Be specific to what actually happened on the call. Reference actual topics, seller questions, and decisions.
-- Use the seller's first name in the email.
-- For DSR Chatter: use emoji status indicators (✅ completed, 🟢 upcoming, 🟡 future).
-- For Internal Analysis: include Overall Read, Primary Friction Points, Bottlenecks, MVP Recommendation, Cognitive Risk Flags (assumption trap, false agreement, narrative risk), Trust Assessment, RAID Callouts, and What Must Be Resolved Before Next Milestone.
-- Be concise but thorough. Match the professional tone of a senior PM.
-- Separate each deliverable with a clear header line: === A) SELLER EMAIL ===, === B) DSR CHATTER ===, === C) INTERNAL ANALYSIS ===`;
+function parsePtResponse(){
+  var raw=document.getElementById('ptChatGPTResponse').value.trim();
+  if(!raw){alert('Paste the ChatGPT response first.');return;}
 
-  var userPrompt=`DEAL CONTEXT:
-${dealCtx}
-SESSION TYPE: ${sessionType}
-RECORDING LINK: ${recording||'Not provided'}
+  var emailText='',dsrText='',analysisText='';
 
-MY NOTES (brain dump):
-${brainDump||'None provided'}
+  // Try multiple split patterns
+  // Pattern 1: Look for clear section headers
+  var sections=raw.split(/(?=(?:^|\n)(?:Hi |Dear |Hey ))/m);
+  
+  // Better pattern: split by the B) and C) markers
+  var bMarkers=[/\n(?:Hi \[?AE|Hi @)/im, /\n(?:B\)|=== ?B|DSR Chatter|## ?B)/im];
+  var cMarkers=[/\n(?:C\)|=== ?C|Internal (?:PM )?(?:Risk|Analysis)|## ?C)/im];
+  
+  var bIdx=-1,cIdx=-1;
+  bMarkers.forEach(function(re){if(bIdx<0){var m=raw.search(re);if(m>0)bIdx=m;}});
+  cMarkers.forEach(function(re){if(cIdx<0){var m=raw.search(re);if(m>0)cIdx=m;}});
 
-CALL TRANSCRIPT:
-${transcript||'No transcript provided — use brain dump notes only.'}
-
-DELIVERABLES REQUESTED: ${deliverables.join(', ')}
-
-Generate each requested deliverable now. Separate them with === A) SELLER EMAIL ===, === B) DSR CHATTER ===, === C) INTERNAL ANALYSIS === headers.`;
-
-  try{
-    document.getElementById('ptSpinnerText').textContent='Sending to GPT-4o... (this takes 15-30 seconds)';
-    var response=await fetch('https://api.openai.com/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+PT_API_KEY},
-      body:JSON.stringify({
-        model:'gpt-4o',
-        messages:[
-          {role:'system',content:systemPrompt},
-          {role:'user',content:userPrompt}
-        ],
-        max_tokens:4000,
-        temperature:0.7
-      })
-    });
-    var data=await response.json();
-    if(data.error){
-      alert('API Error: '+(data.error.message||JSON.stringify(data.error)));
-      btn.disabled=false;btn.style.opacity='1';spinner.style.display='none';
-      return;
-    }
-    var result=data.choices[0].message.content;
-
-    // Parse the 3 sections
-    var emailText='',dsrText='',analysisText='';
-    var emailMatch=result.split(/===\s*B\)/);
-    if(emailMatch.length>=2){
-      emailText=emailMatch[0].replace(/===\s*A\)\s*SELLER EMAIL\s*===/i,'').trim();
-      var dsrMatch=emailMatch[1].split(/===\s*C\)/);
-      if(dsrMatch.length>=2){
-        dsrText=dsrMatch[0].replace(/DSR CHATTER\s*===/i,'').trim();
-        analysisText=dsrMatch[1].replace(/INTERNAL.*?===/i,'').trim();
-      } else {
-        dsrText=emailMatch[1].replace(/DSR CHATTER\s*===/i,'').trim();
-      }
-    } else {
-      emailText=result;
-    }
-
-    // If only some deliverables requested, the split might be different
-    if(!wantEmail&&wantDSR){
-      var dsrStart=result.indexOf('=== B)');
-      if(dsrStart>=0){
-        var afterDsr=result.substring(dsrStart);
-        var cSplit=afterDsr.split(/===\s*C\)/);
-        dsrText=cSplit[0].replace(/===\s*B\)\s*DSR CHATTER\s*===/i,'').trim();
-        if(cSplit.length>=2) analysisText=cSplit[1].replace(/INTERNAL.*?===/i,'').trim();
-      }
-    }
-
-    document.getElementById('ptEmailText').textContent=emailText;
-    document.getElementById('ptDSRText').textContent=dsrText;
-    document.getElementById('ptAnalysisText').textContent=analysisText;
-    document.getElementById('ptOutputSection').style.display='block';
-    document.getElementById('ptOutputSection').scrollIntoView({behavior:'smooth'});
-    showToast('⚡ AI deliverables generated!');
-
-  }catch(err){
-    alert('Error: '+err.message);
+  if(bIdx>0&&cIdx>0&&cIdx>bIdx){
+    emailText=raw.substring(0,bIdx).trim();
+    dsrText=raw.substring(bIdx,cIdx).trim();
+    analysisText=raw.substring(cIdx).trim();
+  } else if(bIdx>0){
+    emailText=raw.substring(0,bIdx).trim();
+    dsrText=raw.substring(bIdx).trim();
+  } else if(cIdx>0){
+    emailText=raw.substring(0,cIdx).trim();
+    analysisText=raw.substring(cIdx).trim();
+  } else {
+    // Could not split - put everything in email
+    emailText=raw;
   }
-  btn.disabled=false;btn.style.opacity='1';spinner.style.display='none';
+
+  // Clean up any header lines
+  emailText=emailText.replace(/^(?:=== ?A\)|A\)|## ?A).*$/m,'').trim();
+  dsrText=dsrText.replace(/^(?:=== ?B\)|B\)|## ?B).*$/m,'').trim();
+  analysisText=analysisText.replace(/^(?:=== ?C\)|C\)|## ?C).*$/m,'').trim();
+
+  document.getElementById('ptEmailText').textContent=emailText;
+  document.getElementById('ptDSRText').textContent=dsrText;
+  document.getElementById('ptAnalysisText').textContent=analysisText;
+  document.getElementById('ptOutputSection').style.display='block';
+  document.getElementById('ptOutputSection').scrollIntoView({behavior:'smooth'});
+  showToast('\u26a1 Deliverables parsed!');
 }
 
 
