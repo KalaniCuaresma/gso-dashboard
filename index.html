@@ -319,6 +319,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 RST DB Training</button>
 <button class="tab-btn" onclick="showTab('rstPosTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🍽️ RST POS Training</button>
 <button class="tab-btn" onclick="showTab('rtlTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛍️ RTL DB Training</button>
+<button class="tab-btn" onclick="showTab('rtlPosTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛒 RTL POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 </nav>
 <div class="container">
@@ -2134,6 +2135,202 @@ Example:
 <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
 </div></div>
 </div><!-- end rtlTraining -->
+<!-- ===== RTL POS TRAINING GUIDE ===== -->
+<div id="rtlPosTraining" class="tab">
+<h1 style="margin-bottom:4px">&#127891; RTL POS Training Guide</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square for Retail POS Training &mdash; DO / SAY / ASK framework. Covers hardware setup, item grid, practice transactions, returns/exchanges, inventory management, and stock counts.</p>
+<div id="rtlPosSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="rtlPosSeller" style="font-weight:700"></span> &mdash; <span id="rtlPosPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA</div>
+<div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">RETAIL-SPECIFIC</div>
+</div>
+<input type="text" id="rtlPosSearch" oninput="filterRtlPos()" placeholder="&#128269; Search retail POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="rtlPosCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="rtlPosBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+<div class="rtl-pos-section" data-tsearch="introduction agenda hardware setup call overview POS retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Introduction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Introduce yourself and greet everyone on the call. Let the seller know that the call will be recorded for quality and training purposes.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Agenda</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Remind the seller of the duration of the session. Give the seller an overview of what will be covered during the training session.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Hardware Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask if hardware is unboxed and plugged in. If no, ensure they know to set up alongside the call recording. Ask if iPad has Square for Retail app downloaded. Ask if software on X2/T2 is up-to-date. If no, walk through forcing updates through Settings.</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Is your hardware unboxed and plugged in? Is the Square for Retail app downloaded? Is the software up-to-date on your devices?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="printers cash drawers barcode scanners scales hardware setup USB ethernet bluetooth 3P retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 2. 3P Hardware Setup <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Printers</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has printers on hand, assist with setup. If not, briefly walk through the printer setup process.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Before we walk through the Retail app, let's ensure your printers are configured. To set up your printer, know the type: USB, Ethernet, or Bluetooth (iOS Only). USB: plug directly into the USB hub. Ethernet: plug into the router supplying WiFi. Bluetooth: enable Bluetooth on the device (1:1 ratio). Once physically set up, go to More > Settings > Hardware > Printers to connect and assign a printer profile.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many printers will you use? Do you have any questions about setting up printers and assigning them to a printer profile?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Cash Drawers</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has their cash drawer on hand, assist with setup.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;For USB cash drawers, plug into the USB hub on your Square device. Find it under Connected Devices or Available Cash Drawers. For printer-driven cash drawers, plug the interface cable directly into your printer. It won't show under Connected Devices but you can tap Test Cash Drawer to confirm. Note: the interface cable only transmits data one way.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many cash drawers will you need to set up? What questions do you have about connecting a cash drawer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Barcode Scanners</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has their barcode scanner on hand, assist with setup.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;For USB scanners, open the Retail app, plug into the USB Hub, and you'll get a notification that an accessory has been attached. For Bluetooth scanners, go to More > Settings > Hardware > Barcode scanners > Connect a Bluetooth scanner and follow the steps.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any barcode scanners you'd like to connect? Questions about setting up a barcode scanner?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Scales</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has their scale on hand, assist with setup.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;For USB scales, plug into your USB Hub. Check connection in More > Settings > Hardware > Scales. For Bluetooth scales (iOS Only), navigate to More > Settings > Hardware > Scales > Connect a scale.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will your business be using scales during checkout? Questions about connecting a scale?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rtl-pos-ko-hardware">Check the Generator tab for hardware and printer details discussed during KO.</span></div>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="sign in clock in cash drawer item grid daily operations retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 3. Daily Operations Walkthrough <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Sign In / Clock In</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Have the seller sign in/out of the Retail app. Have the seller clock in/out.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;For security, I recommend signing in with the Device Code we created in Dashboard. For smaller setups, you can use email and password. If passcodes are required, employees clock in/out on the login screen in the top right corner. If passcodes aren't required, use the clock icon on the bottom left.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will you be enabling passcodes for employees? Questions about signing in/out?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Start Cash Drawer</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If utilizing cash management, have them start a cash drawer session.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;One of the first things at the start of the day is to start a cash drawer session. Select the grey Start Cash Drawer button on the bottom right of the Checkout Screen. If you don't see it, navigate to More > Reports > Current Drawer. To end a session, follow the same steps and select End Drawer.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about starting a cash drawer session?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adding Items to the Item Grid</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show the seller how to add items to their Item Grid section.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;The item grid enables you to add popular items, discounts, rewards, and categories to one place. From the Checkout screen, tap Edit in the top middle to enter Edit Grid mode. Note: this saves in real time without an undo button! You can create new pages, add Actions (Gift Cards, Clear Cart, Saved Cart, Discounts), Items, Categories, or Display Groups. You don't need to hit save — just select the 'x' to return.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you want to add action buttons, items, or create a new page now? Questions about your item grid?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="practice transaction checkout items sale barcode scanner discount gift card saved carts split amount payment retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">HANDS-ON</span> 4. Practice Transaction <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adding Items to a Sale</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through adding items: (1) Search engine at top left, (2) Item button in Item Grid, (3) Barcode scanner. Edit the item: adjust taxes, quantity, price, add item-level discount, comp an item, add a note.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Let's practice walking through a transaction. Add items from the item grid, by searching at the top left, or by scanning with your barcode scanner. After an item is added, tap it to edit — adjust quantity, price, remove tax, or add a note. Hit Save when done.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Customer & Discounts</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Add a customer to the sale. If using X2, highlight the Customer Display Screen. Apply a discount to the transaction.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;To add a customer, select Add customer at the top. To add a discount, click the Discount quick add button or search using the magnifying glass.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Actions Menu & Saved Carts</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight the Actions menu (three dots): Clear cart, Sell gift card, Redeem rewards, Add custom amount, Open cash drawer (no sale). Show Saved Carts functionality.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;The three horizontal dots at the top right are quick action buttons: add custom amount, gift card, redeem reward, or open cash drawer. You can also save a cart — tap Save cart, add the customer's name, and Create. To return to it, search by name or select the orange Saved Carts button. Best Practice: For phone orders, add the phone number to the Cart Name and print the ticket to tape to the order!&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Pay the Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Pay the check. Highlight Split Amount. Remind credit card is default. Encourage a card payment to observe checkout flow (signature, tipping, receipt). Ensure printer and cash drawer work properly.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Hit Charge to go to the payment screen. Split Amount at the top right lets you use multiple payment methods. Card is default but you can select any method. I highly recommend taking a card payment so you can see the full checkout flow. Print a receipt to confirm everything works!&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Now that we've walked through a transaction, what questions do you have? Is there anything confusing or that could use more clarification? Any other checkout flow you use today that we didn't cover?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="transactions search receipt return exchange refund unlinked refund gift card retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 5. Transactions <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Search a Transaction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Use the barcode on the receipt to open transaction details. Show how to search for a transaction in the Transactions tab.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;If the customer has a receipt, scan the barcode at the bottom to pull up the transaction instantly. If no receipt, navigate to Transactions tab and search. On iOS: card number, customer phone, customer name, receipt number, notes, or items. On X2: card number, receipt number, or tap/insert/swipe card.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about looking for a previous transaction?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Return / Exchange</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through a return or exchange. Explain restock vs skip restock option. Walk through an unlinked return for items sold outside Square POS.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Go to the transaction and select return or exchange. It'll ask which items to return. Then choose to restock (item goes back to inventory) or Skip Restock if it can't be sold again. For exchanges, select a new item from your library — the customer gets refunded the difference or pays the additional amount. For unlinked refunds (items from a previous system), go to Transactions > Unlinked Refund, enter the amount and description.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about the return or exchange process?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Issue a Refund</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Demonstrate how to issue a refund. Highlight the refund to gift card feature.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Select Refund on the transaction. You can refund the full amount or select specific items. You also have the option to refund to a gift card — note this is only available if the original transaction used one form of payment (not Split Amount).&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about issuing a refund?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Unlinked Refunds</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Demonstrate how to issue an unlinked refund. Highlight refund to any payment method.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;An unlinked refund is a high-risk feature typically only for Management and Owners. It's key for returning items from a previous system. Select Unlinked Refund from the Transactions tab, input the dollar amount and a detailed description, select the refund payment method, add a reason, and complete.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you currently support returns that would require unlinked refunds?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="reports pay in pay out cash drawer sales summary close of day retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 6. Reports <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Pay In / Pay Out</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Navigate to Reports and show the Pay In/Out function.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Find this within the Open Drawer option. Record transfers and withdrawals from your cash drawer outside of cash sales. These amounts appear in your cash drawer history with a description and total amount.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about pay in/out?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">End Cash Drawer</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through ending a cash drawer session. Explain counting down the drawer before entering actual amount. Note: can open/close as many drawers per shift as needed. If managers count next morning, close without entering Actual Amount — they can add it the following morning.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;When the shift or day is closing, you need to record how much cash is in your drawer. Tap End Drawer within the Open Drawer page. Count the cash first, then enter the amount where it says Actual in Drawer before selecting End Drawer > Confirm End Drawer.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about ending a cash drawer session?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Sales Summary Report</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight the sales summary report. Show filters for customized reporting. Highlight print and email options.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;While in Reports, view your sales summary by selecting Sales. Click the date at the top to customize by time period or device. At the top right you can export the report. Keep in mind this same report is available from the Sales Summary in your Dashboard Reports area.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about your sales summary?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="inventory stock adjust receive purchase orders stock counts cycle count full count labels retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">RETAIL</span> 7. Inventory (POS) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adjust Stock & Receive Stock</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain stock adjustment functionality. Highlight items can be entered manually or via scanner. Explain how to Receive Stock. Highlight creating new items during receiving, and printing labels after receiving.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;In the Inventory tab, Stock Overview shows available stock for each item. Select an item and Manage Stock to adjust right from the POS. To receive stock, select Receive Stock at the top right. Enter items manually or scan them. Add quantity, then update Vendor data and Unit Cost (pre-filled with last known UC but editable). For new items, scan and create when Square doesn't recognize it. Once received, you'll see a prompt to print labels for all recently received items.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about stock adjustment and manual receiving within the Retail app?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Purchase Orders (POS)</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Demonstrate creating a purchase order from the app. Show managing existing purchase orders. Highlight printing labels from POs.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;In the Inventory tab, tap Create a purchase order, create or select a vendor, add items with quantities, vendor code, and unit cost, then select Create. Manage existing POs from the Purchase Orders tab under Inventory.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about purchase orders?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Stock Counts</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain difference between Full Count and Cycle Count. Demonstrate initiating a count. Show contributing to a count and committing it. Highlight multiple team members can contribute to the same count. Note: Full Counts only available on iOS; Cycle Counts available on all devices.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Cycle Count (most frequent) only updates items you scan — great for counting one section. Full Count drops ALL items to 0 and only updates those scanned — use when closed for more than a day. To initiate: tap Count Stock, select Cycle or Full, and begin scanning. Multiple team members can contribute to the same active count (don't start separate counts!). Pause by hitting X > Save and Close. Stock only updates when committed, not while in progress.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about stock counts?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rtl-pos-ko-inventory">Check the Generator tab for inventory and vendor details discussed during KO.</span></div>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="create edit items stock actions lost stolen broken retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">EXTRA</span> 8. Items (POS) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Create / Edit Items</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Demonstrate how to edit/create items in the app.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;In our last training we covered creating items from Dashboard. You can also do it from the POS! Tap More > Items > Create Item. Fill out the details like you would from Dashboard.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about creating items from the POS?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Stock Actions from Edit Item</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how to perform stock actions within the Edit Item page. Highlight marking an item lost or stolen.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;If you select an item from the item library, you can perform stock actions. From the Edit Item screen, select Stock on Hand to adjust stock. Here you can also record an item as lost, stolen, or broken.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about these stock actions?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rtl-pos-section" data-tsearch="wrap up next steps homework closing retail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">CLOSE</span> 9. Wrap-Up & Next Steps <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Session Recap</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Recap what was covered. Confirm open action items. Schedule follow-up if needed. Send recap email after the call.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;We covered a lot today! Let me recap the key items and any homework before our next session.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Do you feel comfortable using the Retail POS on your own?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+</div><!-- end rtlPosTraining -->
 
 <!-- ===== POST-TRAINING DELIVERABLES (AI) ===== -->
 <div id="postTraining" class="tab">
@@ -2307,7 +2504,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',postTraining:'📋 Post-Training'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -4028,6 +4225,55 @@ document.addEventListener('DOMContentLoaded',function(){
   window.showTab=function(id){
     orig(id);
     if(id==='rstPosTraining')syncRstPosFromGenerator();
+  };
+});
+
+
+// ===== RTL POS TRAINING GUIDE =====
+function filterRtlPos(){
+  var q=document.getElementById('rtlPosSearch').value.toLowerCase();
+  document.querySelectorAll('.rtl-pos-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRtlPosProgress(){
+  var checks=document.querySelectorAll('.rtl-pos-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rtlPosCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rtlPosBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rtl-pos-checks',JSON.stringify(states));
+}
+function loadRtlPosChecks(){
+  var s=localStorage.getItem('gso-rtl-pos-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRtlPosProgress();
+}
+function syncRtlPosFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rtlPosSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rtlPosSeller').textContent=name;
+    document.getElementById('rtlPosPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRtlPosChecks();
+  var orig=window.showTab;
+  window.showTab=function(id){
+    orig(id);
+    if(id==='rtlPosTraining')syncRtlPosFromGenerator();
   };
 });
 
