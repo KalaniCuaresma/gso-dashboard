@@ -317,6 +317,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Questions</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 <button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 RST DB Training</button>
+<button class="tab-btn" onclick="showTab('rstPosTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🍽️ RST POS Training</button>
 <button class="tab-btn" onclick="showTab('rtlTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛍️ RTL DB Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 </nav>
@@ -1715,6 +1716,167 @@ Example:
 </div></div>
 
 </div><!-- end training -->
+<!-- ===== RST POS TRAINING GUIDE ===== -->
+<div id="rstPosTraining" class="tab">
+<h1 style="margin-bottom:4px">&#127891; RST POS Training Guide</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square for Restaurants POS Training &mdash; DO / SAY / ASK framework. Covers hardware setup, daily operations, practice transactions, reports, and close of day.</p>
+<div id="rstPosSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="rstPosSeller" style="font-weight:700"></span> &mdash; <span id="rstPosPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA</div>
+<div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">HANDS-ON</div>
+</div>
+<input type="text" id="rstPosSearch" oninput="filterRstPos()" placeholder="&#128269; Search POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="rstPosCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="rstPosBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+<div class="rst-pos-section" data-tsearch="introduction agenda hardware setup call overview POS">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Introduction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Introduce yourself and greet everyone on the call. Let the seller know that the call will be recorded for quality and training purposes.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Agenda</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Remind the seller of the duration of the session. Give the seller an overview of what will be covered during the training session.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Hardware Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask if hardware is unboxed and plugged in. If no, ensure they know to set up alongside the call recording. Ask if iPad has Square for Restaurants app downloaded. Ask if software on X2/T2 is up-to-date. If no, walk through forcing updates through Settings.</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Is your hardware unboxed and plugged in? Is the Square for Restaurants app downloaded? Is the software up-to-date on your devices?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="printers cash drawers hardware setup USB ethernet bluetooth 3P">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 2. 3P Hardware Setup <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Printers</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has printers on hand, assist with setup. If not, briefly walk through the printer setup process.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Before we walk through the Restaurants app, let's ensure your printers are configured. To set up your printer, you'll need to know the type: USB, Ethernet, or Bluetooth. USB: plug directly into the USB hub. Ethernet: plug into the router supplying WiFi. Bluetooth: enable Bluetooth on the device (1:1 ratio — one POS at a time). Once physically set up, go to More > Settings > Hardware > Printers to connect and assign a printer profile.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many printers will you use? Do you have any questions about setting up printers and assigning them to a printer profile?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Cash Drawers</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If the seller has their cash drawer on hand, assist with setup.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;For USB cash drawers, plug into the USB hub on your Square device, then find it under Available Cash Drawers in hardware settings. For printer-driven cash drawers, plug the interface cable (looks like an old phone jack) directly into your printer. It won't show under Available Cash Drawers, but you can tap Test Cash Drawer to confirm. Note: the interface cable only transmits data one way — you may need to flip the cord.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> How many cash drawers will you need to set up? What questions do you have about connecting a cash drawer?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:6px;padding:8px 12px;font-size:12px;margin-top:8px"><strong style="color:#ff6b35">&#128161; From KO Call:</strong> <span class="rst-pos-ko-hardware">Check the Generator tab for hardware and printer details discussed during KO.</span></div>
+</div></div>
+<div class="rst-pos-section" data-tsearch="login clock in app views floor plan menu checks transactions daily operations">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 3. Daily Operations Walkthrough <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Log In / Clock In</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Have the seller log in/out of Restaurant Mode. Have the seller clock in/out.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;To log in/out, look for Log in/out at the bottom-left of your screen. Your staff will use their own passcode. From the login screen, staff can also clock in/out — tap Clock In/Out, enter their passcode, and select Clock in or Clock out. If you need staff to run a Shift Report, ensure they clock in at the start of their shift.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about logging or clocking in/out?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">App Views</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Run through the 5 app views on the bottom of the POS: Floor plan, Menu, Checks (Orders), Transactions, More. Add or reorganize options based on the seller's needs.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;When you log into the POS, you'll see 5 tabs on the bottom. Floor plan — where employees select tables and begin orders. Menu — visual representation of items, start/change/pay/print checks. Checks — all open checks organized by floor plan section, plus recently closed checks. Transactions — all paid checks. More — Orders, Cash Management, Reports, and Settings.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about the different app views?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Start Cash Drawer</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If utilizing cash management, have them start a cash drawer session.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;One of the first things at the start of the day is to start a cash drawer session. Navigate to More > Reports or Cash Management > Start Drawer. Remember, Cash Management is 1:1 with the device — it only tracks cash from sales at that specific device or manual Pay In/Out. To end a session, follow the same steps and select End Drawer.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about starting or ending a cash drawer session?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="practice transaction new check floor plan menu send order pay split amount checkout">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">HANDS-ON</span> 4. Practice Transaction <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Starting a New Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show 3 ways to start a new check: (1) Select a table from floor plan, (2) Under Checks select New Check, (3) From Menu. Proceed with starting from Menu.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;There are a few ways to start a new check. Most common is selecting a table from the floor plan. You can also go to Checks > New Check, or start from the Menu tab by ringing up items directly.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adding & Editing Items</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Add and remove items from the check. Edit an item on the check. Send the check to kitchen.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;To remove an item, slide left and select Remove. To edit, click the item and select the 3 dots or Modify. You can also repeat an item by selecting it from the check. Once all items are added, select Send to send to the kitchen.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Check Actions & Payment</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> From Floor Plan, open the check. Show the Actions tab (void, comp, assign, move, dining option, discounts, rewards). Pay the check. Highlight Split Amount. Encourage a card payment to observe checkout flow.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;From the check, click Actions at the top right to void, comp, assign, move the check, change dining option, add customer name/notes, or apply discounts. To pay, tap Pay and choose payment type. Split Amount lets you divide equally or enter custom amounts.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Now that we've walked through a practice transaction, what questions do you have? Is there anything confusing or that could use more clarification?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="transactions search receipt refund gift card">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 5. Transactions <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Search Transactions</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how to search for a transaction. Highlight how to resend/reprint a receipt.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Navigate to the Transactions tab. Use the magnifying glass to search by card number, customer phone, customer name, receipt number, notes, or items. You can also resend/reprint a receipt — locate the transaction and select New Receipt.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about locating transactions? Questions about reprinting or resending a receipt?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Issue a Refund</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through issuing a refund. Highlight the refund to gift card feature.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Find the transaction and select Issue Refund. You can refund the total or a partial amount — select specific items or use the keypad for a specific amount. You also have the option to refund the amount to a gift card.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about refunds?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adjust / Settle Tips</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Select a test card payment and enter a tip amount. If traditional tips, enter the amount (even $0.00). If Quick Tip, tip is applied at time of sale. Explain Save vs Settle.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;If Sign & Tip on Printed Receipt is enabled, servers need to add tip amounts to closed checks. Go to Transactions and select the credit card icon — this shows all checks needing tip entry. Enter the amount and hit Save. Even if no tip, enter $0.00. Save means you can come back and edit. Settle closes the check for good — once settled, it cannot be reopened.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about adjusting tips? Questions about Save vs. Settle?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="reports pay in pay out cash drawer shift report close of day">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 6. Reports <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Pay In / Pay Out</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight the Pay In/Out functionality.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Pay In/Pay Out lets you record transfers and withdrawals from your cash drawer outside of cash sales. These amounts appear in your cash drawer history with a description and total amount.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about pay in/out?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">End Cash Drawer</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk through ending a cash drawer session. Explain that the seller should count down the drawer before entering the actual amount.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;When the shift or day is closing, you need to record how much cash is in your drawer. Navigate to Cash Management or Reports, find your current drawer, and tap End Drawer. Count the cash first, then enter the amount where it says Actual in Drawer before selecting End Drawer.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about ending a cash drawer session?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Shift Reports</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how an employee would run a shift report.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Once employees finish their shift, they run a shift report. It includes shift summary, tip details, sales summary, category sales, and item sales. To run: log in with 4-digit code > More > Shift report > Run Shift Report. They can then Print for a hard copy.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about running a shift report?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Close of Day Report</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain the relevance of the Close of Day report. Remind that closing procedures can be adjusted in Dashboard.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;When the day is done, run a close of day report. This is especially important if using Reopen and Keep payment settings — it finalizes all payments for transfer to your bank account. The report includes check details, gross/net sales, payment methods, and category/item sales. Go to More > Close of day. If closing procedures aren't complete, you'll be prompted to finish them first.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about the close of day report?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="live sales report sales summary additional reports">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">EXTRA</span> 7. Additional Reports <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Live Sales Report</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight the Live Sales Report.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;An incredibly useful report is the live sales report. It provides an overview of all open and closed checks in real-time. Use it to analyze daily sales performance and inform staffing decisions during service. Navigate to More > Live sales.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about the live sales report?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Sales Summary</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Review the sales summary report.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Another useful report is the Sales Summary. Select Sales to view it. Click the filters button on the top left to customize — see sales from different time periods and different devices.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about your sales summary?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+<div class="rst-pos-section" data-tsearch="wrap up next steps homework closing">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">CLOSE</span> 8. Wrap-Up & Next Steps <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Session Recap</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Recap what was covered. Confirm open action items. Schedule follow-up if needed. Send recap email after the call.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;We covered a lot today! Let me recap the key items and any homework before our next session.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Do you feel comfortable using the POS on your own?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+</div><!-- end rstPosTraining -->
 
 <!-- ===== RTL DB TRAINING GUIDE ===== -->
 <div id="rtlTraining" class="tab">
@@ -2145,7 +2307,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rtlTraining:'🛍️ RTL DB Training',postTraining:'📋 Post-Training'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',postTraining:'📋 Post-Training'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -3819,6 +3981,55 @@ function parsePtResponse(){
   showToast('\u26a1 Deliverables parsed!');
 }
 
+
+
+// ===== RST POS TRAINING GUIDE =====
+function filterRstPos(){
+  var q=document.getElementById('rstPosSearch').value.toLowerCase();
+  document.querySelectorAll('.rst-pos-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRstPosProgress(){
+  var checks=document.querySelectorAll('.rst-pos-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rstPosCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rstPosBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rst-pos-checks',JSON.stringify(states));
+}
+function loadRstPosChecks(){
+  var s=localStorage.getItem('gso-rst-pos-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRstPosProgress();
+}
+function syncRstPosFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rstPosSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rstPosSeller').textContent=name;
+    document.getElementById('rstPosPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRstPosChecks();
+  var orig=window.showTab;
+  window.showTab=function(id){
+    orig(id);
+    if(id==='rstPosTraining')syncRstPosFromGenerator();
+  };
+});
 
 </script>
 </body>
