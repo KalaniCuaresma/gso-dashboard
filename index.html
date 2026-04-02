@@ -317,6 +317,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 <button class="tab-btn" onclick="showTab('training')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 RST DB Training</button>
 <button class="tab-btn" onclick="showTab('rtlTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛍️ RTL DB Training</button>
+<button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 </nav>
 <div class="container">
 
@@ -1970,6 +1971,184 @@ Example:
 <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-training-check" onchange="updateRtlTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
 </div></div>
 </div><!-- end rtlTraining -->
+
+<!-- ===== POST-TRAINING DELIVERABLES ===== -->
+<div id="postTraining" class="tab">
+<h1 style="margin-bottom:4px">&#128221; Post-Training Deliverables</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Generate your seller recap email, DSR Chatter notes, and internal PM analysis after any training session.</p>
+
+<!-- INPUT SECTION -->
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:14px;margin-bottom:12px">&#128394; Session Info</h3>
+<div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Seller / Business Name</label>
+<input type="text" id="ptBusiness" placeholder="e.g. Burger Factory Wrigleyville" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Seller Contact Name</label>
+<input type="text" id="ptSeller" placeholder="e.g. Yasir Rizvi" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Session Type</label>
+<select id="ptSessionType" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="PM-led Dashboard Training">PM-led Dashboard Training</option>
+<option value="PM-led POS Training">PM-led POS Training</option>
+<option value="PM-led Mid-Implementation">PM-led Mid-Implementation</option>
+<option value="Tech-led Training">Tech-led Training</option>
+<option value="Final Training / Go-Live">Final Training / Go-Live</option>
+<option value="Optimization Call">Optimization Call</option>
+</select></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE / AM Name</label>
+<input type="text" id="ptAE" placeholder="e.g. @Lindsey Logan" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Tech / Other Attendees</label>
+<input type="text" id="ptAttendees" placeholder="e.g. Chris Mendez (tech)" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link</label>
+<input type="text" id="ptRecording" placeholder="https://analytics.revenue.io/..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Next Session Date/Time</label>
+<input type="text" id="ptNextSession" placeholder="e.g. Tomorrow 1:00 PM CT" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Package</label>
+<select id="ptPackage" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="Plus">Plus</option>
+<option value="Premium">Premium</option>
+<option value="Onsite">Onsite</option>
+</select></div>
+</div>
+
+<!-- WHAT WAS COVERED -->
+<h3 style="font-size:14px;margin-bottom:8px">&#9989; What Was Covered (check all that apply)</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:12px;font-size:12px" id="ptCoveredGrid">
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Dashboard navigation & search tools" style="accent-color:#22c55e"> Dashboard navigation</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Bank account linked" style="accent-color:#22c55e"> Bank account linked</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Subscription/billing confirmed" style="accent-color:#22c55e"> Subscription confirmed</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Branding/logo setup" style="accent-color:#22c55e"> Branding/logo</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Receipt settings reviewed" style="accent-color:#22c55e"> Receipt settings</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Sales tax setup discussed" style="accent-color:#22c55e"> Sales tax setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Service charges discussed" style="accent-color:#22c55e"> Service charges</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Settlement/funding timing reviewed" style="accent-color:#22c55e"> Settlement timing</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Notifications & outage alerts" style="accent-color:#22c55e"> Notifications</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Authorized representatives" style="accent-color:#22c55e"> Authorized reps</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Device management & modes" style="accent-color:#22c55e"> Device management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Device codes created" style="accent-color:#22c55e"> Device codes</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Printer profiles/routing" style="accent-color:#22c55e"> Printer profiles</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Menu/items reviewed" style="accent-color:#22c55e"> Menu/items reviewed</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Modifiers reviewed" style="accent-color:#22c55e"> Modifiers</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Categories setup" style="accent-color:#22c55e"> Categories</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="POS layout reviewed" style="accent-color:#22c55e"> POS layout</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Online store/channel setup" style="accent-color:#22c55e"> Online store</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Image library updated" style="accent-color:#22c55e"> Image library</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Team members/staff setup" style="accent-color:#22c55e"> Staff/team setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Permission sets reviewed" style="accent-color:#22c55e"> Permission sets</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Discounts setup" style="accent-color:#22c55e"> Discounts</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Loyalty program" style="accent-color:#22c55e"> Loyalty</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Inventory management" style="accent-color:#22c55e"> Inventory</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Reports reviewed" style="accent-color:#22c55e"> Reports</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Transactions/refunds" style="accent-color:#22c55e"> Transactions</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="pt-covered" value="Gift cards" style="accent-color:#22c55e"> Gift cards</label>
+</div>
+
+<!-- RISKS / OPEN ITEMS -->
+<h3 style="font-size:14px;margin-bottom:8px">&#9888;&#65039; Risks & Open Items</h3>
+<div id="ptRisksContainer" style="margin-bottom:12px">
+<div class="pt-risk-row" style="display:flex;gap:6px;margin-bottom:4px">
+<select style="padding:6px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;min-width:80px">
+<option value="Risk">Risk</option><option value="Action">Action</option><option value="Issue">Issue</option><option value="Decision">Decision</option><option value="Assumption">Assumption</option>
+</select>
+<input type="text" class="pt-risk-text" placeholder="Describe the risk or action item..." style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+</div>
+</div>
+<button onclick="addPtRisk()" style="padding:5px 12px;background:#2d2d5e;border:none;border-radius:6px;color:#94a3b8;font-size:11px;cursor:pointer;margin-bottom:12px">+ Add Risk/Action</button>
+
+<!-- SELLER HOMEWORK -->
+<h3 style="font-size:14px;margin-bottom:8px">&#128218; Seller Homework</h3>
+<div id="ptHomeworkContainer" style="margin-bottom:12px">
+<div style="display:flex;gap:6px;margin-bottom:4px">
+<input type="text" class="pt-homework" placeholder="e.g. Review menu pricing before next call" style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+</div>
+</div>
+<button onclick="addPtHomework()" style="padding:5px 12px;background:#2d2d5e;border:none;border-radius:6px;color:#94a3b8;font-size:11px;cursor:pointer;margin-bottom:12px">+ Add Homework Item</button>
+
+<!-- PM NEXT STEPS -->
+<h3 style="font-size:14px;margin-bottom:8px">&#128736;&#65039; PM Next Steps</h3>
+<div id="ptPMStepsContainer" style="margin-bottom:12px">
+<div style="display:flex;gap:6px;margin-bottom:4px">
+<input type="text" class="pt-pmstep" placeholder="e.g. Send recap email with updated session time" style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+</div>
+</div>
+<button onclick="addPtPMStep()" style="padding:5px 12px;background:#2d2d5e;border:none;border-radius:6px;color:#94a3b8;font-size:11px;cursor:pointer;margin-bottom:12px">+ Add PM Step</button>
+
+<!-- NEXT SESSION FOCUS -->
+<h3 style="font-size:14px;margin-bottom:8px">&#127919; Next Session Focus Areas</h3>
+<div id="ptNextFocusContainer" style="margin-bottom:12px">
+<div style="display:flex;gap:6px;margin-bottom:4px">
+<input type="text" class="pt-nextfocus" placeholder="e.g. Device codes and signing devices in correctly" style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+</div>
+</div>
+<button onclick="addPtNextFocus()" style="padding:5px 12px;background:#2d2d5e;border:none;border-radius:6px;color:#94a3b8;font-size:11px;cursor:pointer;margin-bottom:12px">+ Add Focus Area</button>
+
+<!-- ADDITIONAL NOTES -->
+<h3 style="font-size:14px;margin-bottom:8px">&#128221; Additional Notes / Brain Dump</h3>
+<textarea id="ptNotes" rows="4" placeholder="Any additional context, observations, or notes from the call..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+
+<!-- GO-LIVE STATUS -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Go-Live Status</label>
+<select id="ptGoLiveStatus" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="Forming - timeline not confirmed">Forming - timeline not confirmed</option>
+<option value="Tentative - approximate date discussed">Tentative - approximate date discussed</option>
+<option value="Confirmed - date locked">Confirmed - date locked</option>
+<option value="At risk - blockers present">At risk - blockers present</option>
+</select></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Complexity</label>
+<select id="ptComplexity" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="Low">Low</option>
+<option value="Moderate">Moderate</option>
+<option value="High">High</option>
+<option value="Very High">Very High</option>
+</select></div>
+</div>
+
+<div style="margin-top:16px;text-align:center">
+<button class="btn btn-green" onclick="generatePostTraining()" style="padding:12px 32px;font-size:14px">&#9889; Generate All Deliverables</button>
+</div>
+</div>
+
+<!-- OUTPUT SECTION -->
+<div id="ptOutputSection" style="display:none">
+
+<!-- Sub-tabs for deliverables -->
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-blue btn-sm pt-sub-btn active" onclick="showPtSub('ptEmail')">&#128231; Seller Email</button>
+<button class="btn btn-blue btn-sm pt-sub-btn" onclick="showPtSub('ptDSR')">&#128221; DSR Chatter</button>
+<button class="btn btn-blue btn-sm pt-sub-btn" onclick="showPtSub('ptAnalysis')">&#128270; Internal Analysis</button>
+</div>
+
+<!-- EMAIL OUTPUT -->
+<div id="ptEmail" class="pt-sub active" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px">&#128231; Seller Recap Email</h3>
+<button class="btn btn-blue btn-sm" onclick="copyContent('ptEmailContent')">&#128203; Copy</button>
+</div>
+<div id="ptEmailContent" style="font-size:12px;line-height:1.7;color:#cbd5e1"></div>
+</div>
+
+<!-- DSR OUTPUT -->
+<div id="ptDSR" class="pt-sub" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px">&#128221; DSR Chatter Notes</h3>
+<button class="btn btn-blue btn-sm" onclick="copyContent('ptDSRContent')">&#128203; Copy</button>
+</div>
+<div id="ptDSRContent" style="font-size:12px;line-height:1.7;color:#cbd5e1"></div>
+</div>
+
+<!-- ANALYSIS OUTPUT -->
+<div id="ptAnalysis" class="pt-sub" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px">&#128270; Internal PM Analysis</h3>
+<button class="btn btn-blue btn-sm" onclick="copyContent('ptAnalysisContent')">&#128203; Copy</button>
+</div>
+<div id="ptAnalysisContent" style="font-size:12px;line-height:1.7;color:#cbd5e1"></div>
+</div>
+
+</div><!-- end ptOutputSection -->
+
+</div><!-- end postTraining -->
+
 </div><!-- end container -->
 
 <div class="toast" id="toast">✅ Copied to clipboard!</div>
@@ -2022,7 +2201,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rtlTraining:'🛍️ RTL DB Training'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rtlTraining:'🛍️ RTL DB Training',postTraining:'📋 Post-Training'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -3561,6 +3740,198 @@ document.addEventListener('DOMContentLoaded',function(){
     if(id==='rtlTraining')syncRtlTrainingFromGenerator();
   };
 });
+
+
+// ===== POST-TRAINING DELIVERABLES =====
+function addPtRisk(){
+  var c=document.getElementById('ptRisksContainer');
+  var d=document.createElement('div');d.className='pt-risk-row';d.style.cssText='display:flex;gap:6px;margin-bottom:4px';
+  d.innerHTML='<select style="padding:6px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;min-width:80px"><option value="Risk">Risk</option><option value="Action">Action</option><option value="Issue">Issue</option><option value="Decision">Decision</option><option value="Assumption">Assumption</option></select><input type="text" class="pt-risk-text" placeholder="Describe..." style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"><button onclick="this.parentElement.remove()" style="padding:4px 8px;background:#ef4444;border:none;border-radius:4px;color:#fff;font-size:10px;cursor:pointer">&times;</button>';
+  c.appendChild(d);
+}
+function addPtHomework(){
+  var c=document.getElementById('ptHomeworkContainer');
+  var d=document.createElement('div');d.style.cssText='display:flex;gap:6px;margin-bottom:4px';
+  d.innerHTML='<input type="text" class="pt-homework" placeholder="Homework item..." style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"><button onclick="this.parentElement.remove()" style="padding:4px 8px;background:#ef4444;border:none;border-radius:4px;color:#fff;font-size:10px;cursor:pointer">&times;</button>';
+  c.appendChild(d);
+}
+function addPtPMStep(){
+  var c=document.getElementById('ptPMStepsContainer');
+  var d=document.createElement('div');d.style.cssText='display:flex;gap:6px;margin-bottom:4px';
+  d.innerHTML='<input type="text" class="pt-pmstep" placeholder="PM next step..." style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"><button onclick="this.parentElement.remove()" style="padding:4px 8px;background:#ef4444;border:none;border-radius:4px;color:#fff;font-size:10px;cursor:pointer">&times;</button>';
+  c.appendChild(d);
+}
+function addPtNextFocus(){
+  var c=document.getElementById('ptNextFocusContainer');
+  var d=document.createElement('div');d.style.cssText='display:flex;gap:6px;margin-bottom:4px';
+  d.innerHTML='<input type="text" class="pt-nextfocus" placeholder="Focus area..." style="flex:1;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"><button onclick="this.parentElement.remove()" style="padding:4px 8px;background:#ef4444;border:none;border-radius:4px;color:#fff;font-size:10px;cursor:pointer">&times;</button>';
+  c.appendChild(d);
+}
+function showPtSub(id){
+  document.querySelectorAll('.pt-sub').forEach(function(el){el.style.display='none'});
+  document.querySelectorAll('.pt-sub-btn').forEach(function(b){b.classList.remove('active');b.style.background='#1a1a3e';b.style.color='#006AFF'});
+  document.getElementById(id).style.display='block';
+  event.target.classList.add('active');event.target.style.background='#006AFF';event.target.style.color='#fff';
+}
+function getListValues(cls){
+  var items=[];
+  document.querySelectorAll('.'+cls).forEach(function(el){
+    var v=el.value.trim();if(v)items.push(v);
+  });
+  return items;
+}
+function getRisks(){
+  var risks=[];
+  document.querySelectorAll('.pt-risk-row').forEach(function(row){
+    var sel=row.querySelector('select');
+    var inp=row.querySelector('.pt-risk-text');
+    if(inp&&inp.value.trim()){
+      risks.push({type:sel?sel.value:'Risk',text:inp.value.trim()});
+    }
+  });
+  return risks;
+}
+function getCovered(){
+  var items=[];
+  document.querySelectorAll('.pt-covered').forEach(function(cb){
+    if(cb.checked)items.push(cb.value);
+  });
+  return items;
+}
+function generatePostTraining(){
+  var biz=document.getElementById('ptBusiness').value.trim()||'[Business Name]';
+  var seller=document.getElementById('ptSeller').value.trim()||'[Seller]';
+  var sessionType=document.getElementById('ptSessionType').value;
+  var ae=document.getElementById('ptAE').value.trim()||'[AE/AM Name]';
+  var attendees=document.getElementById('ptAttendees').value.trim();
+  var recording=document.getElementById('ptRecording').value.trim();
+  var nextSession=document.getElementById('ptNextSession').value.trim()||'TBD';
+  var pkg=document.getElementById('ptPackage').value;
+  var covered=getCovered();
+  var risks=getRisks();
+  var homework=getListValues('pt-homework');
+  var pmSteps=getListValues('pt-pmstep');
+  var nextFocus=getListValues('pt-nextfocus');
+  var notes=document.getElementById('ptNotes').value.trim();
+  var goLive=document.getElementById('ptGoLiveStatus').value;
+  var complexity=document.getElementById('ptComplexity').value;
+
+  // ---- A) SELLER EMAIL ----
+  var email='<div style="padding:4px">';
+  email+='<p>Hi '+seller.split(' ')[0]+',</p><br>';
+  email+='<p>Thank you again for your time today and for working through several setup items live with us. We made solid progress on your account configuration'+(nextSession!=='TBD'?', and your next session will build on that.':'.')+'</p><br>';
+  email+='<p><strong>Session Summary</strong></p>';
+  email+='<p>Today we reviewed your Square Dashboard and walked through key areas. During the session, we covered:</p><ul>';
+  covered.forEach(function(c){email+='<li>'+c+'</li>'});
+  email+='</ul><br>';
+  if(nextFocus.length>0){
+    email+='<p><strong>What We\'ll Focus On Next</strong></p>';
+    email+='<p>In our next session'+(nextSession!=='TBD'?' (<strong>'+nextSession+'</strong>)':'')+', we\'ll focus on:</p><ul>';
+    nextFocus.forEach(function(f){email+='<li>'+f+'</li>'});
+    email+='</ul><br>';
+  }
+  if(homework.length>0){
+    email+='<p><strong>Seller Homework / Before Next Session</strong></p><ol>';
+    homework.forEach(function(h){email+='<li>'+h+'</li>'});
+    email+='</ol><br>';
+  }
+  email+='<p><strong>Upcoming Sessions</strong></p>';
+  email+='<p>Your next training session is scheduled for <strong>'+nextSession+'</strong>.</p><br>';
+  if(recording){email+='<p><strong>Recording</strong>: <a href="'+recording+'" style="color:#006AFF">'+recording+'</a></p><br>';}
+  email+='<p>Thanks again, '+seller.split(' ')[0]+'. Please send over any questions that come up before our next session, and we\'ll keep the momentum going.</p><br>';
+  email+='<p>Best,<br>Kalani</p>';
+  email+='</div>';
+
+  // ---- B) DSR CHATTER ----
+  var dsr='<div style="padding:4px">';
+  dsr+='<p>Hi '+ae+' &#8212; I completed a '+sessionType+' with '+seller+' today'+(attendees?' ('+attendees+' also joined)':'')+' and wanted to flag a few key items.</p><br>';
+  if(risks.length>0){
+    dsr+='<p><strong>Top risks / action items</strong></p><ul>';
+    risks.forEach(function(r){dsr+='<li><strong>'+r.type+':</strong> '+r.text+'</li>'});
+    dsr+='</ul><br>';
+  }
+  dsr+='<p><strong>Session completion</strong></p>';
+  dsr+='<p>Completed '+sessionType+' with '+seller+'.'+( attendees?' '+attendees+' also joined.':'')+' Session was productive.</p><br>';
+  dsr+='<p><strong>Go-live status</strong></p><p>'+goLive+'</p><br>';
+  dsr+='<p><strong>Training schedule</strong></p><ul>';
+  covered.forEach(function(c){dsr+='<li>&#9989; Completed: '+c+'</li>'});
+  nextFocus.forEach(function(f){dsr+='<li>&#128994; Upcoming: '+f+'</li>'});
+  dsr+='</ul><br>';
+  if(recording){dsr+='<p><strong>Recording link</strong></p><p><a href="'+recording+'" style="color:#006AFF">'+recording+'</a></p><br>';}
+  dsr+='<p><strong>Concise summary</strong></p>';
+  dsr+='<p>Today\'s call focused on '+sessionType.toLowerCase()+' for '+biz+'. ';
+  if(covered.length>0)dsr+='We covered: '+covered.join(', ')+'. ';
+  if(notes)dsr+=notes;
+  dsr+='</p><br>';
+  if(homework.length>0){
+    dsr+='<p><strong>Seller homework</strong></p><ul>';
+    homework.forEach(function(h){dsr+='<li>'+h+'</li>'});
+    dsr+='</ul><br>';
+  }
+  if(pmSteps.length>0){
+    dsr+='<p><strong>PM next steps</strong></p><ul>';
+    pmSteps.forEach(function(s){dsr+='<li>'+s+'</li>'});
+    dsr+='</ul><br>';
+  }
+  if(covered.length>0){
+    dsr+='<p><strong>Detailed topic breakdown</strong></p><ul>';
+    covered.forEach(function(c){dsr+='<li>'+c+'</li>'});
+    dsr+='</ul><br>';
+  }
+  dsr+='</div>';
+
+  // ---- C) INTERNAL ANALYSIS ----
+  var analysis='<div style="padding:4px">';
+  analysis+='<p><strong>Overall read</strong></p>';
+  var statusColor=goLive.includes('risk')?'red':goLive.includes('Forming')?'amber':'green';
+  analysis+='<p>Project is in a <strong>controlled '+statusColor+'</strong> state. ';
+  if(notes)analysis+=notes+' ';
+  analysis+='Complexity: <strong>'+complexity+'</strong>.</p><br>';
+  if(risks.length>0){
+    analysis+='<p><strong>Primary friction points</strong></p><ul>';
+    risks.forEach(function(r){analysis+='<li><strong>'+r.type+':</strong> '+r.text+'</li>'});
+    analysis+='</ul><br>';
+  }
+  analysis+='<p><strong>Bottlenecks</strong></p><ul>';
+  risks.filter(function(r){return r.type==='Risk'||r.type==='Issue'}).forEach(function(r){analysis+='<li>'+r.text+'</li>'});
+  if(risks.filter(function(r){return r.type==='Risk'||r.type==='Issue'}).length===0)analysis+='<li>No critical blockers identified</li>';
+  analysis+='</ul><br>';
+  analysis+='<p><strong>MVP recommendation</strong></p>';
+  analysis+='<p>Keep next session goal centered on minimum viable go-live readiness. Prioritize:</p><ul>';
+  nextFocus.forEach(function(f){analysis+='<li>'+f+'</li>'});
+  if(nextFocus.length===0)analysis+='<li>Core transacting readiness</li>';
+  analysis+='</ul><br>';
+  analysis+='<p><strong>RAID callouts</strong></p><ul>';
+  risks.forEach(function(r){analysis+='<li><strong>'+r.type+':</strong> '+r.text+'</li>'});
+  if(risks.length===0)analysis+='<li>No RAID items flagged</li>';
+  analysis+='</ul><br>';
+  analysis+='<p><strong>Cognitive risk flags</strong></p><ul>';
+  analysis+='<li><strong>Assumption trap:</strong> Verify go-live assumptions are backed by completed dependencies, not just seller optimism.</li>';
+  analysis+='<li><strong>False agreement risk:</strong> Seller may be agreeable without fully internalizing all concepts discussed.</li>';
+  analysis+='<li><strong>Narrative risk:</strong> Positive seller engagement can mask operational gaps that still need proof on devices.</li>';
+  analysis+='</ul><br>';
+  analysis+='<p><strong>Trust / relationship assessment</strong></p>';
+  analysis+='<p>Trust is currently strong. Continued momentum depends on converting today\'s concepts into functioning workflows in the next session.</p><br>';
+  if(pmSteps.length>0){
+    analysis+='<p><strong>PM coordination note</strong></p><ul>';
+    pmSteps.forEach(function(s){analysis+='<li>'+s+'</li>'});
+    analysis+='</ul><br>';
+  }
+  analysis+='<p><strong>What must be resolved before next milestone</strong></p><ul>';
+  homework.forEach(function(h){analysis+='<li>'+h+'</li>'});
+  risks.filter(function(r){return r.type==='Risk'}).forEach(function(r){analysis+='<li>'+r.text+'</li>'});
+  if(homework.length===0&&risks.length===0)analysis+='<li>Continue current trajectory</li>';
+  analysis+='</ul>';
+  analysis+='</div>';
+
+  // Render
+  document.getElementById('ptEmailContent').innerHTML=email;
+  document.getElementById('ptDSRContent').innerHTML=dsr;
+  document.getElementById('ptAnalysisContent').innerHTML=analysis;
+  document.getElementById('ptOutputSection').style.display='block';
+  document.getElementById('ptOutputSection').scrollIntoView({behavior:'smooth'});
+  showToast('&#9889; Deliverables generated!');
+}
 
 </script>
 </body>
