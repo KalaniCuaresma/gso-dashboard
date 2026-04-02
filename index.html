@@ -321,6 +321,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('rtlTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛍️ RTL DB Training</button>
 <button class="tab-btn" onclick="showTab('rtlPosTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛒 RTL POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
+<button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
 </nav>
 <div class="container">
 
@@ -2451,6 +2452,163 @@ Example:
 </div>
 
 </div><!-- end postTraining -->
+<!-- ===== OPTI CALL ===== -->
+<div id="optiCall" class="tab">
+<h1 style="margin-bottom:4px">&#9889; Optimization Call</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">60-minute live call script + post-call AE notes generator. Focus: MVP readiness, confidence, real transactions.</p>
+<div id="optiSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="optiSeller" style="font-weight:700"></span> &mdash; <span id="optiPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiChecklist')" style="background:#22c55e;color:#fff">&#9989; Pre-Call Checklist</button>
+<button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiScript')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128220; Live Script</button>
+<button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiNotes')" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128221; Post-Call Notes</button>
+</div>
+<div id="optiChecklist" class="opti-sub">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:14px;margin-bottom:12px">&#9989; Pre-Call Checklist</h3>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span style="font-size:12px;color:#64748b">Complete before the call</span><span id="optiCheckCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/12</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:6px;overflow:hidden;margin-bottom:14px"><div id="optiCheckBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Review DSR notes and previous call history</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Check current POS setup status in Salesforce</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Confirm seller's go-live date / timeline</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Review hardware setup status (devices, printers, drawers)</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Check if gift cards are enabled and configured</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Review team members / permission sets</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Confirm menu/items are loaded and validated</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Check if open ticket workflow is relevant to their business</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Review any open support cases or blockers</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Prepare Revenue.io recording link</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Have seller's Dashboard open in a separate tab</label>
+<label style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #2d2d5e22;font-size:13px;cursor:pointer"><input type="checkbox" class="opti-pre-check" onchange="updateOptiChecks()" style="width:16px;height:16px;accent-color:#22c55e"> Set 60-minute timer ready to start</label>
+</div></div>
+<div id="optiScript" class="opti-sub" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Call Progress</span><span id="optiScriptCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="optiScriptBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px">
+<strong style="color:#eab308">&#129504; Live Facilitation Tips:</strong><br>
+<strong>Off track:</strong> "Great question - let's come back to that after we lock in your core workflow."<br>
+<strong>Overwhelmed:</strong> "Totally normal - this gets much easier after a few transactions."<br>
+<strong>Time tight:</strong> Skip deep customer profiles. Prioritize: Transactions > Gift Cards > Open Tickets.
+</div>
+<div class="opti-script-section" data-tsearch="open frame call introduction guardrail">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">OPEN</span> 1. Open + Frame the Call (0:00-3:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Set the Goal</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Welcome the seller. Frame the session around validating setup and building confidence for go-live.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Thanks again for your time today. The goal for this session is to validate your setup and make sure you feel confident running real transactions before going live. We'll focus on your day-to-day workflows first, then tighten anything that could cause confusion for your team.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Set Guardrail</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Establish scope boundaries to keep the call focused.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;If anything comes up that's more of a nice-to-have, I'll capture it and we can revisit after you're live.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="open tickets incomplete orders save retrieve transaction workflow">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">WORKFLOW</span> 2. Open Tickets / Incomplete Orders (3:00-15:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Scenario Setup</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Have seller start a transaction and then pause/leave it open. Let them try to find the open order before filling gaps.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Let's start with a really important real-world scenario - what happens when a customer doesn't finish a transaction. Go ahead and start a transaction like you normally would. Now let's pause it / leave it open.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> If that customer walks away and comes back later, how would you find this order?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Show Open Tickets</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show where open tickets live. Show retrieval and completion.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Lock Behavior</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Align on team workflow for saving vs completing tickets.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;I'd suggest keeping it simple for go-live: only save when the customer is definitely coming back.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What's your team's plan - when should they save a ticket vs complete or clear it?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="gift card payment partial redemption revenue critical">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ef4444">REVENUE</span> 3. Gift Card Validation (15:00-25:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Test Gift Card Transaction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Run a test gift card transaction together. Have seller add item and pay with gift card. Then test a partial redemption.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Next, I want to double-check gift cards since this directly impacts payments. Let's run a test gift card transaction together.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Confidence Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Gauge seller confidence. If hesitation, fix it now.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Good catch - let's fix that now so there are no surprises later.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> If someone walked in today with an existing gift card, would you feel confident processing it?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="customer profiles search create practical checkout">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">WORKFLOW</span> 4. Customer Profiles (25:00-35:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Search & Create</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Guide seller to search for existing customer and create a new one. Keep it practical for day one.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Now let's look at customer profiles - this is helpful, but we want to keep it practical for day one. For go-live, I recommend capturing just what you actually use - name and maybe phone/email. You can always build on this later.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you see your team using this during checkout, or more after the sale?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="team permissions passcodes roles refund access control security">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#eab308">SECURITY</span> 5. Team Permissions + Passcodes (35:00-45:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Review Roles & Passcodes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Review current roles and passcodes. Test scenario: what happens if someone tries to issue a refund.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Let's make sure your team has the right level of access - this is about both speed and control. We want your team to move quickly, but still have the right safeguards in place.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Let's test this - what happens if someone tries to issue a refund? Who should be allowed to do that?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="full transaction simulation practice seller drives add item customer gift card save retrieve complete">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">HANDS-ON</span> 6. Full Transaction Simulation (45:00-55:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Seller Drives</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Let the SELLER drive a full transaction end-to-end. Prompt as needed: add item, add customer, apply gift card, save, retrieve, complete. If they struggle, slow down and repeat.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Now let's tie everything together with a full transaction - this is the most important part. Go ahead and walk me through a full sale like you would in real life.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Reinforce Confidence</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Affirm what went well. If they struggled, repeat the flow once more.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;That's exactly what it should look like.&rdquo;</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+<div class="opti-script-section" data-tsearch="wrap next steps homework go-live confidence closing">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">CLOSE</span> 7. Wrap + Lock Next Steps (55:00-60:00) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Confidence Check</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Ask directly if they feel ready. Give clear homework.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Based on what we walked through today, you're in a really good spot. Here's what I recommend between now and go-live: practice 2-3 full transactions, align team on ticket workflow, confirm gift card handling. I'll follow up with a quick summary, but you're very close - this is really about repetition and confidence now.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you feel comfortable taking a payment today if you needed to?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="opti-script-check" onchange="updateOptiScriptProgress()" style="accent-color:#22c55e"> Covered</label>
+</div></div>
+</div>
+<div id="optiNotes" class="opti-sub" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:14px;margin-bottom:12px">&#128221; Post-Call AE Notes Generator</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:12px">Paste your transcript + notes. Click to generate a formatted prompt for ChatGPT, then paste the response back.</p>
+<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link</label>
+<input type="text" id="optiRecording" placeholder="https://analytics.revenue.io/..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">My Notes / Brain Dump</label>
+<textarea id="optiBrainDump" rows="3" placeholder="Quick thoughts from the call..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Transcript</label>
+<textarea id="optiTranscript" rows="8" placeholder="Paste your Revenue.io transcript here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea></div>
+<div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-green" onclick="copyOptiPrompt()" style="padding:12px 32px;font-size:14px">&#128203; Copy Prompt for ChatGPT</button>
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn btn-blue" style="padding:12px 32px;font-size:14px;text-decoration:none">&#128640; Open GSO PM Assistant</a>
+</div>
+<div id="optiPromptCopied" style="display:none;margin-top:12px;text-align:center"><p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into ChatGPT, then paste response below:</p></div>
+<div id="optiStep2" style="display:none;margin-top:16px">
+<textarea id="optiGPTResponse" rows="10" placeholder="Paste ChatGPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+<div style="text-align:center;margin-top:12px"><button class="btn btn-green" onclick="parseOptiResponse()" style="padding:10px 28px;font-size:14px">&#9889; Parse into AE Notes</button></div>
+</div>
+<div id="optiOutput" style="display:none;margin-top:16px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px">&#128221; AE Notes</h4><button class="btn btn-blue btn-sm" onclick="copyContent('optiOutputText')">&#128203; Copy</button></div>
+<div id="optiOutputText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
+</div></div>
+</div><!-- end optiCall -->
 
 </div><!-- end container -->
 
@@ -2504,7 +2662,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -4275,6 +4433,98 @@ document.addEventListener('DOMContentLoaded',function(){
     orig(id);
     if(id==='rtlPosTraining')syncRtlPosFromGenerator();
   };
+});
+
+// ===== OPTI CALL =====
+function showOptiSub(id){
+  document.querySelectorAll('.opti-sub').forEach(function(el){el.style.display='none'});
+  document.querySelectorAll('.opti-tab-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF'});
+  document.getElementById(id).style.display='block';
+  if(event&&event.target){event.target.style.background=id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
+}
+function updateOptiChecks(){
+  var c=document.querySelectorAll('.opti-pre-check');var d=0;
+  c.forEach(function(x){if(x.checked)d++});
+  document.getElementById('optiCheckCounter').textContent=d+'/'+c.length;
+  document.getElementById('optiCheckBar').style.width=Math.round(d/c.length*100)+'%';
+  var s=[];c.forEach(function(x){s.push(x.checked)});
+  localStorage.setItem('gso-opti-pre-checks',JSON.stringify(s));
+}
+function updateOptiScriptProgress(){
+  var c=document.querySelectorAll('.opti-script-check');var d=0;
+  c.forEach(function(x){if(x.checked)d++});
+  document.getElementById('optiScriptCounter').textContent=d+'/'+c.length;
+  document.getElementById('optiScriptBar').style.width=(c.length?Math.round(d/c.length*100):0)+'%';
+  var s=[];c.forEach(function(x){s.push(x.checked)});
+  localStorage.setItem('gso-opti-script-checks',JSON.stringify(s));
+}
+function syncOptiFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('optiSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('optiSeller').textContent=name;
+    document.getElementById('optiPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+function getOptiDealContext(){
+  var ids=['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genHardware','genSourcePOS','genGoLive','genAttendees','genDate','genNotes'];
+  var ctx='';
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&el.value){
+      var label=id.replace('gen','').replace(/([A-Z])/g,' $1').trim();
+      ctx+=label+': '+el.value+'\n';
+    }
+  });
+  return ctx;
+}
+function copyOptiPrompt(){
+  var transcript=document.getElementById('optiTranscript').value.trim();
+  var brainDump=document.getElementById('optiBrainDump').value.trim();
+  var recording=document.getElementById('optiRecording').value.trim();
+  var dealCtx=getOptiDealContext();
+  if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
+  var prompt='DEAL CONTEXT:\n'+dealCtx+'\n';
+  prompt+='SESSION TYPE: Optimization Call (60 min)\n';
+  if(recording)prompt+='RECORDING LINK: '+recording+'\n';
+  prompt+='\nMY NOTES:\n'+(brainDump||'None')+'\n';
+  prompt+='\nCALL TRANSCRIPT:\n'+(transcript||'No transcript - use notes only.')+'\n';
+  prompt+='\nDELIVERABLES REQUESTED: AE/AM Chatter Notes for Optimization Call\n';
+  prompt+='\nPlease generate:\n';
+  prompt+='1. A concise AE/AM-facing summary of the optimization call\n';
+  prompt+='2. Include: what was validated, what still needs work, seller confidence level, go-live readiness assessment\n';
+  prompt+='3. Top risks / action items (Risk/Action format)\n';
+  prompt+='4. Seller homework before go-live\n';
+  prompt+='5. PM next steps\n';
+  prompt+='6. Recording link\n';
+  navigator.clipboard.writeText(prompt).then(function(){
+    document.getElementById('optiPromptCopied').style.display='block';
+    document.getElementById('optiStep2').style.display='block';
+    showToast('Prompt copied to clipboard!');
+  });
+}
+function parseOptiResponse(){
+  var resp=document.getElementById('optiGPTResponse').value.trim();
+  if(!resp){alert('Please paste the ChatGPT response first.');return;}
+  document.getElementById('optiOutputText').textContent=resp;
+  document.getElementById('optiOutput').style.display='block';
+  document.getElementById('optiOutput').scrollIntoView({behavior:'smooth'});
+  showToast('AE notes ready!');
+}
+document.addEventListener('DOMContentLoaded',function(){
+  // Load saved checks
+  var s1=localStorage.getItem('gso-opti-pre-checks');
+  if(s1){var a=JSON.parse(s1);document.querySelectorAll('.opti-pre-check').forEach(function(c,i){if(a[i])c.checked=true});}
+  updateOptiChecks();
+  var s2=localStorage.getItem('gso-opti-script-checks');
+  if(s2){var a2=JSON.parse(s2);document.querySelectorAll('.opti-script-check').forEach(function(c,i){if(a2[i])c.checked=true});}
+  updateOptiScriptProgress();
+  var orig=window.showTab;
+  window.showTab=function(id){orig(id);if(id==='optiCall')syncOptiFromGenerator();};
 });
 
 </script>
