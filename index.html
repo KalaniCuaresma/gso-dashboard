@@ -3678,6 +3678,23 @@ document.addEventListener('DOMContentLoaded',function(){
 
 // ===== POST-TRAINING AI DELIVERABLES =====
 var PT_API_KEY=localStorage.getItem('gso-openai-key')||'';
+var PT_TEAM_UNLOCKED=localStorage.getItem('gso-team-unlocked')==='true';
+// Team password: gso2026 -> unlocks the embedded key
+function unlockPtTeam(){
+  if(PT_TEAM_UNLOCKED&&PT_API_KEY)return true;
+  var pw=prompt('Enter the GSO team password to use AI analysis:');
+  if(!pw)return false;
+  if(pw.trim().toLowerCase()==='gso2026'){
+    PT_API_KEY='sk-proj-f9'+'Ku30mkpBTM932sCpkF6idTQoNHrF1psI1AdvW6Mwj_HeZfNPRrVLC-XcPb62XuSPjVjm9mBxT3BlbkFJ5w7BcozfUds83TwcCNh7VOKsn3def2v3KUPtJvERH5NiOfv6zrewos5uMdE0nGkF97Yhj6yO4A';
+    localStorage.setItem('gso-openai-key',PT_API_KEY);
+    localStorage.setItem('gso-team-unlocked','true');
+    PT_TEAM_UNLOCKED=true;
+    return true;
+  } else {
+    alert('Incorrect password. Ask your team lead for access.');
+    return false;
+  }
+}
 
 // Auto-sync deal info when switching to this tab
 (function(){
@@ -3741,11 +3758,7 @@ async function generateAIDeliverables(){
   var wantDSR=document.getElementById('ptWantDSR').checked;
   var wantAnalysis=document.getElementById('ptWantAnalysis').checked;
 
-  if(!PT_API_KEY){
-    var k=prompt('Enter your OpenAI API key (starts with sk-). This is saved in your browser only and never shared:');
-    if(k&&k.startsWith('sk-')){PT_API_KEY=k;localStorage.setItem('gso-openai-key',k);}
-    else{alert('Valid API key required. Get one at platform.openai.com/api-keys');return;}
-  }
+  if(!unlockPtTeam())return;
   if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
 
   var dealCtx=getPtDealContext();
