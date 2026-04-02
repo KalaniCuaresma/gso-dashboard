@@ -2586,25 +2586,60 @@ Example:
 </div>
 <div id="optiNotes" class="opti-sub" style="display:none">
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
-<h3 style="font-size:14px;margin-bottom:12px">&#128221; Post-Call AE Notes Generator</h3>
-<p style="font-size:12px;color:#94a3b8;margin-bottom:12px">Paste your transcript + notes. Click to generate a formatted prompt for ChatGPT, then paste the response back.</p>
-<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link</label>
+<h3 style="font-size:14px;margin-bottom:12px">&#128221; Post-Opti Call &#8594; AE Email for Seller</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:12px">Generate an email the AE can send to the seller with helpful Square support links based on what was discussed.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link (Rev.io)</label>
 <input type="text" id="optiRecording" placeholder="https://analytics.revenue.io/..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE Name (who sends the email)</label>
+<input type="text" id="optiAEName" placeholder="e.g. Lindsey" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+</div>
+
 <div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">My Notes / Brain Dump</label>
 <textarea id="optiBrainDump" rows="3" placeholder="Quick thoughts from the call..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+
 <div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Transcript</label>
-<textarea id="optiTranscript" rows="8" placeholder="Paste your Revenue.io transcript here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea></div>
-<div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-<button class="btn btn-green" onclick="copyOptiPrompt()" style="padding:12px 32px;font-size:14px">&#128203; Copy Prompt for ChatGPT</button>
-<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn btn-blue" style="padding:12px 32px;font-size:14px;text-decoration:none">&#128640; Open GSO PM Assistant</a>
+<textarea id="optiTranscript" rows="6" placeholder="Paste your Revenue.io transcript here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea></div>
+
+<h4 style="font-size:13px;margin-bottom:8px;color:#ff6b35">&#128279; Topics Discussed (check to include help links in email)</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:16px;font-size:12px" id="optiTopicsGrid">
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Employee Time Tracking" data-url="https://squareup.com/help/us/en/article/5765-track-employee-hours" style="accent-color:#ff6b35"> Employee Time Tracking</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Loyalty Program" data-url="https://squareup.com/help/us/en/article/5765-set-up-square-loyalty" style="accent-color:#ff6b35"> Loyalty Program</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Marketing Campaigns" data-url="https://squareup.com/help/us/en/article/6103-get-started-with-square-marketing" style="accent-color:#ff6b35"> Marketing Campaigns</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Hardware Setup" data-url="https://squareup.com/help/us/en/topic/hardware" style="accent-color:#ff6b35"> Hardware Setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Printer Profiles" data-url="https://squareup.com/help/us/en/article/7665-create-and-manage-printer-profiles" style="accent-color:#ff6b35"> Printer Profiles</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Gift Cards" data-url="https://squareup.com/help/us/en/article/5571-get-started-with-square-gift-cards" style="accent-color:#ff6b35"> Gift Cards</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Customer Directory" data-url="https://squareup.com/help/us/en/article/5765-manage-your-customer-directory" style="accent-color:#ff6b35"> Customer Directory</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Team Permissions" data-url="https://squareup.com/help/us/en/article/5765-set-up-team-permissions" style="accent-color:#ff6b35"> Team Permissions</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Refunds &amp; Returns" data-url="https://squareup.com/help/us/en/article/5060-issue-refunds-with-square" style="accent-color:#ff6b35"> Refunds &amp; Returns</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Sales Reports" data-url="https://squareup.com/help/us/en/article/5059-view-sales-reports" style="accent-color:#ff6b35"> Sales Reports</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Inventory Management" data-url="https://squareup.com/help/us/en/article/5096-manage-your-inventory" style="accent-color:#ff6b35"> Inventory Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Online Ordering" data-url="https://squareup.com/help/us/en/article/7178-get-started-with-square-online" style="accent-color:#ff6b35"> Online Ordering</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Modifiers" data-url="https://squareup.com/help/us/en/article/5379-create-modifier-sets" style="accent-color:#ff6b35"> Modifiers</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Discounts" data-url="https://squareup.com/help/us/en/article/5164-create-and-manage-discounts" style="accent-color:#ff6b35"> Discounts</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Sales Tax Setup" data-url="https://squareup.com/help/us/en/article/5061-set-up-sales-tax" style="accent-color:#ff6b35"> Sales Tax Setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="KDS (Kitchen Display)" data-url="https://squareup.com/help/us/en/article/7630-get-started-with-square-kds" style="accent-color:#ff6b35"> KDS (Kitchen Display)</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Device Management" data-url="https://squareup.com/help/us/en/article/7664-manage-your-devices" style="accent-color:#ff6b35"> Device Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Cash Management" data-url="https://squareup.com/help/us/en/article/5265-manage-your-cash-drawer" style="accent-color:#ff6b35"> Cash Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Payroll" data-url="https://squareup.com/help/us/en/article/5765-get-started-with-square-payroll" style="accent-color:#ff6b35"> Payroll</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Invoices" data-url="https://squareup.com/help/us/en/article/5642-create-and-send-invoices" style="accent-color:#ff6b35"> Invoices</label>
 </div>
+
+<div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn btn-green" onclick="generateOptiEmail()" style="padding:12px 32px;font-size:14px">&#9889; Generate AE Email</button>
+<button class="btn btn-blue" onclick="copyOptiPrompt()" style="padding:12px 32px;font-size:14px">&#128203; Copy AI Prompt for ChatGPT</button>
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="padding:12px 32px;font-size:14px;text-decoration:none;background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128640; Open GPT</a>
+</div>
+
 <div id="optiPromptCopied" style="display:none;margin-top:12px;text-align:center"><p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into ChatGPT, then paste response below:</p></div>
 <div id="optiStep2" style="display:none;margin-top:16px">
 <textarea id="optiGPTResponse" rows="10" placeholder="Paste ChatGPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
-<div style="text-align:center;margin-top:12px"><button class="btn btn-green" onclick="parseOptiResponse()" style="padding:10px 28px;font-size:14px">&#9889; Parse into AE Notes</button></div>
+<div style="text-align:center;margin-top:12px"><button class="btn btn-green" onclick="parseOptiResponse()" style="padding:10px 28px;font-size:14px">&#9889; Use AI Response as Email</button></div>
 </div>
-<div id="optiOutput" style="display:none;margin-top:16px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:16px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px">&#128221; AE Notes</h4><button class="btn btn-blue btn-sm" onclick="copyContent('optiOutputText')">&#128203; Copy</button></div>
+
+<div id="optiOutput" style="display:none;margin-top:16px;background:#0f0f23;border:1px solid #22c55e44;border-radius:8px;padding:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px">&#128231; AE Email for Seller</h4><button class="btn btn-blue btn-sm" onclick="copyContent(&#39;optiOutputText&#39;)">&#128203; Copy Email</button></div>
 <div id="optiOutputText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
 </div>
 </div></div>
@@ -4482,25 +4517,56 @@ function getOptiDealContext(){
   });
   return ctx;
 }
+function getOptiTopicLinks(){
+  var links=[];
+  document.querySelectorAll('.opti-topic').forEach(function(cb){
+    if(cb.checked){links.push({name:cb.getAttribute('data-name'),url:cb.getAttribute('data-url')});}
+  });
+  return links;
+}
+function generateOptiEmail(){
+  var seller=document.getElementById('genSeller')?document.getElementById('genSeller').value.trim():'';
+  var biz=document.getElementById('genBusiness')?document.getElementById('genBusiness').value.trim():'';
+  var sellerFirst=seller?seller.split(' ')[0]:'there';
+  var recording=document.getElementById('optiRecording').value.trim();
+  var aeName=document.getElementById('optiAEName').value.trim()||'[AE Name]';
+  var topics=getOptiTopicLinks();
+  if(topics.length===0){alert('Please check at least one topic that was discussed.');return;}
+  var email='Hi '+sellerFirst+',\n\n';
+  email+='Thank you for taking the time to connect today! It was great walking through your Square setup and making sure everything is dialed in for your day-to-day operations.\n\n';
+  email+='Here are a few guides to support what we discussed:\n\n';
+  topics.forEach(function(t){
+    email+=t.name+': '+t.url+'\n';
+  });
+  email+='\nThanks again, and I\'m looking forward to working through the next steps with you.\n\n';
+  if(recording){email+='Call recording: '+recording+'\n\n';}
+  email+='Best,\n'+aeName;
+  document.getElementById('optiOutputText').textContent=email;
+  document.getElementById('optiOutput').style.display='block';
+  document.getElementById('optiOutput').scrollIntoView({behavior:'smooth'});
+  showToast('AE email generated!');
+}
 function copyOptiPrompt(){
   var transcript=document.getElementById('optiTranscript').value.trim();
   var brainDump=document.getElementById('optiBrainDump').value.trim();
   var recording=document.getElementById('optiRecording').value.trim();
   var dealCtx=getOptiDealContext();
+  var topics=getOptiTopicLinks();
   if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
   var prompt='DEAL CONTEXT:\n'+dealCtx+'\n';
   prompt+='SESSION TYPE: Optimization Call (60 min)\n';
   if(recording)prompt+='RECORDING LINK: '+recording+'\n';
   prompt+='\nMY NOTES:\n'+(brainDump||'None')+'\n';
   prompt+='\nCALL TRANSCRIPT:\n'+(transcript||'No transcript - use notes only.')+'\n';
-  prompt+='\nDELIVERABLES REQUESTED: AE/AM Chatter Notes for Optimization Call\n';
-  prompt+='\nPlease generate:\n';
-  prompt+='1. A concise AE/AM-facing summary of the optimization call\n';
-  prompt+='2. Include: what was validated, what still needs work, seller confidence level, go-live readiness assessment\n';
-  prompt+='3. Top risks / action items (Risk/Action format)\n';
-  prompt+='4. Seller homework before go-live\n';
-  prompt+='5. PM next steps\n';
-  prompt+='6. Recording link\n';
+  prompt+='\nTOPICS DISCUSSED: '+(topics.length>0?topics.map(function(t){return t.name}).join(', '):'See transcript')+'\n';
+  prompt+='\nDELIVERABLES REQUESTED: Post-Opti Call email for the AE to send to the seller.\n';
+  prompt+='\nThe email should:\n';
+  prompt+='1. Thank the seller for their time\n';
+  prompt+='2. Briefly summarize what was validated/covered\n';
+  prompt+='3. Include relevant Square help links from https://squareup.com/help/us/en for topics discussed\n';
+  prompt+='4. Include the call recording link\n';
+  prompt+='5. Close with forward momentum\n';
+  prompt+='6. Sign off as the AE name\n';
   navigator.clipboard.writeText(prompt).then(function(){
     document.getElementById('optiPromptCopied').style.display='block';
     document.getElementById('optiStep2').style.display='block';
@@ -4513,7 +4579,7 @@ function parseOptiResponse(){
   document.getElementById('optiOutputText').textContent=resp;
   document.getElementById('optiOutput').style.display='block';
   document.getElementById('optiOutput').scrollIntoView({behavior:'smooth'});
-  showToast('AE notes ready!');
+  showToast('AE email ready!');
 }
 document.addEventListener('DOMContentLoaded',function(){
   // Load saved checks
