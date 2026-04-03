@@ -322,6 +322,7 @@ h2{font-size:18px;margin-bottom:10px}
 <button class="tab-btn" onclick="showTab('rtlPosTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛒 RTL POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
+<button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
 </nav>
 <div class="container">
 
@@ -2696,6 +2697,308 @@ Example:
 </div></div>
 </div><!-- end optiCall -->
 
+<div id="subPlans" class="tab">
+<h1 style="margin-bottom:4px">&#128142; Square Subscription Plans</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Quick reference: Free vs Plus vs Premium (US). Use during seller conversations to explain plan differences.</p>
+
+<div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-sm" onclick="showSubPlanView('overview')" id="subBtn-overview" style="background:#a855f7;color:#fff">Overview</button>
+<button class="btn btn-sm" onclick="showSubPlanView('free')" id="subBtn-free" style="background:#1a1a3e;color:#22c55e;border:1px solid #22c55e44">Free</button>
+<button class="btn btn-sm" onclick="showSubPlanView('plus')" id="subBtn-plus" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">Plus</button>
+<button class="btn btn-sm" onclick="showSubPlanView('premium')" id="subBtn-premium" style="background:#1a1a3e;color:#eab308;border:1px solid #eab30844">Premium</button>
+<button class="btn btn-sm" onclick="showSubPlanView('notIncluded')" id="subBtn-notIncluded" style="background:#1a1a3e;color:#ef4444;border:1px solid #ef444444">Not Bundled</button>
+<button class="btn btn-sm" onclick="showSubPlanView('confirm')" id="subBtn-confirm" style="background:#1a1a3e;color:#94a3b8;border:1px solid #64748b44">Confirm Plan</button>
+<button class="btn btn-sm" onclick="showSubPlanView('coaching')" id="subBtn-coaching" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">Coaching Tips</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="subPlan-overview" class="sub-plan-panel">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:15px;margin-bottom:12px">&#128200; Quick Comparison</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px">Square moved from many separate product subscriptions (Restaurants Plus, Retail Plus, Appointments, etc.) to <strong>three bundled plans</strong> that cover most software needs across industries.</p>
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:600px">
+<thead>
+<tr style="border-bottom:2px solid #2d2d5e">
+<th style="text-align:left;padding:10px 12px;color:#94a3b8">Plan</th>
+<th style="text-align:left;padding:10px 12px;color:#22c55e">&#127381; Free</th>
+<th style="text-align:left;padding:10px 12px;color:#006AFF">&#11088; Plus</th>
+<th style="text-align:left;padding:10px 12px;color:#eab308">&#128081; Premium</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Price</td><td style="padding:10px 12px;color:#22c55e;font-weight:700">$0/mo per location</td><td style="padding:10px 12px;color:#006AFF;font-weight:700">$49/mo per location</td><td style="padding:10px 12px;color:#eab308;font-weight:700">$149/mo per location</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Best For</td><td style="padding:10px 12px">New / smaller sellers getting started</td><td style="padding:10px 12px">Growing businesses that need more automation</td><td style="padding:10px 12px">Multi-location / higher-volume, more complexity</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">POS</td><td style="padding:10px 12px">Core POS, basic modes</td><td style="padding:10px 12px">Advanced POS (floor plans, course mgmt, barcodes, label printing)</td><td style="padding:10px 12px">Everything in Plus + most advanced tools</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Online</td><td style="padding:10px 12px">Basic Square Online Free site</td><td style="padding:10px 12px">Expanded customization, QR ordering, subscriptions</td><td style="padding:10px 12px">Real-time shipping rates, robust shipping tools</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Inventory</td><td style="padding:10px 12px">Item library, basic stock tracking</td><td style="padding:10px 12px">Vendors, POs, stock counts, transfers, barcode labels</td><td style="padding:10px 12px">Everything in Plus</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Loyalty / Marketing</td><td style="padding:10px 12px">&#10060;</td><td style="padding:10px 12px">&#9989; Included</td><td style="padding:10px 12px">&#9989; Included</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Staff Tools</td><td style="padding:10px 12px">Basic</td><td style="padding:10px 12px">Scheduling, labor reporting, advanced permissions</td><td style="padding:10px 12px">Everything in Plus + staff performance metrics</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Reporting</td><td style="padding:10px 12px">Basic</td><td style="padding:10px 12px">Stronger ecommerce reporting</td><td style="padding:10px 12px">Advanced analytics (location, device, channel, labor)</td></tr>
+<tr style="border-bottom:1px solid #2d2d5e22"><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Processing</td><td style="padding:10px 12px">Standard rates</td><td style="padding:10px 12px">Lower in-person rate</td><td style="padding:10px 12px;color:#eab308;font-weight:600">Lowest rate (2.4% + $0.15 in-person)</td></tr>
+<tr><td style="padding:10px 12px;color:#94a3b8;font-weight:600">Support</td><td style="padding:10px 12px">Standard hours</td><td style="padding:10px 12px">Improved (not 24/7 phone)</td><td style="padding:10px 12px;color:#eab308;font-weight:600">24/7 phone support</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:11px;color:#64748b;margin-top:12px">Processing fees and support hours improve as you move from Free &#8594; Plus &#8594; Premium.</p>
+</div>
+</div>
+
+<!-- FREE -->
+<div id="subPlan-free" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="font-size:28px">&#127381;</span>
+<div><h3 style="font-size:16px;color:#22c55e;margin:0">Square Free</h3><span style="font-size:20px;font-weight:700;color:#22c55e">$0<span style="font-size:12px;font-weight:400;color:#94a3b8">/month per location</span></span></div>
+</div>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px"><strong>Positioning:</strong> Core tools to run a business with no software subscription; seller only pays processing fees.</p>
+
+<h4 style="font-size:13px;color:#22c55e;margin-bottom:8px">POS &amp; Channels</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Access to the unified Square Point of Sale app and all basic modes (food &amp; bev, retail, appointments, etc.)</li>
+<li>In-person payments (tap, dip, swipe) with standard processing fees</li>
+<li>Square Invoices, payment links, and online checkout options</li>
+</ul>
+
+<h4 style="font-size:13px;color:#22c55e;margin-bottom:8px">Online Selling</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Basic Square Online Free site</li>
+<li>Website builder with basic layouts and SEO tools</li>
+<li>Pickup, local delivery, and shipping options</li>
+<li>Ability to sell via search and social</li>
+</ul>
+
+<h4 style="font-size:13px;color:#22c55e;margin-bottom:8px">Inventory &amp; Orders</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Item library, basic stock tracking</li>
+<li>Basic Orders tab to manage online + in-person orders</li>
+</ul>
+
+<h4 style="font-size:13px;color:#22c55e;margin-bottom:8px">Customers &amp; Banking</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Customer Directory and basic engagement via receipts</li>
+<li>Access to Square Banking (checking, savings, transfers)</li>
+</ul>
+
+<h4 style="font-size:13px;color:#22c55e;margin-bottom:8px">Support &amp; Limits</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Standard support and help center</li>
+<li>Higher processing rates and more limited support hours than Plus/Premium</li>
+</ul>
+
+<div style="background:#22c55e15;border:1px solid #22c55e44;border-radius:8px;padding:12px 16px;font-size:12px;color:#22c55e">
+<strong>&#128161; When to recommend:</strong> Use Square Free when the seller mainly needs payments + a simple POS and online presence without extra automation.
+</div>
+</div>
+</div>
+
+<!-- PLUS -->
+<div id="subPlan-plus" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #006AFF44;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="font-size:28px">&#11088;</span>
+<div><h3 style="font-size:16px;color:#006AFF;margin:0">Square Plus</h3><span style="font-size:20px;font-weight:700;color:#006AFF">$49<span style="font-size:12px;font-weight:400;color:#94a3b8">/month per location</span></span></div>
+</div>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px"><strong>Positioning:</strong> The &#8220;best value&#8221; bundle. A step up from Free with more advanced POS, inventory, loyalty/marketing, and staff tools &#8212; built for businesses that are starting to grow and standardize operations.</p>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Advanced POS Features</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li><strong>Restaurant:</strong> Item &amp; menu management, custom floor plans, item availability, course management, more flexible ordering flows</li>
+<li><strong>Retail:</strong> Better handling of barcodes, label printing, stock counts, purchase orders, and transfer orders</li>
+</ul>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Inventory &amp; Catalog Upgrades</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Vendor and purchase order management</li>
+<li>Stock counts, transfer orders, barcode label printing</li>
+<li>Other &#8220;advanced inventory&#8221; features by vertical</li>
+</ul>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Loyalty &amp; Marketing Bundle</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Loyalty, Marketing, and related engagement tools included (rather than separate subs)</li>
+<li>Text marketing includes a certain number of texts, then per-text fees beyond that</li>
+</ul>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Staff Management</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>More robust staff tools: scheduling, labor reporting, and advanced permissions</li>
+</ul>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Online &amp; Reporting (Square Online Plus)</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Expanded site customization (themes, custom fonts/widgets)</li>
+<li>Advanced item settings and QR-code ordering</li>
+<li>Subscriptions for items and stronger ecommerce reporting</li>
+</ul>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Economics &amp; Support</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Lower in-person processing rate than Free</li>
+<li>$49/month per active location</li>
+<li>Improved support versus Free (but not 24/7 phone support &#8212; that&#8217;s Premium)</li>
+</ul>
+
+<div style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;font-size:12px;color:#006AFF">
+<strong>&#128161; When to recommend:</strong> Use Square Plus for sellers who want &#8220;one main plan&#8221; that covers most of what a serious restaurant/retail/service business needs without juggling multiple separate subscriptions.
+</div>
+</div>
+</div>
+
+<!-- PREMIUM -->
+<div id="subPlan-premium" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #eab30844;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+<span style="font-size:28px">&#128081;</span>
+<div><h3 style="font-size:16px;color:#eab308;margin:0">Square Premium</h3><span style="font-size:20px;font-weight:700;color:#eab308">$149<span style="font-size:12px;font-weight:400;color:#94a3b8">/month per location</span></span></div>
+</div>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px"><strong>Positioning:</strong> The most complete bundle, targeted at higher-volume or multi-location sellers who need advanced analytics, stronger support, and the lowest processing rate.</p>
+
+<h4 style="font-size:13px;color:#eab308;margin-bottom:8px">Broader Software Coverage</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>&#8220;Nearly all&#8221; Square software offerings are unlocked (outside of a few explicit add-ons)</li>
+</ul>
+
+<h4 style="font-size:13px;color:#eab308;margin-bottom:8px">Advanced Reporting &amp; Analytics</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Sales by location, device, and channel</li>
+<li>Items, categories, and inventory movement</li>
+<li>Staff performance and labor metrics</li>
+</ul>
+
+<h4 style="font-size:13px;color:#eab308;margin-bottom:8px">Online &amp; Fulfillment Enhancements</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li>Real-time shipping rates at checkout for Square Online</li>
+<li>More robust shipping tools and reporting</li>
+</ul>
+
+<h4 style="font-size:13px;color:#eab308;margin-bottom:8px">Support &amp; SLAs</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li><strong style="color:#eab308">24/7 phone support</strong> and higher-touch assistance than lower tiers</li>
+</ul>
+
+<h4 style="font-size:13px;color:#eab308;margin-bottom:8px">Economics</h4>
+<ul style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:12px;line-height:1.8">
+<li><strong style="color:#eab308">Lowest in-person processing rate: 2.4% + $0.15</strong></li>
+<li>$149/month per location</li>
+<li>Sellers processing &gt;$250k/year can talk to Sales about custom pricing</li>
+</ul>
+
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;font-size:12px;color:#eab308">
+<strong>&#128161; When to recommend:</strong> Sellers who explicitly care about advanced reports &amp; analytics, 24/7 phone support, and the lowest processing fees with predictable per-location software costs.
+</div>
+</div>
+</div>
+
+<!-- NOT BUNDLED -->
+<div id="subPlan-notIncluded" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #ef444444;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:15px;color:#ef4444;margin-bottom:12px">&#9888;&#65039; What&#8217;s NOT Bundled (Even on Premium)</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px">Even on Premium, some Square products remain separate subscriptions or costs:</p>
+<div style="display:grid;gap:10px">
+<div style="background:#ef444410;border:1px solid #ef444433;border-radius:8px;padding:12px 16px">
+<strong style="color:#ef4444;font-size:13px">&#128176; Square Payroll</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:4px 0 0">Still a separate paid add-on.</p>
+</div>
+<div style="background:#ef444410;border:1px solid #ef444433;border-radius:8px;padding:12px 16px">
+<strong style="color:#ef4444;font-size:13px">&#127970; Franchise Suite</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:4px 0 0">Square for Franchises &#8212; separate add-on.</p>
+</div>
+<div style="background:#ef444410;border:1px solid #ef444433;border-radius:8px;padding:12px 16px">
+<strong style="color:#ef4444;font-size:13px">&#128250; KDS &amp; Kiosk Apps</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:4px 0 0">Per-device software subscriptions, managed under their own entries in Pricing &amp; Subscriptions.</p>
+</div>
+<div style="background:#ef444410;border:1px solid #ef444433;border-radius:8px;padding:12px 16px">
+<strong style="color:#ef4444;font-size:13px">&#127760; Domains &amp; Text Overages</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:4px 0 0">Custom domains renew annually with separate charges. Marketing/loyalty text messages beyond the plan&#8217;s monthly allotment incur per-text fees.</p>
+</div>
+<div style="background:#ef444410;border:1px solid #ef444433;border-radius:8px;padding:12px 16px">
+<strong style="color:#ef4444;font-size:13px">&#128187; Hardware</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:4px 0 0">Square Register, Terminal, Handheld, KDS screens, printers, kiosks, etc. are <strong>always sold separately</strong> from software plans.</p>
+</div>
+</div>
+<div style="background:#ef444415;border:1px solid #ef444444;border-radius:8px;padding:12px 16px;font-size:12px;color:#ef4444;margin-top:14px">
+<strong>&#128270; Quick check:</strong> When a seller asks &#8220;Is X included in my plan?&#8221;, first check whether it&#8217;s a Square One bundled feature or one of these explicit add-ons.
+</div>
+</div>
+</div>
+
+<!-- CONFIRM PLAN -->
+<div id="subPlan-confirm" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:15px;margin-bottom:12px">&#128269; How to Confirm a Seller&#8217;s Plan &amp; Features</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px">Because pricing and feature allocation can change, always confirm against live account data and the Help Center.</p>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">In Square Dashboard (seller-specific)</h4>
+<ol style="font-size:12px;color:#cbd5e1;padding-left:20px;margin-bottom:16px;line-height:2">
+<li>Sign into the seller&#8217;s Square Dashboard</li>
+<li>Navigate to: <strong style="color:#e2e8f0">Settings &#8594; Account &amp; Settings &#8594; Pricing &amp; subscriptions</strong></li>
+<li>From there you can:
+<ul style="padding-left:16px;margin-top:4px">
+<li>See which plan (Free, Plus, Premium) is active</li>
+<li>Review which add-ons are enabled (Payroll, KDS, Kiosk, etc.)</li>
+<li>Start or change free trials where available</li>
+</ul></li>
+</ol>
+
+<h4 style="font-size:13px;color:#006AFF;margin-bottom:8px">Key Help Center Articles (US)</h4>
+<div style="display:grid;gap:8px">
+<a href="https://squareup.com/help/us/en/article/8569-switch-to-the-new-square-subscription-plans" target="_blank" style="display:block;background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;text-decoration:none;color:#006AFF;font-size:12px">
+<strong>Switch to the new Square subscription plans</strong><br><span style="color:#94a3b8">Explains the new bundles, how they relate to legacy subs, and how to switch.</span>
+</a>
+<a href="https://squareup.com/help/us/en/article/8309-manage-square-subscriptions" target="_blank" style="display:block;background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;text-decoration:none;color:#006AFF;font-size:12px">
+<strong>Manage Square subscriptions</strong><br><span style="color:#94a3b8">General &#8220;view, pause, upgrade/downgrade, reactivate&#8221; flows.</span>
+</a>
+<a href="https://squareup.com/us/en/pricing" target="_blank" style="display:block;background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;text-decoration:none;color:#006AFF;font-size:12px">
+<strong>Square Pricing &amp; Features</strong><br><span style="color:#94a3b8">Public pricing + processing fee breakdowns by plan and business type.</span>
+</a>
+</div>
+</div>
+</div>
+
+<!-- COACHING TIPS -->
+<div id="subPlan-coaching" class="sub-plan-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #ff6b3544;border-radius:10px;padding:18px;margin-bottom:16px">
+<h3 style="font-size:15px;color:#ff6b35;margin-bottom:12px">&#128172; Coaching Tips for Sellers</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px">When coaching sellers, frame choices simply:</p>
+
+<div style="display:grid;gap:12px">
+<div style="background:#22c55e10;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:14px 18px">
+<strong style="color:#22c55e;font-size:13px">&#8220;Stay on Free if...&#8221;</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:6px 0 0">...you just need payments + simple POS and online ordering.</p>
+</div>
+<div style="background:#006AFF10;border-left:4px solid #006AFF;border-radius:0 8px 8px 0;padding:14px 18px">
+<strong style="color:#006AFF;font-size:13px">&#8220;Move to Plus if...&#8221;</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:6px 0 0">...you want loyalty, marketing, advanced inventory, or more sophisticated POS flows.</p>
+</div>
+<div style="background:#eab30810;border-left:4px solid #eab308;border-radius:0 8px 8px 0;padding:14px 18px">
+<strong style="color:#eab308;font-size:13px">&#8220;Go Premium if...&#8221;</strong>
+<p style="font-size:12px;color:#cbd5e1;margin:6px 0 0">...you care most about analytics, 24/7 support, and the best processing rates across multiple locations.</p>
+</div>
+</div>
+
+<div style="margin-top:16px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:14px 18px">
+<h4 style="font-size:13px;margin-bottom:8px">&#128218; Sources</h4>
+<ul style="font-size:11px;color:#64748b;padding-left:16px;line-height:2;list-style:disc">
+<li>Switch to the new Square subscription plans | Square Support Center - US</li>
+<li>Square Simplifies Commerce Software with New Unified Plans &amp; Pricing</li>
+<li>A Simpler Way Forward: The Thinking Behind Our New Plans | Square</li>
+<li>Square Processing Fees, Plans, and Software Pricing | Square</li>
+<li>Retail POS Pricing &amp; Plans | Square</li>
+<li>Online Store Pricing &amp; Plans | Square</li>
+<li>Manage item subscription plans | Square Support Center - US</li>
+<li>Pricing &amp; Packaging - Source of Truth (go/pnpsot)</li>
+<li>Manage your Square Kiosk software subscription | Square Support Center - US</li>
+<li>Manage Square subscriptions | Square Support Center - US</li>
+</ul>
+</div>
+
+<p style="font-size:11px;color:#64748b;margin-top:12px;font-style:italic">&#9888;&#65039; This summary is based on current Square Support and public pricing content and may change as Pricing &amp; Packaging evolves. Always use Dashboard + Help Center as final sources of truth for a given seller.</p>
+</div>
+</div>
+
+</div><!-- end subPlans -->
+
 
 </div><!-- end container -->
 
@@ -2749,7 +3052,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
 }
@@ -5158,6 +5461,18 @@ document.addEventListener('DOMContentLoaded',function(){
   window.showTab=function(id){orig(id);if(id==='optiCall')syncOptiFromGenerator();};
 });
 
+
+function showSubPlanView(id){
+  document.querySelectorAll('.sub-plan-panel').forEach(function(p){p.style.display='none';});
+  var el=document.getElementById('subPlan-'+id);
+  if(el)el.style.display='block';
+  var colors={overview:['#a855f7','#fff'],free:['#22c55e','#fff'],plus:['#006AFF','#fff'],premium:['#eab308','#fff'],notIncluded:['#ef4444','#fff'],confirm:['#94a3b8','#fff'],coaching:['#ff6b35','#fff']};
+  document.querySelectorAll('[id^="subBtn-"]').forEach(function(b){
+    var k=b.id.replace('subBtn-','');
+    if(k===id){b.style.background=colors[k]?colors[k][0]:'#a855f7';b.style.color='#fff';b.style.border='none';}
+    else{b.style.background='#1a1a3e';b.style.color=colors[k]?colors[k][0]:'#94a3b8';b.style.border='1px solid '+(colors[k]?colors[k][0]+'44':'#64748b44');}
+  });
+}
 </script>
 </body>
 </html>
