@@ -2586,14 +2586,38 @@ Example:
 </div>
 <div id="optiNotes" class="opti-sub" style="display:none">
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
-<h3 style="font-size:14px;margin-bottom:12px">&#128221; Post-Opti Call &#8594; AE Email for Seller</h3>
-<p style="font-size:12px;color:#94a3b8;margin-bottom:12px">Generate an email the AE can send to the seller with helpful Square support links based on what was discussed.</p>
+<h3 style="font-size:14px;margin-bottom:4px">&#128221; Post-Opti Call &#8594; 3-Part Deliverables</h3>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:14px">Generate comprehensive post-call deliverables: Seller Email, DSR Chatter, and Internal PM Analysis.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Session Type</label>
+<select id="optiSessionType" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="Optimization">Optimization Call</option>
+<option value="Kickoff">Kickoff</option>
+<option value="PM-led Mid">PM-led Mid</option>
+<option value="Tech-led">Tech-led</option>
+<option value="Final">Final</option>
+</select></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Date</label>
+<input type="date" id="optiCallDate" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Timezone</label>
+<select id="optiTimezone" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="PT">PT</option><option value="MT">MT</option><option value="CT">CT</option><option value="ET">ET</option>
+</select></div>
+</div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
 <div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link (Rev.io)</label>
 <input type="text" id="optiRecording" placeholder="https://analytics.revenue.io/..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
-<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE Name (who sends the email)</label>
-<input type="text" id="optiAEName" placeholder="e.g. Lindsey" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Name (email sign-off)</label>
+<input type="text" id="optiAEName" placeholder="e.g. Megan" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Go-Live / Install Date</label>
+<input type="text" id="optiGoLive" placeholder="e.g. April 15 or N/A" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Next Session(s)</label>
+<input type="text" id="optiNextSession" placeholder="e.g. TBD or April 20" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
 </div>
 
 <div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">My Notes / Brain Dump</label>
@@ -2602,48 +2626,76 @@ Example:
 <div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Transcript</label>
 <textarea id="optiTranscript" rows="6" placeholder="Paste your Revenue.io transcript here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea></div>
 
-<h4 style="font-size:13px;margin-bottom:8px;color:#ff6b35">&#128279; Topics Discussed (check to include help links in email)</h4>
+<h4 style="font-size:13px;margin-bottom:8px;color:#eab308">&#128230; Deliverables to Generate</h4>
+<div style="display:flex;gap:16px;margin-bottom:16px;font-size:13px">
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="optiDelA" checked style="accent-color:#22c55e;width:16px;height:16px"> <strong style="color:#22c55e">A)</strong> Seller Email</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="optiDelB" checked style="accent-color:#006AFF;width:16px;height:16px"> <strong style="color:#006AFF">B)</strong> DSR Chatter</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="optiDelC" checked style="accent-color:#ff6b35;width:16px;height:16px"> <strong style="color:#ff6b35">C)</strong> Internal Analysis</label>
+</div>
+
+<h4 style="font-size:13px;margin-bottom:8px;color:#ff6b35">&#128279; Topics Discussed (check all that apply)</h4>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:16px;font-size:12px" id="optiTopicsGrid">
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Customer Directory" data-url="https://squareup.com/help/us/en/article/5498-manage-your-customer-directory-online" style="accent-color:#ff6b35"> Customer Directory</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Gift Cards" data-url="https://squareup.com/help/us/en/article/6000-square-egift-cards" style="accent-color:#ff6b35"> Gift Cards</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Accept Gift Cards" data-url="https://squareup.com/help/us/en/article/8404-accept-gift-cards" style="accent-color:#ff6b35"> Accept Gift Cards</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Team Permissions" data-url="https://squareup.com/help/us/en/article/5822-employee-permissions" style="accent-color:#ff6b35"> Team Permissions</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Require Passcodes at POS" data-url="https://squareup.com/help/us/en/article/8357-require-passcodes-at-point-of-sale" style="accent-color:#ff6b35"> Require Passcodes at POS</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Add/Manage Team Members" data-url="https://squareup.com/help/us/en/article/8356-add-and-manage-team-members" style="accent-color:#ff6b35"> Add/Manage Team Members</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Device Management" data-url="https://squareup.com/help/us/en/article/7664-manage-your-devices" style="accent-color:#ff6b35"> Device Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Hardware Setup" data-url="https://squareup.com/help/us/en/topic/hardware" style="accent-color:#ff6b35"> Hardware Setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Inventory Management" data-url="https://squareup.com/help/us/en/article/6110-manage-inventory-with-the-retail-pos-app" style="accent-color:#ff6b35"> Inventory Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Purchase Orders" data-url="https://squareup.com/help/us/en/article/8258-create-purchase-orders-with-square-for-retail" style="accent-color:#ff6b35"> Purchase Orders</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Online Ordering / Square Online" data-url="https://squareup.com/help/us/en/article/7178-get-started-with-square-online" style="accent-color:#ff6b35"> Online Ordering / Square Online</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Appointments / Scheduling" data-url="https://squareup.com/help/us/en/article/6318-get-started-with-square-appointments" style="accent-color:#ff6b35"> Appointments / Scheduling</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Employee Time Tracking" data-url="https://squareup.com/help/us/en/article/5765-track-employee-hours" style="accent-color:#ff6b35"> Employee Time Tracking</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Loyalty Program" data-url="https://squareup.com/help/us/en/article/5765-set-up-square-loyalty" style="accent-color:#ff6b35"> Loyalty Program</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Marketing Campaigns" data-url="https://squareup.com/help/us/en/article/6103-get-started-with-square-marketing" style="accent-color:#ff6b35"> Marketing Campaigns</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Hardware Setup" data-url="https://squareup.com/help/us/en/topic/hardware" style="accent-color:#ff6b35"> Hardware Setup</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Printer Profiles" data-url="https://squareup.com/help/us/en/article/7665-create-and-manage-printer-profiles" style="accent-color:#ff6b35"> Printer Profiles</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Gift Cards" data-url="https://squareup.com/help/us/en/article/5571-get-started-with-square-gift-cards" style="accent-color:#ff6b35"> Gift Cards</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Customer Directory" data-url="https://squareup.com/help/us/en/article/5765-manage-your-customer-directory" style="accent-color:#ff6b35"> Customer Directory</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Team Permissions" data-url="https://squareup.com/help/us/en/article/5765-set-up-team-permissions" style="accent-color:#ff6b35"> Team Permissions</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Refunds &amp; Returns" data-url="https://squareup.com/help/us/en/article/5060-issue-refunds-with-square" style="accent-color:#ff6b35"> Refunds &amp; Returns</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Sales Reports" data-url="https://squareup.com/help/us/en/article/5059-view-sales-reports" style="accent-color:#ff6b35"> Sales Reports</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Inventory Management" data-url="https://squareup.com/help/us/en/article/5096-manage-your-inventory" style="accent-color:#ff6b35"> Inventory Management</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Online Ordering" data-url="https://squareup.com/help/us/en/article/7178-get-started-with-square-online" style="accent-color:#ff6b35"> Online Ordering</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Modifiers" data-url="https://squareup.com/help/us/en/article/5379-create-modifier-sets" style="accent-color:#ff6b35"> Modifiers</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Discounts" data-url="https://squareup.com/help/us/en/article/5164-create-and-manage-discounts" style="accent-color:#ff6b35"> Discounts</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Sales Tax Setup" data-url="https://squareup.com/help/us/en/article/5061-set-up-sales-tax" style="accent-color:#ff6b35"> Sales Tax Setup</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="KDS (Kitchen Display)" data-url="https://squareup.com/help/us/en/article/7630-get-started-with-square-kds" style="accent-color:#ff6b35"> KDS (Kitchen Display)</label>
-<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Device Management" data-url="https://squareup.com/help/us/en/article/7664-manage-your-devices" style="accent-color:#ff6b35"> Device Management</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Cash Management" data-url="https://squareup.com/help/us/en/article/5265-manage-your-cash-drawer" style="accent-color:#ff6b35"> Cash Management</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Payroll" data-url="https://squareup.com/help/us/en/article/5765-get-started-with-square-payroll" style="accent-color:#ff6b35"> Payroll</label>
 <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Invoices" data-url="https://squareup.com/help/us/en/article/5642-create-and-send-invoices" style="accent-color:#ff6b35"> Invoices</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="opti-topic" data-name="Barcode Scanning" data-url="https://squareup.com/help/us/en/article/5096-manage-your-inventory" style="accent-color:#ff6b35"> Barcode Scanning</label>
 </div>
 
 <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-<button class="btn btn-green" onclick="generateOptiEmail()" style="padding:12px 32px;font-size:14px">&#9889; Generate AE Email</button>
 <button class="btn btn-blue" onclick="copyOptiPrompt()" style="padding:12px 32px;font-size:14px">&#128203; Copy AI Prompt for ChatGPT</button>
 <a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="padding:12px 32px;font-size:14px;text-decoration:none;background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128640; Open GPT</a>
 </div>
 
-<div id="optiPromptCopied" style="display:none;margin-top:12px;text-align:center"><p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into ChatGPT, then paste response below:</p></div>
+<div id="optiPromptCopied" style="display:none;margin-top:12px;text-align:center"><p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into ChatGPT, then paste the full response below:</p></div>
 <div id="optiStep2" style="display:none;margin-top:16px">
-<textarea id="optiGPTResponse" rows="10" placeholder="Paste ChatGPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
-<div style="text-align:center;margin-top:12px"><button class="btn btn-green" onclick="parseOptiResponse()" style="padding:10px 28px;font-size:14px">&#9889; Use AI Response as Email</button></div>
+<textarea id="optiGPTResponse" rows="12" placeholder="Paste full ChatGPT response here (all 3 deliverables)..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+<div style="text-align:center;margin-top:12px"><button class="btn btn-green" onclick="parseOptiResponse()" style="padding:10px 28px;font-size:14px">&#9889; Parse &amp; Split into Deliverables</button></div>
 </div>
 
-<div id="optiOutput" style="display:none;margin-top:16px;background:#0f0f23;border:1px solid #22c55e44;border-radius:8px;padding:16px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px">&#128231; AE Email for Seller</h4><button class="btn btn-blue btn-sm" onclick="copyContent(&#39;optiOutputText&#39;)">&#128203; Copy Email</button></div>
-<div id="optiOutputText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+<div id="optiOutputTabs" style="display:none;margin-top:16px">
+<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+<button class="btn btn-sm opti-out-btn" onclick="showOptiOut('optiOutA')" style="background:#22c55e;color:#fff">&#128231; A) Seller Email</button>
+<button class="btn btn-sm opti-out-btn" onclick="showOptiOut('optiOutB')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128172; B) DSR Chatter</button>
+<button class="btn btn-sm opti-out-btn" onclick="showOptiOut('optiOutC')" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128202; C) Internal Analysis</button>
+</div>
+<div id="optiOutA" class="opti-out-panel" style="background:#0f0f23;border:1px solid #22c55e44;border-radius:8px;padding:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#22c55e">&#128231; A) Seller-Facing Post-Call Email</h4><button class="btn btn-green btn-sm" onclick="copyContent('optiOutAText')">&#128203; Copy</button></div>
+<div id="optiOutAText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
+<div id="optiOutB" class="opti-out-panel" style="display:none;background:#0f0f23;border:1px solid #006AFF44;border-radius:8px;padding:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#006AFF">&#128172; B) Internal DSR Chatter Notes</h4><button class="btn btn-blue btn-sm" onclick="copyContent('optiOutBText')">&#128203; Copy</button></div>
+<div id="optiOutBText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
+<div id="optiOutC" class="opti-out-panel" style="display:none;background:#0f0f23;border:1px solid #ff6b3544;border-radius:8px;padding:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#ff6b35">&#128202; C) Internal PM Risk &amp; Coordination Analysis</h4><button class="btn btn-sm" onclick="copyContent('optiOutCText')" style="background:#ff6b35;color:#fff">&#128203; Copy</button></div>
+<div id="optiOutCText" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
 </div>
 </div></div>
 </div><!-- end optiCall -->
+
 
 </div><!-- end container -->
 
@@ -4178,6 +4230,519 @@ function syncTrainingFromGenerator(){
   }
 }
 // Init on load
+document.addEventListener('DOMContentLoaded',function(){
+  loadTrainingChecks();
+  // Also sync when switching to training tab
+  const origShowTab=window.showTab;
+  window.showTab=function(id){
+    origShowTab(id);
+    if(id==='training')syncTrainingFromGenerator();
+  };
+});
+
+
+// ===== RTL TRAINING GUIDE =====
+function filterRtlTraining(){
+  var q=document.getElementById('rtlTrainingSearch').value.toLowerCase();
+  document.querySelectorAll('.rtl-training-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRtlTrainingProgress(){
+  var checks=document.querySelectorAll('.rtl-training-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rtlTrainingCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rtlTrainingBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rtl-training-checks',JSON.stringify(states));
+}
+function loadRtlTrainingChecks(){
+  var s=localStorage.getItem('gso-rtl-training-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rtl-training-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRtlTrainingProgress();
+}
+function syncRtlTrainingFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rtlTrainingSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rtlTrainingSeller').textContent=name;
+    document.getElementById('rtlTrainingPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRtlTrainingChecks();
+  var origShow=window.showTab;
+  window.showTab=function(id){
+    origShow(id);
+    if(id==='rtlTraining')syncRtlTrainingFromGenerator();
+  };
+});
+
+
+// ===== POST-TRAINING DELIVERABLES (PROMPT BUILDER) =====
+
+// Auto-sync deal info when switching to this tab
+(function(){
+  var origPT=window.showTab;
+  window.showTab=function(id){
+    origPT(id);
+    if(id==='postTraining') syncPtDealInfo();
+  };
+})();
+
+function syncPtDealInfo(){
+  var map={ptAutoBiz:'genBusiness',ptAutoSeller:'genSeller',ptAutoAE:'genAE',ptAutoPkg:'genPackage'};
+  Object.keys(map).forEach(function(ptId){
+    var src=document.getElementById(map[ptId]);
+    var tgt=document.getElementById(ptId);
+    if(src&&tgt) tgt.textContent=src.value||'\u2014';
+  });
+}
+
+document.getElementById('ptTranscript').addEventListener('input',function(){
+  document.getElementById('ptTranscriptCount').textContent=this.value.length+' characters';
+});
+
+function handlePtFile(event){
+  var file=event.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('ptTranscript').value=e.target.result;
+    document.getElementById('ptTranscriptCount').textContent=e.target.result.length+' characters';
+    showToast('\ud83d\udcc4 File loaded: '+file.name);
+  };
+  reader.readAsText(file);
+}
+
+function showPtOut(id){
+  document.querySelectorAll('.pt-out-panel').forEach(function(p){p.style.display='none'});
+  document.querySelectorAll('.pt-out-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF'});
+  document.getElementById(id).style.display='block';
+  if(event&&event.target){event.target.style.background='#006AFF';event.target.style.color='#fff';}
+}
+
+function getPtDealContext(){
+  var ids=['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genHardware','genSourcePOS','genGoLive','genAttendees','genDate','genMenuStatus','genSpecial','genNotes'];
+  var lines=[];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&el.value){
+      var label=id.replace('gen','').replace(/([A-Z])/g,' $1').trim();
+      lines.push(label+': '+el.value);
+    }
+  });
+  return lines.join('\n');
+}
+
+function copyPtPrompt(){
+  var transcript=document.getElementById('ptTranscript').value.trim();
+  var brainDump=document.getElementById('ptBrainDump').value.trim();
+  var sessionType=document.getElementById('ptSessionType').value;
+  var recording=document.getElementById('ptRecording').value.trim();
+  var wantEmail=document.getElementById('ptWantEmail').checked;
+  var wantDSR=document.getElementById('ptWantDSR').checked;
+  var wantAnalysis=document.getElementById('ptWantAnalysis').checked;
+
+  if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
+
+  var dealCtx=getPtDealContext();
+  var deliverables=[];
+  if(wantEmail) deliverables.push('(A Email)');
+  if(wantDSR) deliverables.push('(B DSR)');
+  if(wantAnalysis) deliverables.push('(C Internal Analysis)');
+
+  var prompt='DELIVERABLES REQUESTED: '+deliverables.join(' ')+'\n\n';
+  prompt+='SESSION TYPE: '+sessionType+'\n\n';
+  if(recording) prompt+='RECORDING LINK: '+recording+'\n\n';
+  if(dealCtx) prompt+='DEAL CONTEXT (from DSR):\n'+dealCtx+'\n\n';
+  if(brainDump) prompt+='MY NOTES (brain dump using speech to text):\n'+brainDump+'\n\n';
+  prompt+='CALL TRANSCRIPT:\n'+(transcript||'No transcript provided - use brain dump notes only.');
+
+  navigator.clipboard.writeText(prompt).then(function(){
+    showToast('\u2705 Prompt copied! Paste into ChatGPT');
+    document.getElementById('ptPromptCopied').style.display='block';
+    document.getElementById('ptStep2').style.display='block';
+    document.getElementById('ptStep2').scrollIntoView({behavior:'smooth'});
+  });
+}
+
+function parsePtResponse(){
+  var raw=document.getElementById('ptChatGPTResponse').value.trim();
+  if(!raw){alert('Paste the ChatGPT response first.');return;}
+
+  var emailText='',dsrText='',analysisText='';
+
+  // Try multiple split patterns
+  // Pattern 1: Look for clear section headers
+  var sections=raw.split(/(?=(?:^|\n)(?:Hi |Dear |Hey ))/m);
+  
+  // Better pattern: split by the B) and C) markers
+  var bMarkers=[/\n(?:Hi \[?AE|Hi @)/im, /\n(?:B\)|=== ?B|DSR Chatter|## ?B)/im];
+  var cMarkers=[/\n(?:C\)|=== ?C|Internal (?:PM )?(?:Risk|Analysis)|## ?C)/im];
+  
+  var bIdx=-1,cIdx=-1;
+  bMarkers.forEach(function(re){if(bIdx<0){var m=raw.search(re);if(m>0)bIdx=m;}});
+  cMarkers.forEach(function(re){if(cIdx<0){var m=raw.search(re);if(m>0)cIdx=m;}});
+
+  if(bIdx>0&&cIdx>0&&cIdx>bIdx){
+    emailText=raw.substring(0,bIdx).trim();
+    dsrText=raw.substring(bIdx,cIdx).trim();
+    analysisText=raw.substring(cIdx).trim();
+  } else if(bIdx>0){
+    emailText=raw.substring(0,bIdx).trim();
+    dsrText=raw.substring(bIdx).trim();
+  } else if(cIdx>0){
+    emailText=raw.substring(0,cIdx).trim();
+    analysisText=raw.substring(cIdx).trim();
+  } else {
+    // Could not split - put everything in email
+    emailText=raw;
+  }
+
+  // Clean up any header lines
+  emailText=emailText.replace(/^(?:=== ?A\)|A\)|## ?A).*$/m,'').trim();
+  dsrText=dsrText.replace(/^(?:=== ?B\)|B\)|## ?B).*$/m,'').trim();
+  analysisText=analysisText.replace(/^(?:=== ?C\)|C\)|## ?C).*$/m,'').trim();
+
+  document.getElementById('ptEmailText').textContent=emailText;
+  document.getElementById('ptDSRText').textContent=dsrText;
+  document.getElementById('ptAnalysisText').textContent=analysisText;
+  document.getElementById('ptOutputSection').style.display='block';
+  document.getElementById('ptOutputSection').scrollIntoView({behavior:'smooth'});
+  showToast('\u26a1 Deliverables parsed!');
+}
+
+
+
+// ===== RST POS TRAINING GUIDE =====
+function filterRstPos(){
+  var q=document.getElementById('rstPosSearch').value.toLowerCase();
+  document.querySelectorAll('.rst-pos-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRstPosProgress(){
+  var checks=document.querySelectorAll('.rst-pos-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rstPosCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rstPosBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rst-pos-checks',JSON.stringify(states));
+}
+function loadRstPosChecks(){
+  var s=localStorage.getItem('gso-rst-pos-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRstPosProgress();
+}
+function syncRstPosFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rstPosSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rstPosSeller').textContent=name;
+    document.getElementById('rstPosPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRstPosChecks();
+  var orig=window.showTab;
+  window.showTab=function(id){
+    orig(id);
+    if(id==='rstPosTraining')syncRstPosFromGenerator();
+  };
+});
+
+
+// ===== RTL POS TRAINING GUIDE =====
+function filterRtlPos(){
+  var q=document.getElementById('rtlPosSearch').value.toLowerCase();
+  document.querySelectorAll('.rtl-pos-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateRtlPosProgress(){
+  var checks=document.querySelectorAll('.rtl-pos-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('rtlPosCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('rtlPosBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-rtl-pos-checks',JSON.stringify(states));
+}
+function loadRtlPosChecks(){
+  var s=localStorage.getItem('gso-rtl-pos-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateRtlPosProgress();
+}
+function syncRtlPosFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('rtlPosSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('rtlPosSeller').textContent=name;
+    document.getElementById('rtlPosPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadRtlPosChecks();
+  var orig=window.showTab;
+  window.showTab=function(id){
+    orig(id);
+    if(id==='rtlPosTraining')syncRtlPosFromGenerator();
+  };
+});
+
+// ===== OPTI CALL =====
+function showOptiSub(id){
+  document.querySelectorAll('.opti-sub').forEach(function(el){el.style.display='none'});
+  document.querySelectorAll('.opti-tab-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF'});
+  document.getElementById(id).style.display='block';
+  if(event&&event.target){event.target.style.background=id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
+}
+function updateOptiChecks(){
+  var c=document.querySelectorAll('.opti-pre-check');var d=0;
+  c.forEach(function(x){if(x.checked)d++});
+  document.getElementById('optiCheckCounter').textContent=d+'/'+c.length;
+  document.getElementById('optiCheckBar').style.width=Math.round(d/c.length*100)+'%';
+  var s=[];c.forEach(function(x){s.push(x.checked)});
+  localStorage.setItem('gso-opti-pre-checks',JSON.stringify(s));
+}
+function updateOptiScriptProgress(){
+  var c=document.querySelectorAll('.opti-script-check');var d=0;
+  c.forEach(function(x){if(x.checked)d++});
+  document.getElementById('optiScriptCounter').textContent=d+'/'+c.length;
+  document.getElementById('optiScriptBar').style.width=(c.length?Math.round(d/c.length*100):0)+'%';
+  var s=[];c.forEach(function(x){s.push(x.checked)});
+  localStorage.setItem('gso-opti-script-checks',JSON.stringify(s));
+}
+function syncOptiFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('optiSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('optiSeller').textContent=name;
+    document.getElementById('optiPkg').textContent=p?p.value:'Plus';
+    banner.style.display='block';
+  }
+}
+function getOptiDealContext(){
+  var ids=['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genHardware','genSourcePOS','genGoLive','genAttendees','genDate','genNotes'];
+  var ctx='';
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&el.value){
+      var label=id.replace('gen','').replace(/([A-Z])/g,' $1').trim();
+      ctx+=label+': '+el.value+'\n';
+    }
+  });
+  return ctx;
+}
+function getOptiTopicLinks(){
+  var links=[];
+  document.querySelectorAll('.opti-topic').forEach(function(cb){
+    if(cb.checked){links.push({name:cb.getAttribute('data-name'),url:cb.getAttribute('data-url')});}
+  });
+  return links;
+}
+function showOptiOut(id){
+  document.querySelectorAll('.opti-out-panel').forEach(function(p){p.style.display='none';});
+  document.getElementById(id).style.display='block';
+  var btns=document.querySelectorAll('.opti-out-btn');
+  var colors={optiOutA:['#22c55e','#fff'],optiOutB:['#006AFF','#fff'],optiOutC:['#ff6b35','#fff']};
+  btns.forEach(function(b){b.style.background='#1a1a3e';b.style.color='#94a3b8';b.style.border='1px solid #2d2d5e';});
+  var idx={optiOutA:0,optiOutB:1,optiOutC:2};
+  if(idx[id]!==undefined&&btns[idx[id]]){
+    btns[idx[id]].style.background=colors[id][0];
+    btns[idx[id]].style.color=colors[id][1];
+    btns[idx[id]].style.border='none';
+  }
+}
+function generateOptiEmail(){/* removed - now uses prompt builder only */}
+function copyOptiPrompt(){
+  var transcript=document.getElementById('optiTranscript').value.trim();
+  var brainDump=document.getElementById('optiBrainDump').value.trim();
+  var recording=document.getElementById('optiRecording').value.trim();
+  var aeName=document.getElementById('optiAEName').value.trim()||'[AE/AM Name]';
+  var sessionType=document.getElementById('optiSessionType').value;
+  var callDate=document.getElementById('optiCallDate').value||'[date]';
+  var tz=document.getElementById('optiTimezone').value;
+  var goLive=document.getElementById('optiGoLive').value.trim()||'N/A/Unknown';
+  var nextSession=document.getElementById('optiNextSession').value.trim()||'TBD';
+  var dealCtx=getOptiDealContext();
+  var topics=getOptiTopicLinks();
+  var delA=document.getElementById('optiDelA').checked;
+  var delB=document.getElementById('optiDelB').checked;
+  var delC=document.getElementById('optiDelC').checked;
+  if(!transcript&&!brainDump){alert('Please paste a transcript or add brain dump notes.');return;}
+  if(!delA&&!delB&&!delC){alert('Please select at least one deliverable (A, B, or C).');return;}
+  var dels=[];
+  if(delA)dels.push('A Email');
+  if(delB)dels.push('B DSR');
+  if(delC)dels.push('C Internal Analysis');
+  var p='';
+  p+='DELIVERABLES REQUESTED: ('+dels.join(') (')+')  ← produce each one requested as a separate labeled section.\n\n';
+  p+='SESSION TYPE: '+sessionType+'\n';
+  p+='PACKAGE: '+(document.getElementById('genPackage')?document.getElementById('genPackage').value||'Optimization':'Optimization')+'\n';
+  p+='CALL DATE: '+callDate+'  TIMEZONE: '+tz+'\n';
+  p+='SELLER: '+(document.getElementById('genSeller')?document.getElementById('genSeller').value.trim()||'[seller name]':'[seller name]')+'\n';
+  p+='AE/AM: '+aeName+'\n';
+  p+='GO-LIVE/INSTALL: '+goLive+'\n';
+  p+='NEXT SESSION(S): '+nextSession+'\n';
+  if(recording)p+='RECORDING LINK: '+recording+'\n';
+  p+='\nDEAL CONTEXT:\n'+dealCtx+'\n';
+  if(topics.length>0){
+    p+='TOPICS DISCUSSED WITH HELP LINKS:\n';
+    topics.forEach(function(t){p+='- '+t.name+': '+t.url+'\n';});
+    p+='\n';
+  }
+  p+='MY NOTES (brain dump):\n'+(brainDump||'None provided')+'\n\n';
+  p+='TRANSCRIPT:\n'+(transcript||'No transcript provided - use notes only.')+'\n\n';
+  p+='---\n\n';
+  p+='INSTRUCTIONS FOR EACH DELIVERABLE:\n\n';
+  if(delA){
+    p+='## A) Seller-Facing Post-Call Email\n';
+    p+='Write a professional, warm email from the AE/AM to the seller. Structure:\n';
+    p+='1. Subject line: "Recap from today\'s optimization session" (or similar)\n';
+    p+='2. Thank the seller by name for their time\n';
+    p+='3. Open with: "At this point, your Optimization implementation is complete, and my focus now is making sure you have the right next-step resources to keep moving confidently."\n';
+    p+='4. ### Session Summary - paragraph overview of what was covered, then bullet list of specific topics with brief descriptions. For each bullet that maps to a Square help article, include a markdown link.\n';
+    p+='5. ### What I\'m Coordinating Next - bullet list of follow-up resources/actions the PM will send\n';
+    p+='6. ### Upcoming Sessions + Preparation - Use this exact text: "**This Optimization Implementation is Complete.**" Then add: "If you decide you want additional support later around [relevant areas], we can help coordinate next-step guidance from there."\n';
+    p+='7. ### Seller Homework / Timeboxed Next Steps - Numbered list (3-5 items) of specific, actionable tasks the seller should do in the next few business days. Each should have a bold title and 1-3 sub-bullets. Order by priority.\n';
+    p+='8. ### Backend Support / Updates - Include a code block with all relevant Square Help Center URLs from https://squareup.com/help/us/en/ that map to topics discussed. Use real article paths. Format:\n';
+    p+='```\nTopic Name:\nhttps://squareup.com/help/us/en/article/XXXX-article-slug\n```\n';
+    p+='9. Closing line with forward momentum, then sign off as: **'+aeName+'**\n\n';
+  }
+  if(delB){
+    p+='## B) Internal DSR Chatter Notes\n';
+    p+='Write internal notes for the AE/AM on the DSR Chatter in Salesforce. Structure:\n';
+    p+='1. Open: "Hi **'+aeName+'**," then one-line summary: "[Session type] session completed today with **[seller names] at [business]**. [One sentence on what seller used the session for]."\n';
+    p+='2. **Go-live status:** brief assessment based on transcript\n';
+    p+='3. Bold line: "**This Optimization Implementation is Complete.**"\n';
+    p+='4. **Recording:** [link]\n';
+    p+='5. ### Risks / AE Action Items - Two sub-sections:\n';
+    p+='   - **Risks** - bullet list of adoption/trust/operational risks identified from the call\n';
+    p+='   - **AE/AM Action Items** - bullet list of specific things the AE should do next\n';
+    p+='6. ### Concise Summary - bullet list of what was actually covered/discussed\n';
+    p+='7. ### Seller Homework - bullet list matching the email homework\n';
+    p+='8. ### PM Next Steps - bullet list of what the PM will do after this call\n';
+    p+='9. ### Detailed Topic Breakdown - For each major topic discussed, create a numbered sub-section with:\n';
+    p+='   - Bold topic title\n';
+    p+='   - 2-4 bullet points explaining what was discussed, what was resolved, what remains open\n';
+    p+='   - Where applicable, reference Square help article links\n';
+    p+='10. ### Goals, Complexity, Dependencies\n';
+    p+='   - **Goals** - bullet list\n';
+    p+='   - **Complexity** - one-line assessment (Low/Medium/High) with brief rationale\n';
+    p+='   - **Dependencies** - bullet list of blockers or prerequisites\n';
+    p+='11. ### RAID\n';
+    p+='   - **Risks** - bullet list\n';
+    p+='   - **Issues** - bullet list\n';
+    p+='   - **Assumptions** - bullet list\n';
+    p+='   - **Decisions** - bullet list\n\n';
+  }
+  if(delC){
+    p+='## C) Internal PM Risk & Coordination Analysis\n';
+    p+='Write a candid internal analysis for the PM team. This is NOT sent to the seller. Structure:\n';
+    p+='1. ### Overall Read - 2-3 paragraph honest assessment of the seller\'s state. Lead with the core insight (e.g., "This seller is not resistant. She is overloaded."). Identify the underlying challenge beyond the surface-level topics.\n';
+    p+='2. ### Current Friction Points - Numbered list (3-5) of specific friction points. Each should have:\n';
+    p+='   - Bold title\n';
+    p+='   - 2-3 sentences explaining the friction and why it matters for adoption\n';
+    p+='3. ### MVP Opportunity - Recommend a phased approach. List Phase 1 through Phase 3-5 with specific scope for each. End with: "This seller does **not** need a perfect end-state before starting. She needs a safe operating floor." (adapt pronouns as needed)\n';
+    p+='4. ### Cognitive Risk Flags - 3 specific flags:\n';
+    p+='   - **Narrative risk:** how PM/support could misread the seller\n';
+    p+='   - **Agreement risk:** what could be falsely assumed as "solved"\n';
+    p+='   - **Assumption trap:** what "complete" might be misinterpreted as\n';
+    p+='5. ### Trust / Relationship Risk - One-word severity (Low/Moderate/High) then 1-2 paragraphs explaining the trust dynamics. Reference specific seller quotes or behaviors from the transcript.\n';
+    p+='6. ### Dependencies Before Next Milestone - Bullet list of what must be resolved before the seller can feel stable\n';
+    p+='7. ### Recommendation to PM - 1-2 paragraphs of actionable guidance. End with the smallest version of success that keeps momentum.\n';
+    p+='8. Final line: "Guidance aligned to internal operating principles was applied from the onboarding playbook and strategic PM reference materials."\n\n';
+  }
+  p+='---\n';
+  p+='STYLE RULES:\n';
+  p+='- Professional but human. Not robotic.\n';
+  p+='- Use seller\'s actual name(s) from the transcript.\n';
+  p+='- Reference specific moments/quotes from the transcript to show depth.\n';
+  p+='- Square help links should use real URLs from https://squareup.com/help/us/en/\n';
+  p+='- The email (A) is sent BY the AE/AM name, not the PM.\n';
+  p+='- DSR Chatter (B) is addressed TO the AE/AM.\n';
+  p+='- Internal Analysis (C) is for PM eyes only - be candid.\n';
+  p+='- Use markdown formatting throughout.\n';
+  p+='- Separate each deliverable clearly with --- dividers and ## headers.\n';
+  navigator.clipboard.writeText(p).then(function(){
+    document.getElementById('optiPromptCopied').style.display='block';
+    document.getElementById('optiStep2').style.display='block';
+    showToast('Prompt copied to clipboard! ('+p.length+' chars)');
+  });
+}
+function parseOptiResponse(){
+  var resp=document.getElementById('optiGPTResponse').value.trim();
+  if(!resp){alert('Please paste the ChatGPT response first.');return;}
+  var partA='',partB='',partC='';
+  var markerA=/##\s*A\)\s*Seller[- ]Facing/i;
+  var markerB=/##\s*B\)\s*Internal\s*DSR/i;
+  var markerC=/##\s*C\)\s*Internal\s*PM/i;
+  var idxA=resp.search(markerA);
+  var idxB=resp.search(markerB);
+  var idxC=resp.search(markerC);
+  var cuts=[];
+  if(idxA>=0)cuts.push({type:'A',idx:idxA});
+  if(idxB>=0)cuts.push({type:'B',idx:idxB});
+  if(idxC>=0)cuts.push({type:'C',idx:idxC});
+  cuts.sort(function(a,b){return a.idx-b.idx;});
+  for(var i=0;i<cuts.length;i++){
+    var start=cuts[i].idx;
+    var end=i+1<cuts.length?cuts[i+1].idx:resp.length;
+    var chunk=resp.substring(start,end).replace(/^---\s*$/gm,'').trim();
+    if(cuts[i].type==='A')partA=chunk;
+    else if(cuts[i].type==='B')partB=chunk;
+    else if(cuts[i].type==='C')partC=chunk;
+  }
+  if(!partA&&!partB&&!partC){
+    partA=resp;
+  }
+  document.getElementById('optiOutAText').textContent=partA||'(Not generated - uncheck A or re-paste response)';
+  document.getElementById('optiOutBText').textContent=partB||'(Not generated - uncheck B or re-paste response)';
+  document.getElementById('optiOutCText').textContent=partC||'(Not generated - uncheck C or re-paste response)';
+  document.getElementById('optiOutputTabs').style.display='block';
+  if(partA)showOptiOut('optiOutA');
+  else if(partB)showOptiOut('optiOutB');
+  else if(partC)showOptiOut('optiOutC');
+  document.getElementById('optiOutputTabs').scrollIntoView({behavior:'smooth'});
+  showToast('Deliverables parsed! Use tabs to switch between A/B/C.');
+}
+
 document.addEventListener('DOMContentLoaded',function(){
   loadTrainingChecks();
   // Also sync when switching to training tab
