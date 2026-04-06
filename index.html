@@ -1047,7 +1047,7 @@ Examples:
 <option value="sent">AE has already sent intro</option>
 </select></div>
 <div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Package</label>
-<select id="preKO-package" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px">
+<select id="preKO-package" onchange="this.dataset.userChanged='true'" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px">
 <option value="Plus">Plus ($699)</option>
 <option value="Premium">Premium ($1,499)</option>
 <option value="Optimization">Optimization</option>
@@ -3283,7 +3283,7 @@ function syncTabSpecificFields(id){
     if(f1&&!f1.value&&ae)f1.value=ae;
     if(f2&&!f2.value&&sellerFirst)f2.value=sellerFirst;
     if(f3&&!f3.value&&pm)f3.value=pm;
-    if(f4&&pkg){for(var i=0;i<f4.options.length;i++){if(f4.options[i].value.toLowerCase().indexOf(pkg.toLowerCase())>-1){f4.selectedIndex=i;break;}}}
+    if(f4&&pkg&&!f4.dataset.userChanged){for(var i=0;i<f4.options.length;i++){if(f4.options[i].value.toLowerCase().indexOf(pkg.toLowerCase())>-1){f4.selectedIndex=i;break;}}}
   }
   // Opti Call fields
   if(id==='optiCall'){
@@ -5802,7 +5802,8 @@ document.addEventListener('DOMContentLoaded',function(){
     var pkg=document.getElementById('genPackage');
     if(ae&&ae.value&&!document.getElementById('preKO-aeName').value)document.getElementById('preKO-aeName').value=ae.value;
     if(seller&&seller.value&&!document.getElementById('preKO-sellerName').value){var fn=seller.value.split(' ')[0];document.getElementById('preKO-sellerName').value=fn;}
-    if(pkg&&pkg.value){var sel=document.getElementById('preKO-package');for(var i=0;i<sel.options.length;i++){if(sel.options[i].value.toLowerCase().indexOf(pkg.value.toLowerCase())>-1){sel.selectedIndex=i;break;}}}
+    if(pkg&&pkg.value){var sel=document.getElementById('preKO-package');if(!sel.dataset.userChanged){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value.toLowerCase().indexOf(pkg.value.toLowerCase())>-1){sel.selectedIndex=i;break;}}}}
+
   }
 });
 
