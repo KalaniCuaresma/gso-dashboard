@@ -1001,6 +1001,53 @@ Examples:
 <div class="cl-item"><input type="checkbox" data-cl="preKO" onchange="updatePreKO()"><span class="cl-text">No major blockers</span></div>
 </div>
 
+<!-- ===== PRE-KO DELIVERABLES ===== -->
+<div style="margin-top:24px;margin-bottom:20px;border-top:2px solid #2d2d5e;padding-top:20px">
+<h2 style="font-size:16px;color:#006AFF;margin-bottom:14px">📨 Pre-KO Deliverables</h2>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:16px">Generate your AE/AM chatter intro and seller intro email. Fill in the fields, then copy.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Name</label>
+<input type="text" id="preKO-aeName" placeholder="e.g. Megan" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Seller First Name</label>
+<input type="text" id="preKO-sellerName" placeholder="e.g. Eela" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Your Name</label>
+<input type="text" id="preKO-yourName" placeholder="e.g. Kalani" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px"></div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE Intro Email Status</label>
+<select id="preKO-introStatus" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px">
+<option value="pending">AE has NOT sent intro yet</option>
+<option value="sent">AE has already sent intro</option>
+</select></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Package</label>
+<select id="preKO-package" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px">
+<option value="Plus">Plus ($699)</option>
+<option value="Premium">Premium ($1,499)</option>
+<option value="Optimization">Optimization</option>
+</select></div>
+</div>
+
+<!-- CHATTER OUTPUT -->
+<div style="background:var(--bg-card,#1a1a3e);border:1px solid #006AFF44;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px;color:#006AFF;margin:0">💬 DSR Chatter — AE/AM Intro</h3>
+<button class="btn btn-blue btn-sm" onclick="generatePreKOChatter()">⚡ Generate &amp; Copy</button>
+</div>
+<div id="preKO-chatterOutput" style="font-size:12px;line-height:1.8;color:var(--text-secondary,#cbd5e1);white-space:pre-wrap;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:8px;padding:14px;min-height:60px">Fill in the fields above and click Generate.</div>
+</div>
+
+<!-- EMAIL OUTPUT -->
+<div style="background:var(--bg-card,#1a1a3e);border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px;color:#22c55e;margin:0">📧 Seller Intro Email</h3>
+<button class="btn btn-green btn-sm" onclick="generatePreKOEmail()">⚡ Generate &amp; Copy</button>
+</div>
+<div id="preKO-emailOutput" style="font-size:12px;line-height:1.8;color:var(--text-secondary,#cbd5e1);white-space:pre-wrap;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:8px;padding:14px;min-height:60px">Fill in the fields above and click Generate.</div>
+</div>
+</div>
+
 <div class="cl-tip">💡 <b>Tip:</b> If you feel confused going into the KO call, the seller will feel it too — always over-prepare here.</div>
 
 <div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('preKO')">🔄 Reset All</button></div>
@@ -4064,6 +4111,68 @@ function updatePreKO(){
   updateSectionCounts('preKO');
 }
 
+function generatePreKOChatter(){
+  var ae=document.getElementById('preKO-aeName').value.trim()||'[AE/AM Name]';
+  var you=document.getElementById('preKO-yourName').value.trim()||'[Your Name]';
+  var status=document.getElementById('preKO-introStatus').value;
+  var closing=status==='sent'
+    ? "I've sent my intro in response to yours and I'll update you here as soon as the seller books their Kick Off Call!"
+    : "I'll send my intro email within 24 hours of you sending yours.";
+  var msg='Hello @'+ae+'! I\'m excited to partner with you on this implementation!\n\n';
+  msg+='A few things about me:\n';
+  msg+='\u2022 I will always endeavor to keep this DSR up to date, both on the Next Step Date and Next Step text field under Information so you can easily see where I\'m at.\n';
+  msg+='\u2022 I\'ll leave beefy notes via chatter, so you shouldn\'t ever feel lost and you\'ll always be cc\'d on all my correspondence with the seller.\n';
+  msg+='\u2022 If you ever have any questions, feel free to chatter or Slack me and I\'ll do my best to get back to you within 24 business hours.\n\n';
+  msg+=closing+'\n\n';
+  msg+=you;
+  document.getElementById('preKO-chatterOutput').textContent=msg;
+  navigator.clipboard.writeText(msg).then(function(){showToast('Chatter copied to clipboard!');});
+}
+function generatePreKOEmail(){
+  var seller=document.getElementById('preKO-sellerName').value.trim()||'[Seller Name]';
+  var ae=document.getElementById('preKO-aeName').value.trim()||'[AE/AM Name]';
+  var you=document.getElementById('preKO-yourName').value.trim()||'[Your Name]';
+  var pkg=document.getElementById('preKO-package').value;
+  var email='Hi '+seller+' \u2014 it\'s great to meet you, and welcome to Square!\n\n';
+  email+='Thank you again, '+ae+', for the introduction.\n\n';
+  email+='I\'ll be your dedicated Implementation Specialist, and I\'ll partner with you to plan, conduct, and guide your setup with Square from kickoff through the completion of your '+pkg+' Package.\n';
+  email+='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n';
+  email+='\uD83D\uDCE6 Your Onboarding Package Includes:\n\n';
+  email+='One 30-minute Kick Off Call\n\n';
+  email+='Up to 90 minutes of virtual training, delivered as:\n';
+  email+='  \u2022 One 90-minute session or\n';
+  email+='  \u2022 Two 45-minute sessions\n\n';
+  email+='Up to three standard import tasks, such as:\n';
+  email+='  \u2022 Item or menu library import (including SKUs, variations, costs, and categories)\n';
+  email+='  \u2022 Customer Directory upload\n';
+  email+='  \u2022 Gift Card or Loyalty balance transfer (if applicable)\n\n';
+  email+='During the Kick Off Call, we\'ll align on your goals and determine how to best use your training time \u2014 whether that\'s item or menu setup, POS workflows, staff permissions, reporting, or other launch-critical areas.\n';
+  email+='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n';
+  email+='\uD83D\uDCC6 Getting Started:\n\n';
+  email+='Please use the booking link from the previous email to schedule your Kick Off Call at your convenience. My calendar is kept up to date, so available times are accurate.\n\n';
+  email+='We\'ll meet via Google Meet at the time you select.\n';
+  email+='\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n';
+  email+='\uD83D\uDCCC What to Expect During Implementation:\n\n';
+  email+='Your onboarding will be tailored to your business model, timeline, and team needs. Implementation typically follows three phases:\n\n';
+  email+='1. Kickoff & Planning\n';
+  email+='During our 30-minute Kick Off Call, we\'ll cover:\n';
+  email+='  \u2022 Your day-to-day workflows and launch goals\n';
+  email+='  \u2022 Priority Square features (e.g., menu setup, inventory, staff roles, reporting)\n\n';
+  email+='2. Setup Support\n';
+  email+='Based on your needs and file readiness, I can coordinate:\n';
+  email+='  \u2022 Item or menu imports and organization\n';
+  email+='  \u2022 Customer data, gift card, or loyalty uploads\n\n';
+  email+='3. Live Virtual Training\n';
+  email+='Based on what we identify during kickoff, we\'ll schedule either one 90-minute session or two 45-minute sessions together to cover topics such as:\n';
+  email+='  \u2022 Inventory or menu management\n';
+  email+='  \u2022 Invoices\n';
+  email+='  \u2022 Dashboard best practices\n';
+  email+='  \u2022 POS workflows and troubleshooting\n';
+  email+='  \u2022 Any Square feature relevant to your launch\n\n';
+  email+='Cheers,\n'+you;
+  document.getElementById('preKO-emailOutput').textContent=email;
+  navigator.clipboard.writeText(email).then(function(){showToast('Intro email copied to clipboard!');});
+}
 function updateKOQ(){
   const checks = document.querySelectorAll('input[data-cl="koQ"]');
   let total = 0, done = 0;
@@ -5531,7 +5640,15 @@ document.addEventListener('DOMContentLoaded',function(){
   if(s2){var a2=JSON.parse(s2);document.querySelectorAll('.opti-script-check').forEach(function(c,i){if(a2[i])c.checked=true});}
   updateOptiScriptProgress();
   var orig=window.showTab;
-  window.showTab=function(id){orig(id);if(id==='optiCall')syncOptiFromGenerator();};
+  window.showTab=function(id){orig(id);if(id==='optiCall')syncOptiFromGenerator();if(id==='preKO')syncPreKOFromGenerator();};
+  function syncPreKOFromGenerator(){
+    var ae=document.getElementById('genAE');
+    var seller=document.getElementById('genSeller');
+    var pkg=document.getElementById('genPackage');
+    if(ae&&ae.value&&!document.getElementById('preKO-aeName').value)document.getElementById('preKO-aeName').value=ae.value;
+    if(seller&&seller.value&&!document.getElementById('preKO-sellerName').value){var fn=seller.value.split(' ')[0];document.getElementById('preKO-sellerName').value=fn;}
+    if(pkg&&pkg.value){var sel=document.getElementById('preKO-package');for(var i=0;i<sel.options.length;i++){if(sel.options[i].value.toLowerCase().indexOf(pkg.value.toLowerCase())>-1){sel.selectedIndex=i;break;}}}
+  }
 });
 
 
