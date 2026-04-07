@@ -4144,113 +4144,310 @@ function parseDSRPaste(){
   if(!raw){alert('Please paste your Salesforce DSR data first.');return;}
   var filled=0;
   var results=[];
-  // Normalize: replace tabs with colons, handle Salesforce Lightning "label\nvalue" pairs
-  var text=raw.replace(/\t/g,': ');
-  // Split into lines
-  var lines=text.split(/\n/);
-  // Build key-value map from multiple formats
+  var lines=raw.split(/\n/).map(function(l){return l.trim();}).filter(function(l){return l.length>0;});
+
+  // --- PHASE 1: Build a clean key→value map from Salesforce Lightning format ---
+  // SF Lightning puts label on one line, value on the next line.
+  // We need to identify which lines are LABELS vs VALUES vs NOISE.
+
+  // Known Salesforce DSR field labels (exact matches, case-insensitive)
+  var knownLabels=[
+    'contact name','country code','seller time zone','language','account',
+    'opportunity','opportunity owner','currency','ae/am provided notes',
+    'ae desired go-live','need approval for desired go-live date',
+    'product version(s)','product version','number of locations','saas',
+    'is seller using so?','is seller using so',
+    'high level business overview. why square','high level business overview',
+    'did the deal work with pss?','did the deal work with pss',
+    'product sales specialist contact','do they need a square online page built?',
+    'do they need a square online page built',
+    'checkout process?','checkout process','price-embedded barcode?','price-embedded barcode',
+    'tipping?','tipping','square networking assistance needed?','square networking assistance needed',
+    '3rd party integrations?','3rd party integrations','is floor plan attached?','is floor plan attached',
+    'training contact','task request type',
+    'hardware ordered','hardware count cash drawer','hardware count floating ipads',
+    'hardware count kds','hardware count kitchen printer','hardware count receipt printer',
+    'hardware count register','hardware count scale','hardware count square stand',
+    'hardware count terminal','hardware count rst mobile kit',
+    'status','next step date','regulator link','created by','last modified by',
+    'deal support request'
+  ];
+  var labelSet={};
+  knownLabels.forEach(function(l){labelSet[l]=true;});
+
+  // Noise lines to skip entirely
+  var noisePatterns=[
+    /^skip to/i,/^press spacebar/i,/^more$/i,/^show additional/i,
+    /^tabs$/i,/^details$/i,/^related lists?$/i,/^seller insights$/i,
+    /^chatter$/i,/^activity$/i,/^post$/i,/^end of feed/i,
+    /^view all/i,/^view profile/i,/^drop files/i,/^google docs/i,
+    /^notes & attachments/i,/^deal support activities/i,/^deal support request history/i,
+    /^cases \(/i,/^user assignments/i,/^seller insights \(/i,
+    /^related list quick links/i,/^chatter publisher/i,/^chatter feed/i,
+    /^search this feed/i,/^skip feed/i,/^write a comment/i,
+    /^\d+ new notification/i,/^support lightning/i,/^deal support requests$/i,
+    /^products for parent/i,/^\d+ items? .* sorted by/i,
+    /^item number$/i,/^product$/i,/^sort$/i,/^date$/i,/^quantity$/i,
+    /^expected annual/i,/^line description/i,/^sales price/i,/^total price/i,/^action$/i,
+    /^usd \d/i,/^\d+\.\d{2}$/,/^square register kit$/i,/^square handheld/i,
+    /^square plus$/i,/^pnp -/i,/^register pos/i,/^online$/i,/^online api$/i,
+    /^gift card load/i,/^onboarding/i,/^screenshot /i,/^\d+ comments?$/i,
+    /^\d+ views?$/i,/^mar |^apr |^may |^jun |^jul |^aug |^sep |^oct |^nov |^dec |^jan |^feb /i,
+    /^\d+kb/i,/^png$/i,/^jpg$/i,/^pdf$/i,
+    /^(edit|delete|clone|save|cancel|back|next|previous)$/i,
+    /^this content is a preview/i,/^https?:\/\//i,
+    /^gso -/i,/^deal support request c$/i,
+    /ago$/i  // "11 days ago", "2 hours ago"
+  ];
+
+  function isNoise(line){
+    for(var n=0;n<noisePatterns.length;n++){
+      if(noisePatterns[n].test(line))return true;
+    }
+    // Skip chatter messages (Name + timestamp pattern or @mentions)
+    if(line.match(/^[A-Z][a-z]+ [A-Z][a-z]+$/)&&lines.indexOf(line)>-1){
+      // Could be a person's name in chatter — check if next line is a date
+    }
+    return false;
+  }
+
+  function isLabel(line){
+    return labelSet[line.toLowerCase()]||labelSet[line.toLowerCase().replace(/\?$/,'')];
+  }
+
+  // Parse label→value pairs
   var kvMap={};
   for(var i=0;i<lines.length;i++){
-    var line=lines[i].trim();
-    if(!line)continue;
-    // Format 1: "Label: Value" or "Label : Value"
-    var colonMatch=line.match(/^([^:]{2,60})\s*:\s*(.+)$/);
-    if(colonMatch){
-      kvMap[colonMatch[1].trim().toLowerCase()]=colonMatch[2].trim();
-      continue;
+    var line=lines[i];
+    if(isNoise(line))continue;
+
+    // Check "Label\nValue" pattern (SF Lightning)
+    if(isLabel(line)&&i+1<lines.length){
+      var val=lines[i+1].trim();
+      // Skip if the value is also a label or noise
+      if(!isNoise(val)&&!isLabel(val)&&val.length>0){
+        kvMap[line.toLowerCase()]=val;
+        i++; // skip value line
+        continue;
+      }
     }
-    // Format 2: Salesforce Lightning — label on one line, value on next
-    // If this line looks like a label (short, no numbers, ends without punctuation)
-    // and next line looks like a value
-    if(line.length<60&&i+1<lines.length){
-      var nextLine=lines[i+1].trim();
-      if(nextLine&&!nextLine.match(/^[A-Z][a-z]+ [A-Z][a-z]+$/)){ // next line isn't another label
-        // Check if current line looks like a Salesforce field label
-        if(line.match(/^[A-Za-z\s\/\-\(\)&]+$/)&&!line.match(/^(Edit|Delete|Clone|View|Save|Cancel|Back|Next|Previous|Show|Hide)$/i)){
-          kvMap[line.toLowerCase()]=nextLine;
-          i++; // skip the value line
-          continue;
-        }
+
+    // Check "Label: Value" on same line (some SF views)
+    var colonMatch=line.match(/^([A-Za-z\s\/\-\(\)&\.'?]+?)\s*:\s*(.+)$/);
+    if(colonMatch){
+      var cLabel=colonMatch[1].trim().toLowerCase();
+      var cVal=colonMatch[2].trim();
+      if(cVal.length>0&&cVal.length<300){
+        kvMap[cLabel]=cVal;
       }
     }
   }
-  // Define field mappings: Salesforce label variations → Generator field ID + friendly name
-  var mappings=[
-    {keys:['business name','account name','business','company name','company','dba','dba name','doing business as','merchant name','merchant'],field:'genBusiness',label:'Business Name'},
-    {keys:['seller name','contact name','seller','primary contact','contact','owner name','owner','decision maker'],field:'genSeller',label:'Seller Name'},
-    {keys:['seller email','contact email','email','email address','primary email','owner email'],field:'genSellerEmail',label:'Seller Email'},
-    {keys:['ae','ae name','account executive','ae/am','ae / am','am','account manager','sales rep','rep','assigned ae','assigned am','ae/am name'],field:'genAE',label:'AE Name'},
-    {keys:['package','package type','implementation package','impl package','product','service package','package name','dsr package','implementation type'],field:'genPackage',label:'Package',isSelect:true},
-    {keys:['go-live','go-live date','go live','go live date','golive','golive date','desired go-live','desired go live','target go-live','launch date','install date','activation date'],field:'genGoLive',label:'Go-Live Date'},
-    {keys:['hardware','hardware status','hardware order','hw status','device status','equipment','equipment status'],field:'genHardware',label:'Hardware Status',isSelect:true},
-    {keys:['source pos','current pos','previous pos','source system','current system','prior pos','existing pos','migrating from','switching from','pos system'],field:'genSourcePOS',label:'Source POS',isSelect:true},
-    {keys:['attendees','participants','call attendees','meeting attendees'],field:'genAttendees',label:'Attendees'},
-    {keys:['notes','dsr notes','description','additional notes','comments','details','implementation notes','ae notes','special instructions'],field:'genNotes',label:'Notes',isTextarea:true},
-    {keys:['dsr link','salesforce link','dsr url','dsr','record link','sf link'],field:'genDSR',label:'DSR Link'},
-    {keys:['recording','recording link','revenue.io','call recording','rev.io link','recording url'],field:'genRecording',label:'Recording Link'},
-  ];
-  // Try to match each mapping
-  mappings.forEach(function(m){
-    var val=null;
-    for(var k=0;k<m.keys.length;k++){
-      if(kvMap[m.keys[k]]){val=kvMap[m.keys[k]];break;}
-      // Also try partial match
-      var partialKeys=Object.keys(kvMap);
-      for(var p=0;p<partialKeys.length;p++){
-        if(partialKeys[p].indexOf(m.keys[k])>-1||m.keys[k].indexOf(partialKeys[p])>-1){
-          val=kvMap[partialKeys[p]];break;
-        }
+
+  // --- PHASE 2: Also do a regex scan of the full raw text for specific patterns ---
+  // This catches things the line-by-line parser might miss
+
+  // DSR title pattern: "GSO -Business Name-" or "GSO -Business Name |"
+  var dsrTitleMatch=raw.match(/GSO\s*[-–—]\s*(.+?)(?:\s*[-–—]\s*\||\s*\|)/);
+  if(dsrTitleMatch&&!kvMap['account']){
+    kvMap['_dsr_title_biz']=dsrTitleMatch[1].trim().replace(/[-–—]\s*$/,'').trim();
+  }
+
+  // --- PHASE 3: Map parsed values to Generator fields ---
+  // Priority-ordered: first match wins for each Generator field
+
+  var fieldMappings=[
+    {
+      field:'genBusiness',label:'Business Name',
+      sources:['account','opportunity','_dsr_title_biz'],
+      clean:function(v){return v.replace(/[-–—]\s*$/,'').trim();}
+    },
+    {
+      field:'genSeller',label:'Seller Name',
+      sources:['contact name','training contact']
+    },
+    {
+      field:'genAE',label:'AE/AM Name',
+      sources:['opportunity owner']
+    },
+    {
+      field:'genGoLive',label:'Go-Live Date',
+      sources:['ae desired go-live']
+    },
+    {
+      field:'genNotes',label:'AE Notes',
+      sources:['ae/am provided notes','high level business overview. why square','high level business overview'],
+      isTextarea:true,
+      combineAll:true
+    },
+    {
+      field:'genPackage',label:'Package',
+      sources:['product version(s)','product version','task request type'],
+      isSelect:true,
+      clean:function(v){
+        // "RST Plus" → "Plus", "RTL Premium" → "Premium"
+        var vl=v.toLowerCase();
+        if(vl.indexOf('premium')>-1)return 'Premium';
+        if(vl.indexOf('plus')>-1)return 'Plus';
+        if(vl.indexOf('onsite')>-1)return 'Onsite';
+        if(vl.indexOf('optimization')>-1)return 'Optimization';
+        if(vl.indexOf('payroll')>-1)return 'Payroll';
+        if(vl.indexOf('appointment')>-1)return 'Appointments';
+        return v;
       }
-      if(val)break;
+    },
+    {
+      field:'genHardware',label:'Hardware Status',
+      sources:['hardware ordered'],
+      isSelect:true,
+      clean:function(v){
+        var vl=v.toLowerCase();
+        if(vl==='yes'||vl.indexOf('received')>-1||vl.indexOf('delivered')>-1)return 'received';
+        if(vl==='no'||vl.indexOf('not')>-1)return 'not-received';
+        if(vl.indexOf('partial')>-1)return 'partial';
+        return v;
+      }
+    },
+    {
+      field:'genSourcePOS',label:'Source POS',
+      sources:['checkout process?','checkout process'],
+      isSelect:true,
+      extractPOS:true
+    }
+  ];
+
+  // Also build a hardware summary from hardware count fields
+  var hwSummary=[];
+  var hwFields=['hardware count cash drawer','hardware count floating ipads','hardware count kds',
+    'hardware count kitchen printer','hardware count receipt printer','hardware count register',
+    'hardware count scale','hardware count square stand','hardware count terminal','hardware count rst mobile kit'];
+  hwFields.forEach(function(hf){
+    if(kvMap[hf]&&kvMap[hf]!=='0'){
+      var name=hf.replace('hardware count ','').replace(/\b\w/g,function(c){return c.toUpperCase();});
+      hwSummary.push(kvMap[hf]+'x '+name);
+    }
+  });
+
+  // Extract source POS from AE notes
+  function extractSourcePOS(text){
+    var posNames=['toast','clover','aloha','revel','lightspeed','micros','ncr','lavu','upserve','touchbistro','shopify','stripe','shopkeep','vend','heartland','harbortouch','aldelo','cake','focus pos','brink','par','oracle','simphony'];
+    var tl=text.toLowerCase();
+    for(var p=0;p<posNames.length;p++){
+      if(tl.indexOf(posNames[p])>-1)return posNames[p].charAt(0).toUpperCase()+posNames[p].slice(1);
+    }
+    return null;
+  }
+
+  // Apply mappings
+  fieldMappings.forEach(function(m){
+    var val=null;
+    if(m.combineAll){
+      var parts=[];
+      m.sources.forEach(function(s){if(kvMap[s])parts.push(kvMap[s]);});
+      if(parts.length>0)val=parts.join('\n\n');
+    }else{
+      for(var s=0;s<m.sources.length;s++){
+        if(kvMap[m.sources[s]]){val=kvMap[m.sources[s]];break;}
+      }
     }
     if(!val)return;
+    if(m.clean)val=m.clean(val);
+
     var el=document.getElementById(m.field);
     if(!el)return;
+
     if(m.isSelect){
-      // Try to match select option
       var valLower=val.toLowerCase();
       var matched=false;
       for(var o=0;o<el.options.length;o++){
         var optVal=el.options[o].value.toLowerCase();
-        var optText=el.options[o].textContent.toLowerCase();
-        if(optVal===valLower||optText.indexOf(valLower)>-1||valLower.indexOf(optVal)>-1){
+        if(optVal===valLower||optVal===val.toLowerCase()){
           el.selectedIndex=o;matched=true;filled++;
           results.push('\u2705 '+m.label+': '+el.options[o].textContent);
           break;
         }
       }
-      if(!matched){
-        // For hardware/source POS, try keyword matching
-        if(m.field==='genHardware'){
-          if(valLower.indexOf('received')>-1||valLower.indexOf('delivered')>-1||valLower.indexOf('shipped')>-1){
-            for(var o2=0;o2<el.options.length;o2++){if(el.options[o2].value==='received'){el.selectedIndex=o2;matched=true;filled++;results.push('\u2705 '+m.label+': '+el.options[o2].textContent);break;}}
-          }else if(valLower.indexOf('partial')>-1){
-            for(var o3=0;o3<el.options.length;o3++){if(el.options[o3].value==='partial'){el.selectedIndex=o3;matched=true;filled++;results.push('\u2705 '+m.label+': '+el.options[o3].textContent);break;}}
+      if(!matched&&m.extractPOS){
+        // Try to find POS name in the AE notes instead
+        var aeNotes=kvMap['ae/am provided notes']||'';
+        var bizOverview=kvMap['high level business overview. why square']||kvMap['high level business overview']||'';
+        var posName=extractSourcePOS(aeNotes+' '+bizOverview);
+        if(posName){
+          for(var o2=0;o2<el.options.length;o2++){
+            if(el.options[o2].value.toLowerCase()===posName.toLowerCase()){
+              el.selectedIndex=o2;matched=true;filled++;
+              results.push('\u2705 '+m.label+': '+el.options[o2].textContent+' (from AE notes)');
+              break;
+            }
           }
         }
-        if(!matched)results.push('\u26A0\uFE0F '+m.label+': "'+val+'" (no exact match in dropdown)');
+      }
+      if(!matched&&!m.extractPOS){
+        results.push('\u26A0\uFE0F '+m.label+': "'+val+'" (no dropdown match)');
       }
     }else if(m.isTextarea){
-      if(el.value){el.value+='\n\n--- From DSR ---\n'+val;}else{el.value=val;}
+      var el2=document.getElementById(m.field);
+      if(el2.value){el2.value+='\n\n--- From DSR ---\n'+val;}else{el2.value=val;}
       filled++;results.push('\u2705 '+m.label+': (appended)');
     }else{
       el.value=val;filled++;
       results.push('\u2705 '+m.label+': '+val);
     }
   });
-  // Also try to extract DSR link from the pasted text if it contains a Salesforce URL
+
+  // If source POS wasn't found from checkout process, try AE notes
+  if(document.getElementById('genSourcePOS').selectedIndex===0){
+    var allNotes=(kvMap['ae/am provided notes']||'')+' '+(kvMap['high level business overview. why square']||'');
+    var detectedPOS=extractSourcePOS(allNotes);
+    if(detectedPOS){
+      var posEl=document.getElementById('genSourcePOS');
+      for(var po=0;po<posEl.options.length;po++){
+        if(posEl.options[po].value.toLowerCase()===detectedPOS.toLowerCase()){
+          posEl.selectedIndex=po;filled++;
+          results.push('\u2705 Source POS: '+posEl.options[po].textContent+' (detected from AE notes)');
+          break;
+        }
+      }
+    }
+  }
+
+  // Add hardware summary to notes if we found hardware counts
+  if(hwSummary.length>0){
+    var hwText='Hardware: '+hwSummary.join(', ');
+    var notesEl=document.getElementById('genNotes');
+    if(notesEl.value){notesEl.value+='\n\n'+hwText;}else{notesEl.value=hwText;}
+    results.push('\u2705 Hardware Details: '+hwSummary.join(', '));
+  }
+
+  // Extract additional context into notes
+  var extraContext=[];
+  if(kvMap['saas'])extraContext.push('SaaS: '+kvMap['saas']);
+  if(kvMap['checkout process?']||kvMap['checkout process'])extraContext.push('Checkout: '+(kvMap['checkout process?']||kvMap['checkout process']));
+  if(kvMap['number of locations'])extraContext.push('Locations: '+kvMap['number of locations']);
+  if(kvMap['is seller using so?']||kvMap['is seller using so'])extraContext.push('Square Online: '+(kvMap['is seller using so?']||kvMap['is seller using so']));
+  if(kvMap['do they need a square online page built?']||kvMap['do they need a square online page built'])extraContext.push('SO Page Needed: '+(kvMap['do they need a square online page built?']||kvMap['do they need a square online page built']));
+  if(kvMap['task request type'])extraContext.push('Tasks: '+kvMap['task request type']);
+  if(kvMap['is floor plan attached?']||kvMap['is floor plan attached'])extraContext.push('Floor Plan: '+(kvMap['is floor plan attached?']||kvMap['is floor plan attached']));
+  if(extraContext.length>0){
+    var notesEl2=document.getElementById('genNotes');
+    var extra='\n\n--- DSR Details ---\n'+extraContext.join('\n');
+    if(notesEl2.value){notesEl2.value+=extra;}else{notesEl2.value=extra.trim();}
+    filled++;results.push('\u2705 Extra DSR context: '+extraContext.length+' fields added to notes');
+  }
+
+  // Try to extract Salesforce URL
   if(!document.getElementById('genDSR').value){
-    var sfMatch=raw.match(/(https:\/\/[^\s]*(?:lightning\.force|salesforce)\.com[^\s]*)/i);
+    var sfMatch=raw.match(/(https:\/\/[^\s]*(?:lightning\.force|salesforce|sqprod)\.com[^\s]*)/i);
     if(sfMatch){document.getElementById('genDSR').value=sfMatch[1];filled++;results.push('\u2705 DSR Link: (auto-detected URL)');}
   }
+
   // Show results
   var resultDiv=document.getElementById('dsrParseResult');
   if(filled>0){
     resultDiv.style.display='block';
     resultDiv.style.background='#22c55e15';
     resultDiv.style.border='1px solid #22c55e44';
-    resultDiv.style.color='#22c55e';
-    resultDiv.innerHTML='<strong>\u2705 Parsed '+filled+' field'+(filled>1?'s':'')+':</strong><br>'+results.join('<br>');
+    resultDiv.style.color='var(--text-primary,#22c55e)';
+    resultDiv.innerHTML='<strong style="color:#22c55e">\u2705 Parsed '+filled+' field'+(filled>1?'s':'')+':</strong><br><span style="color:var(--text-secondary,#cbd5e1)">'+results.join('<br>')+'</span>';
     syncAllDealBanners();
     showToast('\u2705 '+filled+' fields filled from DSR!');
   }else{
@@ -4258,7 +4455,7 @@ function parseDSRPaste(){
     resultDiv.style.background='#eab30815';
     resultDiv.style.border='1px solid #eab30844';
     resultDiv.style.color='#eab308';
-    resultDiv.innerHTML='<strong>\u26A0\uFE0F No fields matched.</strong> Try copying more of the DSR detail page. The parser looks for patterns like:<br>"Business Name: Chicko Chicken"<br>"Account Executive: Lindsey Logan"<br>"Package: Plus"';
+    resultDiv.innerHTML='<strong>\u26A0\uFE0F No fields matched.</strong> Make sure you\'re copying from the DSR detail page in Salesforce. Try selecting from "Contact Name" down through the hardware fields.';
   }
 }
 function saveDeal(){
