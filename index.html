@@ -389,6 +389,31 @@ html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--bo
 <!-- Saved Deals -->
 <div id="savedDealsBar" class="saved-deals" style="display:none"></div>
 
+<!-- DSR Paste & Parse -->
+<div class="gen-section" style="border:1px solid #006AFF44;background:linear-gradient(135deg,var(--bg-card,#1a1a3e),#006AFF08)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="margin:0;border:none;padding:0">📋 Paste DSR from Salesforce</h2>
+<button class="btn btn-blue btn-sm" onclick="parseDSRPaste()">⚡ Parse &amp; Fill</button>
+</div>
+<p style="font-size:12px;color:var(--text-secondary,#94a3b8);margin-bottom:12px">Open your DSR in Salesforce → select all the detail fields → copy → paste below. The parser will auto-fill the Generator fields.</p>
+<textarea id="dsrPasteBox" rows="8" placeholder="Paste your Salesforce DSR data here...
+
+How to copy from Salesforce:
+1. Open the DSR record in Salesforce
+2. Click anywhere on the detail section
+3. Ctrl+A (select all) or manually highlight the fields
+4. Ctrl+C (copy)
+5. Paste here and click 'Parse & Fill'
+
+The parser looks for field labels like:
+Business Name, Account Name, Seller Name, Contact Name,
+AE, Account Executive, Package, Go-Live, Hardware,
+Email, Source POS, etc.
+
+It handles colon-separated, tab-separated, and Salesforce Lightning formats." style="width:100%;padding:12px 16px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:8px;color:var(--text-primary,#e2e8f0);font-size:12px;font-family:inherit;resize:vertical"></textarea>
+<div id="dsrParseResult" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:12px"></div>
+</div>
+
 <!-- Section 1: Deal Info -->
 <div class="gen-section">
 <h2>📋 Deal Information</h2>
@@ -4113,6 +4138,128 @@ function saveCurrentDeal(){
   deal.menuItems = menuItems;
   deal.timestamp=Date.now();
   localStorage.setItem('gso-current-deal',JSON.stringify(deal));
+}
+function parseDSRPaste(){
+  var raw=document.getElementById('dsrPasteBox').value.trim();
+  if(!raw){alert('Please paste your Salesforce DSR data first.');return;}
+  var filled=0;
+  var results=[];
+  // Normalize: replace tabs with colons, handle Salesforce Lightning "label\nvalue" pairs
+  var text=raw.replace(/\t/g,': ');
+  // Split into lines
+  var lines=text.split(/\n/);
+  // Build key-value map from multiple formats
+  var kvMap={};
+  for(var i=0;i<lines.length;i++){
+    var line=lines[i].trim();
+    if(!line)continue;
+    // Format 1: "Label: Value" or "Label : Value"
+    var colonMatch=line.match(/^([^:]{2,60})\s*:\s*(.+)$/);
+    if(colonMatch){
+      kvMap[colonMatch[1].trim().toLowerCase()]=colonMatch[2].trim();
+      continue;
+    }
+    // Format 2: Salesforce Lightning — label on one line, value on next
+    // If this line looks like a label (short, no numbers, ends without punctuation)
+    // and next line looks like a value
+    if(line.length<60&&i+1<lines.length){
+      var nextLine=lines[i+1].trim();
+      if(nextLine&&!nextLine.match(/^[A-Z][a-z]+ [A-Z][a-z]+$/)){ // next line isn't another label
+        // Check if current line looks like a Salesforce field label
+        if(line.match(/^[A-Za-z\s\/\-\(\)&]+$/)&&!line.match(/^(Edit|Delete|Clone|View|Save|Cancel|Back|Next|Previous|Show|Hide)$/i)){
+          kvMap[line.toLowerCase()]=nextLine;
+          i++; // skip the value line
+          continue;
+        }
+      }
+    }
+  }
+  // Define field mappings: Salesforce label variations → Generator field ID + friendly name
+  var mappings=[
+    {keys:['business name','account name','business','company name','company','dba','dba name','doing business as','merchant name','merchant'],field:'genBusiness',label:'Business Name'},
+    {keys:['seller name','contact name','seller','primary contact','contact','owner name','owner','decision maker'],field:'genSeller',label:'Seller Name'},
+    {keys:['seller email','contact email','email','email address','primary email','owner email'],field:'genSellerEmail',label:'Seller Email'},
+    {keys:['ae','ae name','account executive','ae/am','ae / am','am','account manager','sales rep','rep','assigned ae','assigned am','ae/am name'],field:'genAE',label:'AE Name'},
+    {keys:['package','package type','implementation package','impl package','product','service package','package name','dsr package','implementation type'],field:'genPackage',label:'Package',isSelect:true},
+    {keys:['go-live','go-live date','go live','go live date','golive','golive date','desired go-live','desired go live','target go-live','launch date','install date','activation date'],field:'genGoLive',label:'Go-Live Date'},
+    {keys:['hardware','hardware status','hardware order','hw status','device status','equipment','equipment status'],field:'genHardware',label:'Hardware Status',isSelect:true},
+    {keys:['source pos','current pos','previous pos','source system','current system','prior pos','existing pos','migrating from','switching from','pos system'],field:'genSourcePOS',label:'Source POS',isSelect:true},
+    {keys:['attendees','participants','call attendees','meeting attendees'],field:'genAttendees',label:'Attendees'},
+    {keys:['notes','dsr notes','description','additional notes','comments','details','implementation notes','ae notes','special instructions'],field:'genNotes',label:'Notes',isTextarea:true},
+    {keys:['dsr link','salesforce link','dsr url','dsr','record link','sf link'],field:'genDSR',label:'DSR Link'},
+    {keys:['recording','recording link','revenue.io','call recording','rev.io link','recording url'],field:'genRecording',label:'Recording Link'},
+  ];
+  // Try to match each mapping
+  mappings.forEach(function(m){
+    var val=null;
+    for(var k=0;k<m.keys.length;k++){
+      if(kvMap[m.keys[k]]){val=kvMap[m.keys[k]];break;}
+      // Also try partial match
+      var partialKeys=Object.keys(kvMap);
+      for(var p=0;p<partialKeys.length;p++){
+        if(partialKeys[p].indexOf(m.keys[k])>-1||m.keys[k].indexOf(partialKeys[p])>-1){
+          val=kvMap[partialKeys[p]];break;
+        }
+      }
+      if(val)break;
+    }
+    if(!val)return;
+    var el=document.getElementById(m.field);
+    if(!el)return;
+    if(m.isSelect){
+      // Try to match select option
+      var valLower=val.toLowerCase();
+      var matched=false;
+      for(var o=0;o<el.options.length;o++){
+        var optVal=el.options[o].value.toLowerCase();
+        var optText=el.options[o].textContent.toLowerCase();
+        if(optVal===valLower||optText.indexOf(valLower)>-1||valLower.indexOf(optVal)>-1){
+          el.selectedIndex=o;matched=true;filled++;
+          results.push('\u2705 '+m.label+': '+el.options[o].textContent);
+          break;
+        }
+      }
+      if(!matched){
+        // For hardware/source POS, try keyword matching
+        if(m.field==='genHardware'){
+          if(valLower.indexOf('received')>-1||valLower.indexOf('delivered')>-1||valLower.indexOf('shipped')>-1){
+            for(var o2=0;o2<el.options.length;o2++){if(el.options[o2].value==='received'){el.selectedIndex=o2;matched=true;filled++;results.push('\u2705 '+m.label+': '+el.options[o2].textContent);break;}}
+          }else if(valLower.indexOf('partial')>-1){
+            for(var o3=0;o3<el.options.length;o3++){if(el.options[o3].value==='partial'){el.selectedIndex=o3;matched=true;filled++;results.push('\u2705 '+m.label+': '+el.options[o3].textContent);break;}}
+          }
+        }
+        if(!matched)results.push('\u26A0\uFE0F '+m.label+': "'+val+'" (no exact match in dropdown)');
+      }
+    }else if(m.isTextarea){
+      if(el.value){el.value+='\n\n--- From DSR ---\n'+val;}else{el.value=val;}
+      filled++;results.push('\u2705 '+m.label+': (appended)');
+    }else{
+      el.value=val;filled++;
+      results.push('\u2705 '+m.label+': '+val);
+    }
+  });
+  // Also try to extract DSR link from the pasted text if it contains a Salesforce URL
+  if(!document.getElementById('genDSR').value){
+    var sfMatch=raw.match(/(https:\/\/[^\s]*(?:lightning\.force|salesforce)\.com[^\s]*)/i);
+    if(sfMatch){document.getElementById('genDSR').value=sfMatch[1];filled++;results.push('\u2705 DSR Link: (auto-detected URL)');}
+  }
+  // Show results
+  var resultDiv=document.getElementById('dsrParseResult');
+  if(filled>0){
+    resultDiv.style.display='block';
+    resultDiv.style.background='#22c55e15';
+    resultDiv.style.border='1px solid #22c55e44';
+    resultDiv.style.color='#22c55e';
+    resultDiv.innerHTML='<strong>\u2705 Parsed '+filled+' field'+(filled>1?'s':'')+':</strong><br>'+results.join('<br>');
+    syncAllDealBanners();
+    showToast('\u2705 '+filled+' fields filled from DSR!');
+  }else{
+    resultDiv.style.display='block';
+    resultDiv.style.background='#eab30815';
+    resultDiv.style.border='1px solid #eab30844';
+    resultDiv.style.color='#eab308';
+    resultDiv.innerHTML='<strong>\u26A0\uFE0F No fields matched.</strong> Try copying more of the DSR detail page. The parser looks for patterns like:<br>"Business Name: Chicko Chicken"<br>"Account Executive: Lindsey Logan"<br>"Package: Plus"';
+  }
 }
 function saveDeal(){
   const biz=document.getElementById('genBusiness').value.trim();
