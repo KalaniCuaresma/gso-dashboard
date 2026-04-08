@@ -347,17 +347,148 @@ h2{font-size:18px;margin-bottom:10px}
 .theme-toggle{background:transparent;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:16px;color:var(--text-secondary);transition:all .2s;margin-top:auto;text-align:center}
 .theme-toggle:hover{background:var(--hover-bg);border-color:var(--accent-blue)}
 /* Light mode overrides for inline-styled elements */
+/* ===== COMPREHENSIVE LIGHT MODE OVERRIDES ===== */
+/* Base element overrides */
 html.light-mode .acc-header.open{background:var(--bg-card);border-color:var(--accent-blue)}
 html.light-mode input,html.light-mode select,html.light-mode textarea{background:var(--bg-input)!important;color:var(--text-primary)!important;border-color:var(--border)!important}
+html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--border)!important;color:var(--text-primary)!important}
+html.light-mode table th{background:var(--table-header)!important}
+
+/* Dark backgrounds → light backgrounds */
 html.light-mode [style*="background:#0f0f23"]{background:var(--bg-input)!important}
 html.light-mode [style*="background:#1a1a3e"]{background:var(--bg-card)!important}
-html.light-mode [style*="border:1px solid #2d2d5e"]{border-color:var(--border)!important}
+html.light-mode [style*="background:#2d2d5e"]{background:var(--border)!important}
+html.light-mode [style*="background:#0d1117"]{background:var(--bg-body)!important}
+
+/* Light/white text → dark text */
 html.light-mode [style*="color:#e2e8f0"]{color:var(--text-primary)!important}
+html.light-mode [style*="color:#cbd5e1"]{color:var(--text-secondary)!important}
 html.light-mode [style*="color:#94a3b8"]{color:var(--text-secondary)!important}
 html.light-mode [style*="color:#64748b"]{color:var(--text-muted)!important}
-html.light-mode [style*="color:#cbd5e1"]{color:var(--text-secondary)!important}
-html.light-mode table th{background:var(--table-header)!important}
-html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--border)!important;color:var(--text-primary)!important}
+html.light-mode [style*="color:#f1f5f9"]{color:var(--text-primary)!important}
+html.light-mode [style*="color:#f8fafc"]{color:var(--text-primary)!important}
+html.light-mode [style*="color:#ffaa80"]{color:#c2410c!important}
+html.light-mode [style*="color:#60a5fa"]{color:#2563eb!important}
+
+/* Dark borders → light borders */
+html.light-mode [style*="border:1px solid #2d2d5e"]{border-color:var(--border)!important}
+html.light-mode [style*="border:1px solid #2d2d5e44"]{border-color:var(--border)!important}
+html.light-mode [style*="border-top:2px solid #2d2d5e"]{border-color:var(--border)!important}
+html.light-mode [style*="border-bottom:1px solid #2d2d5e"]{border-color:var(--border)!important}
+html.light-mode [style*="border:1px dashed"]{border-color:#93c5fd!important}
+
+/* Accordion bodies and headers with inline dark bg */
+html.light-mode .acc-header{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .acc-body{background:var(--bg-card)!important;border-color:var(--border)!important}
+
+/* Training sections with inline dark bg */
+html.light-mode .training-section,html.light-mode .rst-pos-section,html.light-mode .rtl-pos-section,html.light-mode .rtl-training-section{color:var(--text-primary)}
+html.light-mode .training-section *,html.light-mode .rst-pos-section *,html.light-mode .rtl-pos-section *,html.light-mode .rtl-training-section *{color:inherit}
+/* Re-apply accent colors inside training sections */
+html.light-mode [style*="color:#22c55e"]{color:#16a34a!important}
+html.light-mode [style*="color:#006AFF"]{color:#0055cc!important}
+html.light-mode [style*="color:#eab308"]{color:#ca8a04!important}
+html.light-mode [style*="color:#ff6b35"]{color:#ea580c!important}
+html.light-mode [style*="color:#ef4444"]{color:#dc2626!important}
+html.light-mode [style*="color:#a855f7"]{color:#9333ea!important}
+
+/* Generator form sections */
+html.light-mode .gen-section{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .gen-section h2{color:var(--accent-green)!important}
+
+/* Cards */
+html.light-mode .card{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .card h3{color:var(--text-primary)!important}
+html.light-mode .card p{color:var(--text-secondary)!important}
+
+/* Stats */
+html.light-mode .stat{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .stat label{color:var(--text-muted)!important}
+
+/* Checklist */
+html.light-mode .checklist{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .check-item{border-color:var(--border)!important;color:var(--text-primary)!important}
+
+/* Deliverable content */
+html.light-mode .deliv-content{background:var(--bg-card)!important;border-color:var(--border)!important;color:var(--text-primary)!important}
+html.light-mode .deliv-content h2{color:var(--accent-blue)!important}
+html.light-mode .deliv-content h3{color:var(--accent-green)!important}
+
+/* Sub-tab buttons — keep colored ones readable */
+html.light-mode .postko-sub-btn,html.light-mode .opti-tab-btn,html.light-mode .opti-out-btn,html.light-mode .pt-out-btn{border-color:var(--border)!important}
+
+/* Nav sidebar in light mode */
+html.light-mode nav{background:var(--bg-nav)!important;border-color:var(--border)!important}
+html.light-mode .tab-btn{color:var(--text-secondary)!important}
+html.light-mode .tab-btn:hover{background:var(--hover-bg)!important;color:var(--text-primary)!important}
+html.light-mode .tab-btn.active{background:#006AFF!important;color:#fff!important}
+html.light-mode .tab-btn.generator-btn{background:#22c55e22!important;color:#16a34a!important}
+html.light-mode .tab-btn.generator-btn.active{background:#22c55e!important;color:#fff!important}
+
+/* Styled tab buttons (training, opti, etc) - override inline dark styles */
+html.light-mode .tab-btn[style*="background:#ff6b3522"]{background:#fff7ed!important;color:#ea580c!important;border-color:#fdba7444!important}
+html.light-mode .tab-btn[style*="background:#eab30822"]{background:#fefce8!important;color:#ca8a04!important;border-color:#fde04744!important}
+html.light-mode .tab-btn[style*="background:#a855f722"]{background:#faf5ff!important;color:#9333ea!important;border-color:#c084fc44!important}
+html.light-mode .tab-btn[style*="background:#22c55e22"]{background:#f0fdf4!important;color:#16a34a!important;border-color:#86efac44!important}
+html.light-mode .tab-btn[style*="background:#006AFF22"]{background:#eff6ff!important;color:#0055cc!important;border-color:#93c5fd44!important}
+
+/* DO/SAY/ASK blocks — slightly darken accent colors for readability on light bg */
+html.light-mode [style*="background:#22c55e15"]{background:#f0fdf4!important}
+html.light-mode [style*="background:#006AFF15"]{background:#eff6ff!important}
+html.light-mode [style*="background:#006AFF10"]{background:#eff6ff!important}
+html.light-mode [style*="background:#eab30815"]{background:#fefce8!important}
+html.light-mode [style*="background:#eab30811"]{background:#fefce8!important}
+html.light-mode [style*="background:#ff6b3515"]{background:#fff7ed!important}
+html.light-mode [style*="background:#ff6b3510"]{background:#fff7ed!important}
+html.light-mode [style*="background:#ef444410"]{background:#fef2f2!important}
+html.light-mode [style*="background:#ef444415"]{background:#fef2f2!important}
+html.light-mode [style*="background:#a855f710"]{background:#faf5ff!important}
+html.light-mode [style*="background:#22c55e10"]{background:#f0fdf4!important}
+
+/* Progress bars and banners */
+html.light-mode [style*="background:#006AFF15"]{background:#eff6ff!important}
+html.light-mode [style*="border:1px solid #006AFF44"]{border-color:#93c5fd!important}
+html.light-mode [style*="border:1px solid #22c55e44"]{border-color:#86efac!important}
+html.light-mode [style*="border:1px solid #ff6b3544"]{border-color:#fdba74!important}
+html.light-mode [style*="border:1px solid #eab30844"]{border-color:#fde047!important}
+html.light-mode [style*="border:1px solid #ef444444"]{border-color:#fca5a5!important}
+html.light-mode [style*="border:1px solid #a855f744"]{border-color:#c084fc!important}
+
+/* Headings and bold text that inherit light colors */
+html.light-mode h1,html.light-mode h2,html.light-mode h3,html.light-mode h4{color:var(--text-primary)}
+html.light-mode p{color:var(--text-primary)}
+html.light-mode span{color:inherit}
+html.light-mode label{color:var(--text-primary)}
+html.light-mode strong{color:inherit}
+html.light-mode div{color:inherit}
+
+/* Ensure the body and all text defaults to dark */
+html.light-mode body{background:var(--bg-body)!important;color:var(--text-primary)!important}
+
+/* Sub Plans tab specific overrides */
+html.light-mode [style*="background:#a855f722"]{background:#faf5ff!important}
+html.light-mode [style*="background:#22c55e22"]{background:#f0fdf4!important}
+html.light-mode [style*="background:#eab30822"]{background:#fefce8!important}
+html.light-mode [style*="background:#ff6b3522"]{background:#fff7ed!important}
+html.light-mode [style*="background:#006AFF22"]{background:#eff6ff!important}
+
+/* Empty state icons */
+html.light-mode .empty-state{color:var(--text-primary)!important}
+html.light-mode .empty-state p{color:var(--text-secondary)!important}
+
+/* Slide cues */
+html.light-mode .slide-cue{background:#fff7ed!important;border-color:#fdba7466!important;color:#9a3412!important}
+html.light-mode .slide-cue b{color:#c2410c!important}
+html.light-mode .slide-cue .slide-content{color:var(--text-secondary)!important}
+html.light-mode .slide-badge{background:#fff7ed!important;color:#ea580c!important;border-color:#fdba74!important}
+
+/* KO checklist sections */
+html.light-mode .cl-section{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.light-mode .cl-item{color:var(--text-primary)!important}
+html.light-mode .cl-text{color:var(--text-primary)!important}
+
+/* Theme toggle */
+html.light-mode .theme-toggle{background:var(--hover-bg)!important;color:var(--text-primary)!important;border-color:var(--border)!important}
 
 /* Sidebar scrollbar */
 nav::-webkit-scrollbar{width:4px}
