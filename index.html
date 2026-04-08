@@ -371,8 +371,7 @@ html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--bo
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Checklist</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 <button class="tab-btn" onclick="showTab('dbTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 DB Training</button>
-<button class="tab-btn" onclick="showTab('rstPosTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🍽️ RST POS Training</button>
-<button class="tab-btn" onclick="showTab('rtlPosTraining')" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">🛒 RTL POS Training</button>
+<button class="tab-btn" onclick="showTab('posTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
@@ -2388,26 +2387,40 @@ Example:
 
 </div><!-- end dbTraining -->
 <!-- ===== RST POS TRAINING GUIDE ===== -->
-<div id="rstPosTraining" class="tab">
-<h1 style="margin-bottom:4px">&#127891; RST POS Training Guide</h1>
-<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square for Restaurants POS Training &mdash; DO / SAY / ASK framework. Covers hardware setup, daily operations, practice transactions, reports, and close of day.</p>
-<div id="rstPosSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div id="posTraining" class="tab">
+<h1 style="margin-bottom:4px">&#127891; POS Training Guide</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square POS Training &mdash; DO / SAY / ASK framework. Select Restaurant or Retail below.</p>
+<div id="posTrainingSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
 <div style="display:flex;justify-content:space-between;align-items:center">
-<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="rstPosSeller" style="font-weight:700"></span> &mdash; <span id="rstPosPkg" style="color:#22c55e"></span></div>
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="posTrainingSeller" style="font-weight:700"></span> &mdash; <span id="posTrainingPkg" style="color:#22c55e"></span></div>
 <button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
 </div></div>
+
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+<label style="font-size:13px;font-weight:700;color:#e2e8f0">Training Type:</label>
+<select id="posTypeSelector" onchange="switchPosType(this.value)" style="padding:8px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;font-weight:600">
+<option value="restaurant">🍽️ Restaurant</option>
+<option value="retail">🛍️ Retail</option>
+</select>
+<span id="posTypeLabel" style="font-size:12px;color:#94a3b8">Showing Restaurant POS Training</span>
+</div>
+
 <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO &mdash; Actions to take</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY &mdash; Suggested verbiage</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK &mdash; Key questions</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA &mdash; From your generator</div>
 <div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">HANDS-ON</div>
 </div>
-<input type="text" id="rstPosSearch" oninput="filterRstPos()" placeholder="&#128269; Search POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<input type="text" id="posTrainingSearch" oninput="filterPosTraining()" placeholder="&#128269; Search POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="rstPosCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
-<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="rstPosBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="posTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="posTrainingBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
 </div>
+
+<!-- Restaurant POS Training Content -->
+<div id="posType-restaurant">
 <div class="rst-pos-section" data-tsearch="introduction agenda hardware setup call overview POS">
 <div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
 <span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
@@ -2547,30 +2560,10 @@ Example:
 <div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Do you feel comfortable using the POS on your own?</div>
 <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rst-pos-check" onchange="updateRstPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
 </div></div>
-</div><!-- end rstPosTraining -->
-
-
-<!-- ===== RTL POS TRAINING GUIDE ===== -->
-<div id="rtlPosTraining" class="tab">
-<h1 style="margin-bottom:4px">&#127891; RTL POS Training Guide</h1>
-<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square for Retail POS Training &mdash; DO / SAY / ASK framework. Covers hardware setup, item grid, practice transactions, returns/exchanges, inventory management, and stock counts.</p>
-<div id="rtlPosSellerBanner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="rtlPosSeller" style="font-weight:700"></span> &mdash; <span id="rtlPosPkg" style="color:#22c55e"></span></div>
-<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
-</div></div>
-<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK</div>
-<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA</div>
-<div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">RETAIL-SPECIFIC</div>
 </div>
-<input type="text" id="rtlPosSearch" oninput="filterRtlPos()" placeholder="&#128269; Search retail POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
-<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="rtlPosCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
-<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="rtlPosBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
-</div>
+
+<!-- Retail POS Training Content -->
+<div id="posType-retail" style="display:none">
 <div class="rtl-pos-section" data-tsearch="introduction agenda hardware setup call overview POS retail">
 <div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
 <span style="color:#22c55e">INTRO</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
@@ -2745,7 +2738,12 @@ Example:
 <div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have before we wrap up? Do you feel comfortable using the Retail POS on your own?</div>
 <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="rtl-pos-check" onchange="updateRtlPosProgress()" style="accent-color:#22c55e"> Covered this topic</label>
 </div></div>
-</div><!-- end rtlPosTraining -->
+</div>
+
+</div><!-- end posTraining -->
+
+
+
 
 <!-- ===== POST-TRAINING DELIVERABLES (AI) ===== -->
 <div id="postTraining" class="tab">
@@ -3491,7 +3489,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',postKODeliv:'📨 Post-KO',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',rstPosTraining:'🍽️ RST POS Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',postKODeliv:'📨 Post-KO',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -3580,6 +3578,10 @@ function syncTabSpecificFields(id){
   // DB Training - sync deal info
   if(id==='dbTraining'){
     syncDbTrainingFromGenerator();
+  }
+  // POS Training - sync deal info
+  if(id==='posTraining'){
+    syncPosTrainingFromGenerator();
   }
   // Opti Call fields
   if(id==='optiCall'){
@@ -5663,101 +5665,86 @@ function parsePtResponse(){
 
 
 // ===== RST POS TRAINING GUIDE =====
-function filterRstPos(){
-  var q=document.getElementById('rstPosSearch').value.toLowerCase();
-  document.querySelectorAll('.rst-pos-section').forEach(function(s){
+
+// ===== MERGED POS TRAINING =====
+function switchPosType(type){
+  document.getElementById('posType-restaurant').style.display=type==='restaurant'?'':'none';
+  document.getElementById('posType-retail').style.display=type==='retail'?'':'none';
+  var label=document.getElementById('posTypeLabel');
+  if(label)label.textContent='Showing '+(type==='restaurant'?'Restaurant':'Retail')+' POS Training';
+  updatePosTrainingProgress();
+}
+function filterPosTraining(){
+  var q=document.getElementById('posTrainingSearch').value.toLowerCase();
+  var type=document.getElementById('posTypeSelector').value;
+  var container=document.getElementById('posType-'+type);
+  var selectorClass=type==='restaurant'?'.rst-pos-section':'.rtl-pos-section';
+  container.querySelectorAll(selectorClass).forEach(function(s){
     var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
     s.style.display=txt.toLowerCase().includes(q)?'':'none';
   });
 }
-function updateRstPosProgress(){
-  var checks=document.querySelectorAll('.rst-pos-check');
+function updatePosTrainingProgress(){
+  var type=document.getElementById('posTypeSelector').value;
+  var container=document.getElementById('posType-'+type);
+  var checkClass=type==='restaurant'?'.rst-pos-check':'.rtl-pos-check';
+  var checks=container.querySelectorAll(checkClass);
   var done=0;
   checks.forEach(function(c){if(c.checked)done++});
-  var el=document.getElementById('rstPosCounter');
+  var el=document.getElementById('posTrainingCounter');
   if(el)el.textContent=done+'/'+checks.length;
-  var bar=document.getElementById('rstPosBar');
+  var bar=document.getElementById('posTrainingBar');
   if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
-  var states=[];checks.forEach(function(c){states.push(c.checked)});
-  localStorage.setItem('gso-rst-pos-checks',JSON.stringify(states));
+  // save both separately
+  var rstChecks=document.querySelectorAll('#posType-restaurant .rst-pos-check');
+  var rstStates=[];rstChecks.forEach(function(c){rstStates.push(c.checked)});
+  localStorage.setItem('gso-rst-pos-checks',JSON.stringify(rstStates));
+  var rtlChecks=document.querySelectorAll('#posType-retail .rtl-pos-check');
+  var rtlStates=[];rtlChecks.forEach(function(c){rtlStates.push(c.checked)});
+  localStorage.setItem('gso-rtl-pos-checks',JSON.stringify(rtlStates));
 }
-function loadRstPosChecks(){
+function loadPosTrainingChecks(){
   var s=localStorage.getItem('gso-rst-pos-checks');
   if(s){
     var a=JSON.parse(s);
-    document.querySelectorAll('.rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+    document.querySelectorAll('#posType-restaurant .rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
   }
-  updateRstPosProgress();
+  var r=localStorage.getItem('gso-rtl-pos-checks');
+  if(r){
+    var a=JSON.parse(r);
+    document.querySelectorAll('#posType-retail .rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updatePosTrainingProgress();
 }
-function syncRstPosFromGenerator(){
+function syncPosTrainingFromGenerator(){
   var b=document.getElementById('genBusiness');
   var s=document.getElementById('genSeller');
   var p=document.getElementById('genPackage');
-  var banner=document.getElementById('rstPosSellerBanner');
+  var banner=document.getElementById('posTrainingSellerBanner');
   var name=b&&b.value?b.value:(s&&s.value?s.value:'');
   if(name&&banner){
-    document.getElementById('rstPosSeller').textContent=name;
-    document.getElementById('rstPosPkg').textContent=p?p.value:'Plus';
+    document.getElementById('posTrainingSeller').textContent=name;
+    document.getElementById('posTrainingPkg').textContent=p?p.value:'Plus';
     banner.style.display='block';
   }
 }
 document.addEventListener('DOMContentLoaded',function(){
-  loadRstPosChecks();
-  var orig=window.showTab;
-  window.showTab=function(id){
-    orig(id);
-    if(id==='rstPosTraining')syncRstPosFromGenerator();
-  };
+  loadPosTrainingChecks();
 });
+
+function filterRstPos(){ filterPosTraining(); }
+function updateRstPosProgress(){ updatePosTrainingProgress(); }
+function loadRstPosChecks(){ /* handled by loadPosTrainingChecks */ }
+function syncRstPosFromGenerator(){ syncPosTrainingFromGenerator(); }
+/* RST POS Training init handled by merged loadPosTrainingChecks */
 
 
 // ===== RTL POS TRAINING GUIDE =====
-function filterRtlPos(){
-  var q=document.getElementById('rtlPosSearch').value.toLowerCase();
-  document.querySelectorAll('.rtl-pos-section').forEach(function(s){
-    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
-    s.style.display=txt.toLowerCase().includes(q)?'':'none';
-  });
-}
-function updateRtlPosProgress(){
-  var checks=document.querySelectorAll('.rtl-pos-check');
-  var done=0;
-  checks.forEach(function(c){if(c.checked)done++});
-  var el=document.getElementById('rtlPosCounter');
-  if(el)el.textContent=done+'/'+checks.length;
-  var bar=document.getElementById('rtlPosBar');
-  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
-  var states=[];checks.forEach(function(c){states.push(c.checked)});
-  localStorage.setItem('gso-rtl-pos-checks',JSON.stringify(states));
-}
-function loadRtlPosChecks(){
-  var s=localStorage.getItem('gso-rtl-pos-checks');
-  if(s){
-    var a=JSON.parse(s);
-    document.querySelectorAll('.rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
-  }
-  updateRtlPosProgress();
-}
-function syncRtlPosFromGenerator(){
-  var b=document.getElementById('genBusiness');
-  var s=document.getElementById('genSeller');
-  var p=document.getElementById('genPackage');
-  var banner=document.getElementById('rtlPosSellerBanner');
-  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
-  if(name&&banner){
-    document.getElementById('rtlPosSeller').textContent=name;
-    document.getElementById('rtlPosPkg').textContent=p?p.value:'Plus';
-    banner.style.display='block';
-  }
-}
-document.addEventListener('DOMContentLoaded',function(){
-  loadRtlPosChecks();
-  var orig=window.showTab;
-  window.showTab=function(id){
-    orig(id);
-    if(id==='rtlPosTraining')syncRtlPosFromGenerator();
-  };
-});
+function filterRtlPos(){ filterPosTraining(); }
+function updateRtlPosProgress(){ updatePosTrainingProgress(); }
+function loadRtlPosChecks(){ /* handled by loadPosTrainingChecks */ }
+function syncRtlPosFromGenerator(){ syncPosTrainingFromGenerator(); }
+/* RTL POS Training init handled by merged loadPosTrainingChecks */
 
 // ===== OPTI CALL =====
 function showOptiSub(id){
@@ -6141,101 +6128,19 @@ function parsePtResponse(){
 
 
 // ===== RST POS TRAINING GUIDE =====
-function filterRstPos(){
-  var q=document.getElementById('rstPosSearch').value.toLowerCase();
-  document.querySelectorAll('.rst-pos-section').forEach(function(s){
-    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
-    s.style.display=txt.toLowerCase().includes(q)?'':'none';
-  });
-}
-function updateRstPosProgress(){
-  var checks=document.querySelectorAll('.rst-pos-check');
-  var done=0;
-  checks.forEach(function(c){if(c.checked)done++});
-  var el=document.getElementById('rstPosCounter');
-  if(el)el.textContent=done+'/'+checks.length;
-  var bar=document.getElementById('rstPosBar');
-  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
-  var states=[];checks.forEach(function(c){states.push(c.checked)});
-  localStorage.setItem('gso-rst-pos-checks',JSON.stringify(states));
-}
-function loadRstPosChecks(){
-  var s=localStorage.getItem('gso-rst-pos-checks');
-  if(s){
-    var a=JSON.parse(s);
-    document.querySelectorAll('.rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
-  }
-  updateRstPosProgress();
-}
-function syncRstPosFromGenerator(){
-  var b=document.getElementById('genBusiness');
-  var s=document.getElementById('genSeller');
-  var p=document.getElementById('genPackage');
-  var banner=document.getElementById('rstPosSellerBanner');
-  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
-  if(name&&banner){
-    document.getElementById('rstPosSeller').textContent=name;
-    document.getElementById('rstPosPkg').textContent=p?p.value:'Plus';
-    banner.style.display='block';
-  }
-}
-document.addEventListener('DOMContentLoaded',function(){
-  loadRstPosChecks();
-  var orig=window.showTab;
-  window.showTab=function(id){
-    orig(id);
-    if(id==='rstPosTraining')syncRstPosFromGenerator();
-  };
-});
+function filterRstPos(){ filterPosTraining(); }
+function updateRstPosProgress(){ updatePosTrainingProgress(); }
+function loadRstPosChecks(){ /* handled by loadPosTrainingChecks */ }
+function syncRstPosFromGenerator(){ syncPosTrainingFromGenerator(); }
+/* RST POS Training init handled by merged loadPosTrainingChecks */
 
 
 // ===== RTL POS TRAINING GUIDE =====
-function filterRtlPos(){
-  var q=document.getElementById('rtlPosSearch').value.toLowerCase();
-  document.querySelectorAll('.rtl-pos-section').forEach(function(s){
-    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
-    s.style.display=txt.toLowerCase().includes(q)?'':'none';
-  });
-}
-function updateRtlPosProgress(){
-  var checks=document.querySelectorAll('.rtl-pos-check');
-  var done=0;
-  checks.forEach(function(c){if(c.checked)done++});
-  var el=document.getElementById('rtlPosCounter');
-  if(el)el.textContent=done+'/'+checks.length;
-  var bar=document.getElementById('rtlPosBar');
-  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
-  var states=[];checks.forEach(function(c){states.push(c.checked)});
-  localStorage.setItem('gso-rtl-pos-checks',JSON.stringify(states));
-}
-function loadRtlPosChecks(){
-  var s=localStorage.getItem('gso-rtl-pos-checks');
-  if(s){
-    var a=JSON.parse(s);
-    document.querySelectorAll('.rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true});
-  }
-  updateRtlPosProgress();
-}
-function syncRtlPosFromGenerator(){
-  var b=document.getElementById('genBusiness');
-  var s=document.getElementById('genSeller');
-  var p=document.getElementById('genPackage');
-  var banner=document.getElementById('rtlPosSellerBanner');
-  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
-  if(name&&banner){
-    document.getElementById('rtlPosSeller').textContent=name;
-    document.getElementById('rtlPosPkg').textContent=p?p.value:'Plus';
-    banner.style.display='block';
-  }
-}
-document.addEventListener('DOMContentLoaded',function(){
-  loadRtlPosChecks();
-  var orig=window.showTab;
-  window.showTab=function(id){
-    orig(id);
-    if(id==='rtlPosTraining')syncRtlPosFromGenerator();
-  };
-});
+function filterRtlPos(){ filterPosTraining(); }
+function updateRtlPosProgress(){ updatePosTrainingProgress(); }
+function loadRtlPosChecks(){ /* handled by loadPosTrainingChecks */ }
+function syncRtlPosFromGenerator(){ syncPosTrainingFromGenerator(); }
+/* RTL POS Training init handled by merged loadPosTrainingChecks */
 
 // ===== OPTI CALL =====
 function showOptiSub(id){
