@@ -365,9 +365,7 @@ html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--bo
 <div class="logo"><span>⚡</span>GSO DSR Workflow</div>
 <button class="tab-btn generator-btn active" onclick="showTab('generator')">🚀 Generator</button>
 <button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
-<button class="tab-btn" onclick="showTab('email')">Seller Email</button>
-<button class="tab-btn" onclick="showTab('dsr')">DSR Chatter</button>
-<button class="tab-btn" onclick="showTab('bpo')">BPO Task</button>
+<button class="tab-btn" onclick="showTab('postKODeliv')">📨 Post-KO</button>
 <button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
 <button class="tab-btn" onclick="showTab('preKO')">🧾 Pre-KO</button>
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Checklist</button>
@@ -685,9 +683,9 @@ Examples:
 </div>
 <div class="section-title">📋 Deliverables</div>
 <div class="cards" id="dashCards">
-<div class="card"><h3>📧 Seller Email</h3><p>Recap + Next Steps</p><span class="badge badge-gray" id="badgeEmail">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('email')">Open →</button></div>
-<div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-gray" id="badgeDSR">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('dsr')">Open →</button></div>
-<div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-gray" id="badgeBPO">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('bpo')">Open →</button></div>
+<div class="card"><h3>📧 Seller Email</h3><p>Recap + Next Steps</p><span class="badge badge-gray" id="badgeEmail">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('postKODeliv');setTimeout(function(){showPostKOSub('postko-email')},50)">Open →</button></div>
+<div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-gray" id="badgeDSR">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('postKODeliv');setTimeout(function(){showPostKOSub('postko-dsr')},50)">Open →</button></div>
+<div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-gray" id="badgeBPO">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('postKODeliv');setTimeout(function(){showPostKOSub('postko-bpo')},50)">Open →</button></div>
 <div class="card"><h3>🔍 Internal Analysis</h3><p>PM Risk & Coordination</p><span class="badge badge-gray" id="badgeAnalysis">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('analysis')">Open →</button></div>
 </div>
 <div class="checklist">
@@ -708,31 +706,40 @@ Examples:
 </div>
 
 <!-- ===== SELLER EMAIL ===== -->
-<div id="email" class="tab">
-<div id="emailDealBanner" class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
+<!-- ===== POST-KO DELIVERABLES (Combined) ===== -->
+<div id="postKODeliv" class="tab">
+<h1 style="margin-bottom:4px">&#128232; Post-KO Deliverables</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">All post-kickoff deliverables in one place: Seller Email, DSR Chatter, and BPO Task.</p>
+
+<div class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-<div><strong style="color:#006AFF">📋 Active Deal:</strong> <span class="deal-banner-biz" style="font-weight:700"></span> — <span class="deal-banner-seller"></span> — <span class="deal-banner-pkg" style="color:#22c55e"></span> — AE: <span class="deal-banner-ae"></span></div>
+<div><strong style="color:#006AFF">&#128203; Active Deal:</strong> <span class="deal-banner-biz" style="font-weight:700"></span> &mdash; <span class="deal-banner-seller"></span> &mdash; <span class="deal-banner-pkg" style="color:#22c55e"></span> &mdash; AE: <span class="deal-banner-ae"></span></div>
 <button class="btn btn-sm btn-blue" onclick="showTab('generator')" style="font-size:11px;padding:4px 10px">Edit in Generator</button>
 </div></div>
-<div class="deliv-header"><h1>📧 Post-KO Seller Email</h1><button class="btn btn-green" onclick="copyContent('emailContent')">📋 Copy</button></div>
+
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-email')" id="postkoBtn-email" style="background:#22c55e;color:#fff">&#128231; Seller Email</button>
+<button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-dsr')" id="postkoBtn-dsr" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128221; DSR Chatter</button>
+<button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-bpo')" id="postkoBtn-bpo" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128295; BPO Task</button>
+</div>
+
+<div id="postko-email" class="postko-panel">
+<div class="deliv-header"><h2 style="font-size:18px">&#128231; Post-KO Seller Email</h2><button class="btn btn-green" onclick="copyContent('emailContent')">&#128203; Copy</button></div>
 <div id="emailContent" class="deliv-content">
-<div class="empty-state"><div class="icon">📧</div><h3>No Email Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
-</div></div>
+<div class="empty-state"><div class="icon">&#128231;</div><h3>No Email Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
+</div>
+</div>
 
-<!-- ===== DSR CHATTER ===== -->
-<div id="dsr" class="tab">
-<div id="dsrDealBanner" class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-<div><strong style="color:#006AFF">📋 Active Deal:</strong> <span class="deal-banner-biz" style="font-weight:700"></span> — <span class="deal-banner-seller"></span> — <span class="deal-banner-pkg" style="color:#22c55e"></span> — AE: <span class="deal-banner-ae"></span></div>
-<button class="btn btn-sm btn-blue" onclick="showTab('generator')" style="font-size:11px;padding:4px 10px">Edit in Generator</button>
-</div></div>
-<div class="deliv-header"><h1>📝 DSR Chatter Notes</h1><button class="btn btn-green" onclick="copyContent('dsrContent')">📋 Copy</button></div>
+<div id="postko-dsr" class="postko-panel" style="display:none">
+<div class="deliv-header"><h2 style="font-size:18px">&#128221; DSR Chatter Notes</h2><button class="btn btn-green" onclick="copyContent('dsrContent')">&#128203; Copy</button></div>
 <div id="dsrContent" class="deliv-content">
-<div class="empty-state"><div class="icon">📝</div><h3>No Chatter Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
-</div></div>
+<div class="empty-state"><div class="icon">&#128221;</div><h3>No Chatter Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
+</div>
+</div>
 
-<!-- ===== BPO ===== -->
-<div id="bpo" class="tab">
+<div id="postko-bpo" class="postko-panel" style="display:none">
+<h2 style="font-size:18px;margin-bottom:4px">&#128295; BPO Workflow</h2>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Manage your BPO submission: DSA notes, outbound files, and inbound QA review</p>
 <h1 style="margin-bottom:4px">🔧 BPO Workflow</h1>
 <p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Manage your BPO submission: DSA notes, outbound files, and inbound QA review</p>
 <div id="bpoDealBanner" class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
@@ -916,6 +923,8 @@ Examples:
 </div>
 
 </div>
+
+</div><!-- end postKODeliv -->
 
 <!-- ===== ANALYSIS ===== -->
 <div id="analysis" class="tab">
@@ -3485,7 +3494,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',postKODeliv:'📨 Post-KO',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -6529,6 +6538,20 @@ function switchKOType(type){
     label.textContent='\u{1F451} Premium / Onsite Checklist Active';
     label.style.color='#eab308';
   }
+}
+
+function showPostKOSub(id){
+  document.querySelectorAll('.postko-panel').forEach(function(p){p.style.display='none';});
+  var el=document.getElementById(id);
+  if(el)el.style.display='block';
+  var colors={'postko-email':['#22c55e','#fff'],'postko-dsr':['#006AFF','#fff'],'postko-bpo':['#ff6b35','#fff']};
+  var btnMap={'postko-email':'postkoBtn-email','postko-dsr':'postkoBtn-dsr','postko-bpo':'postkoBtn-bpo'};
+  Object.keys(btnMap).forEach(function(k){
+    var b=document.getElementById(btnMap[k]);
+    if(!b)return;
+    if(k===id){b.style.background=colors[k][0];b.style.color='#fff';b.style.border='none';}
+    else{b.style.background='#1a1a3e';b.style.color=colors[k][0];b.style.border='1px solid '+colors[k][0]+'44';}
+  });
 }
 </script>
 </body>
