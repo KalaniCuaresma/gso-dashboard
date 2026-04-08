@@ -47,15 +47,15 @@ html.light-mode{
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-body);color:var(--text-primary);min-height:100vh;transition:background .3s,color .3s}
-nav{position:sticky;top:0;z-index:100;background:var(--bg-nav);border-bottom:1px solid var(--border);box-shadow:var(--shadow);padding:10px 20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-nav .logo{font-weight:800;font-size:18px;color:var(--accent-blue);margin-right:10px}
-nav .logo span{color:#22c55e;margin-right:4px}
-.tab-btn{padding:7px 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;background:transparent;color:var(--text-secondary);transition:all .2s}
+nav{position:fixed;top:0;left:0;z-index:100;background:var(--bg-nav);border-right:1px solid var(--border);box-shadow:var(--shadow);padding:14px 10px;display:flex;flex-direction:column;align-items:stretch;gap:4px;width:180px;height:100vh;overflow-y:auto}
+nav .logo{font-weight:800;font-size:15px;color:var(--accent-blue);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border);text-align:center}
+nav .logo span{color:#22c55e;margin-right:2px}
+.tab-btn{padding:8px 12px;border:none;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600;background:transparent;color:var(--text-secondary);transition:all .2s;text-align:left;width:100%;white-space:nowrap}
 .tab-btn:hover{background:var(--hover-bg);color:var(--text-primary)}
 .tab-btn.active{background:#006AFF;color:#fff}
 .tab-btn.generator-btn{background:#22c55e22;color:#22c55e;border:1px solid #22c55e44}
 .tab-btn.generator-btn.active{background:#22c55e;color:#fff}
-.container{max-width:1100px;margin:0 auto;padding:20px}
+.container{max-width:1100px;margin:0 auto;padding:20px;margin-left:180px}
 .tab{display:none}.tab.active{display:block}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
 .stat{background:var(--bg-card);border-radius:10px;padding:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
@@ -344,7 +344,7 @@ h2{font-size:18px;margin-bottom:10px}
 @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 
 /* Light mode toggle button */
-.theme-toggle{background:transparent;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:16px;color:var(--text-secondary);transition:all .2s;margin-left:auto;flex-shrink:0}
+.theme-toggle{background:transparent;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:16px;color:var(--text-secondary);transition:all .2s;margin-top:auto;text-align:center}
 .theme-toggle:hover{background:var(--hover-bg);border-color:var(--accent-blue)}
 /* Light mode overrides for inline-styled elements */
 html.light-mode .acc-header.open{background:var(--bg-card);border-color:var(--accent-blue)}
@@ -358,23 +358,36 @@ html.light-mode [style*="color:#64748b"]{color:var(--text-muted)!important}
 html.light-mode [style*="color:#cbd5e1"]{color:var(--text-secondary)!important}
 html.light-mode table th{background:var(--table-header)!important}
 html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--border)!important;color:var(--text-primary)!important}
+
+/* Sidebar scrollbar */
+nav::-webkit-scrollbar{width:4px}
+nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+/* Responsive: collapse sidebar on small screens */
+@media(max-width:768px){
+  nav{position:relative;width:100%;height:auto;flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--border);padding:8px 12px}
+  nav .logo{margin-bottom:0;padding-bottom:0;border-bottom:none;text-align:left;margin-right:auto}
+  .tab-btn{width:auto;text-align:center;font-size:10px;padding:6px 10px}
+  .container{margin-left:0}
+}
 </style>
 </head>
 <body>
 <nav>
-<div class="logo"><span>⚡</span>GSO DSR Workflow</div>
+<div class="logo"><span>⚡</span>GSO Cockpit</div>
 <button class="tab-btn generator-btn active" onclick="showTab('generator')">🚀 Generator</button>
-<button class="tab-btn" onclick="showTab('dashboard')">Dashboard</button>
-<button class="tab-btn" onclick="showTab('postKODeliv')">📨 Post-KO</button>
-<button class="tab-btn" onclick="showTab('analysis')">Analysis</button>
+<button class="tab-btn" onclick="showTab('dashboard')">📊 Dashboard</button>
 <button class="tab-btn" onclick="showTab('preKO')">🧾 Pre-KO</button>
 <button class="tab-btn" onclick="showTab('koQuestions')">❓ KO Checklist</button>
-<button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
+<button class="tab-btn" onclick="showTab('postKODeliv')">📨 Post-KO</button>
+<button class="tab-btn" onclick="showTab('analysis')">🔍 Analysis</button>
+<div style="border-top:1px solid var(--border);margin:6px 0"></div>
 <button class="tab-btn" onclick="showTab('dbTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 DB Training</button>
 <button class="tab-btn" onclick="showTab('posTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 POS Training</button>
-<button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
+<div style="border-top:1px solid var(--border);margin:6px 0"></div>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
+<button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
+<button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode">🌑</button>
 </nav>
 <div class="container">
@@ -3489,7 +3502,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',postKODeliv:'📨 Post-KO',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
