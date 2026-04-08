@@ -4875,6 +4875,104 @@ function parseDSRPaste(){
     resultDiv.innerHTML='<strong>\u26A0\uFE0F No fields matched.</strong> Make sure you\'re copying from the DSR detail page in Salesforce. Try selecting from "Contact Name" down through the hardware fields.';
   }
 }
+
+// ===== PER-DEAL TAB STATE HELPERS =====
+function clearAllTabState(){
+  // Clear all tab-specific localStorage keys
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-menu-items'];
+  tabKeys.forEach(function(k){localStorage.removeItem(k)});
+
+  // Clear deliverable content areas
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput'];
+  delivIds.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.innerHTML='';el.dataset.rawText=''}
+  });
+
+  // Reset deliverable placeholders
+  var emailEl=document.getElementById('emailContent');
+  if(emailEl&&!emailEl.innerHTML.trim())emailEl.innerHTML='<div class="empty-state"><div class="icon">\u{1F4E7}</div><h3>No Email Generated Yet</h3><p>Go to the Generator tab to enter your deal info and generate deliverables.</p></div>';
+  var dsrEl=document.getElementById('dsrContent');
+  if(dsrEl&&!dsrEl.innerHTML.trim())dsrEl.innerHTML='<div class="empty-state"><div class="icon">\u{1F4DD}</div><h3>No DSR Chatter Generated Yet</h3></div>';
+  var bpoEl=document.getElementById('bpoContent');
+  if(bpoEl&&!bpoEl.innerHTML.trim())bpoEl.innerHTML='<div class="empty-state"><div class="icon">\u{1F527}</div><h3>No BPO Notes Generated Yet</h3></div>';
+  var anaEl=document.getElementById('analysisContent');
+  if(anaEl&&!anaEl.innerHTML.trim())anaEl.innerHTML='<div class="empty-state"><div class="icon">\u{1F50D}</div><h3>No Analysis Generated Yet</h3></div>';
+
+  // Clear input fields on other tabs
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','optiAEName','optiGoLive','optiTranscript','ptTranscript'];
+  tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)el.value=''});
+  var pkgSel=document.getElementById('preKO-package');
+  if(pkgSel){pkgSel.selectedIndex=0;delete pkgSel.dataset.userChanged}
+
+  // Uncheck ALL checkboxes across all tabs
+  document.querySelectorAll('.training-check,.rtl-training-check,.rst-pos-check,.rtl-pos-check,.premKO-check,.opti-pre-check,.opti-script-check').forEach(function(c){c.checked=false});
+  document.querySelectorAll('#checklistItems input[type=checkbox]').forEach(function(c){c.checked=false;if(c.parentElement)c.parentElement.classList.remove('done')});
+  document.querySelectorAll('input[data-cl="preKO"]').forEach(function(c){c.checked=false});
+  document.querySelectorAll('input[data-cl="koQ"]').forEach(function(c){c.checked=false});
+
+  // Clear KO checklist note textareas
+  document.querySelectorAll('textarea[data-notes="koQ"]').forEach(function(el){el.value=''});
+
+  // Update all progress bars/counters
+  try{if(typeof updateChecks==='function')updateChecks()}catch(e){}
+  try{if(typeof updatePreKO==='function')updatePreKO()}catch(e){}
+  try{if(typeof updateKOQ==='function')updateKOQ()}catch(e){}
+  try{if(typeof updatePremKO==='function')updatePremKO()}catch(e){}
+  try{if(typeof updateDbTrainingProgress==='function')updateDbTrainingProgress()}catch(e){}
+  try{if(typeof updatePosTrainingProgress==='function')updatePosTrainingProgress()}catch(e){}
+
+  // Hide deal banners
+  document.querySelectorAll('[id$="SellerBanner"],[id$="sellerBanner"]').forEach(function(b){b.style.display='none'});
+  document.querySelectorAll('.deal-banner').forEach(function(b){b.style.display='none'});
+}
+
+function reloadAllCheckboxStates(){
+  // Dashboard checklist
+  var dc=localStorage.getItem('gso-checks');
+  if(dc){try{var a=JSON.parse(dc);document.querySelectorAll('#checklistItems input[type=checkbox]').forEach(function(c,i){if(a[i]){c.checked=true;if(c.parentElement)c.parentElement.classList.add('done')}});if(typeof updateChecks==='function')updateChecks()}catch(e){}}
+
+  // Pre-KO checks
+  var pk=localStorage.getItem('gso-preKO-checks');
+  if(pk){try{var a=JSON.parse(pk);document.querySelectorAll('input[data-cl="preKO"]').forEach(function(c,i){if(a[i])c.checked=true});if(typeof updatePreKO==='function')updatePreKO()}catch(e){}}
+
+  // KO Checklist checks
+  var kq=localStorage.getItem('gso-koQ-checks');
+  if(kq){try{var a=JSON.parse(kq);document.querySelectorAll('input[data-cl="koQ"]').forEach(function(c,i){if(a[i])c.checked=true});if(typeof updateKOQ==='function')updateKOQ()}catch(e){}}
+
+  // KO Checklist notes
+  var kn=localStorage.getItem('gso-koQ-notes');
+  if(kn){try{var a=JSON.parse(kn);document.querySelectorAll('textarea[data-notes="koQ"]').forEach(function(el,i){if(a[i])el.value=a[i]})}catch(e){}}
+
+  // Premium KO checks
+  var pm=localStorage.getItem('gso-premKO-checks');
+  if(pm){try{var a=JSON.parse(pm);document.querySelectorAll('.premKO-check').forEach(function(c,i){if(a[i])c.checked=true});if(typeof updatePremKO==='function')updatePremKO()}catch(e){}}
+
+  // DB Training checks (restaurant)
+  var tc=localStorage.getItem('gso-training-checks');
+  if(tc){try{var a=JSON.parse(tc);document.querySelectorAll('#dbType-restaurant .training-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+
+  // DB Training checks (retail)
+  var rc=localStorage.getItem('gso-rtl-training-checks');
+  if(rc){try{var a=JSON.parse(rc);document.querySelectorAll('#dbType-retail .rtl-training-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+  try{if(typeof updateDbTrainingProgress==='function')updateDbTrainingProgress()}catch(e){}
+
+  // POS Training checks (restaurant)
+  var rp=localStorage.getItem('gso-rst-pos-checks');
+  if(rp){try{var a=JSON.parse(rp);document.querySelectorAll('#posType-restaurant .rst-pos-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+
+  // POS Training checks (retail)
+  var rl=localStorage.getItem('gso-rtl-pos-checks');
+  if(rl){try{var a=JSON.parse(rl);document.querySelectorAll('#posType-retail .rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+  try{if(typeof updatePosTrainingProgress==='function')updatePosTrainingProgress()}catch(e){}
+
+  // Opti Call checks
+  var op=localStorage.getItem('gso-opti-pre-checks');
+  if(op){try{var a=JSON.parse(op);document.querySelectorAll('.opti-pre-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+  var os=localStorage.getItem('gso-opti-script-checks');
+  if(os){try{var a=JSON.parse(os);document.querySelectorAll('.opti-script-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+}
+
 function saveDeal(){
   const biz=document.getElementById('genBusiness').value.trim();
   if(!biz){alert('Enter a business name first');return}
@@ -4884,6 +4982,27 @@ function saveDeal(){
   allFields.forEach(id=>{deal[id]=document.getElementById(id).value});
   deal.menuItems = menuItems;
   deal.timestamp=Date.now();
+
+  // === Save all tab-specific localStorage state ===
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline'];
+  deal._tabState={};
+  tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
+
+  // Save deliverable content (innerHTML + rawText)
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput'];
+  deal._deliverables={};
+  delivIds.forEach(function(id){var el=document.getElementById(id);if(el){deal._deliverables[id]={html:el.innerHTML,raw:el.dataset.rawText||''}}});
+
+  // Save input fields from other tabs
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript'];
+  deal._tabInputs={};
+  tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)deal._tabInputs[id]=el.value});
+
+  // Save KO checklist notes (textareas)
+  var koNoteEls=document.querySelectorAll('textarea[data-notes="koQ"]');
+  deal._koNoteValues=[];
+  koNoteEls.forEach(function(el){deal._koNoteValues.push(el.value)});
+
   deals[biz]=deal;
   localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
   saveToCloud(deal);
@@ -4894,10 +5013,50 @@ function saveDeal(){
 function loadDeal(name){
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
   const d=deals[name];if(!d)return;
-  Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});
+
+  // First clear everything so no stale data from another deal shows
+  clearAllTabState();
+
+  // Restore generator fields
+  Object.keys(d).forEach(id=>{if(id!=='timestamp'&&id!=='menuItems'&&id!=='_tabState'&&id!=='_deliverables'&&id!=='_tabInputs'&&id!=='_koNoteValues'&&document.getElementById(id))document.getElementById(id).value=d[id]||''});
   if(d.menuItems){menuItems=d.menuItems;renderMenuItems();saveMenuItems()}
+
+  // Restore tab-specific localStorage state
+  if(d._tabState){
+    Object.keys(d._tabState).forEach(function(k){localStorage.setItem(k,d._tabState[k])});
+  }
+
+  // Restore deliverable content
+  if(d._deliverables){
+    Object.keys(d._deliverables).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.innerHTML=d._deliverables[id].html||'';
+        if(d._deliverables[id].raw)el.dataset.rawText=d._deliverables[id].raw;
+      }
+    });
+  }
+
+  // Restore input fields from other tabs
+  if(d._tabInputs){
+    Object.keys(d._tabInputs).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el)el.value=d._tabInputs[id]||'';
+    });
+  }
+
+  // Restore KO checklist note textareas
+  if(d._koNoteValues){
+    var koNoteEls=document.querySelectorAll('textarea[data-notes="koQ"]');
+    d._koNoteValues.forEach(function(val,i){if(koNoteEls[i])koNoteEls[i].value=val});
+  }
+
+  // Reload all checkbox states from the restored localStorage
+  reloadAllCheckboxStates();
+
   renderSavedDeals(name);
   syncAllDealBanners();
+  showToast('📂 Loaded deal: '+name);
 }
 function deleteDeal(name,e){
   e.stopPropagation();if(!confirm('Delete saved deal: '+name+'?'))return;
@@ -4917,12 +5076,19 @@ function renderSavedDeals(activeName){
       ${n} <span class="del" onclick="deleteDeal('${n.replace(/'/g,"\\'")}',event)">×</span></div>`).join('');
 }
 function clearForm(){
-  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability','genAttendees','genDate','genSpecial','genItemCount','genMenuText','genMenuNotes'].forEach(id=>{document.getElementById(id).value=''});
-  ['genPackage','genSessionType','genHardware','genMenuStatus','genSourcePOS','genMenuType','genBPOActivity'].forEach(id=>{document.getElementById(id).selectedIndex=0});
+  ['genBusiness','genSeller','genSellerEmail','genAE','genDSR','genRecording','genTranscript','genNotes','genGoLive','genAvailability','genAttendees','genDate','genSpecial','genItemCount','genMenuText','genMenuNotes'].forEach(id=>{var el=document.getElementById(id);if(el)el.value=''});
+  ['genPackage','genSessionType','genHardware','genMenuStatus','genSourcePOS','genMenuType','genBPOActivity'].forEach(id=>{var el=document.getElementById(id);if(el)el.selectedIndex=0});
   menuItems=[];renderMenuItems();saveMenuItems();
   menuFiles=[];renderMenuFiles();
-  document.getElementById('fileInfo').style.display='none';
-  document.getElementById('genStatus').textContent='';renderSavedDeals();
+  var fi=document.getElementById('fileInfo');if(fi)fi.style.display='none';
+  var gs=document.getElementById('genStatus');if(gs)gs.textContent='';
+
+  // Clear ALL tab state
+  clearAllTabState();
+
+  renderSavedDeals();
+  syncAllDealBanners();
+  showToast('🗑️ Form and all tab data cleared');
 }
 
 // ===== INIT =====
