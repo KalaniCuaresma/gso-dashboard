@@ -379,6 +379,7 @@ html.light-mode .toast{background:var(--bg-card)!important;border-color:var(--bo
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
+<button class="tab-btn" onclick="showTab('premiumKO')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">👑 Premium KO</button>
 <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode">🌑</button>
 </nav>
 <div class="container">
@@ -3168,6 +3169,238 @@ Example:
 
 </div><!-- end subPlans -->
 
+<div id="premiumKO" class="tab">
+<h1 style="margin-bottom:4px">&#128081; Premium / Onsite Kick Off Call Checklist</h1>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Complete question checklist for Premium and Onsite implementations. Includes 3P onsite coordination, business discovery, and scheduling. <span class="slide-badge" style="font-size:10px">&#128421;&#65039; Slide cues</span> show when to advance your deck.</p>
+
+<!-- Deal Banner -->
+<div class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128203; Active Deal:</strong> <span class="deal-banner-biz" style="font-weight:700"></span> &mdash; <span class="deal-banner-seller"></span> &mdash; <span class="deal-banner-pkg" style="color:#22c55e"></span> &mdash; AE: <span class="deal-banner-ae"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+
+<!-- Slide Deck Template Link -->
+<div style="background:#eab30811;border:1px solid #eab30844;border-radius:10px;padding:16px 18px;margin-bottom:12px">
+<p style="font-size:14px;margin-bottom:6px">&#128206; <b>Slide Deck Template:</b> <a href="https://docs.google.com/presentation/d/1ngN06_zROgJtpMMGIYJ7uzFJncre2gd_kyAvEemkNPc/edit" target="_blank" style="color:#eab308;text-decoration:underline;font-weight:700;font-size:14px">Premium/Onsite KO Slides &mdash; Make a Copy &rarr;</a></p>
+<p style="font-size:12px;color:#94a3b8">Copy this template before each KO call. Replace the business name on Slide 1 and screenshare during the call.</p>
+</div>
+
+<!-- Slide Order -->
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<h4 style="font-size:13px;margin-bottom:8px">&#128421;&#65039; Slide Order (9 slides)</h4>
+<div style="display:flex;flex-wrap:wrap;gap:4px;font-size:11px">
+<span style="background:#eab30822;color:#eab308;padding:4px 10px;border-radius:6px;font-weight:600">1. Welcome</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">2. Introductions</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">3. Who Am I?</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">4. What Success Looks Like</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">5. What to Expect</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">6. Core Training Sessions</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">7. Menu/Inventory Timeline</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#2d2d5e;color:#e2e8f0;padding:4px 10px;border-radius:6px">8. Additional Data</span>
+<span style="color:#64748b">&rarr;</span>
+<span style="background:#22c55e22;color:#22c55e;padding:4px 10px;border-radius:6px;font-weight:600">9. What Happens Next</span>
+</div>
+</div>
+
+<!-- Progress -->
+<div class="cl-progress">
+<div class="cl-progress-label">Progress</div>
+<div class="cl-progress-bar"><div class="cl-progress-fill" id="premKOProgressFill" style="width:0%"></div></div>
+<div class="cl-progress-text" id="premKOProgressText" style="color:#eab308">0%</div>
+</div>
+
+<!-- ===== SECTION 1: 3P ONSITE QUESTIONS ===== -->
+<div class="cl-section" style="border-left:3px solid #ef4444">
+<h3><span class="cl-icon">&#128679;</span> 3P Onsite Questions <span style="font-size:10px;color:#ef4444;font-weight:400">(Skip if not an Onsite)</span> <span class="cl-count" id="premKO-s1-count">0/0</span></h3>
+
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin-bottom:12px;font-size:12px">
+<strong style="color:#eab308">&#129504; Talk Track / Reminders:</strong><br>
+&#8226; Site surveys can typically be completed within 2-3 days of submission; remote trainings should be completed prior to installation.<br>
+&#8226; You will be coordinating both visits and will inform the seller via email once the dates/times are locked in.<br>
+&#8226; Someone needs to remain ON SITE the entirety of the walkthrough (1-3 hours). Goal: test network, connections, ensure setup supports hardware OR identify cabling/networking updates.<br>
+&#8226; For Install: Seller needs to be present. All walkthroughs, cabling installations, etc. need to happen ahead of install date or it will need to be pushed back.
+</div>
+
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Ideal Contact for Onsite</b> &mdash; name, direct phone number (decision maker for networking/hardware)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Physical Business Address(es)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ideal timeframe for <b>Site Survey</b> within the next 3-5 days</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ideal timeframe for <b>Onsite Installation + In-Person Training</b>
+<div class="cl-sub">&#127878; Pro Tip: Gather a timeframe for each day and know their business hours! May be able to install before they open.</div></span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Any flexibility to open later on their ideal GL date?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Business Name (if differs from DSR/Regulator)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">More than 1 location?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Specific Hardware List</b> &mdash; usage/location for each device
+<div class="cl-sub">Example: 2 Register Kits (Cash Drawer + RP + Scanner): 1 at Bar facing wall, 1 at server station. 2 KDS w/ KPs ethernet: 1 routes Wings, 1 all other food.</div></span></div>
+
+<div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#006AFF">&#9989; Hardware Accessory Checks:</strong><br>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Receipt Printers ordered? &rarr; Do they have thermal paper?</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Kitchen Impact Printers? &rarr; Do they have impact printer paper?</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">KDS screens? &rarr; Do they have a mount? (Square sells wall mounts, or source own &mdash; 100x100 VESA compatible)</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Barcode Label Printer? &rarr; Do they have correct/compatible labels?</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">iPad ordered? &rarr; Will they need a Square Stand with it?</span></div>
+</div>
+
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Current POS Provider (if not provided)?
+<div class="cl-sub">If Toast: did they order a networking kit or plan to source/set up a new one?</div></span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Who manages their network? Who is their network provider?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Existing connections to swap out, or potential for new cables to be run?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">KDS included? &rarr; Need support installing wall mount or will they set up in advance?
+<div class="cl-sub">Additional $50 per installation. Technicians can only mount to drywall and drywall-like surfaces.</div></span></div>
+</div>
+
+<!-- ===== SECTION 2: OPEN + INTRODUCTIONS ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128075;</span> Open + Introductions <span class="slide-badge">&#128421;&#65039; Slides 1-3</span> <span class="cl-count" id="premKO-s2-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Recording disclosure: "This call is being recorded and monitored to ensure quality"</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Introduce yourself &mdash; PM role, main point of contact, manage implementation end-to-end</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm attendees &mdash; names, roles, who will be primary contact</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Set expectations: recap emails after each session, reachable by email or pre-scheduled appointments</span></div>
+</div>
+
+<!-- ===== SECTION 3: WHAT SUCCESS LOOKS LIKE ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127942;</span> What Success Looks Like <span class="slide-badge">&#128421;&#65039; Slide 4</span> <span class="cl-count" id="premKO-s3-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">By end of implementation: run business confidently in Square</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Understand workflows &mdash; front and back of house</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Make updates and adjustments independently</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Know exactly who to contact for ongoing support</span></div>
+</div>
+
+<!-- ===== SECTION 4: WHAT TO EXPECT ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128197;</span> What to Expect <span class="slide-badge">&#128421;&#65039; Slides 5-6</span> <span class="cl-count" id="premKO-s4-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Walk through structured training sessions + behind-the-scenes coordination</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Core sessions: Dashboard Training (90 min), Menu Review (60 min, RST), POS Training (90 min)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Post-Live Healthcheck (1 hour) &mdash; within 5 business days of go-live/installation</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Additional sessions discussed if needed</span></div>
+</div>
+
+<!-- ===== SECTION 5: BUSINESS OVERVIEW ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127970;</span> Business Overview &amp; Discovery <span class="cl-count" id="premKO-s5-count">0/0</span></h3>
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:11px;color:#eab308">
+<strong>&#129504; Tip:</strong> Open-ended questions deliver the best responses. Reduce yes/no questions to capture the full picture. Maintain ownership if seller shifts too far off topic.
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">What is the ideal <b>Go Live date</b> with Square?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">High-level business overview (if not covered during intros)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm which app/subscription they plan to use</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Hardware:</b> Have they ordered? What are they using? Compatibility? Is WiFi reliable?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Checkout:</b> What is the checkout process? What is each device used for?</span></div>
+</div>
+
+<!-- ===== SECTION 6: MENU / ITEM LIST ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127869;</span> Menu / Item List Review <span class="slide-badge">&#128421;&#65039; Slide 7</span> <span class="cl-count" id="premKO-s6-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Discuss previously provided files/websites (share your screen!)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ask pre-prepared questions about their file(s)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Anything they sell that is NOT on the data we've looked at today?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Key Variations, Modifiers, Discounts? (be upfront about modifier limitations)</span></div>
+
+<div style="background:#ff6b3510;border-left:3px solid #ff6b35;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
+<strong style="color:#ff6b35">&#127869; For RST:</strong><br>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Invisible modifiers not on files/menus that team relies on?
+<div class="cl-sub">If so, share the Restaurant Menu Template for them to provide this data.</div></span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Floor Plans &mdash; can they provide?</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Various Menus (time-based) or 1 main menu with unique buttons?</span></div>
+</div>
+
+<div style="background:#006AFF10;border-left:3px solid #006AFF;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
+<strong style="color:#006AFF">&#128722; For RTL:</strong><br>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">SKU/GTIN &mdash; clear which datasets they rely on for barcode scanning?</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Accurate stock tracking today? &rarr; Offer go-live stock count import (file up to 2 days before GL)</span></div>
+</div>
+</div>
+
+<!-- ===== SECTION 7: CATEGORIES ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128193;</span> Categories &amp; Reporting <span class="cl-count" id="premKO-s7-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>RST:</b> Printer Routing Needs? Unique categories to specific kitchen printers? Or item-based?
+<div class="cl-sub">&#9888;&#65039; Square does not yet support item-based printer routing. Key to understand which items within a larger category go to one printer vs. another to create the right "printer categories" from the start.</div></span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reporting Needs? (mention Rollups if relevant)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Clear on file which Category/Department to use for Reporting Category?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>RTL:</b> Multiple category columns? &rarr; Nested categories in Square? Which is the reporting category?</span></div>
+</div>
+
+<!-- ===== SECTION 8: ADDITIONAL SQUARE FEATURES ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#10024;</span> Additional Square Features for Go Live <span class="cl-count" id="premKO-s8-count">0/0</span></h3>
+
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Square Online?</b> Existing website/online presence? Switch to Square or simplified ordering page?
+<div class="cl-sub">Fulfillment: Pickup, Shipping, Delivery, QR Code ordering?<br>GSO does not "build" a complete website. Implementation includes triggering items for online, optimizing settings during SO Training, and high-level overview of customization.</div></span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Loyalty?</b> Existing program or starting new with Square?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Marketing?</b> What are their goals with Square Marketing?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Payroll?</b>
+<div class="cl-sub">&#9888;&#65039; Requires a different DSR from AE/AM &mdash; not included in current implementation. Ensure no payroll expectation from the start! If they want Payroll, let them know AE/AM will connect regarding cost and next steps.</div></span></div>
+</div>
+
+<!-- ===== SECTION 9: ADDITIONAL IMPORTS ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128230;</span> Additional Imports &amp; Data <span class="slide-badge">&#128421;&#65039; Slide 8</span> <span class="cl-count" id="premKO-s9-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Existing rewards data to migrate?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Customer data to import?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Gift Card Liability Report? (1 day before go-live)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Staff data to import? (after Dashboard session)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Will they be tracking time with Square? Scheduling?</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Tax:</b> Any specific tax rules/needs we should be aware of?</span></div>
+</div>
+
+<!-- ===== SECTION 10: WRAP UP + SCHEDULING ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128197;</span> Wrap Up &amp; Scheduling <span class="slide-badge">&#128421;&#65039; Slide 9</span> <span class="cl-count" id="premKO-s10-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Establish the implementation timeline</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reiterate which Training sessions will be scheduled and Go Live goal date</span></div>
+
+<div style="background:#a855f710;border-left:3px solid #a855f7;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
+<strong style="color:#a855f7">&#128197; PM Coordination (if coordinating, not running sessions yourself):</strong><br>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ask for general availability over the next 3 weeks max</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Get 3-5 hours each day that works for seller to join training
+<div class="cl-sub">&#128172; Talk Track: "I'll be submitting the requests for your training sessions, so let's nail down times and dates that will not work so I can puzzle piece this together for us. For example, I'd like to know: 'I can meet every Wed and Thu, between 12-6pm; this Friday I'm booked, but I'll be free 9-1pm next Friday. If M-T is possible, I'd prefer mornings before 1pm on Mondays, and Tuesdays between 2-5pm.'"</div></span></div>
+</div>
+
+<div style="background:#22c55e10;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
+<strong style="color:#22c55e">&#128197; PM Led (you own all sessions during ramp-up):</strong><br>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Select customer from DSR &rarr; initiate ChiliPiper pop-up</span></div>
+<div class="cl-item" style="border:none;padding:4px 0"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Lock in dates for all relevant training sessions over next 2 weeks via ChiliPiper Calendar
+<div class="cl-sub">&#128161; Pro tip: If they have a firm GL date, schedule the Final QA within 1 week of GL. If GL depends on Install team availability, remind them you'll send the booking link once installation date is confirmed.</div></span></div>
+</div>
+</div>
+
+<!-- ===== SECTION 11: NEXT STEPS ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128640;</span> Next Steps <span class="cl-count" id="premKO-s11-count">0/0</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reiterate implementation timeline and everyone's next steps</span></div>
+
+<div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#006AFF">&#128073; From You:</strong><br>
+&#8226; They will receive a post-call email with today's call summary, recordings, and reminders<br>
+&#8226; If coordinating training with technicians: remind them they'll hear from you with confirmed dates/times within 24 hours of post-call email
+</div>
+
+<div style="background:#22c55e10;border:1px solid #22c55e33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#22c55e">&#128073; Homework for Seller:</strong><br>
+&#8226; Complete the Account &amp; Settings checklist (attached to post-call email) before Dashboard Training<br>
+&#8226; Send any missing or extra files for import<br>
+&#8226; Send email list of any staff they'd want to include in upcoming trainings
+</div>
+
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm seller understands their homework items</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Thank them and close the call</span></div>
+</div>
+
+<div class="cl-tip">&#128161; <b>Tip:</b> Premium/Onsite implementations have more moving parts. Over-communicate timelines and next steps &mdash; the seller should never wonder what happens next.</div>
+
+<div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('premKO')">&#128260; Reset All</button></div>
+</div><!-- end premiumKO -->
+
 
 </div><!-- end container -->
 
@@ -3240,7 +3473,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'Dashboard',email:'Seller Email',dsr:'DSR Chatter',bpo:'BPO Task',analysis:'Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Questions',study:'📚 Study Guide',training:'🎓 RST DB Training',rstPosTraining:'🍽️ RST POS Training',rtlTraining:'🛍️ RTL DB Training',rtlPosTraining:'🛒 RTL POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans',premiumKO:'👑 Premium KO'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -6223,6 +6456,42 @@ function showSubPlanView(id){
     else{b.style.background='#1a1a3e';b.style.color=colors[k]?colors[k][0]:'#94a3b8';b.style.border='1px solid '+(colors[k]?colors[k][0]+'44':'#64748b44');}
   });
 }
+
+function updatePremKO(){
+  var checks=document.querySelectorAll('input[data-cl="premKO"]');
+  var total=0,done=0;var states=[];
+  checks.forEach(function(c){
+    total++;
+    if(c.checked){done++;if(c.closest('.cl-item'))c.closest('.cl-item').classList.add('cl-done');}
+    else{if(c.closest('.cl-item'))c.closest('.cl-item').classList.remove('cl-done');}
+    states.push(c.checked);
+  });
+  var pct=total>0?Math.round(done/total*100):0;
+  var fill=document.getElementById('premKOProgressFill');
+  var txt=document.getElementById('premKOProgressText');
+  if(fill)fill.style.width=pct+'%';
+  if(txt){txt.textContent=pct+'%';txt.style.color=pct===100?'#22c55e':pct>=50?'#eab308':'#ef4444';}
+  localStorage.setItem('gso-premKO-checks',JSON.stringify(states));
+  // Update section counts
+  var sections=document.querySelectorAll('#premiumKO .cl-section');
+  sections.forEach(function(sec,idx){
+    var sc=sec.querySelectorAll('input[data-cl="premKO"]');
+    var sd=0;sc.forEach(function(c){if(c.checked)sd++;});
+    var counter=sec.querySelector('.cl-count');
+    if(counter)counter.textContent=sd+'/'+sc.length;
+  });
+}
+// Load saved premKO checks
+document.addEventListener('DOMContentLoaded',function(){
+  var saved=localStorage.getItem('gso-premKO-checks');
+  if(saved){
+    var arr=JSON.parse(saved);
+    document.querySelectorAll('input[data-cl="premKO"]').forEach(function(c,i){
+      if(arr[i])c.checked=true;
+    });
+    updatePremKO();
+  }else{updatePremKO();}
+});
 </script>
 </body>
 </html>
