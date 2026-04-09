@@ -880,87 +880,99 @@ Examples:
 <span style="font-size:28px">&#129302;</span>
 <div>
 <h2 style="font-size:18px;margin-bottom:2px;color:#a855f7">Harnessing AI &mdash; Post-KO Deliverables</h2>
-<p style="color:#94a3b8;font-size:12px">Use the GSO PM Assistant GPT Agent to generate your post-call deliverables once the Revenue.io transcript + recording are available.</p>
+<p style="color:#94a3b8;font-size:12px">Your prompt is pre-filled from the Generator. Add your brain dump, paste the transcript, and copy the full prompt.</p>
 </div>
 </div>
 
-<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#006AFF;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:12px 24px;font-size:14px;margin-bottom:20px">&#128640; Open GSO PM Assistant GPT</a>
-
-<h3 style="font-size:15px;color:#22c55e;margin-bottom:14px">&#128221; Create Deliverables via Prompting</h3>
-
-<div style="display:flex;flex-direction:column;gap:12px">
-
-<!-- Step 1 -->
-<div style="display:flex;gap:12px;align-items:flex-start">
-<div style="min-width:32px;height:32px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">1</div>
-<div style="flex:1">
-<p style="font-size:13px;font-weight:700;margin-bottom:4px">Start a new chat &amp; rename it</p>
-<p style="font-size:12px;color:#94a3b8">Open the GSO PM Assistant and start a <b>new chat</b>. Rename the chat to the <b>Business Name</b> for easy reference later.</p>
-</div>
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#006AFF;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px">&#128640; Open GSO PM Assistant GPT</a>
+<button class="btn btn-green" onclick="copyPostKOFullPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px">&#128203; Copy Full Prompt</button>
 </div>
 
-<!-- Step 2 -->
-<div style="display:flex;gap:12px;align-items:flex-start">
-<div style="min-width:32px;height:32px;background:#006AFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">2</div>
-<div style="flex:1">
-<p style="font-size:13px;font-weight:700;margin-bottom:4px">Build your prompt &mdash; all in 1 message, before sending</p>
-<p style="font-size:12px;color:#94a3b8;margin-bottom:8px">Pull in the following <b>3 correct snippets</b> into your Agent Chat:</p>
-<div style="background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:14px;font-size:12px;line-height:1.8">
-<div style="margin-bottom:10px">
-<span style="background:#22c55e22;color:#22c55e;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">FIRST</span>
-<span style="margin-left:6px">Paste the required header: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koheader</code></span>
+<!-- ===== ;koheader (pre-filled) ===== -->
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:14px;color:#22c55e;margin:0">&#128221; ;koheader <span style="font-size:11px;color:#64748b;font-weight:400">(auto-filled from Generator)</span></h3>
+<button class="btn btn-sm" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44" onclick="refreshPostKOHeader()">&#128260; Refresh from Generator</button>
 </div>
-<div style="margin-bottom:10px">
-<span style="background:#eab30822;color:#eab308;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">THEN</span>
-<span style="margin-left:6px">Use <b>voice-to-text</b> to add a brain dump (extra context, seller sentiment, promises made, timing constraints)</span>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">DELIVERABLES REQUESTED</label>
+<input type="text" id="pko-deliverables" value="(A Email) (B DSR) (C Internal Analysis)" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SESSION TYPE</label>
+<select id="pko-sessionType" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+<option value="Kickoff">Kickoff</option>
+<option value="PM-led Mid">PM-led Mid</option>
+<option value="Tech-led">Tech-led</option>
+<option value="Final">Final</option>
+</select></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">PACKAGE</label>
+<select id="pko-package" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+<option value="Plus">Plus</option>
+<option value="Premium">Premium</option>
+<option value="Standard">Standard</option>
+<option value="Optimization">Optimization</option>
+</select></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">CALL DATE</label>
+<input type="text" id="pko-callDate" placeholder="e.g. June 30, 2025" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">TIMEZONE</label>
+<select id="pko-timezone" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px">
+<option value="CST">CST</option>
+<option value="EST">EST</option>
+<option value="PST">PST</option>
+<option value="MST">MST</option>
+</select></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SELLER</label>
+<input type="text" id="pko-seller" placeholder="Seller name" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">AE/AM</label>
+<input type="text" id="pko-ae" placeholder="AE/AM name" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">GO-LIVE / INSTALL</label>
+<input type="text" id="pko-goLive" placeholder="Date or N/A/Unknown" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">NEXT SESSION(S)</label>
+<input type="text" id="pko-nextSession" placeholder="Known dates or TBD" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">RECORDING LINK</label>
+<input type="text" id="pko-recording" placeholder="Revenue.io link" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
 </div>
-<div style="margin-bottom:10px">
-<span style="background:#006AFF22;color:#006AFF;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">ADD</span>
-<span style="margin-left:6px">Call Recording Link <span style="color:#64748b">(Revenue.io)</span></span>
+
+<div style="margin-bottom:12px">
+<label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">MY NOTES (brain dump) &#127908; <span style="color:#94a3b8">Use voice-to-text or type extra context, seller sentiment, promises made, timing constraints</span></label>
+<textarea id="pko-brainDump" rows="4" placeholder="Brain dump: extra context, seller sentiment, promises made, timing constraints..." style="width:100%;padding:8px 12px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
 </div>
-<div style="margin-bottom:10px">
-<span style="background:#006AFF22;color:#006AFF;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">ADD</span>
-<span style="margin-left:6px">Call Transcript <span style="color:#64748b">(Revenue.io)</span></span>
-</div>
-<div style="margin-bottom:10px">
-<span style="background:#ff6b3522;color:#ff6b35;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">THEN</span>
-<span style="margin-left:6px">Paste the deliverables engine: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;masterprompt</code></span>
-</div>
+
 <div>
-<span style="background:#a855f722;color:#a855f7;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">FINALLY</span>
-<span style="margin-left:6px">Paste the Kickoff add-on: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koaddon</code></span>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Step 3 -->
-<div style="display:flex;gap:12px;align-items:flex-start">
-<div style="min-width:32px;height:32px;background:#ff6b35;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">3</div>
-<div style="flex:1">
-<p style="font-size:13px;font-weight:700;margin-bottom:4px">Send &amp; wait for the deliverables</p>
-<p style="font-size:12px;color:#94a3b8">The GPT will generate your <b>Seller Email</b>, <b>DSR Chatter</b>, and <b>Internal Analysis</b>. Copy each section and paste into the corresponding tab here.</p>
+<label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">TRANSCRIPT <span style="color:#94a3b8">(paste Revenue.io transcript)</span></label>
+<textarea id="pko-transcript" rows="6" placeholder="Paste the full Revenue.io transcript here..." style="width:100%;padding:8px 12px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<span id="pko-transcriptCount" style="font-size:11px;color:#64748b">0 characters</span>
 </div>
 </div>
 
-<!-- Step 4 -->
-<div style="display:flex;gap:12px;align-items:flex-start">
-<div style="min-width:32px;height:32px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">4</div>
-<div style="flex:1">
-<p style="font-size:13px;font-weight:700;margin-bottom:4px">Paste deliverables into the tabs</p>
-<p style="font-size:12px;color:#94a3b8">Switch to the <b>Seller Email</b>, <b>DSR Chatter</b>, or <b>BPO Task</b> sub-tabs to paste and review each deliverable.</p>
-<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-<button class="btn btn-sm" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44" onclick="showPostKOSub('postko-email')">&#128231; Seller Email</button>
-<button class="btn btn-sm" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44" onclick="showPostKOSub('postko-dsr')">&#128221; DSR Chatter</button>
-<button class="btn btn-sm" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544" onclick="showPostKOSub('postko-bpo')">&#128295; BPO Task</button>
+<!-- ===== ;masterprompt + ;koaddon (embedded, read-only preview) ===== -->
+<div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+<div style="flex:1;min-width:200px;background:#0f0f23;border:1px solid #ff6b3544;border-radius:8px;padding:14px">
+<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+<code style="background:#ff6b3522;color:#ff6b35;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">;masterprompt</code>
+<span style="font-size:10px;color:#64748b">Auto-included in full prompt</span>
 </div>
+<p style="font-size:11px;color:#94a3b8;line-height:1.5">GSO PM Assistant deliverables engine &mdash; generates (A) Seller Email, (B) DSR Chatter, (C) Internal Analysis with bloat control, open question guardrails, and risk/issue/decision separation.</p>
+</div>
+<div style="flex:1;min-width:200px;background:#0f0f23;border:1px solid #a855f744;border-radius:8px;padding:14px">
+<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+<code style="background:#a855f722;color:#a855f7;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">;koaddon</code>
+<span style="font-size:10px;color:#64748b">Auto-included for Kickoff sessions</span>
+</div>
+<p style="font-size:11px;color:#94a3b8;line-height:1.5">Adds KO-specific instructions: reinforce PM as primary contact, confirm scheduling within 24hrs, initial milestone plan, critical path dependencies.</p>
 </div>
 </div>
 
+<!-- Copy Full Prompt (bottom) -->
+<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+<button class="btn btn-green" onclick="copyPostKOFullPrompt()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px">&#128203; Copy Full Prompt to Clipboard</button>
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#006AFF;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px">&#128640; Open GSO PM Assistant GPT</a>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="clearPostKOPrompt()">&#128465; Clear</button>
 </div>
 
-<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin-top:16px;font-size:12px">
-<strong style="color:#eab308">&#128161; Pro Tip:</strong> The <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koheader</code>, <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;masterprompt</code>, and <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koaddon</code> are TextBlaze snippets. Make sure TextBlaze is active in your browser before pasting.
+<div id="pkoPromptCopied" style="display:none;margin-top:12px;text-align:center">
+<p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Full prompt copied! Paste into the GSO PM Assistant GPT chat.</p>
 </div>
 
 </div>
@@ -4402,6 +4414,45 @@ function syncTabSpecificFields(id){
     if(el&&val&&!el.dataset.userChanged){
       for(var i=0;i<el.options.length;i++){
         if(el.options[i].value.toLowerCase().indexOf(val.toLowerCase())>-1){el.selectedIndex=i;break}
+      }
+    }
+  }
+
+  // === Post-KO Prompt Builder ===
+  if(id==='postKODeliv'){
+    fillIfEmpty('pko-seller',seller);
+    fillIfEmpty('pko-ae',ae);
+    fillIfEmpty('pko-goLive',goLive);
+    fillIfEmpty('pko-recording',(document.getElementById('genRecording')||{}).value||'');
+    var pkoNotes=document.getElementById('pko-brainDump');
+    if(pkoNotes&&!pkoNotes.value){
+      var gNotes=(document.getElementById('genNotes')||{}).value||'';
+      if(gNotes)pkoNotes.value=gNotes;
+    }
+    var pkoTrans=document.getElementById('pko-transcript');
+    if(pkoTrans&&!pkoTrans.value){
+      var gTrans=(document.getElementById('genTranscript')||{}).value||'';
+      if(gTrans){pkoTrans.value=gTrans;updatePkoTranscriptCount()}
+    }
+    // Call date
+    var pkoDate=document.getElementById('pko-callDate');
+    if(pkoDate&&!pkoDate.value){
+      var gDate=(document.getElementById('genDate')||{}).value||'';
+      if(gDate){try{var d=new Date(gDate);pkoDate.value=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}catch(e){pkoDate.value=gDate}}
+      else{pkoDate.value=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
+    }
+    // Package
+    if(pkg){selectIfEmpty('pko-package',pkg)}
+    // Session type
+    var gST=(document.getElementById('genSessionType')||{}).value||'';
+    if(gST){
+      var stSel=document.getElementById('pko-sessionType');
+      if(stSel&&!stSel.dataset.userChanged){
+        var st=gST.toLowerCase();
+        if(st.indexOf('kick')>-1||st.indexOf('ko')>-1)stSel.value='Kickoff';
+        else if(st.indexOf('final')>-1)stSel.value='Final';
+        else if(st.indexOf('tech')>-1)stSel.value='Tech-led';
+        else stSel.value='PM-led Mid';
       }
     }
   }
@@ -7916,7 +7967,7 @@ function parseP3Response(){
 }
 
 function clearP3Form(){
-  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline'].forEach(function(id){
+  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value='';
   });
   document.getElementById('p3BizType').selectedIndex=0;
@@ -7987,6 +8038,197 @@ function exportPremKONotes(){
   navigator.clipboard.writeText(lines.join('\n')).then(function(){showToast('\u2705 Premium KO notes exported!')});
 }
 document.addEventListener('DOMContentLoaded',function(){loadPremKONotes()});
+
+
+
+// ===== POST-KO PROMPT BUILDER =====
+function refreshPostKOHeader(){
+  var biz=(document.getElementById('genBusiness')||{}).value||'';
+  var seller=(document.getElementById('genSeller')||{}).value||'';
+  var ae=(document.getElementById('genAE')||{}).value||'';
+  var pkg=(document.getElementById('genPackage')||{}).value||'';
+  var goLive=(document.getElementById('genGoLive')||{}).value||'';
+  var recording=(document.getElementById('genRecording')||{}).value||'';
+  var notes=(document.getElementById('genNotes')||{}).value||'';
+  var callDate=(document.getElementById('genDate')||{}).value||'';
+  var sessionType=(document.getElementById('genSessionType')||{}).value||'';
+  var transcript=(document.getElementById('genTranscript')||{}).value||'';
+
+  // Fill header fields
+  if(seller)document.getElementById('pko-seller').value=seller;
+  if(ae)document.getElementById('pko-ae').value=ae;
+  if(goLive)document.getElementById('pko-goLive').value=goLive;
+  if(recording)document.getElementById('pko-recording').value=recording;
+  if(notes)document.getElementById('pko-brainDump').value=notes;
+  if(transcript)document.getElementById('pko-transcript').value=transcript;
+
+  // Call date
+  if(callDate){
+    try{
+      var d=new Date(callDate);
+      document.getElementById('pko-callDate').value=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    }catch(e){document.getElementById('pko-callDate').value=callDate}
+  }else{
+    document.getElementById('pko-callDate').value=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  }
+
+  // Package
+  var pkgSel=document.getElementById('pko-package');
+  if(pkg&&pkgSel){
+    var pl=pkg.toLowerCase();
+    if(pl.indexOf('premium')>-1)pkgSel.value='Premium';
+    else if(pl.indexOf('plus')>-1)pkgSel.value='Plus';
+    else if(pl.indexOf('opti')>-1)pkgSel.value='Optimization';
+    else pkgSel.value='Standard';
+  }
+
+  // Session type
+  var stSel=document.getElementById('pko-sessionType');
+  if(sessionType&&stSel){
+    var st=sessionType.toLowerCase();
+    if(st.indexOf('kick')>-1||st.indexOf('ko')>-1)stSel.value='Kickoff';
+    else if(st.indexOf('final')>-1)stSel.value='Final';
+    else if(st.indexOf('tech')>-1)stSel.value='Tech-led';
+    else stSel.value='PM-led Mid';
+  }
+
+  // Update transcript count
+  updatePkoTranscriptCount();
+  showToast('\u{1F504} Header refreshed from Generator');
+}
+
+function updatePkoTranscriptCount(){
+  var ta=document.getElementById('pko-transcript');
+  var ct=document.getElementById('pko-transcriptCount');
+  if(ta&&ct)ct.textContent=ta.value.length+' characters';
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var ta=document.getElementById('pko-transcript');
+  if(ta)ta.addEventListener('input',updatePkoTranscriptCount);
+});
+
+function copyPostKOFullPrompt(){
+  var deliverables=document.getElementById('pko-deliverables').value.trim();
+  var sessionType=document.getElementById('pko-sessionType').value;
+  var pkg=document.getElementById('pko-package').value;
+  var callDate=document.getElementById('pko-callDate').value.trim()||new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  var tz=document.getElementById('pko-timezone').value;
+  var seller=document.getElementById('pko-seller').value.trim()||'[Seller Name]';
+  var ae=document.getElementById('pko-ae').value.trim()||'[AE/AM Name]';
+  var goLive=document.getElementById('pko-goLive').value.trim()||'N/A/Unknown';
+  var nextSession=document.getElementById('pko-nextSession').value.trim()||'TBD';
+  var recording=document.getElementById('pko-recording').value.trim()||'[Recording Link]';
+  var brainDump=document.getElementById('pko-brainDump').value.trim();
+  var transcript=document.getElementById('pko-transcript').value.trim();
+
+  // Build ;koheader
+  var header='DELIVERABLES REQUESTED: '+deliverables+'\n\n';
+  header+='SESSION TYPE: '+sessionType+'\n\n';
+  header+='PACKAGE: '+pkg+'\n\n';
+  header+='CALL DATE: '+callDate+'  TIMEZONE: '+tz+'\n\n';
+  header+='SELLER: '+seller+'\n\n';
+  header+='AE/AM: '+ae+'\n\n';
+  header+='GO-LIVE/INSTALL: '+goLive+'\n\n';
+  header+='NEXT SESSION(S): '+nextSession+'\n\n';
+  header+='RECORDING LINK: '+recording+'\n\n';
+  header+='MY NOTES (brain dump): '+(brainDump||'N/A')+'\n\n';
+  header+='TRANSCRIPT: '+(transcript||'[Paste transcript]')+'\n\n';
+
+  // Build ;masterprompt
+  var master='You are my GSO PM Assistant. Generate post-call deliverables for an ongoing Square implementation. Assume continuity from prior messages unless I explicitly say this is a new seller.\n\n';
+  master+='IMPORTANT: We no longer use Implementation Pages/Highspot. Do not reference or mention them. The seller email must contain all relevant session documentation (summary, decisions, next steps, homework, recording link, and upcoming sessions).\n\n';
+  master+='Your job: produce ONLY the deliverables I request using the transcript + my brain dump. Keep outputs momentum-driven, scannable, and non-bloated.\n\n';
+  master+='GLOBAL OUTPUT RULES\n';
+  master+='- Do not reset context or restate background unless it changed.\n';
+  master+='- Prefer clarity + forward motion over volume.\n';
+  master+='- If transcript contradicts prior decisions in this chat, FLAG it in internal outputs.\n';
+  master+='- Separate: Risks vs Issues vs Decisions.\n';
+  master+='- Always capture: Go-live status (if applicable), training sequencing, seller homework, what I\u2019m coordinating, open items.\n';
+  master+='- If something is unknown, mark it as "Unknown" (don\u2019t invent).\n\n';
+  master+='OPEN QUESTIONS GUARDRAIL (Critical)\n';
+  master+='- If there are material open questions, technician deferrals, or unclear commitments that would change next steps, PAUSE normal deliverables and output:\n';
+  master+='  (1) Open Question\n  (2) Context from call\n  (3) What was said so far\n  (4) Proposed answer options / what we need to confirm\n';
+  master+='Then stop. Do not draft email/DSR until those are resolved.\n\n';
+  master+='DELIVERABLES (generate only those I request via toggles below)\n\n';
+  master+='A) Seller-facing Post-Call Email (from Andrea, first person)\n';
+  master+='Structure:\n';
+  master+='1. Thank you + partnership tone (1\u20132 lines). Reinforce I\u2019m primary contact when appropriate.\n';
+  master+='2. Executive preview (max 2 sentences).\n';
+  master+='3. Recording Link (near top).\n';
+  master+='4. Session Summary (plain language; 3\u20136 bullets max).\n';
+  master+='5. Decisions Confirmed (bullets; only real decisions).\n';
+  master+='6. What I\u2019m Coordinating Next (short bullets).\n';
+  master+='7. Upcoming Sessions + Prep (who/what/when; if TBD say "TBD \u2014 I\u2019ll follow up by <timeframe>").\n';
+  master+='8. FINAL Me CHECK-IN REMINDER (conditional)\n';
+  master+='Only include this section if the session appears late-stage (e.g., POS Training / Square Online / Menu Review / final tech-led training) OR the notes indicate go-live is soon.\n';
+  master+='If there is NO explicit final QA session already scheduled/confirmed in the provided notes, add a short section in the seller email titled: "Schedule your final check-in"\n';
+  master+='The section must: Explain this is a brief wrap-up session with GSOPM to confirm readiness and answer remaining questions. Include the cutoff: If go-live date is known: "Please book this no later than after go-live." If go-live date is unknown: "Please book this within 7 days of your Go Live date so we can meet for one final session." Include a placeholder line for my booking link exactly as: [BOOKING LINK]. Keep this section to 2\u20134 sentences max. Do NOT include this section if a final session is already scheduled/confirmed in the notes.\n';
+  master+='9. Seller Homework (timeboxed; owner + due date/target).\n';
+  master+='10. Open Items / I Owe You (only if needed; short).\n';
+  master+='11. Close (reassuring, forward-moving).\n\n';
+  master+='B) Internal DSR Chatter Notes (Salesforce) \u2014 addressed to the AE/AM as "you" or by name (do not say "AE/AM")\n';
+  master+='Must be scannable, with most important items at the top.\n';
+  master+='Required order:\n';
+  master+='1) \ud83d\udea8 Risks / Your Action Items (top-loaded, bullets)\n';
+  master+='2) \ud83d\udcc5 Go-live / Install Status (changed? on track? or N/A)\n';
+  master+='3) \u2705/\ud83d\udfe2/\ud83d\udfe1 Training Schedule (Completed / Upcoming / Future)\n';
+  master+='4) \ud83e\udde0 Seller Sentiment Snapshot (1\u20132 lines)\n';
+  master+='5) \ud83d\udccc Decisions Made (bullets)\n';
+  master+='6) \ud83e\uddfe Summary (3\u20135 bullets max)\n';
+  master+='7) \ud83e\uddf1 Seller Homework (owner + due)\n';
+  master+='8) \ud83e\udde9 PM Next Steps (what I\u2019m doing next)\n';
+  master+='9) \ud83d\udd0e Detailed Topic Breakdown (bullets + sub-bullets; include what was covered/answered; keep tight)\n\n';
+  master+='Also include:\n';
+  master+='- Call recording link\n';
+  master+='- If internal timeline/milestone shifted, state it explicitly.\n';
+  master+='- If the AE/AM attended, say: "I know you were on the session \u2014 documenting here to keep Salesforce current."\n\n';
+  master+='C) Internal PM Risk & Coordination Analysis (NOT seller-facing)\n';
+  master+='Purpose: help me manage delivery under timeline pressure.\n';
+  master+='Include:\n';
+  master+='- Risks (future threats) vs Issues (current problems) vs Decisions (confirmed)\n';
+  master+='- MVP opportunities (what can be deferred without jeopardizing transacting at go-live)\n';
+  master+='- Bottlenecks / dependencies (menu build, imports, hardware ship, scheduling, permissions)\n';
+  master+='- Expectation management needed (where we must reset in email)\n';
+  master+='- Trust risks (missed commitments, confusion, frustration)\n';
+  master+='- My next internal actions (with order-of-operations)\n\n';
+  master+='BLOAT CONTROL\n';
+  master+='- Seller email: keep under ~250\u2013400 words unless there are many open items.\n';
+  master+='- DSR: detailed but structured; no walls of text.\n';
+  master+='- Never repeat the same point in multiple sections.\n\n';
+
+  // Build ;koaddon (only for Kickoff sessions)
+  var addon='';
+  if(sessionType==='Kickoff'){
+    addon+='SESSION TYPE: KICKOFF\n';
+    addon+='Add to email:\n';
+    addon+='- Reinforce I\u2019m primary contact.\n';
+    addon+='- Set expectation: I\u2019ll follow up with confirmed scheduling within 24 hours (or your stated timeframe).\n\n';
+    addon+='Add to DSR:\n';
+    addon+='- Confirm initial milestone plan + sequencing.\n\n';
+    addon+='Add to internal analysis:\n';
+    addon+='- Identify critical path dependencies that could shift go-live.\n';
+    addon+='Constraint: avoid deep technical detail; focus alignment, readiness, momentum.\n';
+  }
+
+  var fullPrompt=header+master+addon;
+  navigator.clipboard.writeText(fullPrompt).then(function(){
+    document.getElementById('pkoPromptCopied').style.display='block';
+    showToast('\u2705 Full prompt copied! Paste into GSO PM Assistant GPT');
+    setTimeout(function(){document.getElementById('pkoPromptCopied').style.display='none'},5000);
+  });
+}
+
+function clearPostKOPrompt(){
+  ['pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('pko-deliverables').value='(A Email) (B DSR) (C Internal Analysis)';
+  document.getElementById('pko-sessionType').selectedIndex=0;
+  document.getElementById('pko-package').selectedIndex=0;
+  document.getElementById('pko-timezone').selectedIndex=0;
+  document.getElementById('pkoPromptCopied').style.display='none';
+  updatePkoTranscriptCount();
+}
 
 </script>
 </body>
