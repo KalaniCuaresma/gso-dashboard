@@ -513,6 +513,7 @@ nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 <button class="tab-btn" onclick="showTab('analysis')">🔍 Analysis</button>
 <div style="border-top:1px solid var(--border);margin:6px 0"></div>
 <button class="tab-btn" onclick="showTab('dbTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 DB Training</button>
+<button class="tab-btn" onclick="showTab('onlineTraining')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">🌐 Online Training</button>
 <button class="tab-btn" onclick="showTab('posTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
 <div style="border-top:1px solid var(--border);margin:6px 0"></div>
@@ -2529,6 +2530,212 @@ Example:
 </div>
 
 </div><!-- end dbTraining -->
+
+<!-- ===== ONLINE TRAINING (ONSITE/PREMIUM) ===== -->
+<div id="onlineTraining" class="tab">
+<h1 style="margin-bottom:4px">&#127760; Online Training (Onsite/Premium)</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Square Online Training &mdash; DO / SAY / ASK framework. 60 min session covering Shared Settings, Fulfillment, Items, Website, Orders, and more.</p>
+
+<div id="onlineTrainingSellerBanner" class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="onlineTrainingSeller" style="font-weight:700"></span> &mdash; <span id="onlineTrainingPkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+
+<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#22c55e;border-radius:2px"></div> DO &mdash; Actions to take</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#006AFF;border-radius:2px"></div> SAY &mdash; Suggested verbiage</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#eab308;border-radius:2px"></div> ASK &mdash; Key questions</div>
+</div>
+
+<input type="text" id="onlineTrainingSearch" oninput="filterOnlineTraining()" placeholder="&#128269; Search online training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="onlineTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
+<div style="background:#2d2d5e;border-radius:4px;height:8px;overflow:hidden"><div id="onlineTrainingBar" style="background:#22c55e;height:100%;width:0%;transition:width .3s"></div></div>
+</div>
+
+<!-- Section 1: Call Overview / Starting the Session -->
+<div class="online-training-section" data-tsearch="introduction agenda call overview starting session greeting recording">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#ff6b35">START</span> 1. Call Overview <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Introduction</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Introduce yourself and greet everyone on the call.</div>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Let the seller know that the call will be recorded for quality and training purposes.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Agenda</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Remind the seller of the duration of the session (60 min). Give the seller an overview of what will be covered.</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 2: Shared Settings -->
+<div class="online-training-section" data-tsearch="shared settings general checkout sales taxes service charges">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 2. Shared Settings <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">General</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Have the seller check the company name, address, email, and phone number for accuracy. Reiterate this is customer-facing information.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Let&rsquo;s start with Shared Settings as part of the Square Online Dashboard. Please ensure the information listed under General is correct, as this is information that will be visible to your customers. Shared Settings will apply to all websites in your Square Online account.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Is the information listed in Shared Settings correct?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Checkout</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight the Accept online orders toggle. Ensure tipping is enabled (if applicable). Navigate to Customer inputs and explain the &ldquo;leave a note&rdquo; functionality.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Square has two order on/off switches, with this one being the most commonly used. You have the option to turn online ordering on or off here. If you toggle off &lsquo;Accept online orders&rsquo;, items will remain on your site but will not be available for purchase.&rdquo; &ldquo;Let&rsquo;s navigate down to Tipping. We can enable tipping for your Square Online site here.&rdquo; &ldquo;You can also allow customers to leave a note on their order with customer inputs.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you wish to enable tipping for your online site? Would you like to give customers the option to leave a note during checkout?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Sales Taxes</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk the seller through setting up item level tax rates. If they offer shipping, ensure &ldquo;Apply automatically generated tax rates&rdquo; is selected.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;We already set up sales taxes in the Square Dashboard, but if at any point you wish to change the tax rate, you can navigate back to Dashboard by clicking on Sales taxes.&rdquo; &ldquo;If you plan to offer shipping, we recommend using the &lsquo;Apply automatically generated tax rates&rsquo; feature.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Any questions about online sales taxes? (Note: Never advise the seller on what their tax rules should be &mdash; encourage them to reach out to a tax professional.)</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Service Charges</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight that the seller can add or edit service charges in Dashboard by clicking Sales taxes in Shared Settings.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;While we&rsquo;re back in Dashboard, here is where you can also add or edit your service charges. Service charges can be enabled to help offset certain operational or overhead costs, and can be percentage-based or a fixed amount.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to enable service charges for your Square Online site?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 3: Fulfillment -->
+<div class="online-training-section" data-tsearch="fulfillment pickup delivery shipping QR code self-serve ordering">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 3. Fulfillment <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Pickup &amp; Delivery</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk the seller through Pickup &amp; Delivery settings. Highlight: order limiting, difference between business hours and fulfillment hours, restricted dates, fulfillment advanced settings.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Your Pickup &amp; Delivery settings are in your Square Dashboard. By toggling ON either Pickup or Delivery, it will open up those individual settings.&rdquo; &ldquo;Order limiting lets you decide how many pickup orders you can fulfill every 15 min, automatically spacing out orders.&rdquo; &ldquo;Fulfillment hours are the hours you&rsquo;ll allow customers to pick up &mdash; these can differ from your business hours.&rdquo; &ldquo;You can restrict certain dates (holidays, etc.) to prevent orders. In Advanced Settings, you can set quantity limits and allow customers to text HERE when they arrive.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you wish to enable order limiting? Are there any restricted dates we should set up? What questions do you have about Pickup &amp; Delivery settings?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Shipping</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Highlight shipping rate profiles. Explain the default profile and custom profile for items that need custom shipping rates.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;In order for a shipping rate to automatically apply, you&rsquo;ll need to set up a shipping rate profile. You can determine rates by country and service levels. Options include rates by order total, weight, number of items, flat rate, or free shipping. You can also customize shipping at the item level.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Will your business be utilizing shipping? Any questions on setting up a shipping rate profile?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Self-Serve Ordering (QR Codes)</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk the seller through setting up QR code ordering. Cover: ordering stations, ordering hours, alerts/messages/settings, open tabs. Ensure the seller understands how to access the QR codes once created.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;QR code ordering allows your customers to use their mobile device to scan a QR code and proceed with placing an order. You can set this up at a table, in your ordering line, or even in your parking lot. Instead of placing an order with a staff member, they place the order themselves.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to set up QR code ordering? What questions do you have about QR code ordering?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 4: Items -->
+<div class="online-training-section" data-tsearch="items site items categories visibility fulfillment prep time time-based">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 4. Items <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Site Items</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Navigate to the seller&rsquo;s item library and review online-specific settings: Visibility, Fulfillment &amp; Prep time. Explain how to update item settings in bulk.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;To manage your online items, navigate to your item library. Under &lsquo;Where it&rsquo;s sold&rsquo;, ensure your online site is toggled ON. Under site visibility, set items to Visible, Hidden, or Unavailable. You can also set fulfillment methods and prep time at the item level.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Are there any items that should not be included on your Square Online site? What questions do you have about items appearing on your online site?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Site Categories</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Navigate to Categories and explain functionality as it relates to Square Online. Show how to rearrange items and categories. Highlight Time-Based Categories.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Categories can be created and edited from the items section of your Dashboard. Ensure your online site is selected under &lsquo;Channel visibility&rsquo;. To rearrange categories, click &lsquo;Rearrange&rsquo; at the top-right. You can also set up time-based categories so customers can only order certain items at certain times &mdash; look for &lsquo;Availability&rsquo; in the category settings.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like all of your categories to be visible online? Do you have any questions about categories and how they relate to your Square Online site?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 5: Website -->
+<div class="online-training-section" data-tsearch="website site preferences domain publish unpublish edit site site editor colors fonts sections desktop mobile preview">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 5. Website <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Site Preferences</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show the seller how to customize their domain (make it as close to an external site as possible). Adjust the site title to align with the business name. Show where to publish/unpublish the site. Explain they must republish for updates to be reflected. Preview the mobile and web sites.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;From here, you can also Unpublish your site at any time to make changes and then republish when you want to get back up and running again. It&rsquo;s important to note that you must republish your site anytime you make changes so that those changes are reflected.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about any of the preferences listed under Site Preferences?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Edit Site (Site Editor)</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Walk the seller through customizing site colors, fonts, and buttons via Site Design. Show how to customize sections (header, footer, etc.) and add new sections. Preview desktop and mobile views.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;By clicking &lsquo;Edit Site&rsquo; you&rsquo;ll be brought to the Site Editor. Here you can change the visual layout of your site. To change colors, fonts, and buttons, select &lsquo;Site design&rsquo;. On the side panel, you&rsquo;ll see the different sections of your website. You can customize sections and add additional sections by selecting the plus sign. You can also preview desktop and mobile views before you publish.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about using the Site Editor and editing your website or ordering page?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 6: Orders -->
+<div class="online-training-section" data-tsearch="orders viewing marking progression order manager POS busy mode pause resume">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 6. Orders <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Viewing Orders &amp; Marking Progression</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Navigate to Orders on Dashboard and explain how the seller can view orders and mark progression.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Once an order is placed online or manually created, you are able to move the order along the fulfillment flow by marking orders as In Progress, Ready, or Picked Up.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about marking the progress of your orders?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Order Manager on POS</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how to manage an order from the order manager on POS. Highlight the clock icon for pausing online orders and extending prep time.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;The same functionality exists right on your POS. Simply locate the order by tapping More &gt; Orders and from there you can mark the order as In Progress, Ready, or Picked Up. If you select the Clock icon in the top-right corner, you can enable busy mode which adds 15 min to prep times. You can also resume pickup and delivery orders if they were paused from Square Dashboard.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about using the Order Manager?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 7: Online Order Testing -->
+<div class="online-training-section" data-tsearch="online order testing practice placing order discount coupon test">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#22c55e">CORE</span> 7. Online Order Testing <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Practice Placing an Order</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> If additional time remains, encourage the seller to place an order on their online site so they can view it on their POS and ensure their printer for orders is working correctly. Have the seller create a discount or coupon so there is no charge for the order.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Now that we&rsquo;ve walked through the main settings of Square Online, let&rsquo;s place a test order to see what that looks like on your POS. I encourage you to create a discount or coupon so that the test order will be free of charge.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to run through another order? (if time allows) Do you have any questions about placing an online order or how to navigate orders within your POS?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 8: Additional Training - Shared Settings (continued) -->
+<div class="online-training-section" data-tsearch="additional training item sync item preferences item status visibility">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">EXTRA</span> 8. Shared Settings (continued) <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+<div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:6px;padding:8px 12px;font-size:11px;color:#60a5fa;margin-bottom:12px">&#9432; Additional Training &mdash; facilitate based on business need. These sections do not need to be covered in any particular order.</div>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Item Sync</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Explain the functionality of Item Sync.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Items from your item library will automatically sync to your Square Online site. Information like item title, price, SKU, stock, options, and modifiers will always sync. To ensure newly added items are visible, make sure Visible is selected under &lsquo;Item visibility settings&rsquo;.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Do you have any questions about Item Sync?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Item Preferences</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Show how Item Status can be disabled.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;From Item Preferences you can toggle on or off item statuses. Item statuses can reflect sales, low inventory, and out of stock and will appear next to the item on your online site.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> What questions do you have about item preferences?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+<!-- Section 9: Sales Channels -->
+<div class="online-training-section" data-tsearch="sales channels order with google facebook food ordering social media instagram">
+<div class="acc-header" onclick="toggleAcc(this)" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:2px;cursor:pointer;font-size:14px;font-weight:700">
+<span style="color:#006AFF">EXTRA</span> 9. Sales Channels <span class="arrow">&#9660;</span></div>
+<div class="acc-body" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:0 0 8px 8px;padding:16px;margin-bottom:12px">
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Order with Google</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Give the seller a brief rundown of Order with Google.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;By setting up Order with Google, you can allow your customers to discover and order directly from your Square Online ordering page using Google Search and Google Maps. This is a great way to get more customers by having your site visible on Google &mdash; and it&rsquo;s at no extra cost to you!&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Are you interested in utilizing Order with Google?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Facebook Food Ordering</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#22c55e">DO:</strong> Provide the seller with an overview of Facebook Food Ordering.</div>
+<div style="background:#006AFF15;border-left:3px solid #006AFF;padding:8px 12px;margin-bottom:6px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#006AFF">SAY:</strong> &ldquo;Like Order with Google, we can also enable Facebook Food Ordering, which allows you to sell your menu items on social media platforms like Facebook and Instagram. Customers will see an Order Food button which will take them directly to your Square Online site.&rdquo;</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;margin-bottom:10px;font-size:12px;border-radius:0 6px 6px 0"><strong style="color:#eab308">ASK:</strong> Would you like to set up Facebook Food Ordering?</div>
+<label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
+</div></div>
+
+</div><!-- end onlineTraining -->
+
 <!-- ===== RST POS TRAINING GUIDE ===== -->
 <div id="posTraining" class="tab">
 <h1 style="margin-bottom:4px">&#127891; POS Training Guide</h1>
@@ -3632,7 +3839,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',onlineTraining:'🌐 Online Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -3725,6 +3932,10 @@ function syncTabSpecificFields(id){
   // POS Training - sync deal info
   if(id==='posTraining'){
     syncPosTrainingFromGenerator();
+  }
+  // Online Training - sync deal info
+  if(id==='onlineTraining'){
+    syncOnlineTrainingFromGenerator();
   }
   // Opti Call fields
   if(id==='optiCall'){
@@ -4879,7 +5090,7 @@ function parseDSRPaste(){
 // ===== PER-DEAL TAB STATE HELPERS =====
 function clearAllTabState(){
   // Clear all tab-specific localStorage keys
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-menu-items'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-menu-items'];
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
@@ -4906,7 +5117,7 @@ function clearAllTabState(){
   if(pkgSel){pkgSel.selectedIndex=0;delete pkgSel.dataset.userChanged}
 
   // Uncheck ALL checkboxes across all tabs
-  document.querySelectorAll('.training-check,.rtl-training-check,.rst-pos-check,.rtl-pos-check,.premKO-check,.opti-pre-check,.opti-script-check').forEach(function(c){c.checked=false});
+  document.querySelectorAll('.training-check,.rtl-training-check,.rst-pos-check,.rtl-pos-check,.premKO-check,.opti-pre-check,.opti-script-check,.online-training-check').forEach(function(c){c.checked=false});
   document.querySelectorAll('#checklistItems input[type=checkbox]').forEach(function(c){c.checked=false;if(c.parentElement)c.parentElement.classList.remove('done')});
   document.querySelectorAll('input[data-cl="preKO"]').forEach(function(c){c.checked=false});
   document.querySelectorAll('input[data-cl="koQ"]').forEach(function(c){c.checked=false});
@@ -4966,6 +5177,10 @@ function reloadAllCheckboxStates(){
   if(rl){try{var a=JSON.parse(rl);document.querySelectorAll('#posType-retail .rtl-pos-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
   try{if(typeof updatePosTrainingProgress==='function')updatePosTrainingProgress()}catch(e){}
 
+  // Online Training checks
+  var onl=localStorage.getItem('gso-online-training-checks');
+  if(onl){try{var a=JSON.parse(onl);document.querySelectorAll('.online-training-check').forEach(function(c,i){if(a[i])c.checked=true});updateOnlineTrainingProgress()}catch(e){}}
+
   // Opti Call checks
   var op=localStorage.getItem('gso-opti-pre-checks');
   if(op){try{var a=JSON.parse(op);document.querySelectorAll('.opti-pre-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
@@ -4984,7 +5199,7 @@ function saveDeal(){
   deal.timestamp=Date.now();
 
   // === Save all tab-specific localStorage state ===
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline'];
   deal._tabState={};
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
@@ -5974,6 +6189,50 @@ function parsePtResponse(){
 
 
 // ===== RST POS TRAINING GUIDE =====
+
+
+// ===== ONLINE TRAINING =====
+function filterOnlineTraining(){
+  var q=document.getElementById('onlineTrainingSearch').value.toLowerCase();
+  document.querySelectorAll('.online-training-section').forEach(function(s){
+    var txt=(s.getAttribute('data-tsearch')||'')+' '+s.textContent;
+    s.style.display=txt.toLowerCase().includes(q)?'':'none';
+  });
+}
+function updateOnlineTrainingProgress(){
+  var checks=document.querySelectorAll('.online-training-check');
+  var done=0;
+  checks.forEach(function(c){if(c.checked)done++});
+  var el=document.getElementById('onlineTrainingCounter');
+  if(el)el.textContent=done+'/'+checks.length;
+  var bar=document.getElementById('onlineTrainingBar');
+  if(bar)bar.style.width=(checks.length?Math.round(done/checks.length*100):0)+'%';
+  var states=[];checks.forEach(function(c){states.push(c.checked)});
+  localStorage.setItem('gso-online-training-checks',JSON.stringify(states));
+}
+function loadOnlineTrainingChecks(){
+  var s=localStorage.getItem('gso-online-training-checks');
+  if(s){
+    var a=JSON.parse(s);
+    document.querySelectorAll('.online-training-check').forEach(function(c,i){if(a[i])c.checked=true});
+  }
+  updateOnlineTrainingProgress();
+}
+function syncOnlineTrainingFromGenerator(){
+  var b=document.getElementById('genBusiness');
+  var s=document.getElementById('genSeller');
+  var p=document.getElementById('genPackage');
+  var banner=document.getElementById('onlineTrainingSellerBanner');
+  var name=b&&b.value?b.value:(s&&s.value?s.value:'');
+  if(name&&banner){
+    document.getElementById('onlineTrainingSeller').textContent=name;
+    document.getElementById('onlineTrainingPkg').textContent=p?p.value:'Premium';
+    banner.style.display='block';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  loadOnlineTrainingChecks();
+});
 
 // ===== MERGED POS TRAINING =====
 function switchPosType(type){
