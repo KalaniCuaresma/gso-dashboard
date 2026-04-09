@@ -4115,16 +4115,35 @@ function syncTabSpecificFields(id){
   var biz=(document.getElementById('genBusiness')||{}).value||'';
   var seller=(document.getElementById('genSeller')||{}).value||'';
   var sellerFirst=seller?seller.split(' ')[0]:'';
+  var sellerEmail=(document.getElementById('genSellerEmail')||{}).value||'';
   var ae=(document.getElementById('genAE')||{}).value||'';
   var pkg=(document.getElementById('genPackage')||{}).value||'';
   var pm=(document.getElementById('genPM')||{}).value||'';
   var goLive=(document.getElementById('genGoLive')||{}).value||'';
-  // KO Checklist - auto-switch type based on package
+  var recording=(document.getElementById('genRecording')||{}).value||'';
+  var notes=(document.getElementById('genNotes')||{}).value||'';
+  var attendees=(document.getElementById('genAttendees')||{}).value||'';
+  var sessionType=(document.getElementById('genSessionType')||{}).value||'';
+  var callDate=(document.getElementById('genDate')||{}).value||'';
+  var special=(document.getElementById('genSpecial')||{}).value||'';
+  var hardware=(document.getElementById('genHardware')||{}).value||'';
+
+  // Helper: only fill if field is empty (don't overwrite user edits)
+  function fillIfEmpty(elId,val){var el=document.getElementById(elId);if(el&&!el.value&&val)el.value=val}
+  function selectIfEmpty(elId,val){
+    var el=document.getElementById(elId);
+    if(el&&val&&!el.dataset.userChanged){
+      for(var i=0;i<el.options.length;i++){
+        if(el.options[i].value.toLowerCase().indexOf(val.toLowerCase())>-1){el.selectedIndex=i;break}
+      }
+    }
+  }
+
+  // === KO Checklist ===
   if(id==='koQuestions'){
-    var pkgVal=(document.getElementById('genPackage')||{}).value||'';
     var sel=document.getElementById('koTypeSelector');
-    if(sel&&pkgVal){
-      var pl=pkgVal.toLowerCase();
+    if(sel&&pkg){
+      var pl=pkg.toLowerCase();
       if(pl.indexOf('premium')>-1||pl.indexOf('onsite')>-1){
         sel.value='premium';switchKOType('premium');
       }else{
@@ -4132,41 +4151,77 @@ function syncTabSpecificFields(id){
       }
     }
   }
-  // Pre-KO fields
+
+  // === Pre-KO ===
   if(id==='preKO'){
-    var f1=document.getElementById('preKO-aeName');
-    var f2=document.getElementById('preKO-sellerName');
-    var f3=document.getElementById('preKO-yourName');
-    var f4=document.getElementById('preKO-package');
-    if(f1&&!f1.value&&ae)f1.value=ae;
-    if(f2&&!f2.value&&sellerFirst)f2.value=sellerFirst;
-    if(f3&&!f3.value&&pm)f3.value=pm;
-    if(f4&&pkg&&!f4.dataset.userChanged){for(var i=0;i<f4.options.length;i++){if(f4.options[i].value.toLowerCase().indexOf(pkg.toLowerCase())>-1){f4.selectedIndex=i;break;}}}
+    fillIfEmpty('preKO-aeName',ae);
+    fillIfEmpty('preKO-sellerName',sellerFirst);
+    fillIfEmpty('preKO-yourName',pm);
+    selectIfEmpty('preKO-package',pkg);
   }
-  // DB Training - sync deal info
+
+  // === DB Training ===
   if(id==='dbTraining'){
     syncDbTrainingFromGenerator();
   }
-  // POS Training - sync deal info
+
+  // === POS Training ===
   if(id==='posTraining'){
     syncPosTrainingFromGenerator();
   }
-  // Online Training - sync deal info
+
+  // === Online Training ===
   if(id==='onlineTraining'){
     syncOnlineTrainingFromGenerator();
   }
-  // Training Prep - sync deal info
+
+  // === Training Prep ===
   if(id==='trainingPrep'){
-    // Auto-select training type based on package
-    var pkgVal=(document.getElementById('genPackage')||{}).value||'';
-    // Don't auto-fill transcript if user already has content
+    fillIfEmpty('tpFocus',special);
+    // Pull KO notes into transcript if empty
+    var tpTrans=document.getElementById('tpTranscript');
+    if(tpTrans&&!tpTrans.value&&notes){
+      tpTrans.value=notes;
+      var ct=document.getElementById('tpTranscriptCount');
+      if(ct)ct.textContent=notes.length+' characters';
+    }
   }
-  // Opti Call fields
+
+  // === Opti Call (PM-Led + P3 Partner-Led) ===
   if(id==='optiCall'){
-    var optiAE=document.getElementById('optiAEName');
-    var optiGoLive=document.getElementById('optiGoLive');
-    if(optiAE&&!optiAE.value&&ae)optiAE.value=ae;
-    if(optiGoLive&&!optiGoLive.value&&goLive)optiGoLive.value=goLive;
+    // PM-Led fields
+    fillIfEmpty('optiAEName',ae);
+    fillIfEmpty('optiGoLive',goLive);
+    fillIfEmpty('optiRecording',recording);
+    if(callDate){var optiDate=document.getElementById('optiCallDate');if(optiDate&&!optiDate.value)optiDate.value=callDate}
+    // Sync opti session type from generator session type
+    var optiST=document.getElementById('optiSessionType');
+    if(optiST&&sessionType&&!optiST.dataset.userChanged){
+      for(var i=0;i<optiST.options.length;i++){
+        if(optiST.options[i].value.toLowerCase().indexOf(sessionType.toLowerCase())>-1){optiST.selectedIndex=i;break}
+      }
+    }
+
+    // P3 Partner-Led fields
+    fillIfEmpty('p3BizName',biz);
+    fillIfEmpty('p3Contact',seller);
+    fillIfEmpty('p3AEName',ae);
+    fillIfEmpty('p3Attendees',attendees);
+    fillIfEmpty('p3Focus',special);
+    // Fill AE notes from generator notes if empty
+    var p3Notes=document.getElementById('p3AENotes');
+    if(p3Notes&&!p3Notes.value&&notes){
+      p3Notes.value=notes;
+      var ct=document.getElementById('p3NoteCount');
+      if(ct)ct.textContent=notes.length+' characters';
+    }
+    // Auto-select business type based on package/session type
+    var p3BizType=document.getElementById('p3BizType');
+    if(p3BizType&&!p3BizType.dataset.userChanged){
+      var combined=(pkg+' '+sessionType).toLowerCase();
+      if(combined.indexOf('restaurant')>-1||combined.indexOf('rst')>-1)p3BizType.value='Restaurant';
+      else if(combined.indexOf('retail')>-1||combined.indexOf('rtl')>-1)p3BizType.value='Retail';
+    }
   }
 }
 
