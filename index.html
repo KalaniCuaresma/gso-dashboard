@@ -3353,6 +3353,17 @@ Example:
 <div><strong style="color:#006AFF">&#128100; Active Seller:</strong> <span id="optiSeller" style="font-weight:700"></span> &mdash; <span id="optiPkg" style="color:#22c55e"></span></div>
 <button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
 </div></div>
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+<label style="font-size:13px;font-weight:700;color:#e2e8f0">Call Type:</label>
+<select id="optiTypeSelector" onchange="switchOptiType(this.value)" style="padding:8px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;font-weight:600">
+<option value="pm">&#128187; PM-Led Call</option>
+<option value="p3">&#129309; P3 Partner-Led Call</option>
+</select>
+<span id="optiTypeLabel" style="font-size:12px;color:#94a3b8">Showing PM-Led Optimization Call workflow</span>
+</div>
+
+<!-- PM-LED CONTENT -->
+<div id="optiType-pm">
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
 <button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiChecklist')" style="background:#22c55e;color:#fff">&#9989; Pre-Call Checklist</button>
 <button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiScript')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128220; Live Script</button>
@@ -3586,6 +3597,83 @@ Example:
 </div>
 </div>
 </div></div>
+</div><!-- end optiType-pm -->
+
+<!-- P3 PARTNER-LED CONTENT -->
+<div id="optiType-p3" style="display:none">
+
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="font-size:15px;margin-bottom:4px">&#129309; P3 Partner-Led Optimization Session</h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Generate pre-session activity notes for a third-party technician. Choose between two prompt formats below.</p>
+
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm p3-prompt-btn" onclick="switchP3Prompt('script')" id="p3Btn-script" style="background:#22c55e;color:#fff">&#128220; Script + Activity Note</button>
+<button class="btn btn-sm p3-prompt-btn" onclick="switchP3Prompt('activity')" id="p3Btn-activity" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128203; Activity Note Only</button>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Business Name</label>
+<input type="text" id="p3BizName" placeholder="e.g. 3135 Hospitality" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Business Type</label>
+<select id="p3BizType" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="Restaurant">Restaurant</option>
+<option value="Retail">Retail</option>
+<option value="SPOS">SPOS</option>
+<option value="Hybrid">Hybrid</option>
+</select></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Primary Contact Name</label>
+<input type="text" id="p3Contact" placeholder="e.g. Marcus" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Name (e.g. AE, Harry Potter)</label>
+<input type="text" id="p3AEName" placeholder="e.g. AE, Megan Smith" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Attendees on Calendar Invite</label>
+<input type="text" id="p3Attendees" placeholder="e.g. Marcus, Sarah (manager)" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Areas of Focus (if provided)</label>
+<input type="text" id="p3Focus" placeholder="e.g. POS layout, gift cards, reporting" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+</div>
+
+<div style="margin-bottom:16px">
+<label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Activity Notes (paste raw, unedited notes below)</label>
+<textarea id="p3AENotes" rows="6" placeholder="Paste the AE/AM activity notes from Salesforce here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<div style="display:flex;gap:8px;margin-top:6px">
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="pullP3FromGenerator()">&#128260; Pull from Generator</button>
+<span id="p3NoteCount" style="font-size:11px;color:#64748b;align-self:center">0 characters</span>
+</div>
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button class="btn btn-green" onclick="copyP3Prompt()">&#128203; Copy Prompt to Clipboard</button>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="clearP3Form()">&#128465; Clear</button>
+</div>
+</div>
+
+<!-- P3 Prompt Copied Confirmation -->
+<div id="p3PromptCopied" style="display:none;margin-top:12px;text-align:center"><p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into ChatGPT, then paste the full response below:</p></div>
+
+<!-- P3 Response Paste Area -->
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:20px;margin-top:16px">
+<h3 style="font-size:14px;margin-bottom:12px">&#128203; Paste AI Response</h3>
+<textarea id="p3Response" rows="8" placeholder="Paste the ChatGPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<div style="display:flex;gap:8px;margin-top:10px">
+<button class="btn btn-green" onclick="parseP3Response()">&#128640; Parse &amp; Format</button>
+</div>
+</div>
+
+<!-- P3 Output -->
+<div id="p3Output" style="display:none;margin-top:16px">
+<div style="background:#1a1a3e;border:1px solid #22c55e44;border-radius:10px;padding:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:15px;color:#22c55e">&#128203; P3 Activity Note</h3>
+<div style="display:flex;gap:8px">
+<button class="btn btn-green btn-sm" onclick="copyContent('p3OutputText')">&#128203; Copy</button>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="document.getElementById('p3Output').style.display='none'">&#10006; Close</button>
+</div>
+</div>
+<div id="p3OutputText" class="deliv-content" style="font-size:12px;line-height:1.8;white-space:pre-wrap"></div>
+</div>
+</div>
+
+</div><!-- end optiType-p3 -->
+
 </div><!-- end optiCall -->
 
 <div id="subPlans" class="tab">
@@ -7336,6 +7424,168 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 });
+
+
+
+// ===== P3 PARTNER-LED OPTIMIZATION =====
+function switchOptiType(type){
+  document.getElementById('optiType-pm').style.display=type==='pm'?'':'none';
+  document.getElementById('optiType-p3').style.display=type==='p3'?'':'none';
+  var label=document.getElementById('optiTypeLabel');
+  if(label)label.textContent='Showing '+(type==='pm'?'PM-Led Optimization Call workflow':'P3 Partner-Led Optimization workflow');
+}
+
+function switchP3Prompt(type){
+  document.querySelectorAll('.p3-prompt-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF';b.style.border='1px solid #006AFF44'});
+  var btn=document.getElementById('p3Btn-'+type);
+  if(btn){btn.style.background=type==='script'?'#22c55e':'#006AFF';btn.style.color='#fff';btn.style.border='none'}
+  // Store which prompt type is selected
+  document.getElementById('optiType-p3').dataset.promptType=type;
+}
+
+function pullP3FromGenerator(){
+  var biz=document.getElementById('genBusiness');
+  var seller=document.getElementById('genSeller');
+  var ae=document.getElementById('genAE');
+  var notes=document.getElementById('genNotes');
+  var attendees=document.getElementById('genAttendees');
+  if(biz&&biz.value){document.getElementById('p3BizName').value=biz.value}
+  if(seller&&seller.value){document.getElementById('p3Contact').value=seller.value}
+  if(ae&&ae.value){document.getElementById('p3AEName').value=ae.value}
+  if(notes&&notes.value){document.getElementById('p3AENotes').value=notes.value;updateP3Count()}
+  if(attendees&&attendees.value){document.getElementById('p3Attendees').value=attendees.value}
+}
+
+// Character counter for AE notes
+document.addEventListener('DOMContentLoaded',function(){
+  var ta=document.getElementById('p3AENotes');
+  if(ta){ta.addEventListener('input',updateP3Count)}
+});
+function updateP3Count(){
+  var ta=document.getElementById('p3AENotes');
+  var ct=document.getElementById('p3NoteCount');
+  if(ta&&ct)ct.textContent=ta.value.length+' characters';
+}
+
+function copyP3Prompt(){
+  var bizName=document.getElementById('p3BizName').value.trim()||'[Business Name]';
+  var bizType=document.getElementById('p3BizType').value;
+  var contact=document.getElementById('p3Contact').value.trim()||'[Primary Contact]';
+  var aeName=document.getElementById('p3AEName').value.trim()||'[AE/AM Name]';
+  var attendees=document.getElementById('p3Attendees').value.trim()||'Not provided';
+  var focus=document.getElementById('p3Focus').value.trim()||'Not provided';
+  var aeNotes=document.getElementById('p3AENotes').value.trim()||'';
+
+  var promptType=(document.getElementById('optiType-p3').dataset.promptType)||'script';
+  var prompt='';
+
+  if(promptType==='script'){
+    // Script + Activity Note prompt
+    prompt='Technician knows the standard visit/training agenda. Notes should capture only what is unique to this seller/session: scope deltas, constraints, confirmed hardware, workflow priorities, known friction, dependencies, and what \'good\' looks like.\n\n';
+    prompt+='Business Name: '+bizName+'\n';
+    prompt+='Business Type (Retail / Restaurant / SPOS / Hybrid): '+bizType+'\n';
+    prompt+='Primary Contact Name: '+contact+'\n';
+    prompt+='AE/AM Name: '+aeName+'\n';
+    if(aeNotes){prompt+='AE/AM Activity Notes (pasted raw, unedited notes below):\n'+aeNotes+'\n\n'}else{prompt+='AE/AM Activity Notes: None provided\n\n'}
+    prompt+='You are an internal Square onboarding agent producing pre-session Optimization Session activity notes for a third-party technician.\n\n';
+    prompt+='This session has not happened yet.\n\n';
+    prompt+='This is a one-time, one-hour Optimization Session that has already been scheduled and placed on the calendar. The technician is being asked to accept and conduct this session.\n\n';
+    prompt+='The technician will not have ongoing communication with the seller beyond this scheduled hour. All post-session follow-up is owned by the AE/AM.\n\n';
+    prompt+='Generate a plain-text activity note with short paragraphs and line breaks only. No bullets, no numbering, no symbols, no markdown. Maximum 3000 characters.\n\n';
+    prompt+='Assume the technician knows standard Square platform basics. Focus only on seller-specific context, scope boundaries, constraints, and what "good" looks like by end of the hour. Do not invent details not provided.\n\n';
+    prompt+='Use exactly the section headers below in this order:\n\n';
+    prompt+='Recommended Technician Intro Script\n\n';
+    prompt+='One-Time Optimization Session Reminder\n\n';
+    prompt+='Business Context\n\n';
+    prompt+='Session Purpose & Scope\n\n';
+    prompt+='What "Good" Looks Like\n\n';
+    prompt+='What to Defer\n\n';
+    prompt+='Content requirements:\n\n';
+    prompt+='Technician Intro Script\nWrite a 2-3 sentence script the technician reads verbatim at the start. It must clearly state this is a one-time, one-hour Optimization Session, confirm the focus area at a high level, and state that '+aeName+' remains the primary point of contact after today.\n\n';
+    prompt+='One-Time Optimization Session Reminder\nWrite instructions for the technician (not the seller) to timebox the session and keep it on scope. Include: set expectations verbally at the start, do not promise follow-up work, do not share direct contact info, and capture unresolved items clearly for '+aeName+'.\n\n';
+    prompt+='Business Context\nIf AE/AM Activity Notes are present, summarize only the relevant context. If minimal or blank, explicitly state "Limited pre-session context provided" and include only the business type plus any known attendee info.\n\n';
+    prompt+='Session Purpose & Scope\nIf notes are present, translate them into a clear purpose statement and the specific areas to address in the hour. If notes are minimal, instruct the technician to begin with a quick discovery using these four questions, then proceed with the highest-impact items:\nWhat are your top three outcomes for today?\nWhat is the current pain point or blocker?\nWhat have you already tried?\nWhat does success look like by end of today?\n\n';
+    prompt+='What "Good" Looks Like\nDefine 3-5 outcome statements that can realistically be achieved in one hour. Include a line about pacing and clarity if the seller is not tech-savvy. Include a line that the technician should confirm the seller can repeat back the key steps to maintain the change after the session.\n\n';
+    prompt+='What to Defer\nState what must be deferred to '+aeName+' after the call, including contract/pricing/subscription questions, additional training requests, hardware expansion, or any work that would require additional sessions. State that any remaining gaps must be documented clearly in post-session notes for '+aeName+'.\n\n';
+    prompt+='Respond only with the final activity note.';
+  } else {
+    // Activity Note Only prompt
+    prompt='Optimization Session \u2013 Pre-Session Activity Note Generator\n\n';
+    prompt+='Seller Information\n\n';
+    prompt+='Business Name: '+bizName+'\n';
+    prompt+='Business Type (Retail / Restaurant / SPOS / Hybrid): '+bizType+'\n';
+    prompt+='Primary Contact Name: '+contact+'\n';
+    prompt+='AE/AM Name (include role exactly as AM, Name or AE, Name): '+aeName+'\n';
+    prompt+='Attendees on Calendar Invite (if known): '+attendees+'\n';
+    prompt+='AE/AM Activity Notes Context:\n'+(aeNotes||'None provided')+'\n';
+    prompt+='Areas of Focus, if provided: '+focus+'\n\n';
+    prompt+='---------------------------\nContext\n\n';
+    prompt+='You are an internal Square onboarding agent producing pre-session Optimization Session activity notes for a third-party technician.\n\n';
+    prompt+='This session has not happened yet.\n\n';
+    prompt+='This is a one-time, one-hour Optimization Session that has already been scheduled and placed on the calendar.\n\n';
+    prompt+='The technician will not have ongoing communication with the seller beyond this scheduled hour.\n\n';
+    prompt+='All post-session follow-up is owned by the named AE or AM provided above; GSO Project Manager will put together technicians post call notes + transcript for a robust summary and next step recommendations for the named AE or AM. The Technician will not have any contact with the AE or AM.\n\n';
+    prompt+='---------------------------\nOUTPUT REQUIREMENTS (Strict \u2013 Do Not Deviate)\n\n';
+    prompt+='Generate a plain-text activity note.\n\n';
+    prompt+='Do not use:\nBullets\nNumbering\nMarkdown\nSymbols\nBold\nItalics\nSpecial formatting characters\nUse short paragraphs with line breaks only.\n\n';
+    prompt+='Insert exactly one blank line between section headers only.\n\n';
+    prompt+='Within each section, do not insert blank lines between paragraphs or sentences.\n\n';
+    prompt+='Maximum 3000 characters.\n\n';
+    prompt+='Respond only with the final activity note.\n\n';
+    prompt+='---------------------------\nAE/AM Name Handling Rule\n\n';
+    prompt+='Whenever referencing the AE or AM, replace generic references with the exact role and name provided above using this format:\n\n';
+    prompt+='AM, Hermione Granger\nAE, Harry Potter\n\n';
+    prompt+='Never use "AE/AM" in the final output.\n\n';
+    prompt+='If both an AE and AM are provided, reference both explicitly.\nIf only one is provided, reference only that individual.\n\n';
+    prompt+='---------------------------\nRequired Section Headers (Use Exactly As Written)\n\n';
+    prompt+='ONE-TIME OPTIMIZATION SESSION (1 HOUR)\n\n';
+    prompt+='Suggested Intro Script\n\n';
+    prompt+='One-Time Optimization Session Reminder\n\n';
+    prompt+='Business Context\n\n';
+    prompt+='Session Purpose & Scope\n\n';
+    prompt+='What "Good" Looks Like\n\n';
+    prompt+='---------------------------\nContent Requirements\n\n';
+    prompt+='Under "Suggested Intro Script," provide a 2-3 sentence script written entirely inside quotation marks. Do not include any text before or after the quotation marks within that section.\n\n';
+    prompt+='The script must clearly state that this is a one-time, one-hour Optimization Session and that the named AE or AM remains the seller\'s primary point of contact after the call.\n\n';
+    prompt+='Under "One-Time Optimization Session Reminder," reiterate for the technician (not the seller) that they must verbally set expectations about scope and duration.\n\n';
+    prompt+='If AE/AM notes are provided, synthesize them into Business Context and Session Purpose.\n\n';
+    prompt+='If notes are minimal, instruct the technician to begin by asking the seller for 3-4 top-of-mind questions.\n\n';
+    prompt+='Emphasize:\nA note taker must be present.\nStrong internal chatter notes are required post-call for GSO to provide to AE or AM.\nUnanswered questions must be clearly documented in post-call notes for GSO to support and forward to the named AE or AM.\nDo not promise follow-up work.\nDo not provide technician contact information.\nDefer contract, pricing, subscription, or additional training requests to the named AE or AM.\n\n';
+    prompt+='If the seller may not be tech-savvy, reinforce patience and clarity under What "Good" Looks Like.\n\n';
+    prompt+='If no AE/AM notes are provided, explicitly state: Limited pre-session context provided.';
+  }
+
+  navigator.clipboard.writeText(prompt).then(function(){
+    document.getElementById('p3PromptCopied').style.display='block';
+    showToast('\u2705 P3 prompt copied to clipboard!');
+  });
+}
+
+function parseP3Response(){
+  var raw=document.getElementById('p3Response').value.trim();
+  if(!raw){alert('Paste the AI response first');return}
+  var el=document.getElementById('p3OutputText');
+  if(typeof mdToHtml==='function'){
+    el.innerHTML=mdToHtml(raw);
+  } else {
+    el.textContent=raw;
+  }
+  el.dataset.rawText=raw;
+  document.getElementById('p3Output').style.display='block';
+  document.getElementById('p3Output').scrollIntoView({behavior:'smooth'});
+  showToast('\u2705 P3 activity note formatted!');
+}
+
+function clearP3Form(){
+  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('p3BizType').selectedIndex=0;
+  document.getElementById('p3PromptCopied').style.display='none';
+  document.getElementById('p3Output').style.display='none';
+  updateP3Count();
+}
+
 
 </script>
 </body>
