@@ -975,20 +975,44 @@ Examples:
 <p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Full prompt copied! Paste into the GSO PM Assistant GPT chat.</p>
 </div>
 
+<!-- ===== PASTE-BACK: Parse GPT Response ===== -->
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-top:20px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+<span style="font-size:24px">&#9889;</span>
+<div>
+<h3 style="font-size:15px;color:#22c55e;margin:0">Step 2 &mdash; Paste GPT Response</h3>
+<p style="color:#94a3b8;font-size:11px;margin:0">Paste the full response from GSO PM Assistant. It will auto-split into Seller Email, DSR Chatter, and Internal Analysis.</p>
+</div>
+</div>
+
+<textarea id="pko-gptResponse" rows="10" placeholder="Paste the full GPT response here...&#10;&#10;The parser will detect sections:&#10;  A) Seller Email&#10;  B) DSR Chatter&#10;  C) Internal Analysis&#10;&#10;and populate each sub-tab automatically." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<span id="pko-responseCount" style="font-size:11px;color:#64748b">0 characters</span>
+
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center">
+<button class="btn btn-green" onclick="parsePostKOResponse()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;font-size:14px;font-weight:600">&#9889; Parse into Deliverables</button>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="document.getElementById('pko-gptResponse').value='';document.getElementById('pko-responseCount').textContent='0 characters'">&#128465; Clear Response</button>
+</div>
+
+<div id="pkoParseSuccess" style="display:none;margin-top:12px;background:#22c55e15;border:1px solid #22c55e44;border-radius:8px;padding:12px 16px">
+<p style="color:#22c55e;font-size:13px;font-weight:600;margin:0">&#9989; Deliverables parsed successfully!</p>
+<p style="color:#94a3b8;font-size:11px;margin:4px 0 0 0">Use the sub-tabs above to view &amp; copy each deliverable. Dashboard badges updated.</p>
+</div>
+</div>
+
 </div>
 </div>
 
 <div id="postko-email" class="postko-panel">
 <div class="deliv-header"><h2 style="font-size:18px">&#128231; Post-KO Seller Email</h2><button class="btn btn-green" onclick="copyContent('emailContent')">&#128203; Copy</button></div>
 <div id="emailContent" class="deliv-content">
-<div class="empty-state"><div class="icon">&#128231;</div><h3>No Email Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
+<div class="empty-state"><div class="icon">&#128231;</div><h3>No Email Generated Yet</h3><p>Use the <a href="#" onclick="showPostKOSub('postko-howto')" style="color:#a855f7;font-weight:600">🤖 How to Generate</a> tab to build your prompt, paste the GPT response, and parse it into deliverables.</p></div>
 </div>
 </div>
 
 <div id="postko-dsr" class="postko-panel" style="display:none">
 <div class="deliv-header"><h2 style="font-size:18px">&#128221; DSR Chatter Notes</h2><button class="btn btn-green" onclick="copyContent('dsrContent')">&#128203; Copy</button></div>
 <div id="dsrContent" class="deliv-content">
-<div class="empty-state"><div class="icon">&#128221;</div><h3>No Chatter Notes Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
+<div class="empty-state"><div class="icon">&#128221;</div><h3>No Chatter Notes Generated Yet</h3><p>Use the <a href="#" onclick="showPostKOSub('postko-howto')" style="color:#a855f7;font-weight:600">🤖 How to Generate</a> tab to build your prompt, paste the GPT response, and parse it into deliverables.</p></div>
 </div>
 </div>
 
@@ -5826,7 +5850,7 @@ function saveDeal(){
   delivIds.forEach(function(id){var el=document.getElementById(id);if(el){deal._deliverables[id]={html:el.innerHTML,raw:el.dataset.rawText||''}}});
 
   // Save input fields from other tabs
-  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration'];
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse'];
   deal._tabInputs={};
   tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)deal._tabInputs[id]=el.value});
 
@@ -5839,6 +5863,12 @@ function saveDeal(){
   var premKoNoteEls=document.querySelectorAll('textarea[data-notes="premKO"]');
   deal._premKoNoteValues=[];
   premKoNoteEls.forEach(function(el){deal._premKoNoteValues.push(el.value)});
+
+  // Save Post-KO selects
+  deal._pkoSelects={};
+  ['pko-sessionType','pko-package','pko-timezone'].forEach(function(id){
+    var el=document.getElementById(id);if(el)deal._pkoSelects[id]=el.value;
+  });
 
   deals[biz]=deal;
   localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
@@ -5892,6 +5922,14 @@ function loadDeal(name){
   if(d._premKoNoteValues){
     var premKoNoteEls=document.querySelectorAll('textarea[data-notes="premKO"]');
     d._premKoNoteValues.forEach(function(val,i){if(premKoNoteEls[i])premKoNoteEls[i].value=val});
+  }
+
+  // Restore Post-KO selects
+  if(d._pkoSelects){
+    Object.keys(d._pkoSelects).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){for(var i=0;i<el.options.length;i++){if(el.options[i].value===d._pkoSelects[id]){el.selectedIndex=i;break}}}
+    });
   }
 
   // Reload all checkbox states from the restored localStorage
@@ -7967,7 +8005,7 @@ function parseP3Response(){
 }
 
 function clearP3Form(){
-  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables'].forEach(function(id){
+  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value='';
   });
   document.getElementById('p3BizType').selectedIndex=0;
@@ -8228,6 +8266,107 @@ function clearPostKOPrompt(){
   document.getElementById('pko-timezone').selectedIndex=0;
   document.getElementById('pkoPromptCopied').style.display='none';
   updatePkoTranscriptCount();
+}
+
+// ===== PARSE GPT RESPONSE INTO POST-KO DELIVERABLES =====
+(function(){
+  var ta=document.getElementById('pko-gptResponse');
+  var ct=document.getElementById('pko-responseCount');
+  if(ta&&ct)ta.addEventListener('input',function(){ct.textContent=ta.value.length+' characters'});
+})();
+
+function parsePostKOResponse(){
+  var resp=document.getElementById('pko-gptResponse').value.trim();
+  if(!resp){alert('Please paste the GPT response first.');return;}
+
+  var partA='',partB='',partC='';
+
+  // Pattern matching for A/B/C sections (same approach as parseOptiResponse)
+  var aPatterns=[/^(?:#{1,3}\s*)?A\)\s*.*/m,/^(?:#{1,3}\s*)?(?:Seller[- ]?Facing|Seller)\s*(?:Post[- ]?Call\s*)?(?:Email|Recap)/im];
+  var bPatterns=[/^(?:#{1,3}\s*)?B\)\s*.*/m,/^(?:#{1,3}\s*)?(?:Internal\s*)?DSR\s*(?:Chatter|Notes)/im];
+  var cPatterns=[/^(?:#{1,3}\s*)?C\)\s*.*/m,/^(?:#{1,3}\s*)?Internal\s*(?:PM\s*)?(?:Risk|Analysis|Coordination)/im];
+
+  function findFirst(patterns,text,startFrom){
+    var best=-1;
+    patterns.forEach(function(re){
+      var sub=text.substring(startFrom||0);
+      var m=sub.search(re);
+      if(m>=0){var pos=m+(startFrom||0);if(best<0||pos<best)best=pos;}
+    });
+    return best;
+  }
+
+  var aIdx=findFirst(aPatterns,resp,0);
+  var bIdx=findFirst(bPatterns,resp,Math.max(aIdx>0?aIdx+1:50,50));
+  var cIdx=findFirst(cPatterns,resp,Math.max(bIdx>0?bIdx+1:100,100));
+
+  if(aIdx>=0&&bIdx>aIdx&&cIdx>bIdx){
+    partA=resp.substring(aIdx,bIdx).trim();
+    partB=resp.substring(bIdx,cIdx).trim();
+    partC=resp.substring(cIdx).trim();
+  }else if(aIdx>=0&&bIdx>aIdx){
+    partA=resp.substring(aIdx,bIdx).trim();
+    partB=resp.substring(bIdx).trim();
+  }else if(aIdx>=0&&cIdx>aIdx){
+    partA=resp.substring(aIdx,cIdx).trim();
+    partC=resp.substring(cIdx).trim();
+  }else if(bIdx>=0&&cIdx>bIdx){
+    partA=resp.substring(0,bIdx).trim();
+    partB=resp.substring(bIdx,cIdx).trim();
+    partC=resp.substring(cIdx).trim();
+  }else if(bIdx>=0){
+    partA=resp.substring(0,bIdx).trim();
+    partB=resp.substring(bIdx).trim();
+  }else if(cIdx>=0){
+    partA=resp.substring(0,cIdx).trim();
+    partC=resp.substring(cIdx).trim();
+  }else{
+    // No clear sections found - put everything in email
+    partA=resp;
+  }
+
+  // Strip section headers (A), B), C) lines)
+  partA=partA.replace(/^(?:#{1,3}\s*)?A\).*$/m,'').trim();
+  partB=partB.replace(/^(?:#{1,3}\s*)?B\).*$/m,'').trim();
+  partC=partC.replace(/^(?:#{1,3}\s*)?C\).*$/m,'').trim();
+
+  // Populate Seller Email
+  var emailEl=document.getElementById('emailContent');
+  if(emailEl){
+    emailEl.innerHTML=partA?mdToHtml(partA):'<em style="color:#94a3b8">(Section A not detected in response)</em>';
+    emailEl.dataset.rawText=partA;
+  }
+
+  // Populate DSR Chatter
+  var dsrEl=document.getElementById('dsrContent');
+  if(dsrEl){
+    dsrEl.innerHTML=partB?mdToHtml(partB):'<em style="color:#94a3b8">(Section B not detected in response)</em>';
+    dsrEl.dataset.rawText=partB;
+  }
+
+  // Populate Internal Analysis
+  var anaEl=document.getElementById('analysisContent');
+  if(anaEl){
+    anaEl.innerHTML=partC?mdToHtml(partC):'<em style="color:#94a3b8">(Section C not detected in response)</em>';
+    anaEl.dataset.rawText=partC;
+  }
+
+  // Update dashboard badges
+  var badgeEmail=document.getElementById('badgeEmail');
+  var badgeDSR=document.getElementById('badgeDSR');
+  var badgeAnalysis=document.getElementById('badgeAnalysis');
+  if(badgeEmail&&partA){badgeEmail.textContent='Generated';badgeEmail.className='badge badge-green';}
+  if(badgeDSR&&partB){badgeDSR.textContent='Generated';badgeDSR.className='badge badge-green';}
+  if(badgeAnalysis&&partC){badgeAnalysis.textContent='Generated';badgeAnalysis.className='badge badge-green';}
+
+  // Show success message
+  document.getElementById('pkoParseSuccess').style.display='block';
+  setTimeout(function(){document.getElementById('pkoParseSuccess').style.display='none'},8000);
+
+  // Switch to Seller Email sub-tab to show the result
+  showPostKOSub('postko-email');
+
+  showToast('✅ Deliverables parsed! A → Email, B → DSR, C → Analysis');
 }
 
 </script>
