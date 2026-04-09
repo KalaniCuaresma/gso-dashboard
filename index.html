@@ -516,6 +516,7 @@ nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 <button class="tab-btn" onclick="showTab('onlineTraining')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">🌐 Online Training</button>
 <button class="tab-btn" onclick="showTab('posTraining')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">🎓 POS Training</button>
 <button class="tab-btn" onclick="showTab('postTraining')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">📋 Post-Training</button>
+<button class="tab-btn" onclick="showTab('trainingPrep')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">📋 Training Prep</button>
 <div style="border-top:1px solid var(--border);margin:6px 0"></div>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
@@ -830,6 +831,7 @@ Examples:
 <div class="card"><h3>📝 DSR Chatter</h3><p>Salesforce Chatter</p><span class="badge badge-gray" id="badgeDSR">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('postKODeliv');setTimeout(function(){showPostKOSub('postko-dsr')},50)">Open →</button></div>
 <div class="card"><h3>🔧 BPO DSA Notes</h3><p>Menu Build Submission</p><span class="badge badge-gray" id="badgeBPO">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('postKODeliv');setTimeout(function(){showPostKOSub('postko-bpo')},50)">Open →</button></div>
 <div class="card"><h3>🔍 Internal Analysis</h3><p>PM Risk & Coordination</p><span class="badge badge-gray" id="badgeAnalysis">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('analysis')">Open →</button></div>
+<div class="card"><h3>📋 Training Prep</h3><p>Agenda + Checklist from KO</p><span class="badge badge-gray" id="badgeTrainingPrep">Not Generated</span> <button class="btn btn-blue btn-sm" style="float:right" onclick="showTab('trainingPrep')">Open →</button></div>
 </div>
 <div class="checklist">
 <div class="checklist-header"><div class="section-title" style="margin:0">✅ DSR Update Checklist</div><div class="counter" id="checkCounter">0/10</div></div>
@@ -2060,6 +2062,10 @@ Example:
 <div style="display:flex;align-items:center;gap:6px;font-size:12px"><div style="width:12px;height:12px;background:#ff6b35;border-radius:2px"></div> KO DATA &mdash; From your generator</div>
 </div>
 <input type="text" id="dbTrainingSearch" oninput="filterDbTraining()" placeholder="&#128269; Search training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div id="dbTraining-koNotesBanner" style="display:none;background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="color:#ff6b35">📋 KO Call Notes &mdash; Key Items for This Training</strong><button class="btn btn-sm" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544;font-size:10px" onclick="this.parentElement.parentElement.style.display='none'">Dismiss</button></div>
+<div id="dbTraining-koNotesContent" style="font-size:12px;line-height:1.7;color:#e2e8f0"></div>
+</div>
 
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="dbTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
@@ -2549,6 +2555,10 @@ Example:
 </div>
 
 <input type="text" id="onlineTrainingSearch" oninput="filterOnlineTraining()" placeholder="&#128269; Search online training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div id="onlineTraining-koNotesBanner" style="display:none;background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="color:#ff6b35">📋 KO Call Notes &mdash; Key Items for This Training</strong><button class="btn btn-sm" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544;font-size:10px" onclick="this.parentElement.parentElement.style.display='none'">Dismiss</button></div>
+<div id="onlineTraining-koNotesContent" style="font-size:12px;line-height:1.7;color:#e2e8f0"></div>
+</div>
 
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="onlineTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
@@ -2763,6 +2773,10 @@ Example:
 <div style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#006AFF22;color:#006AFF;border:1px solid #006AFF44">HANDS-ON</div>
 </div>
 <input type="text" id="posTrainingSearch" oninput="filterPosTraining()" placeholder="&#128269; Search POS training sections..." style="width:100%;padding:10px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;margin-bottom:16px">
+<div id="posTraining-koNotesBanner" style="display:none;background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:14px 16px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="color:#ff6b35">📋 KO Call Notes &mdash; Key Items for This Training</strong><button class="btn btn-sm" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544;font-size:10px" onclick="this.parentElement.parentElement.style.display='none'">Dismiss</button></div>
+<div id="posTraining-koNotesContent" style="font-size:12px;line-height:1.7;color:#e2e8f0"></div>
+</div>
 
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;padding:12px 16px;margin-bottom:16px">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:700">Training Progress</span><span id="posTrainingCounter" style="font-size:13px;font-weight:700;color:#22c55e">0/0</span></div>
@@ -3215,6 +3229,122 @@ Example:
 
 </div><!-- end postTraining -->
 <!-- ===== OPTI CALL ===== -->
+
+<!-- ===== TRAINING PREP ===== -->
+<div id="trainingPrep" class="tab">
+<h1 style="margin-bottom:4px">📋 Training Prep</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Generate a customized training agenda, pre-call checklist, and KO notes from your kickoff transcript. Output auto-populates training tab banners.</p>
+
+<div class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<div><strong style="color:#006AFF">👤 Active Seller:</strong> <span class="deal-biz" style="font-weight:700"></span> — <span class="deal-pkg" style="color:#22c55e"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')">Edit in Generator</button>
+</div></div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div>
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Training Type</label>
+<select id="tpTrainingType" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="RST DB">Restaurant Dashboard Training</option>
+<option value="RTL DB">Retail Dashboard Training</option>
+<option value="RST POS">Restaurant POS Training</option>
+<option value="RTL POS">Retail POS Training</option>
+<option value="Online">Square Online Training</option>
+</select>
+</div>
+<div>
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Session Duration</label>
+<select id="tpDuration" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+<option value="30 min">30 minutes</option>
+<option value="45 min" selected>45 minutes</option>
+<option value="60 min">60 minutes</option>
+<option value="90 min">90 minutes</option>
+</select>
+</div>
+<div>
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Training Date/Time</label>
+<input type="text" id="tpDateTime" placeholder="e.g. Today at 1pm CST" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+</div>
+<div>
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Session # (e.g. 1 of 3)</label>
+<input type="text" id="tpSessionNum" placeholder="e.g. 2 of 4" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px">
+</div>
+</div>
+
+<div style="margin-bottom:16px">
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">KO Transcript or Notes <span style="color:#ef4444">*</span></label>
+<textarea id="tpTranscript" rows="6" placeholder="Paste your KO call transcript, notes, or key discussion points here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<div style="display:flex;justify-content:space-between;margin-top:4px">
+<span id="tpTranscriptCount" style="font-size:11px;color:#64748b">0 characters</span>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="document.getElementById('tpTranscript').value=document.getElementById('genNotes').value||document.getElementById('genTranscript').value||'';document.getElementById('tpTranscriptCount').textContent=document.getElementById('tpTranscript').value.length+' characters'">Pull from Generator Notes</button>
+</div>
+</div>
+
+<div style="margin-bottom:16px">
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Trainer Feedback / Personal Notes (optional)</label>
+<textarea id="tpFeedback" rows="3" placeholder="Any feedback from your trainer, things you want to improve on, or personal reminders..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+</div>
+
+<div style="margin-bottom:16px">
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Focus Areas / Seller Priorities (optional)</label>
+<textarea id="tpFocus" rows="2" placeholder="e.g. Seller wants to focus on inventory management, they have 500+ SKUs, concerned about barcode scanning..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea>
+</div>
+
+<div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+<button class="btn btn-green" onclick="copyTrainingPrepPrompt()">📋 Copy Prompt to Clipboard</button>
+<button class="btn btn-blue" onclick="document.getElementById('tpResponseArea').style.display='block';document.getElementById('tpResponse').focus()">Paste GPT Response</button>
+<button class="btn" style="background:#2d2d5e;color:#94a3b8" onclick="clearTrainingPrep()">🗑️ Clear</button>
+</div>
+
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:14px;margin-bottom:20px">
+<p style="font-size:12px;color:#ff6b35;margin-bottom:6px"><strong>💡 How to use:</strong></p>
+<ol style="font-size:12px;color:#e2e8f0;line-height:1.8;margin-left:16px">
+<li>Fill in the fields above (training type, duration, KO transcript)</li>
+<li>Click <b>"Copy Prompt"</b> — this builds a comprehensive prompt</li>
+<li>Paste into <a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" style="color:#006AFF;text-decoration:underline">GSO PM Assistant GPT</a></li>
+<li>Copy the GPT response and paste it back here</li>
+<li>Click <b>"Parse Response"</b> — it splits into Agenda, Checklist, and KO Notes</li>
+<li>KO Notes auto-populate at the top of your training tabs!</li>
+</ol>
+</div>
+
+<div id="tpResponseArea" style="display:none;margin-bottom:20px">
+<label style="font-size:11px;text-transform:uppercase;color:#64748b;letter-spacing:1px;margin-bottom:4px;display:block">Paste GPT Response Here</label>
+<textarea id="tpResponse" rows="10" placeholder="Paste the full GPT response here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea>
+<div style="margin-top:8px">
+<button class="btn btn-green" onclick="parseTrainingPrepResponse()">✅ Parse Response</button>
+</div>
+</div>
+
+<div id="tpOutputs" style="display:none">
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm tp-out-btn" onclick="showTpOut('tpAgenda')" id="tpBtn-agenda" style="background:#22c55e;color:#fff">📅 A) Training Agenda</button>
+<button class="btn btn-sm tp-out-btn" onclick="showTpOut('tpChecklist')" id="tpBtn-checklist" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">✅ B) Pre-Training Checklist</button>
+<button class="btn btn-sm tp-out-btn" onclick="showTpOut('tpKoNotes')" id="tpBtn-koNotes" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">📝 C) KO Notes for Training</button>
+</div>
+
+<div id="tpAgenda" class="tp-out-panel" style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#22c55e">📅 A) Training Agenda</h4><button class="btn btn-green btn-sm" onclick="copyContent('tpAgendaText')">📋 Copy</button></div>
+<div id="tpAgendaText" class="deliv-content" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
+
+<div id="tpChecklist" class="tp-out-panel" style="display:none;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#006AFF">✅ B) Pre-Training Checklist</h4><button class="btn btn-blue btn-sm" onclick="copyContent('tpChecklistText')">📋 Copy</button></div>
+<div id="tpChecklistText" class="deliv-content" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+</div>
+
+<div id="tpKoNotes" class="tp-out-panel" style="display:none;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:14px;color:#ff6b35">📝 C) KO Notes for Training Tabs</h4><button class="btn btn-sm" onclick="copyContent('tpKoNotesText')" style="background:#ff6b35;color:#fff">📋 Copy</button></div>
+<div id="tpKoNotesText" class="deliv-content" style="font-size:12px;line-height:1.8;color:#cbd5e1;white-space:pre-wrap"></div>
+<div style="margin-top:12px">
+<button class="btn btn-sm" style="background:#ff6b35;color:#fff" onclick="pushKoNotesToTrainingTabs()">🚀 Push KO Notes to Training Tabs</button>
+<span id="tpPushStatus" style="font-size:11px;color:#22c55e;margin-left:8px"></span>
+</div>
+</div>
+</div>
+
+</div><!-- end trainingPrep -->
+
 <div id="optiCall" class="tab">
 <h1 style="margin-bottom:4px">&#9889; Optimization Call</h1>
 <p style="color:#94a3b8;font-size:13px;margin-bottom:16px">60-minute live call script + post-call AE notes generator. Focus: MVP readiness, confidence, real transactions.</p>
@@ -3839,7 +3969,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',onlineTraining:'🌐 Online Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',onlineTraining:'🌐 Online Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',trainingPrep:'📋 Training Prep',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -3936,6 +4066,12 @@ function syncTabSpecificFields(id){
   // Online Training - sync deal info
   if(id==='onlineTraining'){
     syncOnlineTrainingFromGenerator();
+  }
+  // Training Prep - sync deal info
+  if(id==='trainingPrep'){
+    // Auto-select training type based on package
+    var pkgVal=(document.getElementById('genPackage')||{}).value||'';
+    // Don't auto-fill transcript if user already has content
   }
   // Opti Call fields
   if(id==='optiCall'){
@@ -5090,11 +5226,11 @@ function parseDSRPaste(){
 // ===== PER-DEAL TAB STATE HELPERS =====
 function clearAllTabState(){
   // Clear all tab-specific localStorage keys
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-menu-items'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-menu-items'];
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
-  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput'];
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText'];
   delivIds.forEach(function(id){
     var el=document.getElementById(id);
     if(el){el.innerHTML='';el.dataset.rawText=''}
@@ -5111,7 +5247,7 @@ function clearAllTabState(){
   if(anaEl&&!anaEl.innerHTML.trim())anaEl.innerHTML='<div class="empty-state"><div class="icon">\u{1F50D}</div><h3>No Analysis Generated Yet</h3></div>';
 
   // Clear input fields on other tabs
-  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','optiAEName','optiGoLive','optiTranscript','ptTranscript'];
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration'];
   tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)el.value=''});
   var pkgSel=document.getElementById('preKO-package');
   if(pkgSel){pkgSel.selectedIndex=0;delete pkgSel.dataset.userChanged}
@@ -5136,6 +5272,16 @@ function clearAllTabState(){
   // Hide deal banners
   document.querySelectorAll('[id$="SellerBanner"],[id$="sellerBanner"]').forEach(function(b){b.style.display='none'});
   document.querySelectorAll('.deal-banner').forEach(function(b){b.style.display='none'});
+  // Clear KO notes banners
+  ['dbTraining','onlineTraining','posTraining'].forEach(function(tabId){
+    var banner=document.getElementById(tabId+'-koNotesBanner');
+    if(banner)banner.style.display='none';
+  });
+  // Clear training prep outputs
+  var tpOutputs=document.getElementById('tpOutputs');if(tpOutputs)tpOutputs.style.display='none';
+  ['tpAgendaText','tpChecklistText','tpKoNotesText'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='';el.dataset.rawText=''}});
+  var tpRA=document.getElementById('tpResponseArea');if(tpRA)tpRA.style.display='none';
+  var tpBadge=document.getElementById('badgeTrainingPrep');if(tpBadge){tpBadge.className='badge badge-gray';tpBadge.textContent='Not Generated'}
 }
 
 function reloadAllCheckboxStates(){
@@ -5199,17 +5345,17 @@ function saveDeal(){
   deal.timestamp=Date.now();
 
   // === Save all tab-specific localStorage state ===
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml'];
   deal._tabState={};
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
   // Save deliverable content (innerHTML + rawText)
-  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput'];
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText'];
   deal._deliverables={};
   delivIds.forEach(function(id){var el=document.getElementById(id);if(el){deal._deliverables[id]={html:el.innerHTML,raw:el.dataset.rawText||''}}});
 
   // Save input fields from other tabs
-  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript'];
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration'];
   deal._tabInputs={};
   tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)deal._tabInputs[id]=el.value});
 
@@ -5467,7 +5613,7 @@ function generatePreKOEmail(){
     email+='  \u2022 Any Square feature relevant to your launch\n\n';
     email+='Cheers,\n'+you;
   }
-  document.getElementById('preKO-emailOutput').textContent=email;
+  document.getElementById('preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText').textContent=email;
   navigator.clipboard.writeText(email).then(function(){showToast('Intro email copied to clipboard!');});
 }
 function updateKOQ(){
@@ -5871,11 +6017,11 @@ function saveBpoTimeline(){
     received: document.getElementById('bpoReceivedDate').value,
     qa: document.getElementById('bpoQADate').value
   };
-  localStorage.setItem('gso-bpo-timeline', JSON.stringify(timeline));
+  localStorage.setItem('gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml', JSON.stringify(timeline));
 }
 
 function loadBpoTimeline(){
-  const t = JSON.parse(localStorage.getItem('gso-bpo-timeline') || '{}');
+  const t = JSON.parse(localStorage.getItem('gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml') || '{}');
   if(t.submit) document.getElementById('bpoSubmitDate').value = t.submit;
   if(t.due) document.getElementById('bpoDueDate').value = t.due;
   if(t.received) document.getElementById('bpoReceivedDate').value = t.received;
@@ -6073,7 +6219,7 @@ function syncPtDealInfo(){
   });
 }
 
-document.getElementById('ptTranscript').addEventListener('input',function(){
+document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').addEventListener('input',function(){
   document.getElementById('ptTranscriptCount').textContent=this.value.length+' characters';
 });
 
@@ -6081,7 +6227,7 @@ function handlePtFile(event){
   var file=event.target.files[0];if(!file)return;
   var reader=new FileReader();
   reader.onload=function(e){
-    document.getElementById('ptTranscript').value=e.target.result;
+    document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').value=e.target.result;
     document.getElementById('ptTranscriptCount').textContent=e.target.result.length+' characters';
     showToast('\ud83d\udcc4 File loaded: '+file.name);
   };
@@ -6109,7 +6255,7 @@ function getPtDealContext(){
 }
 
 function copyPtPrompt(){
-  var transcript=document.getElementById('ptTranscript').value.trim();
+  var transcript=document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').value.trim();
   var brainDump=document.getElementById('ptBrainDump').value.trim();
   var sessionType=document.getElementById('ptSessionType').value;
   var recording=document.getElementById('ptRecording').value.trim();
@@ -6580,7 +6726,7 @@ function syncPtDealInfo(){
   });
 }
 
-document.getElementById('ptTranscript').addEventListener('input',function(){
+document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').addEventListener('input',function(){
   document.getElementById('ptTranscriptCount').textContent=this.value.length+' characters';
 });
 
@@ -6588,7 +6734,7 @@ function handlePtFile(event){
   var file=event.target.files[0];if(!file)return;
   var reader=new FileReader();
   reader.onload=function(e){
-    document.getElementById('ptTranscript').value=e.target.result;
+    document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').value=e.target.result;
     document.getElementById('ptTranscriptCount').textContent=e.target.result.length+' characters';
     showToast('\ud83d\udcc4 File loaded: '+file.name);
   };
@@ -6616,7 +6762,7 @@ function getPtDealContext(){
 }
 
 function copyPtPrompt(){
-  var transcript=document.getElementById('ptTranscript').value.trim();
+  var transcript=document.getElementById('ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration').value.trim();
   var brainDump=document.getElementById('ptBrainDump').value.trim();
   var sessionType=document.getElementById('ptSessionType').value;
   var recording=document.getElementById('ptRecording').value.trim();
@@ -6959,6 +7105,238 @@ function showPostKOSub(id){
     else{b.style.background='#1a1a3e';b.style.color=colors[k][0];b.style.border='1px solid '+colors[k][0]+'44';}
   });
 }
+
+
+// ===== TRAINING PREP =====
+document.getElementById('tpTranscript').addEventListener('input',function(){
+  document.getElementById('tpTranscriptCount').textContent=this.value.length+' characters';
+});
+
+function copyTrainingPrepPrompt(){
+  var type=document.getElementById('tpTrainingType').value;
+  var dur=document.getElementById('tpDuration').value;
+  var dt=document.getElementById('tpDateTime').value;
+  var sess=document.getElementById('tpSessionNum','tpTrainingType','tpDuration').value;
+  var transcript=document.getElementById('tpTranscript').value;
+  var feedback=document.getElementById('tpFeedback').value;
+  var focus=document.getElementById('tpFocus').value;
+  var biz=(document.getElementById('genBusiness')||{}).value||'';
+  var seller=(document.getElementById('genSeller')||{}).value||'';
+  var pkg=(document.getElementById('genPackage')||{}).value||'';
+  var pm=(document.getElementById('genPM')||{}).value||'';
+
+  if(!transcript.trim()){alert('Please paste your KO transcript or notes first.');return}
+
+  var typeMap={
+    'RST DB':'Square for Restaurants Dashboard Training (Facilitator Guide)',
+    'RTL DB':'Square for Retail Dashboard Training (Facilitator Guide)',
+    'RST POS':'Square for Restaurants POS Training (Facilitator Guide)',
+    'RTL POS':'Square for Retail POS Training (Facilitator Guide)',
+    'Online':'Square Online Training (Facilitator Guide)'
+  };
+
+  var prompt='Hii! You are my Implementation Specialist / PM assistant and I need your help creating a training agenda, pre-training checklist, and KO notes summary for my upcoming training call.\n\n';
+  prompt+='=== DEAL CONTEXT ===\n';
+  if(biz)prompt+='Business: '+biz+'\n';
+  if(seller)prompt+='Seller Contact: '+seller+'\n';
+  if(pkg)prompt+='Package: '+pkg+'\n';
+  if(pm)prompt+='PM/Specialist: '+pm+'\n';
+  prompt+='Training Type: '+typeMap[type]+'\n';
+  prompt+='Session Duration: '+dur+'\n';
+  if(dt)prompt+='Date/Time: '+dt+'\n';
+  if(sess)prompt+='Session: '+sess+'\n';
+  prompt+='\n';
+
+  prompt+='=== KO TRANSCRIPT / NOTES ===\n';
+  prompt+=transcript+'\n\n';
+
+  if(feedback){
+    prompt+='=== TRAINER FEEDBACK / PERSONAL NOTES ===\n';
+    prompt+=feedback+'\n\n';
+  }
+
+  if(focus){
+    prompt+='=== SELLER PRIORITIES / FOCUS AREAS ===\n';
+    prompt+=focus+'\n\n';
+  }
+
+  prompt+='=== INSTRUCTIONS ===\n';
+  prompt+='Using the KO transcript/notes above, the '+typeMap[type]+', and any trainer feedback provided, please generate THREE sections:\n\n';
+
+  prompt+='**A) TRAINING AGENDA**\n';
+  prompt+='Create a time-boxed agenda for a '+dur+' session. The facilitator guide is designed for longer sessions, so prioritize what matters most based on what the seller discussed in KO. Include:\n';
+  prompt+='- Time blocks with specific topics\n';
+  prompt+='- Which facilitator guide sections to cover and which to skip\n';
+  prompt+='- Talking points personalized to this seller\'s business\n';
+  prompt+='- Items the seller specifically asked about or that I agreed to review\n';
+  prompt+='- A buffer for Q&A\n';
+  prompt+='- Note which topics to defer to a follow-up or cover via Square Help articles in the post-call email\n\n';
+
+  prompt+='**B) PRE-TRAINING CHECKLIST**\n';
+  prompt+='A to-do list for ME to complete BEFORE the call starts:\n';
+  prompt+='- Review specific seller details from KO (menu structure, hardware, integrations, etc.)\n';
+  prompt+='- Pre-load any relevant Dashboard pages or settings\n';
+  prompt+='- Prepare any demo scenarios based on their business\n';
+  prompt+='- Personal reminders based on trainer feedback\n';
+  prompt+='- Items I promised the seller I\'d prepare\n';
+  prompt+='- Square Help article links to have ready for topics we may not cover\n\n';
+
+  prompt+='**C) KO NOTES FOR TRAINING**\n';
+  prompt+='Extract the key discussion points from the KO call that are relevant to this training session. Format as bullet points organized by topic. These will be displayed as a banner at the top of the training guide so I don\'t forget what we discussed. Include:\n';
+  prompt+='- What the seller wants to focus on\n';
+  prompt+='- What I agreed to cover or demonstrate\n';
+  prompt+='- Seller\'s current setup, pain points, and priorities\n';
+  prompt+='- Any concerns or questions they raised\n';
+  prompt+='- Hardware/integration details relevant to this training\n';
+  prompt+='- Anything important that isn\'t on the seller\'s radar but should be mentioned\n\n';
+
+  prompt+='Keep in mind I can be forgetful, so make the checklist and KO notes thorough. I want to make sure we cover the main points and I\'ll provide Square Help articles in the post-call email for whatever we don\'t get to.\n\n';
+  prompt+='Format with clear **A)**, **B)**, **C)** section headers so I can parse them.';
+
+  navigator.clipboard.writeText(prompt).then(function(){
+    showToast('\u{1F4CB} Training Prep prompt copied! Paste into GSO PM Assistant GPT');
+    document.getElementById('tpResponseArea').style.display='block';
+  });
+}
+
+function parseTrainingPrepResponse(){
+  var raw=document.getElementById('tpResponse').value;
+  if(!raw.trim()){alert('Paste the GPT response first.');return}
+
+  // Split into A, B, C sections
+  var partA='',partB='',partC='';
+  var patterns=[
+    /\*\*\s*A\).*?\*\*/i,
+    /#{1,3}\s*A\)/i,
+    /A\)\s*(?:TRAINING\s*AGENDA|Training\s*Agenda)/i
+  ];
+  var patternsB=[
+    /\*\*\s*B\).*?\*\*/i,
+    /#{1,3}\s*B\)/i,
+    /B\)\s*(?:PRE.?TRAINING\s*CHECKLIST|Pre.?Training\s*Checklist)/i
+  ];
+  var patternsC=[
+    /\*\*\s*C\).*?\*\*/i,
+    /#{1,3}\s*C\)/i,
+    /C\)\s*(?:KO\s*NOTES|KO\s*Notes|Ko\s*Notes)/i
+  ];
+
+  var idxA=-1,idxB=-1,idxC=-1;
+  for(var i=0;i<patterns.length&&idxA<0;i++){var m=raw.match(patterns[i]);if(m)idxA=raw.indexOf(m[0])}
+  for(var i=0;i<patternsB.length&&idxB<0;i++){var m=raw.match(patternsB[i]);if(m)idxB=raw.indexOf(m[0])}
+  for(var i=0;i<patternsC.length&&idxC<0;i++){var m=raw.match(patternsC[i]);if(m)idxC=raw.indexOf(m[0])}
+
+  if(idxA>=0&&idxB>=0&&idxC>=0){
+    partA=raw.substring(idxA,idxB).trim();
+    partB=raw.substring(idxB,idxC).trim();
+    partC=raw.substring(idxC).trim();
+  } else if(idxA>=0&&idxB>=0){
+    partA=raw.substring(idxA,idxB).trim();
+    partB=raw.substring(idxB).trim();
+    partC='(Section C not found - check GPT response format)';
+  } else {
+    partA=raw;partB='(Could not split - showing full response in A)';partC='';
+  }
+
+  var aEl=document.getElementById('tpAgendaText');
+  var bEl=document.getElementById('tpChecklistText');
+  var cEl=document.getElementById('tpKoNotesText');
+
+  aEl.innerHTML=typeof mdToHtml==='function'?mdToHtml(partA):partA;
+  aEl.dataset.rawText=partA;
+  bEl.innerHTML=typeof mdToHtml==='function'?mdToHtml(partB):partB;
+  bEl.dataset.rawText=partB;
+  cEl.innerHTML=typeof mdToHtml==='function'?mdToHtml(partC):partC;
+  cEl.dataset.rawText=partC;
+
+  document.getElementById('tpOutputs').style.display='block';
+  showTpOut('tpAgenda');
+
+  // Update dashboard badge
+  var badge=document.getElementById('badgeTrainingPrep');
+  if(badge){badge.className='badge badge-green';badge.textContent='Generated'}
+
+  // Auto-push KO notes to training tabs
+  if(partC)pushKoNotesToTrainingTabs();
+
+  showToast('\u2705 Training Prep parsed! KO notes pushed to training tabs.');
+}
+
+function showTpOut(id){
+  document.querySelectorAll('.tp-out-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  var colors={'tpAgenda':['#22c55e','#fff'],'tpChecklist':['#006AFF','#fff'],'tpKoNotes':['#ff6b35','#fff']};
+  var btnMap={'tpAgenda':'tpBtn-agenda','tpChecklist':'tpBtn-checklist','tpKoNotes':'tpBtn-koNotes'};
+  document.querySelectorAll('.tp-out-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#94a3b8';b.style.border='1px solid #2d2d5e'});
+  var btn=document.getElementById(btnMap[id]);
+  if(btn&&colors[id]){btn.style.background=colors[id][0];btn.style.color=colors[id][1];btn.style.border='none'}
+}
+
+function pushKoNotesToTrainingTabs(){
+  var cEl=document.getElementById('tpKoNotesText');
+  if(!cEl)return;
+  var html=cEl.innerHTML;
+  var raw=cEl.dataset.rawText||cEl.innerText;
+  if(!raw.trim())return;
+
+  var type=document.getElementById('tpTrainingType').value;
+
+  // Push to ALL training tabs - the notes are relevant context
+  var targets=['dbTraining','onlineTraining','posTraining'];
+  targets.forEach(function(tabId){
+    var banner=document.getElementById(tabId+'-koNotesBanner');
+    var content=document.getElementById(tabId+'-koNotesContent');
+    if(banner&&content){
+      content.innerHTML=html;
+      banner.style.display='block';
+    }
+  });
+
+  // Save to localStorage so it persists
+  localStorage.setItem('gso-tp-koNotes',raw);
+  localStorage.setItem('gso-tp-koNotesHtml',html);
+
+  var status=document.getElementById('tpPushStatus');
+  if(status)status.textContent='\u2705 Pushed to all training tabs!';
+}
+
+function clearTrainingPrep(){
+  ['tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration','tpResponse'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('tpTrainingType').selectedIndex=0;
+  document.getElementById('tpDuration').selectedIndex=1;
+  document.getElementById('tpTranscriptCount').textContent='0 characters';
+  document.getElementById('tpResponseArea').style.display='none';
+  document.getElementById('tpOutputs').style.display='none';
+  ['tpAgendaText','tpChecklistText','tpKoNotesText'].forEach(function(id){
+    var el=document.getElementById(id);if(el){el.innerHTML='';el.dataset.rawText=''}
+  });
+  // Clear KO notes banners
+  ['dbTraining','onlineTraining','posTraining'].forEach(function(tabId){
+    var banner=document.getElementById(tabId+'-koNotesBanner');
+    if(banner)banner.style.display='none';
+  });
+  localStorage.removeItem('gso-tp-koNotes');
+  localStorage.removeItem('gso-tp-koNotesHtml');
+  var badge=document.getElementById('badgeTrainingPrep');
+  if(badge){badge.className='badge badge-gray';badge.textContent='Not Generated'}
+  var status=document.getElementById('tpPushStatus');
+  if(status)status.textContent='';
+}
+
+// Restore KO notes banners on page load
+document.addEventListener('DOMContentLoaded',function(){
+  var html=localStorage.getItem('gso-tp-koNotesHtml');
+  if(html){
+    ['dbTraining','onlineTraining','posTraining'].forEach(function(tabId){
+      var banner=document.getElementById(tabId+'-koNotesBanner');
+      var content=document.getElementById(tabId+'-koNotesContent');
+      if(banner&&content){content.innerHTML=html;banner.style.display='block'}
+    });
+  }
+});
+
 </script>
 </body>
 </html>
