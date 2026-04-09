@@ -5391,7 +5391,7 @@ function generateDeliverables(){
 // ===== SAVE/LOAD DEALS =====
 function saveCurrentDeal(){
   const deal={};
-  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
+  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genTranscript','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
   allFields.forEach(id=>{deal[id]=document.getElementById(id).value});
   deal.menuItems = menuItems;
   deal.timestamp=Date.now();
@@ -5834,7 +5834,7 @@ function saveDeal(){
   if(!biz){alert('Enter a business name first');return}
   const deals=JSON.parse(localStorage.getItem('gso-saved-deals')||'{}');
   const deal={};
-  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
+  const allFields = ['genBusiness','genSeller','genSellerEmail','genAE','genPM','genPackage','genDSR','genRecording','genTranscript','genNotes','genSessionType','genGoLive','genAvailability','genAttendees','genDate','genHardware','genMenuStatus','genSpecial','genSourcePOS','genItemCount','genMenuType','genBPOActivity','genMenuText','genMenuNotes'];
   allFields.forEach(id=>{deal[id]=document.getElementById(id).value});
   deal.menuItems = menuItems;
   deal.timestamp=Date.now();
