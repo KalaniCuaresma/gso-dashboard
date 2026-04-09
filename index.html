@@ -868,9 +868,102 @@ Examples:
 </div></div>
 
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-howto')" id="postkoBtn-howto" style="background:#1a1a3e;color:#a855f7;border:1px solid #a855f744">&#129302; How to Generate</button>
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-email')" id="postkoBtn-email" style="background:#22c55e;color:#fff">&#128231; Seller Email</button>
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-dsr')" id="postkoBtn-dsr" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128221; DSR Chatter</button>
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-bpo')" id="postkoBtn-bpo" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128295; BPO Task</button>
+</div>
+
+<div id="postko-howto" class="postko-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #a855f744;border-radius:10px;padding:24px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<span style="font-size:28px">&#129302;</span>
+<div>
+<h2 style="font-size:18px;margin-bottom:2px;color:#a855f7">Harnessing AI &mdash; Post-KO Deliverables</h2>
+<p style="color:#94a3b8;font-size:12px">Use the GSO PM Assistant GPT Agent to generate your post-call deliverables once the Revenue.io transcript + recording are available.</p>
+</div>
+</div>
+
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#006AFF;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:12px 24px;font-size:14px;margin-bottom:20px">&#128640; Open GSO PM Assistant GPT</a>
+
+<h3 style="font-size:15px;color:#22c55e;margin-bottom:14px">&#128221; Create Deliverables via Prompting</h3>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+
+<!-- Step 1 -->
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="min-width:32px;height:32px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">1</div>
+<div style="flex:1">
+<p style="font-size:13px;font-weight:700;margin-bottom:4px">Start a new chat &amp; rename it</p>
+<p style="font-size:12px;color:#94a3b8">Open the GSO PM Assistant and start a <b>new chat</b>. Rename the chat to the <b>Business Name</b> for easy reference later.</p>
+</div>
+</div>
+
+<!-- Step 2 -->
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="min-width:32px;height:32px;background:#006AFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">2</div>
+<div style="flex:1">
+<p style="font-size:13px;font-weight:700;margin-bottom:4px">Build your prompt &mdash; all in 1 message, before sending</p>
+<p style="font-size:12px;color:#94a3b8;margin-bottom:8px">Pull in the following <b>3 correct snippets</b> into your Agent Chat:</p>
+<div style="background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;padding:14px;font-size:12px;line-height:1.8">
+<div style="margin-bottom:10px">
+<span style="background:#22c55e22;color:#22c55e;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">FIRST</span>
+<span style="margin-left:6px">Paste the required header: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koheader</code></span>
+</div>
+<div style="margin-bottom:10px">
+<span style="background:#eab30822;color:#eab308;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">THEN</span>
+<span style="margin-left:6px">Use <b>voice-to-text</b> to add a brain dump (extra context, seller sentiment, promises made, timing constraints)</span>
+</div>
+<div style="margin-bottom:10px">
+<span style="background:#006AFF22;color:#006AFF;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">ADD</span>
+<span style="margin-left:6px">Call Recording Link <span style="color:#64748b">(Revenue.io)</span></span>
+</div>
+<div style="margin-bottom:10px">
+<span style="background:#006AFF22;color:#006AFF;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">ADD</span>
+<span style="margin-left:6px">Call Transcript <span style="color:#64748b">(Revenue.io)</span></span>
+</div>
+<div style="margin-bottom:10px">
+<span style="background:#ff6b3522;color:#ff6b35;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">THEN</span>
+<span style="margin-left:6px">Paste the deliverables engine: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;masterprompt</code></span>
+</div>
+<div>
+<span style="background:#a855f722;color:#a855f7;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700">FINALLY</span>
+<span style="margin-left:6px">Paste the Kickoff add-on: <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koaddon</code></span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Step 3 -->
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="min-width:32px;height:32px;background:#ff6b35;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">3</div>
+<div style="flex:1">
+<p style="font-size:13px;font-weight:700;margin-bottom:4px">Send &amp; wait for the deliverables</p>
+<p style="font-size:12px;color:#94a3b8">The GPT will generate your <b>Seller Email</b>, <b>DSR Chatter</b>, and <b>Internal Analysis</b>. Copy each section and paste into the corresponding tab here.</p>
+</div>
+</div>
+
+<!-- Step 4 -->
+<div style="display:flex;gap:12px;align-items:flex-start">
+<div style="min-width:32px;height:32px;background:#a855f7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff">4</div>
+<div style="flex:1">
+<p style="font-size:13px;font-weight:700;margin-bottom:4px">Paste deliverables into the tabs</p>
+<p style="font-size:12px;color:#94a3b8">Switch to the <b>Seller Email</b>, <b>DSR Chatter</b>, or <b>BPO Task</b> sub-tabs to paste and review each deliverable.</p>
+<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+<button class="btn btn-sm" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44" onclick="showPostKOSub('postko-email')">&#128231; Seller Email</button>
+<button class="btn btn-sm" style="background:#006AFF22;color:#006AFF;border:1px solid #006AFF44" onclick="showPostKOSub('postko-dsr')">&#128221; DSR Chatter</button>
+<button class="btn btn-sm" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544" onclick="showPostKOSub('postko-bpo')">&#128295; BPO Task</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin-top:16px;font-size:12px">
+<strong style="color:#eab308">&#128161; Pro Tip:</strong> The <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koheader</code>, <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;masterprompt</code>, and <code style="background:#2d2d5e;padding:2px 6px;border-radius:4px;color:#60a5fa">;koaddon</code> are TextBlaze snippets. Make sure TextBlaze is active in your browser before pasting.
+</div>
+
+</div>
 </div>
 
 <div id="postko-email" class="postko-panel">
@@ -1739,14 +1832,22 @@ Example:
 </div>
 
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Ideal Contact for Onsite</b> &mdash; name, direct phone number (decision maker for networking/hardware)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Physical Business Address(es)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ideal timeframe for <b>Site Survey</b> within the next 3-5 days</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ideal timeframe for <b>Onsite Installation + In-Person Training</b>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">&#127878; Pro Tip: Gather a timeframe for each day and know their business hours! May be able to install before they open.</div></span></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Any flexibility to open later on their ideal GL date?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Business Name (if differs from DSR/Regulator)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">More than 1 location?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Specific Hardware List</b> &mdash; usage/location for each device
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">Example: 2 Register Kits (Cash Drawer + RP + Scanner): 1 at Bar facing wall, 1 at server station. 2 KDS w/ KPs ethernet: 1 routes Wings, 1 all other food.</div></span></div>
 
 <div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
@@ -1759,38 +1860,74 @@ Example:
 </div>
 
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Current POS Provider (if not provided)?
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">If Toast: did they order a networking kit or plan to source/set up a new one?</div></span></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Who manages their network? Who is their network provider?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Existing connections to swap out, or potential for new cables to be run?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">KDS included? &rarr; Need support installing wall mount or will they set up in advance?
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">Additional $50 per installation. Technicians can only mount to drywall and drywall-like surfaces.</div></span></div>
 </div>
 
 <!-- ===== SECTION 2: OPEN + INTRODUCTIONS ===== -->
 <div class="cl-section">
 <h3><span class="cl-icon">&#128075;</span> Open + Introductions <span class="slide-badge">&#128421;&#65039; Slides 1-3</span> <span class="cl-count" id="premKO-s2-count">0/0</span></h3>
+<div class="slide-cue">&#128421;&#65039; <b>SLIDES 1-3 &mdash; Welcome, Introductions, Who Am I?</b>
+<div class="slide-content">Open with warmth. Set the tone: this is a partnership, not a sales pitch. Keep intros to ~3 minutes.</div>
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Recording disclosure: "This call is being recorded and monitored to ensure quality"</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Introduce yourself &mdash; PM role, main point of contact, manage implementation end-to-end</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm attendees &mdash; names, roles, who will be primary contact</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Set expectations: recap emails after each session, reachable by email or pre-scheduled appointments</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 3: WHAT SUCCESS LOOKS LIKE ===== -->
 <div class="cl-section">
 <h3><span class="cl-icon">&#127942;</span> What Success Looks Like <span class="slide-badge">&#128421;&#65039; Slide 4</span> <span class="cl-count" id="premKO-s3-count">0/0</span></h3>
+<div class="slide-cue">&#128421;&#65039; <b>SLIDE 4 &mdash; What Success Looks Like</b>
+<div class="slide-content">Frame the implementation as a partnership. Set clear expectations about what you handle vs. what the seller owns.</div>
+</div>
+<div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;line-height:1.7">
+<strong style="color:#006AFF">&#128172; Talk Track:</strong><br>
+"With the Premium package, you get a dedicated PM &mdash; that's me. I'll manage your entire implementation from start to finish: menu build, data imports, training sessions, hardware coordination, and go-live support."<br><br>
+"My goal is for you to feel confident and independent on Square by go-live day. I'll send recap emails after every session, and I'm always reachable by email or scheduled appointment."<br><br>
+"Let's talk about what success looks like for <i>your</i> business &mdash; what would make this transition feel like a win?"
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">By end of implementation: run business confidently in Square</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Understand workflows &mdash; front and back of house</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Make updates and adjustments independently</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Know exactly who to contact for ongoing support</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 4: WHAT TO EXPECT ===== -->
 <div class="cl-section">
 <h3><span class="cl-icon">&#128197;</span> What to Expect <span class="slide-badge">&#128421;&#65039; Slides 5-6</span> <span class="cl-count" id="premKO-s4-count">0/0</span></h3>
+<div class="slide-cue">&#128421;&#65039; <b>SLIDE 5 &mdash; What to Expect</b>
+<div class="slide-content">Walk through the implementation phases. Help the seller visualize the journey from today to go-live.</div>
+</div>
+<div style="background:#22c55e10;border:1px solid #22c55e33;border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;line-height:1.7">
+<strong style="color:#22c55e">&#128172; Talk Track:</strong><br>
+"Here's what the next few weeks look like. We'll have several sessions together &mdash; Dashboard Training, POS Training, and depending on your needs, Square Online and a Final QA before go-live."<br><br>
+"Between sessions, I'll be working behind the scenes on your menu build and any data imports. You'll have homework too &mdash; but I'll make it clear and manageable."
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Walk through structured training sessions + behind-the-scenes coordination</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Core sessions: Dashboard Training (90 min), Menu Review (60 min, RST), POS Training (90 min)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Post-Live Healthcheck (1 hour) &mdash; within 5 business days of go-live/installation</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Additional sessions discussed if needed</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 5: BUSINESS OVERVIEW ===== -->
@@ -1800,19 +1937,28 @@ Example:
 <strong>&#129504; Tip:</strong> Open-ended questions deliver the best responses. Reduce yes/no questions to capture the full picture. Maintain ownership if seller shifts too far off topic.
 </div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">What is the ideal <b>Go Live date</b> with Square?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">High-level business overview (if not covered during intros)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm which app/subscription they plan to use</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Hardware:</b> Have they ordered? What are they using? Compatibility? Is WiFi reliable?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Checkout:</b> What is the checkout process? What is each device used for?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 6: MENU / ITEM LIST ===== -->
 <div class="cl-section">
 <h3><span class="cl-icon">&#127869;</span> Menu / Item List Review <span class="slide-badge">&#128421;&#65039; Slide 7</span> <span class="cl-count" id="premKO-s6-count">0/0</span></h3>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Discuss previously provided files/websites (share your screen!)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Ask pre-prepared questions about their file(s)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Anything they sell that is NOT on the data we've looked at today?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Key Variations, Modifiers, Discounts? (be upfront about modifier limitations)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 
 <div style="background:#ff6b3510;border-left:3px solid #ff6b35;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
 <strong style="color:#ff6b35">&#127869; For RST:</strong><br>
@@ -1833,10 +1979,14 @@ Example:
 <div class="cl-section">
 <h3><span class="cl-icon">&#128193;</span> Categories &amp; Reporting <span class="cl-count" id="premKO-s7-count">0/0</span></h3>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>RST:</b> Printer Routing Needs? Unique categories to specific kitchen printers? Or item-based?
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">&#9888;&#65039; Square does not yet support item-based printer routing. Key to understand which items within a larger category go to one printer vs. another to create the right "printer categories" from the start.</div></span></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reporting Needs? (mention Rollups if relevant)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Clear on file which Category/Department to use for Reporting Category?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>RTL:</b> Multiple category columns? &rarr; Nested categories in Square? Which is the reporting category?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 8: ADDITIONAL SQUARE FEATURES ===== -->
@@ -1844,10 +1994,14 @@ Example:
 <h3><span class="cl-icon">&#10024;</span> Additional Square Features for Go Live <span class="cl-count" id="premKO-s8-count">0/0</span></h3>
 
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Square Online?</b> Existing website/online presence? Switch to Square or simplified ordering page?
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">Fulfillment: Pickup, Shipping, Delivery, QR Code ordering?<br>GSO does not "build" a complete website. Implementation includes triggering items for online, optimizing settings during SO Training, and high-level overview of customization.</div></span></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Loyalty?</b> Existing program or starting new with Square?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Marketing?</b> What are their goals with Square Marketing?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Payroll?</b>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-sub">&#9888;&#65039; Requires a different DSR from AE/AM &mdash; not included in current implementation. Ensure no payroll expectation from the start! If they want Payroll, let them know AE/AM will connect regarding cost and next steps.</div></span></div>
 </div>
 
@@ -1855,18 +2009,35 @@ Example:
 <div class="cl-section">
 <h3><span class="cl-icon">&#128230;</span> Additional Imports &amp; Data <span class="slide-badge">&#128421;&#65039; Slide 8</span> <span class="cl-count" id="premKO-s9-count">0/0</span></h3>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Existing rewards data to migrate?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Customer data to import?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Gift Card Liability Report? (1 day before go-live)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Staff data to import? (after Dashboard session)</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Will they be tracking time with Square? Scheduling?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text"><b>Tax:</b> Any specific tax rules/needs we should be aware of?</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <!-- ===== SECTION 10: WRAP UP + SCHEDULING ===== -->
 <div class="cl-section">
 <h3><span class="cl-icon">&#128197;</span> Wrap Up &amp; Scheduling <span class="slide-badge">&#128421;&#65039; Slide 9</span> <span class="cl-count" id="premKO-s10-count">0/0</span></h3>
+<div class="slide-cue">&#128421;&#65039; <b>SLIDE 9 &mdash; What Happens Next</b>
+<div class="slide-content">Recap everything discussed. Lock in training dates. Make sure the seller leaves knowing exactly what happens next.</div>
+</div>
+<div style="background:#a855f710;border:1px solid #a855f733;border-radius:8px;padding:14px 16px;margin-bottom:12px;font-size:12px;line-height:1.7">
+<strong style="color:#a855f7">&#128172; Talk Track:</strong><br>
+"Alright, let me recap what we covered today and make sure we're aligned on next steps."<br><br>
+"You'll get a post-call email from me with everything we discussed, the recording, and your homework items. If we're coordinating onsite visits, I'll have confirmed dates for you within 24 hours."<br><br>
+"Any final questions before we wrap up?"
+</div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Establish the implementation timeline</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reiterate which Training sessions will be scheduled and Go Live goal date</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 
 <div style="background:#a855f710;border-left:3px solid #a855f7;border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12px">
 <strong style="color:#a855f7">&#128197; PM Coordination (if coordinating, not running sessions yourself):</strong><br>
@@ -1887,6 +2058,7 @@ Example:
 <div class="cl-section">
 <h3><span class="cl-icon">&#128640;</span> Next Steps <span class="cl-count" id="premKO-s11-count">0/0</span></h3>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Reiterate implementation timeline and everyone's next steps</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 
 <div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
 <strong style="color:#006AFF">&#128073; From You:</strong><br>
@@ -1902,12 +2074,17 @@ Example:
 </div>
 
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Confirm seller understands their homework items</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 <div class="cl-item"><input type="checkbox" data-cl="premKO" onchange="updatePremKO()"><span class="cl-text">Thank them and close the call</span></div>
+<div class="cl-notes"><textarea data-notes="premKO" placeholder="Notes..." oninput="savePremKONotes()"></textarea></div>
 </div>
 
 <div class="cl-tip">&#128161; <b>Tip:</b> Premium/Onsite implementations have more moving parts. Over-communicate timelines and next steps &mdash; the seller should never wonder what happens next.</div>
 
-<div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('premKO')">&#128260; Reset All</button></div>
+<div class="cl-reset" style="display:flex;gap:8px">
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('premKO')">&#128260; Reset All</button>
+<button class="btn btn-green btn-sm" onclick="exportPremKONotes()">&#128203; Export Notes</button>
+</div>
 </div><!-- end koType-premium -->
 
 <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
@@ -3420,9 +3597,33 @@ Example:
 <!-- PM-LED CONTENT -->
 <div id="optiType-pm">
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiAEChatter')" style="background:#1a1a3e;color:#a855f7;border:1px solid #a855f744">&#128172; AE Intro Chatter</button>
 <button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiChecklist')" style="background:#22c55e;color:#fff">&#9989; Pre-Call Checklist</button>
 <button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiScript')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128220; Live Script</button>
 <button class="btn btn-sm opti-tab-btn" onclick="showOptiSub('optiNotes')" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128221; Post-Call Notes</button>
+</div>
+<div id="optiAEChatter" class="opti-sub" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="font-size:15px;margin-bottom:4px">&#128172; Pre-Call AE Intro Chatter</h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Generate a Salesforce Chatter message to the AE/AM before the Optimization Call. Auto-fills from Generator.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Name (for @mention)</label>
+<input type="text" id="optiChatterAE" placeholder="e.g. Emily Hopkins" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Reschedule Deadline (2 weeks from today)</label>
+<input type="text" id="optiChatterDeadline" placeholder="e.g. July 18, 2025" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+</div>
+<div style="display:flex;gap:8px;margin-bottom:16px">
+<button class="btn btn-green" onclick="generateOptiChatter()">&#128172; Generate Chatter</button>
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="document.getElementById('optiChatterOutput').textContent='Fill in the AE name above and click Generate.';document.getElementById('optiChatterOutput').dataset.rawText=''">&#128465; Clear</button>
+</div>
+</div>
+<div style="background:#1a1a3e;border:1px solid #a855f744;border-radius:10px;padding:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h4 style="font-size:14px;color:#a855f7">&#128172; Chatter Preview</h4>
+<button class="btn btn-sm" style="background:#a855f7;color:#fff" onclick="copyContent('optiChatterOutput')">&#128203; Copy</button>
+</div>
+<div id="optiChatterOutput" class="deliv-content" style="font-size:12px;line-height:1.8;white-space:pre-wrap;color:#cbd5e1">Fill in the AE name above and click Generate.</div>
+</div>
 </div>
 <div id="optiChecklist" class="opti-sub">
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:18px;margin-bottom:16px">
@@ -4281,6 +4482,15 @@ function syncTabSpecificFields(id){
       var ct=document.getElementById('p3NoteCount');
       if(ct)ct.textContent=notes.length+' characters';
     }
+    // AE Chatter fields
+    fillIfEmpty('optiChatterAE',ae);
+    // Auto-calculate 2-week deadline if empty
+    var deadlineEl=document.getElementById('optiChatterDeadline');
+    if(deadlineEl&&!deadlineEl.value){
+      var d=new Date();d.setDate(d.getDate()+14);
+      deadlineEl.value=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    }
+
     // Auto-select business type based on package/session type
     var p3BizType=document.getElementById('p3BizType');
     if(p3BizType&&!p3BizType.dataset.userChanged){
@@ -5435,7 +5645,7 @@ function parseDSRPaste(){
 // ===== PER-DEAL TAB STATE HELPERS =====
 function clearAllTabState(){
   // Clear all tab-specific localStorage keys
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-menu-items'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-menu-items'];
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
@@ -5469,6 +5679,7 @@ function clearAllTabState(){
 
   // Clear KO checklist note textareas
   document.querySelectorAll('textarea[data-notes="koQ"]').forEach(function(el){el.value=''});
+  document.querySelectorAll('textarea[data-notes="premKO"]').forEach(function(el){el.value=''});
 
   // Update all progress bars/counters
   try{if(typeof updateChecks==='function')updateChecks()}catch(e){}
@@ -5554,7 +5765,7 @@ function saveDeal(){
   deal.timestamp=Date.now();
 
   // === Save all tab-specific localStorage state ===
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml'];
   deal._tabState={};
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
@@ -5572,6 +5783,11 @@ function saveDeal(){
   var koNoteEls=document.querySelectorAll('textarea[data-notes="koQ"]');
   deal._koNoteValues=[];
   koNoteEls.forEach(function(el){deal._koNoteValues.push(el.value)});
+
+  // Save Premium KO notes
+  var premKoNoteEls=document.querySelectorAll('textarea[data-notes="premKO"]');
+  deal._premKoNoteValues=[];
+  premKoNoteEls.forEach(function(el){deal._premKoNoteValues.push(el.value)});
 
   deals[biz]=deal;
   localStorage.setItem('gso-saved-deals',JSON.stringify(deals));
@@ -5619,6 +5835,12 @@ function loadDeal(name){
   if(d._koNoteValues){
     var koNoteEls=document.querySelectorAll('textarea[data-notes="koQ"]');
     d._koNoteValues.forEach(function(val,i){if(koNoteEls[i])koNoteEls[i].value=val});
+  }
+
+  // Restore Premium KO notes
+  if(d._premKoNoteValues){
+    var premKoNoteEls=document.querySelectorAll('textarea[data-notes="premKO"]');
+    d._premKoNoteValues.forEach(function(val,i){if(premKoNoteEls[i])premKoNoteEls[i].value=val});
   }
 
   // Reload all checkbox states from the restored localStorage
@@ -6674,7 +6896,7 @@ function showOptiSub(id){
   document.querySelectorAll('.opti-sub').forEach(function(el){el.style.display='none'});
   document.querySelectorAll('.opti-tab-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF'});
   document.getElementById(id).style.display='block';
-  if(event&&event.target){event.target.style.background=id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
+  if(event&&event.target){event.target.style.background=id==='optiAEChatter'?'#a855f7':id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
 }
 function updateOptiChecks(){
   var c=document.querySelectorAll('.opti-pre-check');var d=0;
@@ -7070,7 +7292,7 @@ function showOptiSub(id){
   document.querySelectorAll('.opti-sub').forEach(function(el){el.style.display='none'});
   document.querySelectorAll('.opti-tab-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF'});
   document.getElementById(id).style.display='block';
-  if(event&&event.target){event.target.style.background=id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
+  if(event&&event.target){event.target.style.background=id==='optiAEChatter'?'#a855f7':id==='optiChecklist'?'#22c55e':id==='optiScript'?'#006AFF':'#ff6b35';event.target.style.color='#fff';}
 }
 function updateOptiChecks(){
   var c=document.querySelectorAll('.opti-pre-check');var d=0;
@@ -7302,17 +7524,13 @@ function switchKOType(type){
 }
 
 function showPostKOSub(id){
-  document.querySelectorAll('.postko-panel').forEach(function(p){p.style.display='none';});
-  var el=document.getElementById(id);
-  if(el)el.style.display='block';
-  var colors={'postko-email':['#22c55e','#fff'],'postko-dsr':['#006AFF','#fff'],'postko-bpo':['#ff6b35','#fff']};
-  var btnMap={'postko-email':'postkoBtn-email','postko-dsr':'postkoBtn-dsr','postko-bpo':'postkoBtn-bpo'};
-  Object.keys(btnMap).forEach(function(k){
-    var b=document.getElementById(btnMap[k]);
-    if(!b)return;
-    if(k===id){b.style.background=colors[k][0];b.style.color='#fff';b.style.border='none';}
-    else{b.style.background='#1a1a3e';b.style.color=colors[k][0];b.style.border='1px solid '+colors[k][0]+'44';}
-  });
+  document.querySelectorAll('.postko-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.postko-sub-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF';b.style.border='1px solid #006AFF44'});
+  var colors={'postko-howto':['#a855f7','#a855f744'],'postko-email':['#22c55e','#22c55e44'],'postko-dsr':['#006AFF','#006AFF44'],'postko-bpo':['#ff6b35','#ff6b3544']};
+  var c=colors[id]||['#006AFF','#006AFF44'];
+  var btn=document.getElementById('postkoBtn-'+id.replace('postko-',''));
+  if(btn){btn.style.background=c[0];btn.style.color='#fff';btn.style.border='none'}
 }
 
 
@@ -7698,7 +7916,7 @@ function parseP3Response(){
 }
 
 function clearP3Form(){
-  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response'].forEach(function(id){
+  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value='';
   });
   document.getElementById('p3BizType').selectedIndex=0;
@@ -7707,6 +7925,68 @@ function clearP3Form(){
   updateP3Count();
 }
 
+
+
+
+// ===== OPTI AE INTRO CHATTER =====
+function generateOptiChatter(){
+  var aeName=document.getElementById('optiChatterAE').value.trim();
+  if(!aeName){alert('Enter the AE/AM name first');return}
+  var deadline=document.getElementById('optiChatterDeadline').value.trim();
+  if(!deadline){
+    var d=new Date();d.setDate(d.getDate()+14);
+    deadline=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    document.getElementById('optiChatterDeadline').value=deadline;
+  }
+  var chatter='Hi @'+aeName+'\n\n';
+  chatter+='Excited to partner with you on this Optimization Call!\n\n';
+  chatter+='To make sure the seller gets the most out of this one-time, one-hour Google Meet session, here are a few quick reminders to help everything run smoothly:\n\n';
+  chatter+='Timing: If the seller cannot attend this already scheduled session, or it was scheduled without their consent, it must be rescheduled within the next 2 weeks \u2014 by '+deadline+' \u2014 so the conversation is timely and actionable for the seller.\n\n';
+  chatter+='Contact: Please don\u2019t include me in direct communication or introductions with the seller. If you believe they would benefit more from a direct, ongoing relationship with Implementation, consider whether a Plus (if applicable) or Premium experience might be a better fit.\n\n';
+  chatter+='Readiness: If the seller isn\u2019t ready to meet in the next two weeks \u2014 for example, if their launch is still a couple of months out \u2014 it\u2019s best to wait and submit this DSR closer to when they\u2019re available. That way, the call will be more relevant and impactful.\n\n';
+  chatter+='After the Optimization Call, I\u2019ll send you:\n';
+  chatter+='A summary of what we covered,\n';
+  chatter+='The recording to pass along to the seller,\n';
+  chatter+='And any open questions or follow-ups for your team to support.\n\n';
+  chatter+='If something comes up and the seller needs to reschedule within 2 weeks of today, there\u2019s a reschedule link in the Google Meet description they can use.';
+  var el=document.getElementById('optiChatterOutput');
+  el.textContent=chatter;
+  el.dataset.rawText=chatter;
+  showToast('\u2705 AE Intro Chatter generated!');
+}
+
+// ===== PREMIUM KO NOTES =====
+function savePremKONotes(){
+  var notes=[];
+  document.querySelectorAll('textarea[data-notes="premKO"]').forEach(function(el){notes.push(el.value)});
+  localStorage.setItem('gso-premKO-notes',JSON.stringify(notes));
+}
+function loadPremKONotes(){
+  var s=localStorage.getItem('gso-premKO-notes');
+  if(s){try{var a=JSON.parse(s);document.querySelectorAll('textarea[data-notes="premKO"]').forEach(function(el,i){if(a[i])el.value=a[i]})}catch(e){}}
+}
+function exportPremKONotes(){
+  var lines=[];
+  document.querySelectorAll('#koType-premium .cl-section').forEach(function(sec){
+    var h=sec.querySelector('h3');
+    if(h)lines.push('\n=== '+h.textContent.replace(/\d+\/\d+/g,'').trim()+' ===');
+    sec.querySelectorAll('.cl-item').forEach(function(item){
+      var cb=item.querySelector('input[type=checkbox]');
+      var txt=item.querySelector('.cl-text');
+      if(txt){
+        var status=cb&&cb.checked?'[x]':'[ ]';
+        lines.push(status+' '+txt.textContent.trim().substring(0,120));
+      }
+      var next=item.nextElementSibling;
+      if(next&&next.classList.contains('cl-notes')){
+        var ta=next.querySelector('textarea');
+        if(ta&&ta.value.trim())lines.push('   Notes: '+ta.value.trim());
+      }
+    });
+  });
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){showToast('\u2705 Premium KO notes exported!')});
+}
+document.addEventListener('DOMContentLoaded',function(){loadPremKONotes()});
 
 </script>
 </body>
