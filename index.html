@@ -848,6 +848,11 @@ Examples:
 <div class="check-item"><input type="checkbox" onchange="updateChecks()"><span>Send post-call email to seller</span></div>
 </div></div>
 <div class="quick-link" id="dsrQuickLink"><a href="#" target="_blank">🔗 Open DSR in Salesforce →</a></div>
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div>
 
 <!-- ===== SELLER EMAIL ===== -->
@@ -1069,6 +1074,11 @@ Examples:
 
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end postKODeliv -->
 
 <!-- ===== ANALYSIS ===== -->
@@ -1081,6 +1091,11 @@ Examples:
 <div class="deliv-header"><h1>🔍 Internal PM Analysis</h1><button class="btn btn-green" onclick="copyContent('analysisContent')">📋 Copy</button></div>
 <div id="analysisContent" class="deliv-content">
 <div class="empty-state"><div class="icon">🔍</div><h3>No Analysis Generated Yet</h3><p>Go to the <a href="#" onclick="showTab('generator')" style="color:#006AFF">Generator tab</a> to enter your deal info and generate deliverables.</p></div>
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div></div>
 
 <!-- ===== PRE-KO CHECKLIST ===== -->
@@ -1258,6 +1273,11 @@ Examples:
 <div class="cl-tip">💡 <b>Tip:</b> If you feel confused going into the KO call, the seller will feel it too — always over-prepare here.</div>
 
 <div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('preKO')">🔄 Reset All</button></div>
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div>
 
 <!-- ===== KO QUESTIONS CHECKLIST ===== -->
@@ -1889,6 +1909,11 @@ Example:
 
 <div class="cl-reset"><button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="resetChecklist('premKO')">&#128260; Reset All</button></div>
 </div><!-- end koType-premium -->
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end koQuestions -->
 
 <div id="study" class="tab">
@@ -2034,6 +2059,11 @@ Example:
 <div class="quiz-grid" id="quizGrid"></div>
 </div></div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end study -->
 
 <!-- ===== TRAINING GUIDE ===== -->
@@ -2535,6 +2565,11 @@ Example:
 </div></div>
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end dbTraining -->
 
 <!-- ===== ONLINE TRAINING (ONSITE/PREMIUM) ===== -->
@@ -2744,6 +2779,11 @@ Example:
 <label style="display:flex;align-items:center;gap:8px;font-size:11px;color:#64748b;margin-bottom:10px;cursor:pointer"><input type="checkbox" class="online-training-check" onchange="updateOnlineTrainingProgress()" style="accent-color:#22c55e"> Covered this topic</label>
 </div></div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end onlineTraining -->
 
 <!-- ===== RST POS TRAINING GUIDE ===== -->
@@ -3104,6 +3144,11 @@ Example:
 </div></div>
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end posTraining -->
 
 
@@ -3227,6 +3272,11 @@ Example:
 </div>
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end postTraining -->
 <!-- ===== OPTI CALL ===== -->
 
@@ -3343,6 +3393,11 @@ Example:
 </div>
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end trainingPrep -->
 
 <div id="optiCall" class="tab">
@@ -3675,6 +3730,11 @@ Example:
 
 </div><!-- end optiType-p3 -->
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end optiCall -->
 
 <div id="subPlans" class="tab">
@@ -3982,6 +4042,11 @@ Example:
 </div>
 </div>
 
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
 </div><!-- end subPlans -->
 
 
