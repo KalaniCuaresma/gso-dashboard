@@ -873,6 +873,7 @@ Examples:
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-email')" id="postkoBtn-email" style="background:#22c55e;color:#fff">&#128231; Seller Email</button>
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-dsr')" id="postkoBtn-dsr" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128221; DSR Chatter</button>
 <button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-bpo')" id="postkoBtn-bpo" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128295; BPO Task</button>
+<button class="btn btn-sm postko-sub-btn" onclick="showPostKOSub('postko-p3')" id="postkoBtn-p3" style="background:#1a1a3e;color:#eab308;border:1px solid #eab30844">&#129309; P3 Notes</button>
 </div>
 
 <div id="postko-howto" class="postko-panel" style="display:none">
@@ -1202,6 +1203,123 @@ Examples:
 </div>
 </div>
 
+</div>
+
+<!-- ===== P3 ACTIVITY NOTES ===== -->
+<div id="postko-p3" class="postko-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #eab30844;border-radius:10px;padding:24px;margin-bottom:16px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<span style="font-size:28px">&#129309;</span>
+<div>
+<h2 style="font-size:18px;margin-bottom:2px;color:#eab308">P3 Technician Activity Notes</h2>
+<p style="color:#94a3b8;font-size:12px">Generate pre-filled DSA Activity Notes for 3P onsite visits. Select the note type, review the auto-filled context, then copy the full prompt into GSO PM Assistant.</p>
+</div>
+</div>
+
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+<a href="https://chatgpt.com/g/g-68f7f98a4a4c8191a652846a50f0f3f6-gso-pm-assistant" target="_blank" class="btn" style="background:#006AFF;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px">&#128640; Open GSO PM Assistant GPT</a>
+<button class="btn" style="background:#eab30822;color:#eab308;border:1px solid #eab30844;display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px" onclick="syncP3NotesFromGenerator()">&#128260; Refresh from Generator</button>
+</div>
+
+<!-- Note Type Selector -->
+<div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap">
+<button class="btn btn-sm p3note-type-btn" onclick="showP3NoteType('p3SiteSurvey')" id="p3noteBtn-survey" style="background:#eab308;color:#fff">&#128205; Site Survey</button>
+<button class="btn btn-sm p3note-type-btn" onclick="showP3NoteType('p3Install')" id="p3noteBtn-install" style="background:#1a1a3e;color:#22c55e;border:1px solid #22c55e44">&#128295; Install + Training</button>
+<button class="btn btn-sm p3note-type-btn" onclick="showP3NoteType('p3Virtual')" id="p3noteBtn-virtual" style="background:#1a1a3e;color:#a855f7;border:1px solid #a855f744">&#128187; Virtual Sessions</button>
+</div>
+
+<!-- Shared Context Fields (auto-filled from Generator) -->
+<div style="background:#0f0f23;border:1px solid #2d2d5e;border-radius:10px;padding:16px;margin-bottom:16px">
+<h4 style="font-size:12px;color:#64748b;margin-bottom:10px">DEAL CONTEXT <span style="font-size:10px;font-weight:400">(auto-filled from Generator)</span></h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">BUSINESS NAME</label>
+<input type="text" id="p3n-biz" placeholder="Business name" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SELLER / CONTACT</label>
+<input type="text" id="p3n-seller" placeholder="Seller name" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">AE/AM</label>
+<input type="text" id="p3n-ae" placeholder="AE/AM name + email" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">GSO PM</label>
+<input type="text" id="p3n-pm" placeholder="Your name + email" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">PACKAGE</label>
+<input type="text" id="p3n-pkg" placeholder="Plus / Premium / Onsite" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">GO-LIVE / INSTALL DATE</label>
+<input type="text" id="p3n-goLive" placeholder="Date or TBD" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">HARDWARE</label>
+<input type="text" id="p3n-hardware" placeholder="Confirmed hardware" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SESSION TYPE</label>
+<input type="text" id="p3n-sessionType" placeholder="e.g. Kickoff, DB Training, POS Training" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+</div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">BUSINESS CONTEXT / NOTES</label>
+<textarea id="p3n-context" rows="3" placeholder="Business type, service model, stations, known friction, workflow priorities, dependencies..." style="width:100%;padding:8px 12px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">ATTENDEES / TRAINING AUDIENCE</label>
+<input type="text" id="p3n-attendees" placeholder="Owner, managers, FOH staff, etc." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+</div>
+
+<!-- ===== SITE SURVEY PROMPT ===== -->
+<div id="p3SiteSurvey" class="p3note-panel">
+<div style="background:#0f0f23;border:1px solid #eab30844;border-radius:10px;padding:18px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<h3 style="font-size:14px;color:#eab308;margin:0">&#128205; Site Survey Activity Notes Prompt</h3>
+<button class="btn btn-green btn-sm" onclick="copyP3NotePrompt('survey')" style="display:inline-flex;align-items:center;gap:4px">&#128203; Copy Prompt</button>
+</div>
+<p style="color:#94a3b8;font-size:11px;margin-bottom:12px">Generates technician-facing Activity Notes for a 3P onsite SITE SURVEY. Tech knows the standard checklist &mdash; this captures only seller-specific deltas, constraints, and what must be verified onsite.</p>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">WHY SITE SURVEY</label>
+<input type="text" id="p3n-surveyWhy" placeholder="New deploy / expansion / network validation / friction" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">STATIONS TO SUPPORT</label>
+<input type="text" id="p3n-surveyStations" placeholder="Front / bar / patio / roaming / kitchen / etc." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">NETWORK / ISP NOTES</label>
+<textarea id="p3n-surveyNetwork" rows="2" placeholder="Network owner, ISP, router/switch/AP notes, cabling readiness, dead zones..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">ADDITIONAL SURVEY CONTEXT</label>
+<textarea id="p3n-surveyExtra" rows="2" placeholder="Known blockers, placement assumptions, printer routing needs, power/mounting constraints..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+</div>
+</div>
+
+<!-- ===== INSTALL PROMPT ===== -->
+<div id="p3Install" class="p3note-panel" style="display:none">
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:18px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<h3 style="font-size:14px;color:#22c55e;margin:0">&#128295; Install + In-Person Training Activity Notes Prompt</h3>
+<button class="btn btn-green btn-sm" onclick="copyP3NotePrompt('install')" style="display:inline-flex;align-items:center;gap:4px">&#128203; Copy Prompt</button>
+</div>
+<p style="color:#94a3b8;font-size:11px;margin-bottom:12px">Generates technician-facing Activity Notes for a 3P onsite INSTALL + IN-PERSON TRAINING visit. Only what is unique, risky, or must match prior decisions.</p>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">PROJECT STATUS</label>
+<input type="text" id="p3n-installStatus" placeholder="Where implementation stands (kickoff/virtual training/menu build/post-live)" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">INSTALL SCOPE (CONFIRMED HARDWARE)</label>
+<textarea id="p3n-installScope" rows="2" placeholder="Hardware to install, add-on requests, network gear..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">PRIOR DECISIONS TO MATCH</label>
+<textarea id="p3n-installDecisions" rows="2" placeholder="Device roles/modes, printer routing rules, cash management, profiles already built..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">TRAINING FOCUS (WHO + TOP WORKFLOWS)</label>
+<textarea id="p3n-installTraining" rows="2" placeholder="Who is being trained, top 3 workflows to rehearse, what to defer..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">KNOWN FRICTION / BLOCKERS</label>
+<textarea id="p3n-installFriction" rows="2" placeholder="Known friction from virtual sessions, stop-the-line blockers, what good looks like..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+</div>
+</div>
+
+<!-- ===== VIRTUAL SESSIONS PROMPT ===== -->
+<div id="p3Virtual" class="p3note-panel" style="display:none">
+<div style="background:#0f0f23;border:1px solid #a855f744;border-radius:10px;padding:18px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<h3 style="font-size:14px;color:#a855f7;margin:0">&#128187; Virtual Sessions Activity Notes Prompt</h3>
+<button class="btn btn-green btn-sm" onclick="copyP3NotePrompt('virtual')" style="display:inline-flex;align-items:center;gap:4px">&#128203; Copy Prompt</button>
+</div>
+<p style="color:#94a3b8;font-size:11px;margin-bottom:12px">Generates technician handoff Activity Notes for EACH upcoming virtual training session. Includes devices in use, seller-specific focus areas, and success criteria per session.</p>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SESSIONS PLANNED</label>
+<textarea id="p3n-virtualSessions" rows="3" placeholder="List each session, e.g.:&#10;Session 1: RST DB Training (60 min)&#10;Session 2: RST POS Training (60 min)&#10;Session 3: Menu Review (60 min)" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">DEVICES IN USE</label>
+<input type="text" id="p3n-virtualDevices" placeholder="Register / Stand / Handheld / iPad / etc." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div style="margin-bottom:10px"><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">ONBOARDING STATUS / TIMELINE</label>
+<input type="text" id="p3n-virtualStatus" placeholder="Where in the implementation journey, what's done, what's ahead" style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px"></div>
+<div><label style="font-size:10px;color:#64748b;display:block;margin-bottom:3px">SELLER-SPECIFIC RISKS / WATCHOUTS</label>
+<textarea id="p3n-virtualRisks" rows="2" placeholder="Known friction, deferred items, things tech should watch for..." style="width:100%;padding:6px 10px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+</div>
+</div>
+
+<!-- Copy confirmation -->
+<div id="p3noteCopied" style="display:none;margin-top:12px;text-align:center">
+<p style="color:#22c55e;font-size:13px;font-weight:600">&#9989; Prompt copied! Paste into the GSO PM Assistant GPT chat.</p>
+</div>
+
+</div>
 </div>
 
 
@@ -6471,7 +6589,7 @@ function saveDeal(){
   delivIds.forEach(function(id){var el=document.getElementById(id);if(el){deal._deliverables[id]={html:el.innerHTML,raw:el.dataset.rawText||''}}});
 
   // Save input fields from other tabs
-  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse'];
+  var tabInputs=['preKO-aeName','preKO-sellerName','preKO-yourName','preKO-package','optiAEName','optiGoLive','optiTranscript','ptTranscript','tpTranscript','tpFeedback','tpFocus','tpDateTime','tpSessionNum','tpTrainingType','tpDuration','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse','p3n-biz','p3n-seller','p3n-ae','p3n-pm','p3n-pkg','p3n-goLive','p3n-hardware','p3n-sessionType','p3n-context','p3n-attendees','p3n-surveyWhy','p3n-surveyStations','p3n-surveyNetwork','p3n-surveyExtra','p3n-installStatus','p3n-installScope','p3n-installDecisions','p3n-installTraining','p3n-installFriction','p3n-virtualSessions','p3n-virtualDevices','p3n-virtualStatus','p3n-virtualRisks'];
   deal._tabInputs={};
   tabInputs.forEach(function(id){var el=document.getElementById(id);if(el)deal._tabInputs[id]=el.value});
 
@@ -8237,7 +8355,7 @@ function showPostKOSub(id){
   document.querySelectorAll('.postko-panel').forEach(function(p){p.style.display='none'});
   document.getElementById(id).style.display='block';
   document.querySelectorAll('.postko-sub-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF';b.style.border='1px solid #006AFF44'});
-  var colors={'postko-howto':['#a855f7','#a855f744'],'postko-email':['#22c55e','#22c55e44'],'postko-dsr':['#006AFF','#006AFF44'],'postko-bpo':['#ff6b35','#ff6b3544']};
+  var colors={'postko-howto':['#a855f7','#a855f744'],'postko-email':['#22c55e','#22c55e44'],'postko-dsr':['#006AFF','#006AFF44'],'postko-bpo':['#ff6b35','#ff6b3544'],'postko-p3':['#eab308','#eab30844']};
   var c=colors[id]||['#006AFF','#006AFF44'];
   var btn=document.getElementById('postkoBtn-'+id.replace('postko-',''));
   if(btn){btn.style.background=c[0];btn.style.color='#fff';btn.style.border='none'}
@@ -8939,6 +9057,175 @@ function copyPostKOFullPrompt(){
     setTimeout(function(){document.getElementById('pkoPromptCopied').style.display='none'},5000);
   });
 }
+
+// ===== P3 ACTIVITY NOTES (Post-KO) =====
+function showP3NoteType(id){
+  document.querySelectorAll('.p3note-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  var colors={'p3SiteSurvey':['#eab308','#eab30844'],'p3Install':['#22c55e','#22c55e44'],'p3Virtual':['#a855f7','#a855f744']};
+  var c=colors[id]||['#eab308','#eab30844'];
+  document.querySelectorAll('.p3note-type-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.border='1px solid #2d2d5e'});
+  var btnMap={'p3SiteSurvey':'p3noteBtn-survey','p3Install':'p3noteBtn-install','p3Virtual':'p3noteBtn-virtual'};
+  var btn=document.getElementById(btnMap[id]);
+  if(btn){btn.style.background=c[0];btn.style.color='#fff';btn.style.border='none'}
+}
+
+function syncP3NotesFromGenerator(){
+  var biz=(document.getElementById('genBusiness')||{}).value||'';
+  var seller=(document.getElementById('genSeller')||{}).value||'';
+  var ae=(document.getElementById('genAE')||{}).value||'';
+  var pm=(document.getElementById('genPM')||{}).value||'';
+  var pkg=(document.getElementById('genPackage')||{}).value||'';
+  var goLive=(document.getElementById('genGoLive')||{}).value||'';
+  var hardware=(document.getElementById('genHardware')||{}).value||'';
+  var sessionType=(document.getElementById('genSessionType')||{}).value||'';
+  var notes=(document.getElementById('genNotes')||{}).value||'';
+  var attendees=(document.getElementById('genAttendees')||{}).value||'';
+
+  if(biz)document.getElementById('p3n-biz').value=biz;
+  if(seller)document.getElementById('p3n-seller').value=seller;
+  if(ae)document.getElementById('p3n-ae').value=ae;
+  if(pm)document.getElementById('p3n-pm').value=pm;
+  if(pkg)document.getElementById('p3n-pkg').value=pkg;
+  if(goLive)document.getElementById('p3n-goLive').value=goLive;
+  if(hardware){
+    document.getElementById('p3n-hardware').value=hardware;
+    document.getElementById('p3n-installScope').value=hardware;
+  }
+  if(sessionType)document.getElementById('p3n-sessionType').value=sessionType;
+  if(notes)document.getElementById('p3n-context').value=notes;
+  if(attendees)document.getElementById('p3n-attendees').value=attendees;
+  showToast('\u{1F504} P3 fields refreshed from Generator');
+}
+
+function copyP3NotePrompt(type){
+  var biz=document.getElementById('p3n-biz').value.trim()||'[Business Name]';
+  var seller=document.getElementById('p3n-seller').value.trim()||'[Seller]';
+  var ae=document.getElementById('p3n-ae').value.trim()||'[AE/AM]';
+  var pm=document.getElementById('p3n-pm').value.trim()||'[GSO PM]';
+  var pkg=document.getElementById('p3n-pkg').value.trim()||'[Package]';
+  var goLive=document.getElementById('p3n-goLive').value.trim()||'Unknown';
+  var hardware=document.getElementById('p3n-hardware').value.trim()||'Confirm onsite';
+  var sessionType=document.getElementById('p3n-sessionType').value.trim()||'';
+  var context=document.getElementById('p3n-context').value.trim()||'';
+  var attendees=document.getElementById('p3n-attendees').value.trim()||'';
+
+  var prompt='';
+
+  if(type==='survey'){
+    var why=document.getElementById('p3n-surveyWhy').value.trim()||'New deploy';
+    var stations=document.getElementById('p3n-surveyStations').value.trim()||'';
+    var network=document.getElementById('p3n-surveyNetwork').value.trim()||'';
+    var extra=document.getElementById('p3n-surveyExtra').value.trim()||'';
+
+    prompt='Technician knows the standard visit/training agenda. Notes should capture only what is unique to this seller/session: scope deltas, constraints, confirmed hardware, workflow priorities, known friction, dependencies, and what \'good\' looks like.\n\n';
+    prompt+='Generate technician-facing Activity Notes for a 3P onsite SITE SURVEY.\n\n';
+    prompt+='Hard rules:\n';
+    prompt+='- Tech knows the standard site survey checklist; include ONLY seller-specific deltas, constraints, and what must be verified onsite.\n';
+    prompt+='- Plain text. No bold. No fluff. No repetition. Max 2800\u20133000 chars.\n';
+    prompt+='- Do not assume hardware; list only what is confirmed. If unclear: "Confirm onsite."\n\n';
+    prompt+='Output format (use line breaks + labels; no bullets if possible):\n\n';
+    prompt+='Contacts:\nAE/AM: '+ae+'\nGSO PM: '+pm+'\n\n';
+    prompt+='Visit Summary:\nProject stage (kickoff/virtual complete/post-live support): '+(sessionType||'[specify]')+'\n';
+    prompt+='Why site survey (new deploy/expansion/network validation/friction): '+why+'\n';
+    prompt+='Target go-live/install window (or Unknown): '+goLive+'\n\n';
+    prompt+='Business Context:\nBusiness type + service model (what affects layout): '+biz+(context?' \u2014 '+context:'')+'\n';
+    prompt+='Stations to support (front/bar/patio/roaming/etc.): '+(stations||'[specify]')+'\n\n';
+    prompt+='Confirmed Hardware In Scope:\n'+hardware+'\n\n';
+    prompt+='Network / Cabling Snapshot:\n'+(network||'Network owner: Unknown\nISP/router/switch/AP notes: Unknown\nCabling readiness: Unknown\nAny known dead zones/handheld areas: Unknown')+'\n\n';
+    prompt+='What to Verify Onsite (seller-specific):\n'+(extra||'Critical device placement assumptions to validate:\nPrinter locations + any special routing needs:\nEthernet drops needed where:\nPower / mounting constraints where:\nAny known blockers to flag before install scheduling:')+'\n\n';
+    prompt+='House Rules (2 lines max):\nNo direct outreach outside scheduled work. Escalate unexpected scope/hardware/network gaps to GSO PM immediately.\n';
+
+  }else if(type==='install'){
+    var status=document.getElementById('p3n-installStatus').value.trim()||'';
+    var scope=document.getElementById('p3n-installScope').value.trim()||hardware;
+    var decisions=document.getElementById('p3n-installDecisions').value.trim()||'';
+    var training=document.getElementById('p3n-installTraining').value.trim()||'';
+    var friction=document.getElementById('p3n-installFriction').value.trim()||'';
+
+    prompt='Technician knows the standard visit/training agenda. Notes should capture only what is unique to this seller/session: scope deltas, constraints, confirmed hardware, workflow priorities, known friction, dependencies, and what \'good\' looks like.\n\n';
+    prompt+='Generate technician-facing Activity Notes for a 3P onsite INSTALL + IN-PERSON TRAINING visit.\n\n';
+    prompt+='Hard rules:\n';
+    prompt+='- Tech knows standard install/training flow; include ONLY what is unique, risky, or must match prior decisions.\n';
+    prompt+='- Plain text. No bold. No filler. Max 2800\u20133000 chars.\n';
+    prompt+='- Only list confirmed hardware. If unclear: "Will be confirmed during site survey."\n\n';
+    prompt+='Output format (labels + line breaks):\n\n';
+    prompt+='Contacts:\nAE/AM: '+ae+'\nGSO PM: '+pm+'\n\n';
+    prompt+='Project Status:\nWhere implementation stands: '+(status||sessionType||'[specify]')+'\n';
+    prompt+='Go-live/install date status: '+goLive+'\n\n';
+    prompt+='Install Scope (Confirmed):\nHardware to install: '+scope+'\n';
+    prompt+='Any add-on requests to confirm: [if mentioned]\nNetwork gear involved: [if any]\n\n';
+    prompt+='Must Match Prior Decisions:\n'+(decisions||'Device roles/modes expected:\nPrinter routing rules (kitchen/bar/receipts):\nCash management expectations:\nAny profiles/settings already built:')+'\n\n';
+    prompt+='Workflow Priorities (Seller-specific):\nBusiness/service model: '+biz+(context?' \u2014 '+context:'')+'\n';
+    prompt+='Critical paths (ordering \u2192 sending \u2192 payments \u2192 receipts):\nKnown friction from virtual sessions: '+(friction||'[if any]')+'\n\n';
+    prompt+='Technician Priorities (seller-specific verification):\nWhat must be tested end-to-end before leaving:\nWhat would be a "stop the line" blocker:\n\n';
+    prompt+='In-Person Training Focus:\nWho is being trained: '+(attendees||'[owner/managers/FOH]')+'\n';
+    prompt+='Top 3 workflows to rehearse: '+(training||'[specify]')+'\nWhat to avoid (out of scope / defer):\n\n';
+    prompt+='What Good Looks Like at End of Visit:\nPayments validated:\nPrinting/routing validated:\nTeam can run a basic shift + close:\nNo open blockers (or documented escalation):\n\n';
+    prompt+='House Rules (2 lines max):\nDo not share direct contact info. Escalate unexpected gaps or scope changes to GSO PM same-day.\n\n';
+    prompt+='Footer line (required):\nPM will provide an Install Guide ahead of the locked in installation date with any final context from virtual trainings/menu review.\n';
+
+  }else if(type==='virtual'){
+    var sessions=document.getElementById('p3n-virtualSessions').value.trim()||'';
+    var devices=document.getElementById('p3n-virtualDevices').value.trim()||hardware;
+    var vstatus=document.getElementById('p3n-virtualStatus').value.trim()||'';
+    var risks=document.getElementById('p3n-virtualRisks').value.trim()||'';
+
+    prompt='Technician knows the standard visit/training agenda. Notes should capture only what is unique to this seller/session: scope deltas, constraints, confirmed hardware, workflow priorities, known friction, dependencies, and what \'good\' looks like.\n\n';
+    prompt+='Generate technician handoff Activity Notes for EACH upcoming virtual training session for this seller.\n\n';
+    prompt+='Hard rules:\n';
+    prompt+='- Plain text only. No bullets/lists (use labels + line breaks). Max 2800\u20133000 chars per session.\n';
+    prompt+='- Tech knows the standard curriculum; include ONLY seller-specific context, constraints, and success criteria.\n';
+    prompt+='- Include devices in use during training if known (Register/Stand/Handheld/iPad/etc.) because it impacts modes/printers.\n';
+    prompt+='- Do not promise follow-up work. Tech must not share direct contact info.\n\n';
+    prompt+='Seller: '+biz+' ('+seller+')\nPackage: '+pkg+'\nAE/AM: '+ae+'\nGSO PM: '+pm+'\nGo-live: '+goLive+'\n';
+    prompt+='Devices: '+devices+'\n';
+    if(context)prompt+='Business context: '+context+'\n';
+    if(attendees)prompt+='Training audience: '+attendees+'\n';
+    if(vstatus)prompt+='Onboarding status: '+vstatus+'\n';
+    if(risks)prompt+='Known risks/watchouts: '+risks+'\n';
+    prompt+='\nSessions to generate notes for:\n'+(sessions||'[List each session: name, duration, session # of total]')+'\n\n';
+    prompt+='For each session, output:\n\n';
+    prompt+='SESSION: <name> (Session X of Y if known) <Duration if non-standard>\n';
+    prompt+='Business Context (only what matters for this session):\n';
+    prompt+='Onboarding Status / Timeline:\n';
+    prompt+='Devices In Use For This Session:\n';
+    prompt+='Session Purpose (1\u20132 lines):\n';
+    prompt+='Seller-Specific Focus Areas:\n';
+    prompt+='Success Criteria ("Good looks like"):\n';
+    prompt+='Known Risks / Watchouts:\n';
+    prompt+='Housekeeping & Boundaries (2 lines):\n';
+    prompt+='What to Defer (1\u20132 lines):\n\n';
+    prompt+='Global House Rules (add once at end, 2\u20133 lines max):\n';
+    prompt+='No direct outreach outside the scheduled session. Document any unanswered questions + remaining work clearly back to '+pm.split(' ')[0]+'. For Menu Review only: use the post-call hour to implement discovered menu fixes; anything beyond that gets handed back with clear notes.\n';
+  }
+
+  navigator.clipboard.writeText(prompt).then(function(){
+    document.getElementById('p3noteCopied').style.display='block';
+    showToast('\u2705 P3 '+({survey:'Site Survey',install:'Install',virtual:'Virtual Sessions'}[type])+' prompt copied!');
+    setTimeout(function(){document.getElementById('p3noteCopied').style.display='none'},5000);
+  });
+}
+
+// Auto-sync P3 notes from generator when switching to postKODeliv
+(function(){
+  var origPKO=window.showPostKOSub;
+  window.showPostKOSub=function(id){
+    origPKO(id);
+    if(id==='postko-p3'){
+      // fillIfEmpty for P3 note fields
+      var fields={'p3n-biz':'genBusiness','p3n-seller':'genSeller','p3n-ae':'genAE','p3n-pm':'genPM','p3n-pkg':'genPackage','p3n-goLive':'genGoLive','p3n-hardware':'genHardware','p3n-sessionType':'genSessionType','p3n-attendees':'genAttendees'};
+      Object.keys(fields).forEach(function(target){
+        var el=document.getElementById(target);
+        var src=document.getElementById(fields[target]);
+        if(el&&src&&!el.value&&src.value)el.value=src.value;
+      });
+      var ctx=document.getElementById('p3n-context');
+      var gNotes=document.getElementById('genNotes');
+      if(ctx&&gNotes&&!ctx.value&&gNotes.value)ctx.value=gNotes.value;
+    }
+  };
+})();
 
 function clearPostKOPrompt(){
   ['pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession'].forEach(function(id){
