@@ -519,6 +519,7 @@ nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 <button class="tab-btn" onclick="showTab('trainingPrep')" style="background:#ff6b3522;color:#ff6b35;border:1px solid #ff6b3544">📋 Training Prep</button>
 <div style="border-top:1px solid var(--border);margin:6px 0"></div>
 <button class="tab-btn" onclick="showTab('optiCall')" style="background:#eab30822;color:#eab308;border:1px solid #eab30844">⚡ Opti Call</button>
+<button class="tab-btn" onclick="showTab('payroll')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">💰 Payroll</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
 <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode">🌑</button>
@@ -3626,7 +3627,6 @@ Example:
 <select id="optiTypeSelector" onchange="switchOptiType(this.value)" style="padding:8px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;font-weight:600">
 <option value="pm">&#128187; PM-Led Call</option>
 <option value="p3">&#129309; P3 Partner-Led Call</option>
-<option value="payroll">&#128176; Payroll Implementation</option>
 </select>
 <span id="optiTypeLabel" style="font-size:12px;color:#94a3b8">Showing PM-Led Optimization Call workflow</span>
 </div>
@@ -3968,8 +3968,25 @@ Example:
 
 </div><!-- end optiType-p3 -->
 
+
+
+
+<div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
+<button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
+<span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
+</div>
+</div><!-- end optiCall -->
+
 <!-- ===== PAYROLL IMPLEMENTATION ===== -->
-<div id="optiType-payroll" style="display:none">
+<div id="payroll" class="tab">
+<h1 style="margin-bottom:4px">&#128176; Payroll Implementation</h1>
+<p style="color:#94a3b8;font-size:13px;margin-bottom:16px">Full payroll workflow: Consultation &rarr; Training &rarr; First Run. Checklist + scripts + unsupported situations guide.</p>
+<div id="payrollDealBanner" class="deal-banner" style="background:#006AFF15;border:1px solid #006AFF44;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:none;font-size:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+<div><strong style="color:#006AFF">&#128203; Active Deal:</strong> <span class="deal-banner-biz" style="font-weight:700"></span> &mdash; <span class="deal-banner-seller"></span> &mdash; <span class="deal-banner-pkg" style="color:#22c55e"></span> &mdash; AE: <span class="deal-banner-ae"></span></div>
+<button class="btn btn-sm btn-blue" onclick="showTab('generator')" style="font-size:11px;padding:4px 10px">Edit in Generator</button>
+</div></div>
+
 
 <!-- Progress bar -->
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
@@ -4448,14 +4465,12 @@ If QuickBooks synced &mdash; auto-sends after 8 PM PT. If applicable: show &ldqu
 </div><!-- end payrollUnsupportedSection -->
 </div>
 
-</div><!-- end optiType-payroll -->
-
 
 <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
 <button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
 <span style="font-size:11px;color:var(--text-muted,#64748b)">Saves all tabs &amp; progress for this deal</span>
 </div>
-</div><!-- end optiCall -->
+</div>
 
 <div id="subPlans" class="tab">
 <h1 style="margin-bottom:4px">&#128142; Square Subscription Plans</h1>
@@ -4933,7 +4948,7 @@ function showTab(id){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',onlineTraining:'🌐 Online Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',trainingPrep:'📋 Training Prep',optiCall:'⚡ Opti Call',subPlans:'💎 Sub Plans'};
+  const names={generator:'🚀 Generator',dashboard:'📊 Dashboard',postKODeliv:'📨 Post-KO',analysis:'🔍 Analysis',preKO:'🧾 Pre-KO',koQuestions:'❓ KO Checklist',study:'📚 Study Guide',dbTraining:'🎓 DB Training',onlineTraining:'🌐 Online Training',posTraining:'🎓 POS Training',postTraining:'📋 Post-Training',trainingPrep:'📋 Training Prep',optiCall:'⚡ Opti Call',payroll:'💰 Payroll',subPlans:'💎 Sub Plans'};
   document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim()===names[id])b.classList.add('active')});
   window.scrollTo(0,0);
   syncAllDealBanners();
@@ -5146,6 +5161,10 @@ function syncTabSpecificFields(id){
       if(combined.indexOf('restaurant')>-1||combined.indexOf('rst')>-1)p3BizType.value='Restaurant';
       else if(combined.indexOf('retail')>-1||combined.indexOf('rtl')>-1)p3BizType.value='Retail';
     }
+  }
+  // === Payroll Tab ===
+  if(id==='payroll'){
+    loadPayrollChecks();
   }
 }
 
@@ -8438,12 +8457,9 @@ document.addEventListener('DOMContentLoaded',function(){
 function switchOptiType(type){
   document.getElementById('optiType-pm').style.display=type==='pm'?'':'none';
   document.getElementById('optiType-p3').style.display=type==='p3'?'':'none';
-  var payrollEl=document.getElementById('optiType-payroll');
-  if(payrollEl)payrollEl.style.display=type==='payroll'?'':'none';
   var label=document.getElementById('optiTypeLabel');
-  var labels={'pm':'PM-Led Optimization Call workflow','p3':'P3 Partner-Led Optimization workflow','payroll':'Payroll Implementation (Consultation → Training → First Run)'};
+  var labels={'pm':'PM-Led Optimization Call workflow','p3':'P3 Partner-Led Optimization workflow'};
   if(label)label.textContent='Showing '+(labels[type]||type);
-  if(type==='payroll'){loadPayrollChecks();updatePayrollProgress();}
 }
 
 // ===== PAYROLL CHECKLIST PERSISTENCE =====
