@@ -3626,6 +3626,7 @@ Example:
 <select id="optiTypeSelector" onchange="switchOptiType(this.value)" style="padding:8px 14px;background:#1a1a3e;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:13px;font-weight:600">
 <option value="pm">&#128187; PM-Led Call</option>
 <option value="p3">&#129309; P3 Partner-Led Call</option>
+<option value="payroll">&#128176; Payroll Implementation</option>
 </select>
 <span id="optiTypeLabel" style="font-size:12px;color:#94a3b8">Showing PM-Led Optimization Call workflow</span>
 </div>
@@ -3966,6 +3967,601 @@ Example:
 </div>
 
 </div><!-- end optiType-p3 -->
+
+<!-- ===== PAYROLL IMPLEMENTATION ===== -->
+<div id="optiType-payroll" style="display:none">
+
+<!-- Sub-tabs -->
+<div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm payroll-tab-btn" onclick="showPayrollSub('payrollChecklist')" style="background:#22c55e;color:#fff">&#9989; Checklist</button>
+<button class="btn btn-sm payroll-tab-btn" onclick="showPayrollSub('payrollScript')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128220; Script</button>
+<button class="btn btn-sm payroll-tab-btn" onclick="showPayrollSub('payrollUnsupported')" style="background:#1a1a3e;color:#ff6b35;border:1px solid #ff6b3544">&#128683; Unsupported Situations</button>
+</div>
+
+<!-- ===== PAYROLL CHECKLIST ===== -->
+<div id="payrollChecklist" class="payroll-panel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<h2 style="font-size:16px;margin:0">&#9989; Payroll Implementation Checklist</h2>
+<div style="display:flex;align-items:center;gap:12px">
+<span id="payrollProgressText" style="font-size:12px;color:#94a3b8">0/0</span>
+<div style="width:120px;height:8px;background:#1a1a3e;border-radius:4px;overflow:hidden"><div id="payrollProgressBar" style="width:0%;height:100%;background:#22c55e;border-radius:4px;transition:width .3s"></div></div>
+</div>
+</div>
+
+<!-- Phase 1: Pre-Consultation Prep -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#128736;</span> Pre-Consultation Prep <span class="cl-count" id="payroll-s1-count">0/4</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Create secure SendSafely workspace (add seller + Rebecca, Esther, Katrina)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review seller details (MT, Subscription, Team Members)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Determine if Previous Payroll History (PPH) will be required</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Skip workspace if business is net new (no prior payroll)</span></div>
+</div>
+
+<!-- Phase 2: Consultation Call -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#128222;</span> Consultation Call <span class="cl-count" id="payroll-s2-count">0/12</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm pay schedule and 1st pay date</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Determine if seller is Net New or has run payroll this year</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm number of employees</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Ask how tips/commissions are calculated</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Ask about benefits/garnishments</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Determine if scheduling/team app will be used</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm payment method (All direct deposit vs manual checks)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Remind seller of 4-day payroll requirement for first run</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Provide instructions for uploading PPH via SendSafely (if applicable)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">If Toast system: advise to pull Employee Detail Report (1 pay period at a time)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Schedule Payroll Training</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Schedule Payroll First Run &amp; mark as Go Live Date in DSR</span></div>
+</div>
+
+<!-- Phase 3: Slack Workflow -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#128260;</span> Slack Workflow Steps <span class="cl-count" id="payroll-s3-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Start PPH Workflow in #GSO-Payroll-Pilot</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Wait for Rebecca&rsquo;s triage approval</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">After triage, confirm seller readiness and training date</span></div>
+</div>
+
+<!-- Phase 4: Payroll Training Session -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#129504;</span> Payroll Training Session <span class="cl-count" id="payroll-s4-count">0/13</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Add bank account</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Add tax info</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Add employees to payroll</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Add former employees (if applicable)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Set up pay schedule &amp; confirm dates</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Walkthrough Permissions + Team Management</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Walkthrough Scheduling, Workday, Timecards, Settings (tips/commissions)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review Payroll Menu (Pay buttons, labor graph, banner alerts)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review Business Info, Tax Info, Payroll Settings, Bank Account</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">QuickBooks Integration (if applicable)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Comment in ActiveAdmin: &ldquo;Implementation ER &amp; SendSafely link (or Net New if no PPH)&rdquo;</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Remind seller: can cancel payroll by 6 PM PT and rerun by 8 PM PT</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Advise seller to verify timecards before Pay Run call</span></div>
+</div>
+
+<!-- Phase 5: First Payroll Run Call -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#128184;</span> First Payroll Run Call <span class="cl-count" id="payroll-s5-count">0/10</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review before call: all team members Active + Complete under Payroll status</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review Timecards &mdash; ensure all hours, tips, and timecards are accurate</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Click &ldquo;Pay my employees&rdquo;</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm payment method &amp; expected pay date</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Ensure shifts are correct &amp; import shifts</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm pay dates on pop-up</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review screen: confirm total withdrawn from account</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Click &ldquo;Confirm Payroll&rdquo; &mdash; Payroll Sent!</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Review Reports tab, Actions (print checks, export CSV, off-cycle)</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Advise: can cancel by 6 PM PT, rerun by 8 PM PT; show Pay Contractors &amp; off-cycle if applicable</span></div>
+</div>
+
+<!-- Phase 6: Post-Run Actions -->
+<div class="cl-section">
+<h3 style="cursor:pointer" onclick="this.parentElement.classList.toggle('collapsed')"><span class="cl-icon">&#128228;</span> Post-Run Actions <span class="cl-count" id="payroll-s6-count">0/6</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Day after 1st run: upload payroll journal (per-pay-date files, NOT YTD) to ActiveAdmin</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">ActiveAdmin &rarr; Employers &rarr; Enter Previous Payroll Data Task &rarr; Upload + comment &ldquo;PPH added &ndash; ready for entry&rdquo;</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Submit General Assistance Request in Slack (include MT) once 1st run is complete</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">If seller completes run independently: confirm via Slack + submit MT before closing DSR</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Upload all relevant email correspondence to DSR</span></div>
+<div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">NEVER delete documents uploaded to SendSafely</span></div>
+</div>
+
+</div><!-- end payrollChecklist -->
+
+<!-- ===== PAYROLL SCRIPT ===== -->
+<div id="payrollScript" class="payroll-panel" style="display:none">
+<h2 style="font-size:16px;margin-bottom:16px">&#128220; Payroll Call Scripts</h2>
+
+<!-- Script Sub-tabs -->
+<div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm pr-script-btn" onclick="showPRScript('prConsult')" style="background:#a855f7;color:#fff">&#128222; Consultation</button>
+<button class="btn btn-sm pr-script-btn" onclick="showPRScript('prTraining')" style="background:#1a1a3e;color:#22c55e;border:1px solid #22c55e44">&#129504; Training</button>
+<button class="btn btn-sm pr-script-btn" onclick="showPRScript('prFirstRun')" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128184; First Run</button>
+</div>
+
+<!-- Consultation Call Script -->
+<div id="prConsult" class="pr-script-panel">
+<div style="background:#1a1a3e;border:1px solid #a855f744;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#a855f7;font-size:15px;margin-bottom:12px">&#128222; Consultation Call Script <span style="font-size:11px;color:#64748b;font-weight:400">(10&ndash;15 min)</span></h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Explain the process, ask discovery questions, create SendSafely, schedule training + first run.</p>
+
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:10px">&#128075; Opening</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:10px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Thanks for joining! I&rsquo;m your GSO PM and I&rsquo;ll be guiding you through the entire Square Payroll setup. Today is a quick 10&ndash;15 minute call where we&rsquo;ll go over your payroll needs, answer any questions, and get your training and first run scheduled.&rdquo;</p>
+</div>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:10px">&#128270; Discovery Questions</h4>
+<div style="display:grid;gap:8px">
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;When is your first pay date?&rdquo;</p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Have you run payroll this year, or is this a brand new business?&rdquo; <span style="color:#94a3b8">(Determines Net New vs PPH required)</span></p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;How many employees do you have?&rdquo;</p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;How do you calculate tips and commissions?&rdquo; <span style="color:#ff6b35">&#9888; Listen for point systems or custom formulas &mdash; may be unsupported</span></p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Do you offer any benefits or have any garnishments?&rdquo; <span style="color:#ff6b35">&#9888; Check for SEP IRA, QSEHRA, Aflac pre-tax &mdash; unsupported</span></p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Will you be using Square Shifts for scheduling and the Team App?&rdquo;</p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;What&rsquo;s your pay frequency? Weekly, bi-weekly, semi-monthly?&rdquo;</p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Will all employees be paid via direct deposit, or do you need manual check options?&rdquo; <span style="color:#94a3b8">(If checks: DLT104 stock or Checkeeper)</span></p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;If you have multiple locations, are they all under one EIN?&rdquo; <span style="color:#ff6b35">&#9888; Multiple EINs = cannot register multiple for payroll on one account</span></p>
+</div>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Do you have employees who work in multiple states or remote employees?&rdquo; <span style="color:#ff6b35">&#9888; Need tax numbers for each jurisdiction</span></p>
+</div>
+</div>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:10px">&#128221; Wrap-Up &amp; Next Steps</h4>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Great &mdash; here&rsquo;s what happens next. Your first payroll run will require a 4-day processing window, then after that you&rsquo;ll be approved for 2-day processing.&rdquo;</p>
+</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY (if PPH needed):</strong> &ldquo;I&rsquo;m going to send you a secure SendSafely link. Please upload your previous payroll history there &mdash; we need earnings records separated by pay date, not a YTD summary.&rdquo;</p>
+</div>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Let&rsquo;s get your Payroll Training and First Run scheduled. For training, I&rsquo;ll walk you through the full dashboard setup. Then for the first run, we&rsquo;ll do it together live.&rdquo;</p>
+</div>
+</div>
+</div>
+</div><!-- end prConsult -->
+
+<!-- Training Session Script -->
+<div id="prTraining" class="pr-script-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #22c55e44;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#22c55e;font-size:15px;margin-bottom:12px">&#129504; Payroll Training Session Script</h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Walk seller through all 4 requirements, team management, shifts, and the payroll dashboard.</p>
+
+<!-- 4 Requirements -->
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#ff6b35;font-size:13px;margin-bottom:10px">&#128272; 4 Requirements to Run Payroll</h4>
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Before we can run payroll, there are four things that must be set up. Let me walk you through each one.&rdquo;</p>
+</div>
+<ol style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:2">
+<li><strong style="color:#22c55e">Bank Account</strong> &mdash; Show where to add; used for direct deposits + taxes (NOT subscription fee). Can also use Square Balance for faster pay, but bank account still required. Taxes can only be paid from bank account.</li>
+<li><strong style="color:#22c55e">Tax Info</strong> &mdash; Show where to add. <span style="color:#ff6b35">&#9888; If incorrect, can only be changed by CS.</span> If in a state Square doesn&rsquo;t auto-register, seller must register themselves.</li>
+<li><strong style="color:#22c55e">Add Employees</strong> &mdash; Show how to add current employees. Show how to add former employees if applicable.</li>
+<li><strong style="color:#22c55e">Pay Schedule</strong> &mdash; Set up pay schedule and confirm dates with seller.</li>
+</ol>
+</div>
+
+<!-- Team Management -->
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:10px">&#128101; Team Management</h4>
+<div style="background:#a855f715;border-left:3px solid #a855f7;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Now let&rsquo;s look at how you manage your team. I&rsquo;ll show you the highest and lowest permission levels so you can create anything in between on your own time.&rdquo;</p>
+</div>
+<ul style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Permissions</strong> &mdash; Walk through highest + lowest levels</li>
+<li><strong>Assigning Jobs</strong> &mdash; Assign jobs &amp; permissions to team members</li>
+<li><strong>Commissions</strong> &mdash; If applicable, show how to add</li>
+</ul>
+</div>
+
+<!-- Shifts -->
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:10px">&#128197; Shifts &amp; Scheduling</h4>
+<div style="background:#006AFF10;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;If you&rsquo;re using Square for scheduling, let me show you how shifts, timecards, and payroll all connect.&rdquo;</p>
+</div>
+<ul style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Scheduling</strong> &mdash; Create and manage shifts</li>
+<li><strong>Workday</strong> &mdash; Daily view of who&rsquo;s working</li>
+<li><strong>Timecards</strong> &mdash; Review and edit timecards</li>
+<li><strong>Settings</strong> &mdash; Tipping, commissions, etc.</li>
+<li style="color:#ff6b35"><strong>&#9888; CRITICAL:</strong> When using Shifts, team member shifts must be for assigned jobs only &mdash; payroll will NOT process until timecards reflect assigned jobs or job is added to team member</li>
+</ul>
+</div>
+
+<!-- Payroll Dashboard -->
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:10px">&#128200; Payroll Dashboard Walkthrough</h4>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Let me walk you through the payroll dashboard so you know where everything lives.&rdquo;</p>
+</div>
+<ul style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Pay Employees</strong> button (overview)</li>
+<li><strong>Pay Contractors</strong> button (overview)</li>
+<li><strong>Labor Cost Graph</strong> (will be empty until payroll runs)</li>
+<li><strong>Recommendations</strong> at bottom of screen</li>
+<li><strong style="color:#eab308">Banner Messages</strong> at top &mdash; <em>emphasize these! Shows missing info/tax situations. They&rsquo;ll also get email alerts.</em></li>
+<li><strong>6 PM PT deadline</strong> to cancel a payroll run; <strong>8 PM PT</strong> to rerun</li>
+</ul>
+</div>
+
+<!-- Settings Deep Dive -->
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:10px">&#9881; Settings Deep Dive</h4>
+<ul style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Business Info</strong> &mdash; Can only change DBA and phone number. Can add locations here (doesn&rsquo;t add to POS or Team). Cannot change EIN &mdash; need new Square Payroll account.</li>
+<li><strong>Tax Info</strong> &mdash; If incorrect, only CS can change. If state doesn&rsquo;t auto-register, seller must register themselves.</li>
+<li><strong>Payroll Settings</strong> &mdash; Pay cadence, paper W-2/1099, automatic payroll, tip importing, text reminders, on-demand pay, PTO/sick time, pause subscription (seasonal).</li>
+<li><strong>Bank Account</strong> &mdash; Used for direct deposits + taxes. Can use Square Balance for faster pay but bank account still required. Taxes only from bank account.</li>
+<li><strong>QuickBooks Online</strong> &mdash; Link if applicable. Auto-syncs after 8 PM PT.</li>
+</ul>
+</div>
+
+<div style="background:#22c55e15;border-left:3px solid #22c55e;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>CLOSE:</strong> &ldquo;Make sure your timecards are accurate before our First Run call. I&rsquo;ll send you a confirmation with the date and time.&rdquo;</p>
+</div>
+</div>
+</div><!-- end prTraining -->
+
+<!-- First Run Script -->
+<div id="prFirstRun" class="pr-script-panel" style="display:none">
+<div style="background:#1a1a3e;border:1px solid #006AFF44;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#006AFF;font-size:15px;margin-bottom:12px">&#128184; First Payroll Run Call Script</h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Walk seller through their first live payroll run step by step.</p>
+
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:12px 16px;margin-bottom:16px">
+<p style="font-size:12px;color:#ff6b35;margin:0"><strong>&#9888; PRE-CALL:</strong> Before the call, verify all team members are <strong>Active</strong> under Status and <strong>Complete</strong> under Payroll. Email seller to notify if they are not.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:16px;margin-bottom:12px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:10px">&#128640; Step-by-Step Run</h4>
+<ol style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:2.2">
+<li>Review Timecards &mdash; ensure all hours, tips, and timecards are accurate</li>
+<li>Click <strong>&ldquo;Pay my employees&rdquo;</strong></li>
+<li>First screen shows expected date &amp; payment method. <span style="color:#94a3b8">Also option to print checks (DLT104 stock) or Checkeeper integration.</span></li>
+<li>Have seller verify all shifts are correct for employees</li>
+<li>Click <strong>&ldquo;Import shifts&rdquo;</strong></li>
+<li>Confirm dates are correct on pop-up</li>
+<li>Review final screen &mdash; click <strong>&ldquo;Continue&rdquo;</strong></li>
+<li>Review screen: confirm <strong>exact total withdrawn</strong> from account</li>
+<li>Click <strong>&ldquo;Confirm Payroll&rdquo;</strong> &mdash; &#127881; Payroll Sent!</li>
+<li>Show <strong>History/Reports</strong> &mdash; can cancel by <strong>6 PM PT</strong>, rerun by <strong>8 PM PT</strong></li>
+<li>Show <strong>Actions button</strong>: print checks (wait until pay day for correct date), export CSV, print paystubs, off-cycle payment (wait 10 min after run)</li>
+<li>If QuickBooks synced &mdash; auto-sends after 8 PM PT</li>
+<li>If applicable: show <strong>&ldquo;Pay Contractors&rdquo;</strong> and off-cycle payroll</li>
+</ol>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:16px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:10px">&#128228; Post-Run Reminders</h4>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:8px">
+<p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>SAY:</strong> &ldquo;Great job on your first run! A few things to know: you can cancel by 6 PM PT and rerun by 8 PM PT if needed. After today, you&rsquo;ll be approved for 2-day processing instead of 4-day.&rdquo;</p>
+</div>
+<ul style="padding-left:20px;margin:8px 0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Tomorrow:</strong> Upload payroll journal to ActiveAdmin (per-pay-date files, NOT YTD)</li>
+<li><strong>Slack:</strong> Submit General Assistance Request with MT to confirm run complete</li>
+<li><strong>DSR:</strong> Upload all email correspondence</li>
+<li style="color:#ff6b35"><strong>&#9888; NEVER</strong> delete documents from SendSafely</li>
+</ul>
+</div>
+</div>
+</div><!-- end prFirstRun -->
+
+</div><!-- end payrollScript -->
+
+<!-- ===== UNSUPPORTED SITUATIONS ===== -->
+<div id="payrollUnsupported" class="payroll-panel" style="display:none">
+<h2 style="font-size:16px;margin-bottom:16px">&#128683; Payroll Unsupported Situations Guide</h2>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Quick reference for what Square Payroll can and cannot support. Use during consultation to identify red flags early.</p>
+
+<!-- Completely Unsupported -->
+<div style="background:#ef444420;border:1px solid #ef444444;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#ef4444;font-size:15px;margin-bottom:12px">&#128683; Completely Unsupported &mdash; Cannot Use Square Payroll</h3>
+
+<div style="margin-bottom:16px">
+<h4 style="color:#ef4444;font-size:13px;margin-bottom:8px">Tax &amp; Jurisdictional Issues</h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Multiple Payroll EINs on 1 Account</strong> &mdash; Cannot register multiple EINs for payroll on one Square account. <span style="color:#22c55e">&#9989; OK: Seller CAN run payroll under ONE EIN for employees across multiple locations/EINs.</span></li>
+<li><strong>Courtesy Withholding</strong> &mdash; Employee works in different state from residence AND employer withholds taxes for both states.</li>
+<li><strong>Multiple Tax Jurisdictions per Employee</strong> &mdash; Employee works in multiple locations with different tax jurisdictions (e.g., both NJ and NY).</li>
+<li><strong>Both Philadelphia AND Pittsburgh Withholding</strong> &mdash; Cannot support employers with tax liabilities in both cities simultaneously.</li>
+<li><strong>943 Filers</strong> &mdash; Agricultural employers (common in vineyards, farm-to-table operations).</li>
+</ul>
+</div>
+
+<div style="margin-bottom:16px">
+<h4 style="color:#ef4444;font-size:13px;margin-bottom:8px">Employee Types &amp; Withholding</h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Federal Withholdings for 1099 Contractors</strong> &mdash; Cannot withhold backup withholding.</li>
+<li><strong>Benefit Deductions for 1099 Contractors</strong> &mdash; No benefit deductions allowed.</li>
+</ul>
+</div>
+
+<div style="margin-bottom:16px">
+<h4 style="color:#ef4444;font-size:13px;margin-bottom:8px">Unsupported Benefit Types</h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Fringe Benefits</strong> or Custom Benefit Types</li>
+<li><strong>Life, Disability, and Accident Insurance</strong> (e.g., Aflac pre-tax &mdash; not qualified H-125 plans)</li>
+<li><strong>QSEHRA</strong> &mdash; Qualified Small Employer Health Reimbursement Arrangement</li>
+<li><strong>SEP IRA</strong> &mdash; Simplified Employee Pension Individual Retirement Account</li>
+</ul>
+</div>
+
+<div>
+<h4 style="color:#ef4444;font-size:13px;margin-bottom:8px">Operational Issues</h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li><strong>Concurrent Payroll</strong> &mdash; Employer runs payroll with Square AND another provider simultaneously.</li>
+<li><strong>Over 100 Employees</strong> &mdash; Current limit is 100 employees per account.</li>
+</ul>
+</div>
+
+<div style="background:#ef444415;border-left:3px solid #ef4444;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:12px">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>&#128172; WHAT TO SAY:</strong> &ldquo;Unfortunately, Square Payroll cannot support [specific situation] at this time. We recommend exploring alternative payroll providers that specialize in [situation type]. I can help you with other Square products that might benefit your business.&rdquo;</p>
+</div>
+</div>
+
+<!-- Tricky Scenarios - Limited Support -->
+<div style="background:#eab30820;border:1px solid #eab30844;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#eab308;font-size:15px;margin-bottom:12px">&#9888;&#65039; Tricky Scenarios &mdash; Limited Support (Workarounds Available)</h3>
+
+<div style="display:grid;gap:12px">
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Garnishments</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Status:</strong> Partially Supported. We support the deduction itself but do NOT remit payments. Merchant must remit garnishment payments themselves.</p>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:8px">
+<p style="font-size:11px;color:#e2e8f0;margin:0"><strong>&#128172; SAY:</strong> &ldquo;Square Payroll can deduct garnishments from employee paychecks, but you&rsquo;ll be responsible for remitting those payments to the appropriate agencies. Are you comfortable handling that?&rdquo;</p>
+</div>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Aflac Benefits</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Status:</strong> Post-Tax Only. Pre-tax Aflac is NOT supported (not qualified H-125 plans). Some post-tax benefits should be on W-2s, but we don&rsquo;t report ANY post-tax deductions on W-2s.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Remote Employees</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Status:</strong> Supported with Requirements. Employer must have tax numbers for EACH jurisdiction. Each employee&rsquo;s work location must be entered as a location in the Payroll account.</p>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:8px">
+<p style="font-size:11px;color:#e2e8f0;margin:0"><strong>&#128172; SAY:</strong> &ldquo;Square Payroll can support remote employees, but you&rsquo;ll need to be registered for payroll taxes in each state where your employees live. Do you already have those tax registrations?&rdquo;</p>
+</div>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">State Funded Retirement Plans</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Workaround:</strong> Should be added as a ROTH IRA benefit in Square Payroll.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Reciprocal State Agreements</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Status:</strong> Supported. Employee lives in different state from work and wants exemption from work state withholding. Different from courtesy withholding (we do NOT withhold for home state).</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Advanced Tipping Scenarios</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>4 Supported Methods:</strong> (1) Tip directly to person who rings out, (2) Tip pool in 24hr/7-day, (3) Tip pool by transaction, (4) Tip pool by percentage/job type.</p>
+<p style="font-size:12px;color:#ff6b35;margin:4px 0 0 0"><strong>&#10060; Unsupported:</strong> Point systems, custom distribution formulas (e.g., &ldquo;servers pay bussers 10%&rdquo;).</p>
+<p style="font-size:12px;color:#22c55e;margin:4px 0 0 0"><strong>Workarounds:</strong> Manually calculate &amp; distribute on pay run, or use <strong>TipHaus</strong> (3rd party).</p>
+<div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:8px">
+<p style="font-size:11px;color:#e2e8f0;margin:0"><strong>&#128172; SAY:</strong> &ldquo;Square Payroll supports four standard tip distribution methods. For more complex formulas like point systems, you&rsquo;d need to either manually calculate tips each pay period or use a third-party service like TipHaus. Which approach works better?&rdquo;</p>
+</div>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#eab308;font-size:13px;margin-bottom:6px">Advanced Commission Scenarios</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Limitation:</strong> Tips can be set to items &amp; services, but NOT specific items/services. Seller must manually calculate commissions and adjust on pay run.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Account & Migration Scenarios -->
+<div style="background:#006AFF20;border:1px solid #006AFF44;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#006AFF;font-size:15px;margin-bottom:12px">&#128260; Account &amp; Migration Scenarios</h3>
+
+<div style="display:grid;gap:12px">
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Square-to-Square Migrations (Business Sold)</h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:1.8">
+<li>New federal and state EIN numbers required</li>
+<li>Most info CANNOT be copied over</li>
+<li>Employees must enter their own personal details (SSN, bank account blocked from view)</li>
+<li>Do NOT need previous payroll info &mdash; do NOT upload to ActiveAdmin</li>
+</ul>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Previously Unsubscribed (Same EIN, New Account)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Seller must create a <strong>brand new Square account</strong> and subscribe to payroll there. Cannot reuse old account.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Never Unsubscribed (Same EIN, New Account)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Seller must: (1) Unsubscribe from Square Payroll in old account, (2) Call CS to release the EIN, (3) Then process payroll on new account.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Opening New Payroll Account (Multiple EINs / Old Account)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>&#9888; Key:</strong> Opening a separate payroll account <strong>breaks timecard integration</strong>. Seller must manually enter timecard info. <strong>Recommendation:</strong> Keep payroll on same account as timecards for auto-importing. Cannot fully migrate due to PII restrictions.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Adding Former Employees</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Issue:</strong> If seller doesn&rsquo;t make correct selections during setup, the option becomes hidden.</p>
+<p style="font-size:12px;color:#22c55e;margin:4px 0 0 0"><strong>Solution:</strong> Share direct link: <a href="https://app.squareup.com/payroll/employer/former-employee/employment-and-personal-information" target="_blank" style="color:#006AFF;word-break:break-all">squareup.com/payroll/employer/former-employee/...</a></p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#006AFF;font-size:13px;margin-bottom:6px">Multiple Locations (Same EIN)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Limitation:</strong> CANNOT have separate payroll runs for different locations. <strong>Workaround:</strong> One location paid during normal pay cycle (deselect other locations&rsquo; employees), other location paid through W-2 off-cycle run.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Tax & Compliance -->
+<div style="background:#a855f720;border:1px solid #a855f744;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#a855f7;font-size:15px;margin-bottom:12px">&#128290; Tax &amp; Compliance Scenarios</h3>
+
+<div style="display:grid;gap:12px">
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:6px">No Employer Registration ID for State Tax</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Temporary Workaround:</strong> Can enter all 1&rsquo;s instead of actual number.</p>
+<p style="font-size:12px;color:#ef4444;margin:4px 0 0 0"><strong>&#9888; CRITICAL:</strong> This will cause FAILED FILINGS if they don&rsquo;t obtain actual number and update before end of quarter!</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:6px">Pre-2020 W-4 Forms</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Federal W-4 changed in 2020 (deductions by dollar value vs number). Download new form: <a href="https://www.irs.gov/pub/irs-pdf/fw4.pdf" target="_blank" style="color:#006AFF">irs.gov/pub/irs-pdf/fw4.pdf</a></p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:6px">Tax Withdrawal Timing</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Federal Taxes:</strong> Withdrawn by IRS directly. <strong>All Other Taxes:</strong> Deducted by Square. Result: Multiple transactions will appear.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:6px">UC-1 and WH-3 Forms</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">&#9989; Yes, Square files both forms on seller&rsquo;s behalf.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#a855f7;font-size:13px;margin-bottom:6px">W-2 Forms</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>Important:</strong> Only ONE payroll provider can provide W-2s per employee per year.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Payment & Paycheck Scenarios -->
+<div style="background:#22c55e20;border:1px solid #22c55e44;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#22c55e;font-size:15px;margin-bottom:12px">&#128176; Payment &amp; Paycheck Scenarios</h3>
+
+<div style="display:grid;gap:12px">
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:6px">Paying Employees by Check</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6"><strong>3 Options:</strong> (1) Manually write check from linked bank account, (2) Print checks from Dashboard (requires DLT104 check stock), (3) Use Checkeeper integration.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:6px">Medical Insurance (Employer Contribution)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Square keeps a total and leaves that amount in seller&rsquo;s bank account for them to remit to insurance company.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:6px">Employee Wants Set FIT Withholding Amount</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Employees can update tax settings in Team App &rarr; &ldquo;additional withholding&rdquo; section to set $X per paycheck.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:6px">Tips Are Still Taxed</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">Employee tips will still be taxed on payroll. Tips are a deduction when employees file personal taxes.</p>
+</div>
+
+<div style="background:#0f0f23;border-radius:8px;padding:14px">
+<h4 style="color:#22c55e;font-size:13px;margin-bottom:6px">Seasonal Employees (Avoiding $6 Fee)</h4>
+<p style="font-size:12px;color:#e2e8f0;margin:0;line-height:1.6">&#127881; Square Payroll bills based on number of employees <strong>PAID</strong> in a month, not active team members. No need to deactivate seasonal employees during off-season.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Discovery Questions -->
+<div style="background:#1a1a3e;border:1px solid #006AFF44;border-radius:10px;padding:20px;margin-bottom:16px">
+<h3 style="color:#006AFF;font-size:15px;margin-bottom:12px">&#128270; Discovery Questions to Identify Unsupported Situations</h3>
+<p style="color:#94a3b8;font-size:12px;margin-bottom:12px">Ask these during your Consultation Call to catch red flags early.</p>
+
+<div style="display:grid;gap:8px">
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>1.</strong> &ldquo;How many EINs does your business have? Do you need to run payroll under multiple EINs?&rdquo; <span style="color:#ef4444">&#128308; Multiple EINs for payroll = unsupported</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>2.</strong> &ldquo;Do you have employees who work in multiple states?&rdquo; <span style="color:#ef4444">&#128308; Courtesy withholding or multiple tax jurisdictions</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>3.</strong> &ldquo;Do you have employees in both Philadelphia and Pittsburgh?&rdquo; <span style="color:#ef4444">&#128308; Cannot support both cities</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>4.</strong> &ldquo;Are you an agricultural employer or farm?&rdquo; <span style="color:#ef4444">&#128308; 943 filers not supported</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>5.</strong> &ldquo;What types of benefits do you offer?&rdquo; <span style="color:#ef4444">&#128308; SEP IRA, QSEHRA, Aflac pre-tax, life/disability</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>6.</strong> &ldquo;Do you currently run payroll with another provider?&rdquo; <span style="color:#ef4444">&#128308; Concurrent payroll = unsupported</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>7.</strong> &ldquo;Do you have any 1099 contractors who need tax withholding or benefits?&rdquo; <span style="color:#ef4444">&#128308; Cannot withhold for contractors</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>8.</strong> &ldquo;Do you have garnishments for any employees?&rdquo; <span style="color:#eab308">&#128992; We support deduction but merchant must remit</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>9.</strong> &ldquo;How do you handle tips?&rdquo; <span style="color:#eab308">&#128992; Complex tip formulas may need TipHaus</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>10.</strong> &ldquo;Do you have remote employees in multiple states?&rdquo; <span style="color:#eab308">&#128992; Need tax numbers for all jurisdictions</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>11.</strong> &ldquo;Have you used Square Payroll before?&rdquo; <span style="color:#eab308">&#128992; If unsubscribed = new account needed. If never unsubscribed = must release EIN via CS.</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>12.</strong> &ldquo;Do you have your state employer registration ID/tax number?&rdquo; <span style="color:#eab308">&#128992; Can use all 1&rsquo;s temporarily but MUST update before end of quarter</span></p>
+</div>
+<div style="background:#0f0f23;border-left:3px solid #006AFF;padding:10px 14px;border-radius:0 6px 6px 0">
+<p style="font-size:12px;color:#e2e8f0;margin:0"><strong>13.</strong> &ldquo;Do you use Shifts for scheduling?&rdquo; <span style="color:#eab308">&#128992; Shifts must be for assigned jobs only or payroll won&rsquo;t process</span></p>
+</div>
+</div>
+</div>
+
+<!-- Escalation Channels -->
+<div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:16px">
+<h3 style="color:#e2e8f0;font-size:14px;margin-bottom:10px">&#128279; Escalation &amp; Support Channels</h3>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<div style="background:#0f0f23;border-radius:6px;padding:10px 14px;flex:1;min-width:180px">
+<p style="font-size:11px;color:#94a3b8;margin:0 0 4px 0">2-Day Payroll Escalations</p>
+<p style="font-size:13px;color:#006AFF;margin:0;font-weight:600">#two-day-payroll-reviews</p>
+</div>
+<div style="background:#0f0f23;border-radius:6px;padding:10px 14px;flex:1;min-width:180px">
+<p style="font-size:11px;color:#94a3b8;margin:0 0 4px 0">GSO Payroll Pilot</p>
+<p style="font-size:13px;color:#006AFF;margin:0;font-weight:600">#GSO-Payroll-Pilot</p>
+</div>
+<div style="background:#0f0f23;border-radius:6px;padding:10px 14px;flex:1;min-width:180px">
+<p style="font-size:11px;color:#94a3b8;margin:0 0 4px 0">Payroll Help</p>
+<p style="font-size:13px;color:#006AFF;margin:0;font-weight:600">#payroll-help</p>
+</div>
+</div>
+<p style="font-size:11px;color:#94a3b8;margin:10px 0 0 0">&#128218; Resources: go/payrollfaqs &bull; go/activeadmin &bull; go/sendsafely</p>
+</div>
+
+</div><!-- end payrollUnsupported -->
+
+</div><!-- end optiType-payroll -->
 
 
 <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
@@ -5810,7 +6406,7 @@ function parseDSRPaste(){
 // ===== PER-DEAL TAB STATE HELPERS =====
 function clearAllTabState(){
   // Clear all tab-specific localStorage keys
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-menu-items'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks','gso-menu-items'];
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
@@ -5841,6 +6437,7 @@ function clearAllTabState(){
   document.querySelectorAll('#checklistItems input[type=checkbox]').forEach(function(c){c.checked=false;if(c.parentElement)c.parentElement.classList.remove('done')});
   document.querySelectorAll('input[data-cl="preKO"]').forEach(function(c){c.checked=false});
   document.querySelectorAll('input[data-cl="koQ"]').forEach(function(c){c.checked=false});
+  document.querySelectorAll('input[data-cl="payroll"]').forEach(function(c){c.checked=false;if(c.parentElement)c.parentElement.classList.remove('done')});
 
   // Clear KO checklist note textareas
   document.querySelectorAll('textarea[data-notes="koQ"]').forEach(function(el){el.value=''});
@@ -5853,6 +6450,7 @@ function clearAllTabState(){
   try{if(typeof updatePremKO==='function')updatePremKO()}catch(e){}
   try{if(typeof updateDbTrainingProgress==='function')updateDbTrainingProgress()}catch(e){}
   try{if(typeof updatePosTrainingProgress==='function')updatePosTrainingProgress()}catch(e){}
+  try{if(typeof updatePayrollProgress==='function')updatePayrollProgress()}catch(e){}
 
   // Hide deal banners
   document.querySelectorAll('[id$="SellerBanner"],[id$="sellerBanner"]').forEach(function(b){b.style.display='none'});
@@ -5917,6 +6515,10 @@ function reloadAllCheckboxStates(){
   if(op){try{var a=JSON.parse(op);document.querySelectorAll('.opti-pre-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
   var os=localStorage.getItem('gso-opti-script-checks');
   if(os){try{var a=JSON.parse(os);document.querySelectorAll('.opti-script-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
+
+  // Payroll checks
+  var pr=localStorage.getItem('gso-payroll-checks');
+  if(pr){try{var a=JSON.parse(pr);document.querySelectorAll('input[data-cl="payroll"]').forEach(function(c,i){if(a[i])c.checked=true});if(typeof updatePayrollProgress==='function')updatePayrollProgress()}catch(e){}}
 }
 
 function saveDeal(){
@@ -5930,7 +6532,7 @@ function saveDeal(){
   deal.timestamp=Date.now();
 
   // === Save all tab-specific localStorage state ===
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks'];
   deal._tabState={};
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
@@ -7949,8 +8551,80 @@ document.addEventListener('DOMContentLoaded',function(){
 function switchOptiType(type){
   document.getElementById('optiType-pm').style.display=type==='pm'?'':'none';
   document.getElementById('optiType-p3').style.display=type==='p3'?'':'none';
+  var payrollEl=document.getElementById('optiType-payroll');
+  if(payrollEl)payrollEl.style.display=type==='payroll'?'':'none';
   var label=document.getElementById('optiTypeLabel');
-  if(label)label.textContent='Showing '+(type==='pm'?'PM-Led Optimization Call workflow':'P3 Partner-Led Optimization workflow');
+  var labels={'pm':'PM-Led Optimization Call workflow','p3':'P3 Partner-Led Optimization workflow','payroll':'Payroll Implementation (Consultation → Training → First Run)'};
+  if(label)label.textContent='Showing '+(labels[type]||type);
+  if(type==='payroll'){loadPayrollChecks();updatePayrollProgress();}
+}
+
+// ===== PAYROLL SUB-TABS =====
+function showPayrollSub(id){
+  document.querySelectorAll('.payroll-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.payroll-tab-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.border='1px solid #2d2d5e'});
+  var colors={'payrollChecklist':['#22c55e','#22c55e44'],'payrollScript':['#006AFF','#006AFF44'],'payrollUnsupported':['#ff6b35','#ff6b3544']};
+  var c=colors[id]||['#006AFF','#006AFF44'];
+  document.querySelectorAll('.payroll-tab-btn').forEach(function(b){
+    if(b.textContent.indexOf(id==='payrollChecklist'?'Checklist':id==='payrollScript'?'Script':'Unsupported')>-1){
+      b.style.background=c[0];b.style.color='#fff';b.style.border='none';
+    }else{b.style.color=c[0]}
+  });
+}
+
+function showPRScript(id){
+  document.querySelectorAll('.pr-script-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.pr-script-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.border='1px solid #2d2d5e'});
+  var colors={'prConsult':['#a855f7','#a855f744'],'prTraining':['#22c55e','#22c55e44'],'prFirstRun':['#006AFF','#006AFF44']};
+  var c=colors[id]||['#006AFF','#006AFF44'];
+  document.querySelectorAll('.pr-script-btn').forEach(function(b){
+    var match=(id==='prConsult'&&b.textContent.indexOf('Consultation')>-1)||(id==='prTraining'&&b.textContent.indexOf('Training')>-1)||(id==='prFirstRun'&&b.textContent.indexOf('First Run')>-1);
+    if(match){b.style.background=c[0];b.style.color='#fff';b.style.border='none'}
+    else{b.style.color=c[0]}
+  });
+}
+
+// ===== PAYROLL CHECKLIST PERSISTENCE =====
+function updatePayrollProgress(){
+  var checks=document.querySelectorAll('input[data-cl="payroll"]');
+  var total=checks.length,done=0;
+  var states=[];
+  checks.forEach(function(c){
+    if(c.checked){done++;c.parentElement.classList.add('done')}
+    else{c.parentElement.classList.remove('done')}
+    states.push(c.checked);
+  });
+  document.getElementById('payrollProgressText').textContent=done+'/'+total;
+  document.getElementById('payrollProgressBar').style.width=(total?Math.round(done/total*100):0)+'%';
+  localStorage.setItem('gso-payroll-checks',JSON.stringify(states));
+
+  // Update section counts
+  var sections=[
+    {id:'payroll-s1-count',start:0,count:4},
+    {id:'payroll-s2-count',start:4,count:12},
+    {id:'payroll-s3-count',start:16,count:3},
+    {id:'payroll-s4-count',start:19,count:13},
+    {id:'payroll-s5-count',start:32,count:10},
+    {id:'payroll-s6-count',start:42,count:6}
+  ];
+  sections.forEach(function(s){
+    var sectionDone=0;
+    for(var i=s.start;i<s.start+s.count&&i<states.length;i++){if(states[i])sectionDone++}
+    var el=document.getElementById(s.id);
+    if(el)el.textContent=sectionDone+'/'+s.count;
+  });
+}
+
+function loadPayrollChecks(){
+  var saved=localStorage.getItem('gso-payroll-checks');
+  if(saved){
+    var states=JSON.parse(saved);
+    var checks=document.querySelectorAll('input[data-cl="payroll"]');
+    checks.forEach(function(c,i){if(states[i])c.checked=true});
+  }
+  updatePayrollProgress();
 }
 
 function switchP3Prompt(type){
