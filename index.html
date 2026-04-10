@@ -4026,36 +4026,43 @@ Example:
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;When is your first pay date?&rdquo;</p>
 </div>
+<textarea data-payroll-note="prq-paySchedule" rows="1" placeholder="Pay schedule / 1st pay date..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Determine if seller is Net New or has run payroll this year</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Have you run payroll this year, or is this a brand new business?&rdquo; <span style="color:#94a3b8">(Determines Net New vs PPH required)</span></p>
 </div>
+<textarea data-payroll-note="prq-netNew" rows="1" placeholder="Net New or existing? PPH needed?..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm number of employees</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;How many employees do you have?&rdquo;</p>
 </div>
+<textarea data-payroll-note="prq-empCount" rows="1" placeholder="# of employees..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Ask how tips/commissions are calculated</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;How do you calculate tips and commissions?&rdquo; <span style="color:#ff6b35">&#9888; Listen for point systems or custom formulas &mdash; may be unsupported</span></p>
 </div>
+<textarea data-payroll-note="prq-tips" rows="1" placeholder="Tips/commissions details..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Ask about benefits/garnishments</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Do you offer any benefits or have any garnishments?&rdquo; <span style="color:#ff6b35">&#9888; Check for SEP IRA, QSEHRA, Aflac pre-tax &mdash; unsupported</span></p>
 </div>
+<textarea data-payroll-note="prq-benefits" rows="1" placeholder="Benefits/garnishments details..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Determine if scheduling/team app will be used</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Will you be using Square Shifts for scheduling and the Team App?&rdquo;</p>
 </div>
+<textarea data-payroll-note="prq-shifts" rows="1" placeholder="Scheduling/Team App notes..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Confirm payment method (All direct deposit vs manual checks)</span></div>
 <div style="background:#006AFF10;border-left:3px solid #006AFF;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
 <p style="font-size:11px;color:#e2e8f0;margin:0"><strong>ASK:</strong> &ldquo;Will all employees be paid via direct deposit, or do you need manual check options?&rdquo; <span style="color:#94a3b8">(If checks: DLT104 stock or Checkeeper)</span></p>
 </div>
+<textarea data-payroll-note="prq-payMethod" rows="1" placeholder="Payment method notes..." style="width:calc(100% - 28px);margin:0 0 10px 28px;padding:6px 10px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 
 <div class="cl-item"><input type="checkbox" data-cl="payroll" onchange="updatePayrollProgress()"><span class="cl-text">Remind seller of 4-day payroll requirement for first run</span></div>
 <div style="background:#eab30815;border-left:3px solid #eab308;padding:8px 14px;border-radius:0 6px 6px 0;margin:4px 0 10px 28px">
@@ -4085,6 +4092,12 @@ Example:
 <li>&ldquo;Are you an agricultural employer?&rdquo; <span style="color:#ef4444">943 filers = unsupported</span></li>
 <li>&ldquo;Do you run payroll with another provider currently?&rdquo; <span style="color:#ef4444">Concurrent payroll = unsupported</span></li>
 </ul>
+<textarea data-payroll-note="prq-redFlags" rows="2" placeholder="Red flag notes (EINs, multi-state, agricultural, concurrent)..." style="width:100%;margin-top:8px;padding:6px 10px;background:#0f0f2399;border:1px solid #ff6b3544;border-radius:6px;color:#e2e8f0;font-size:11px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
+</div>
+
+<div style="margin-top:12px">
+<label style="font-size:10px;color:#64748b;display:block;margin-bottom:4px">&#128221; CONSULTATION NOTES</label>
+<textarea data-payroll-note="prq-consultNotes" rows="3" placeholder="General consultation notes, seller context, anything else to remember..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 </div>
 </div>
 
@@ -4185,6 +4198,10 @@ Pay Employees &bull; Pay Contractors &bull; Labor Cost Graph &bull; Recommendati
 <div style="background:#22c55e15;border-left:3px solid #22c55e;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px">
 <p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>&#128172; CLOSE:</strong> &ldquo;Make sure your timecards are accurate before our First Run call. I&rsquo;ll send you a confirmation with the date and time.&rdquo;</p>
 </div>
+<div style="margin-top:12px">
+<label style="font-size:10px;color:#64748b;display:block;margin-bottom:4px">&#128221; TRAINING SESSION NOTES</label>
+<textarea data-payroll-note="prq-trainingNotes" rows="3" placeholder="Training session notes, seller questions, issues encountered, follow-ups..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
+</div>
 </div>
 
 <!-- ============================================ -->
@@ -4232,6 +4249,10 @@ If QuickBooks synced &mdash; auto-sends after 8 PM PT. If applicable: show &ldqu
 <!-- Post-run script -->
 <div style="background:#eab30815;border-left:3px solid #eab308;padding:10px 14px;border-radius:0 6px 6px 0;margin-top:10px">
 <p style="font-size:12px;color:#e2e8f0;line-height:1.6;margin:0"><strong>&#128172; SAY:</strong> &ldquo;Great job on your first run! A few things to know: you can cancel by 6 PM PT and rerun by 8 PM PT if needed. After today, you&rsquo;ll be approved for 2-day processing instead of 4-day.&rdquo;</p>
+</div>
+<div style="margin-top:12px">
+<label style="font-size:10px;color:#64748b;display:block;margin-bottom:4px">&#128221; FIRST RUN NOTES</label>
+<textarea data-payroll-note="prq-firstRunNotes" rows="3" placeholder="First run notes, issues, seller questions, amounts confirmed..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical" oninput="savePayrollNotes()"></textarea>
 </div>
 </div>
 
@@ -6312,7 +6333,7 @@ function parseDSRPaste(){
 // ===== PER-DEAL TAB STATE HELPERS =====
 function clearAllTabState(){
   // Clear all tab-specific localStorage keys
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks','gso-menu-items'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks','gso-payroll-notes','gso-menu-items'];
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
@@ -6344,6 +6365,7 @@ function clearAllTabState(){
   document.querySelectorAll('input[data-cl="preKO"]').forEach(function(c){c.checked=false});
   document.querySelectorAll('input[data-cl="koQ"]').forEach(function(c){c.checked=false});
   document.querySelectorAll('input[data-cl="payroll"]').forEach(function(c){c.checked=false;if(c.parentElement)c.parentElement.classList.remove('done')});
+  document.querySelectorAll('textarea[data-payroll-note]').forEach(function(ta){ta.value=''});
 
   // Clear KO checklist note textareas
   document.querySelectorAll('textarea[data-notes="koQ"]').forEach(function(el){el.value=''});
@@ -6422,9 +6444,10 @@ function reloadAllCheckboxStates(){
   var os=localStorage.getItem('gso-opti-script-checks');
   if(os){try{var a=JSON.parse(os);document.querySelectorAll('.opti-script-check').forEach(function(c,i){if(a[i])c.checked=true})}catch(e){}}
 
-  // Payroll checks
+  // Payroll checks + notes
   var pr=localStorage.getItem('gso-payroll-checks');
   if(pr){try{var a=JSON.parse(pr);document.querySelectorAll('input[data-cl="payroll"]').forEach(function(c,i){if(a[i])c.checked=true});if(typeof updatePayrollProgress==='function')updatePayrollProgress()}catch(e){}}
+  if(typeof loadPayrollNotes==='function')loadPayrollNotes();
 }
 
 function saveDeal(){
@@ -6438,7 +6461,7 @@ function saveDeal(){
   deal.timestamp=Date.now();
 
   // === Save all tab-specific localStorage state ===
-  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks'];
+  var tabKeys=['gso-checks','gso-preKO-checks','gso-koQ-checks','gso-koQ-notes','gso-premKO-checks','gso-training-checks','gso-rtl-training-checks','gso-rst-pos-checks','gso-rtl-pos-checks','gso-opti-pre-checks','gso-opti-script-checks','gso-premKO-notes','gso-online-training-checks','gso-bpo-outbound','gso-bpo-inbound','gso-bpo-status','gso-bpo-log','gso-bpo-outbound-checks','gso-bpo-outbound-notes','gso-bpo-qa-checks','gso-bpo-qa-findings','gso-bpo-qa-verdict','gso-bpo-timeline','gso-tp-koNotes','gso-tp-koNotesHtml','gso-payroll-checks','gso-payroll-notes'];
   deal._tabState={};
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
@@ -8462,6 +8485,26 @@ function switchOptiType(type){
   if(label)label.textContent='Showing '+(labels[type]||type);
 }
 
+// ===== PAYROLL NOTES PERSISTENCE =====
+function savePayrollNotes(){
+  var notes={};
+  document.querySelectorAll('textarea[data-payroll-note]').forEach(function(ta){
+    notes[ta.dataset.payrollNote]=ta.value;
+  });
+  localStorage.setItem('gso-payroll-notes',JSON.stringify(notes));
+}
+
+function loadPayrollNotes(){
+  var saved=localStorage.getItem('gso-payroll-notes');
+  if(!saved)return;
+  try{
+    var notes=JSON.parse(saved);
+    document.querySelectorAll('textarea[data-payroll-note]').forEach(function(ta){
+      if(notes[ta.dataset.payrollNote])ta.value=notes[ta.dataset.payrollNote];
+    });
+  }catch(e){}
+}
+
 // ===== PAYROLL CHECKLIST PERSISTENCE =====
 function updatePayrollProgress(){
   var checks=document.querySelectorAll('input[data-cl="payroll"]');
@@ -8501,6 +8544,7 @@ function loadPayrollChecks(){
     checks.forEach(function(c,i){if(states[i])c.checked=true});
   }
   updatePayrollProgress();
+  loadPayrollNotes();
 }
 
 function switchP3Prompt(type){
