@@ -4604,6 +4604,209 @@ If QuickBooks synced &mdash; auto-sends after 8 PM PT. If applicable: show &ldqu
 </div><!-- end payrollUnsupportedSection -->
 </div>
 
+<!-- ===== PAYROLL DELIVERABLES ===== -->
+<div style="margin-top:24px;border-top:2px solid #eab30844;padding-top:20px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+<div>
+<h2 style="font-size:17px;margin:0;color:#eab308">&#128231; Payroll Deliverables</h2>
+<p style="color:#94a3b8;font-size:12px;margin:4px 0 0 0">Pre-filled email &amp; DSR templates. Hit Generate to auto-fill from your deal info.</p>
+</div>
+<button class="btn btn-green" onclick="generatePayrollDeliverables()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:14px;font-weight:600">&#9889; Generate All Deliverables</button>
+</div>
+
+<!-- Deliverable Sub-tabs -->
+<div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+<button class="btn btn-sm pr-deliv-btn" onclick="showPRDeliv('prDelivDSR')" style="background:#006AFF;color:#fff">&#128221; DSR Templates</button>
+<button class="btn btn-sm pr-deliv-btn" onclick="showPRDeliv('prDelivEmails')" style="background:#1a1a3e;color:#22c55e;border:1px solid #22c55e44">&#128231; Email Templates</button>
+<button class="btn btn-sm pr-deliv-btn" onclick="showPRDeliv('prDelivResources')" style="background:#1a1a3e;color:#a855f7;border:1px solid #a855f744">&#128218; Resources</button>
+</div>
+
+<!-- DSR TEMPLATES -->
+<div id="prDelivDSR" class="pr-deliv-panel">
+
+<div style="background:#0f0f23;border:1px solid #006AFF44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#006AFF;margin:0">&#128221; DSR Intro &mdash; <code style="background:#006AFF22;color:#006AFF;padding:1px 6px;border-radius:3px;font-size:11px">/pyi</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prDsrIntro')">&#128203; Copy</button>
+</div>
+<div id="prDsrIntro" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #006AFF44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#006AFF;margin:0">&#128221; Consultation DSR Notes &mdash; <code style="background:#006AFF22;color:#006AFF;padding:1px 6px;border-radius:3px;font-size:11px">/pr1</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prDsrConsult')">&#128203; Copy</button>
+</div>
+<div id="prDsrConsult" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #006AFF44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#006AFF;margin:0">&#128221; Training DSR Notes &mdash; <code style="background:#006AFF22;color:#006AFF;padding:1px 6px;border-radius:3px;font-size:11px">/pr2</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prDsrTraining')">&#128203; Copy</button>
+</div>
+<div id="prDsrTraining" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #006AFF44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#006AFF;margin:0">&#128221; Payroll Run DSR Notes &mdash; <code style="background:#006AFF22;color:#006AFF;padding:1px 6px;border-radius:3px;font-size:11px">/pr3</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prDsrRun')">&#128203; Copy</button>
+</div>
+<div id="prDsrRun" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+</div>
+
+<!-- EMAIL TEMPLATES -->
+<div id="prDelivEmails" class="pr-deliv-panel" style="display:none">
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; Intro Email &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">/pre1</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailIntro')">&#128203; Copy</button>
+</div>
+<div id="prEmailIntro" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; 1st Reminder &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">/1pr</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmail1st')">&#128203; Copy</button>
+</div>
+<div id="prEmail1st" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; Final Reminder &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">/pfr</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailFinal')">&#128203; Copy</button>
+</div>
+<div id="prEmailFinal" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; Post-Training Email &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">/pd2</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailPostTrain')">&#128203; Copy</button>
+</div>
+<div id="prEmailPostTrain" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; First Run Assistance &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">SFR</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailSFR')">&#128203; Copy</button>
+</div>
+<div id="prEmailSFR" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; PPH Request Email</h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailPPH')">&#128203; Copy</button>
+</div>
+<div id="prEmailPPH" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; Post-1st Run PPH Collection</h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailPostRunPPH')">&#128203; Copy</button>
+</div>
+<div id="prEmailPostRunPPH" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #22c55e44;border-radius:10px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<h4 style="font-size:13px;color:#22c55e;margin:0">&#128231; Implementation Complete &mdash; <code style="background:#22c55e22;color:#22c55e;padding:1px 6px;border-radius:3px;font-size:11px">/pycom</code></h4>
+<button class="btn btn-green btn-sm" onclick="copyContent('prEmailComplete')">&#128203; Copy</button>
+</div>
+<div id="prEmailComplete" class="deliv-content" style="font-size:12px;line-height:1.7;white-space:pre-wrap;color:#e2e8f0">
+<em style="color:#64748b">Hit &ldquo;Generate All Deliverables&rdquo; to populate</em>
+</div>
+</div>
+
+</div>
+
+<!-- RESOURCES -->
+<div id="prDelivResources" class="pr-deliv-panel" style="display:none">
+
+<div style="background:#0f0f23;border:1px solid #a855f744;border-radius:10px;padding:16px;margin-bottom:12px">
+<h4 style="font-size:13px;color:#a855f7;margin:0 0 10px 0">&#127909; Payroll Videos &mdash; <code style="background:#a855f722;color:#a855f7;padding:1px 6px;border-radius:3px;font-size:11px">/demop</code></h4>
+<ul style="padding-left:20px;margin:0;color:#e2e8f0;font-size:12px;line-height:2">
+<li><a href="https://www.youtube.com/watch?v=payroll-run-demo" target="_blank" style="color:#006AFF">Payroll Run Demo</a></li>
+<li><a href="https://www.youtube.com/watch?v=payroll-webinar" target="_blank" style="color:#006AFF">Payroll Webinar</a></li>
+<li><a href="https://www.youtube.com/watch?v=shifts" target="_blank" style="color:#006AFF">Shifts</a></li>
+</ul>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #a855f744;border-radius:10px;padding:16px;margin-bottom:12px">
+<h4 style="font-size:13px;color:#a855f7;margin:0 0 10px 0">&#128218; Support Articles &mdash; <code style="background:#a855f722;color:#a855f7;padding:1px 6px;border-radius:3px;font-size:11px">/prr</code></h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<a href="https://squareup.com/help/us/en/article/5661" target="_blank" style="color:#006AFF;font-size:11px">Set up Square Payroll</a>
+<a href="https://squareup.com/help/us/en/article/5663" target="_blank" style="color:#006AFF;font-size:11px">Add team members to Payroll</a>
+<a href="https://squareup.com/help/us/en/article/5665" target="_blank" style="color:#006AFF;font-size:11px">Add employee benefits</a>
+<a href="https://squareup.com/help/us/en/article/7498" target="_blank" style="color:#006AFF;font-size:11px">Create post-tax deductions</a>
+<a href="https://squareup.com/help/us/en/article/5670" target="_blank" style="color:#006AFF;font-size:11px">Set up PTO and sick leave</a>
+<a href="https://squareup.com/help/us/en/article/5671" target="_blank" style="color:#006AFF;font-size:11px">Import tips</a>
+<a href="https://squareup.com/help/us/en/article/5662" target="_blank" style="color:#006AFF;font-size:11px">Verify bank account</a>
+<a href="https://squareup.com/help/us/en/article/5669" target="_blank" style="color:#006AFF;font-size:11px">Run payroll for W-2 employees</a>
+<a href="https://squareup.com/help/us/en/article/5672" target="_blank" style="color:#006AFF;font-size:11px">Run payroll for contractors</a>
+<a href="https://squareup.com/help/us/en/article/6279" target="_blank" style="color:#006AFF;font-size:11px">Process off-cycle payments</a>
+<a href="https://squareup.com/help/us/en/article/6281" target="_blank" style="color:#006AFF;font-size:11px">Send instant payments</a>
+<a href="https://squareup.com/help/us/en/article/6280" target="_blank" style="color:#006AFF;font-size:11px">Set up automatic payroll</a>
+<a href="https://squareup.com/help/us/en/article/6282" target="_blank" style="color:#006AFF;font-size:11px">Set up two-day payroll</a>
+<a href="https://squareup.com/help/us/en/article/6283" target="_blank" style="color:#006AFF;font-size:11px">Print checks</a>
+<a href="https://squareup.com/help/us/en/article/5668" target="_blank" style="color:#006AFF;font-size:11px">Edit payment schedule</a>
+<a href="https://squareup.com/help/us/en/article/6284" target="_blank" style="color:#006AFF;font-size:11px">Pay employees in different tax jurisdictions</a>
+<a href="https://squareup.com/help/us/en/article/6285" target="_blank" style="color:#006AFF;font-size:11px">Manage tax notices</a>
+<a href="https://squareup.com/help/us/en/article/5667" target="_blank" style="color:#006AFF;font-size:11px">Verify &amp; distribute W-2</a>
+<a href="https://squareup.com/help/us/en/article/6286" target="_blank" style="color:#006AFF;font-size:11px">Verify &amp; distribute 1099-NEC</a>
+<a href="https://squareup.com/help/us/en/article/6287" target="_blank" style="color:#006AFF;font-size:11px">QuickBooks Online integration</a>
+</div>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #a855f744;border-radius:10px;padding:16px;margin-bottom:12px">
+<h4 style="font-size:13px;color:#a855f7;margin:0 0 10px 0">&#128279; PPH Instructions by Provider &mdash; <code style="background:#a855f722;color:#a855f7;padding:1px 6px;border-radius:3px;font-size:11px">/PPH</code></h4>
+<p style="color:#94a3b8;font-size:11px;margin:0">Intuit/QBO &bull; QB Desktop &bull; ADP &bull; Paychex &bull; Gusto &bull; SurePayroll &bull; Heartland &bull; Accountant/Other &bull; SQPR Reports/Verify</p>
+</div>
+
+<div style="background:#0f0f23;border:1px solid #a855f744;border-radius:10px;padding:16px">
+<h4 style="font-size:13px;color:#a855f7;margin:0 0 10px 0">&#128279; Slack Channels</h4>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<span style="background:#006AFF15;color:#006AFF;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600">#two-day-payroll-reviews</span>
+<span style="background:#006AFF15;color:#006AFF;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600">#GSO-Payroll-Pilot</span>
+<span style="background:#006AFF15;color:#006AFF;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:600">#payroll-help</span>
+</div>
+</div>
+
+</div>
+
+</div><!-- end Payroll Deliverables -->
+
 
 <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
 <button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
@@ -6455,7 +6658,7 @@ function clearAllTabState(){
   tabKeys.forEach(function(k){localStorage.removeItem(k)});
 
   // Clear deliverable content areas
-  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText'];
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText','prDsrIntro','prDsrConsult','prDsrTraining','prDsrRun','prEmailIntro','prEmail1st','prEmailFinal','prEmailPostTrain','prEmailSFR','prEmailPPH','prEmailPostRunPPH','prEmailComplete'];
   delivIds.forEach(function(id){
     var el=document.getElementById(id);
     if(el){el.innerHTML='';el.dataset.rawText=''}
@@ -6508,7 +6711,7 @@ function clearAllTabState(){
   });
   // Clear training prep outputs
   var tpOutputs=document.getElementById('tpOutputs');if(tpOutputs)tpOutputs.style.display='none';
-  ['tpAgendaText','tpChecklistText','tpKoNotesText'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='';el.dataset.rawText=''}});
+  ['tpAgendaText','tpChecklistText','tpKoNotesText','prDsrIntro','prDsrConsult','prDsrTraining','prDsrRun','prEmailIntro','prEmail1st','prEmailFinal','prEmailPostTrain','prEmailSFR','prEmailPPH','prEmailPostRunPPH','prEmailComplete'].forEach(function(id){var el=document.getElementById(id);if(el){el.innerHTML='';el.dataset.rawText=''}});
   var tpRA=document.getElementById('tpResponseArea');if(tpRA)tpRA.style.display='none';
   var tpBadge=document.getElementById('badgeTrainingPrep');if(tpBadge){tpBadge.className='badge badge-gray';tpBadge.textContent='Not Generated'}
 }
@@ -6584,7 +6787,7 @@ function saveDeal(){
   tabKeys.forEach(function(k){var v=localStorage.getItem(k);if(v!==null)deal._tabState[k]=v});
 
   // Save deliverable content (innerHTML + rawText)
-  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText'];
+  var delivIds=['emailContent','dsrContent','bpoContent','analysisContent','ptEmailText','ptDSRText','ptAnalysisText','optiOutAText','optiOutBText','optiOutCText','preKO-chatterOutput','preKO-emailOutput','tpAgendaText','tpChecklistText','tpKoNotesText','prDsrIntro','prDsrConsult','prDsrTraining','prDsrRun','prEmailIntro','prEmail1st','prEmailFinal','prEmailPostTrain','prEmailSFR','prEmailPPH','prEmailPostRunPPH','prEmailComplete'];
   deal._deliverables={};
   delivIds.forEach(function(id){var el=document.getElementById(id);if(el){deal._deliverables[id]={html:el.innerHTML,raw:el.dataset.rawText||''}}});
 
@@ -8564,7 +8767,7 @@ function clearTrainingPrep(){
   document.getElementById('tpTranscriptCount').textContent='0 characters';
   document.getElementById('tpResponseArea').style.display='none';
   document.getElementById('tpOutputs').style.display='none';
-  ['tpAgendaText','tpChecklistText','tpKoNotesText'].forEach(function(id){
+  ['tpAgendaText','tpChecklistText','tpKoNotesText','prDsrIntro','prDsrConsult','prDsrTraining','prDsrRun','prEmailIntro','prEmail1st','prEmailFinal','prEmailPostTrain','prEmailSFR','prEmailPPH','prEmailPostRunPPH','prEmailComplete'].forEach(function(id){
     var el=document.getElementById(id);if(el){el.innerHTML='';el.dataset.rawText=''}
   });
   // Clear KO notes banners
@@ -8652,6 +8855,98 @@ function updatePayrollProgress(){
     var el=document.getElementById(s.id);
     if(el)el.textContent=sectionDone+'/'+s.count;
   });
+}
+
+// ===== PAYROLL DELIVERABLE SUB-TABS =====
+function showPRDeliv(id){
+  document.querySelectorAll('.pr-deliv-panel').forEach(function(p){p.style.display='none'});
+  document.getElementById(id).style.display='block';
+  var colors={'prDelivDSR':['#006AFF','#006AFF44'],'prDelivEmails':['#22c55e','#22c55e44'],'prDelivResources':['#a855f7','#a855f744']};
+  var c=colors[id]||['#006AFF','#006AFF44'];
+  document.querySelectorAll('.pr-deliv-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.border='1px solid #2d2d5e'});
+  var btnMap={'prDelivDSR':0,'prDelivEmails':1,'prDelivResources':2};
+  var btns=document.querySelectorAll('.pr-deliv-btn');
+  var idx=btnMap[id];
+  if(btns[idx]){btns[idx].style.background=c[0];btns[idx].style.color='#fff';btns[idx].style.border='none'}
+}
+
+function generatePayrollDeliverables(){
+  var seller=(document.getElementById('genSeller')||{}).value||'[First Name]';
+  var firstName=seller.split(' ')[0];
+  var biz=(document.getElementById('genBusiness')||{}).value||'[Business]';
+  var ae=(document.getElementById('genAE')||{}).value||'[AE Name]';
+  var pm=(document.getElementById('genPM')||{}).value||'[Your Name]';
+  var goLive=(document.getElementById('genGoLive')||{}).value||'XX/XX/XXXX';
+  var pkg=(document.getElementById('genPackage')||{}).value||'';
+
+  // Read payroll note fields for extra context
+  var consultNotes='';
+  document.querySelectorAll('textarea[data-payroll-note]').forEach(function(ta){
+    if(ta.value.trim())consultNotes+=(ta.dataset.payrollNote.replace('prq-','')+': '+ta.value.trim()+'\n');
+  });
+
+  // DSR INTRO
+  var dsrIntro=' - @'+ae+'\nI am very excited to assist with this Payroll Implementation!! \u{1F389}\n\nI have sent my intro email and am waiting for the seller to schedule the consultation.\n\nAs a reminder, the SLA of a Premium Implementation is 2 weeks starting from the consultation.\n\nPlease make sure the seller is fully subscribed to Payroll. This is required to complete the Payroll Training.\nIf using Advanced Access or Shifts, please make sure the seller is subscribed to these as well.\n\nPlease note:\nSquare Payroll does not support fringe benefits or other custom benefit types; life, disability, and accident insurance; QSEHRA; SEP IRA; and benefit deductions for 1099 Contractors.\nSquare Payroll does not support paying one employee that works in multiple tax jurisdictions, courtesy withholding, or filing taxes for multiple EINs under one Square Payroll account.\n\nThanks!';
+  document.getElementById('prDsrIntro').textContent=dsrIntro;
+  document.getElementById('prDsrIntro').dataset.rawText=dsrIntro;
+
+  // DSR CONSULTATION
+  var dsrConsult='Spoke with: '+firstName+'\nCompleted: Payroll Consultation\n1st Payroll Run: '+goLive+'\nCovered:\nAre they subscribed to Payroll:\nHave they entered their tax info:\nDo they have a bank acct linked for Payroll:\nDo they have a previous provider or net new:\nHow many employees:\nWill we be migrating team members or will they already exist in the acct:\nHow do they calculate tips/commissions:\nBenefits/garnishments:\nAdvanced Access:\nShifts free or plus:\n\nAE Actions:';
+  if(consultNotes)dsrConsult+='\n\n--- Notes from Consultation ---\n'+consultNotes;
+  document.getElementById('prDsrConsult').textContent=dsrConsult;
+  document.getElementById('prDsrConsult').dataset.rawText=dsrConsult;
+
+  // DSR TRAINING
+  var dsrTraining='Spoke with: '+firstName+'\nCompleted: Payroll Training\n1st Payroll Run: '+goLive+'\nCovered:\nPayroll Overview\nBanner messages at top of screen\nRun Payroll\nHistory\nPayroll Settings\nBusiness Info\nTax Info\nPayroll Settings\nBank Account\nIntuit QuickBooks Online\nClock in\nOvertime\nTips\nCommissions\nTeam Management\nHow to add a Team Member in Payroll\nPermissions\nShifts\nAvailability\nSchedule\nWorkday\nTimecards\n\nAE Actions:';
+  document.getElementById('prDsrTraining').textContent=dsrTraining;
+  document.getElementById('prDsrTraining').dataset.rawText=dsrTraining;
+
+  // DSR RUN
+  var dsrRun='Spoke with: '+firstName+'\nCompleted: 1st Payroll Run\nCovered:\nPay my employees:\nCheck the expected date and payment method:\nShifts correct and imported:\nCorrect date:\nPost tax deductions or post tax reimbursements:\nReview screen for payroll withdrawal:\nConfirm Payroll run:\n\nAE Action Items:';
+  document.getElementById('prDsrRun').textContent=dsrRun;
+  document.getElementById('prDsrRun').dataset.rawText=dsrRun;
+
+  // EMAIL INTRO
+  var emailIntro='Hi '+firstName+',\n\nWelcome to Square! \u{1F389}\n\nAs '+ae+' mentioned, my name is '+pm+' and I will be taking care of your Payroll Implementation Package. We\'re excited to work with you and get you set up to run payroll with Square! In order to ensure accurate processing and timely replies, please be sure to reply on this email thread for any communications.\n\nPayroll Implementation Package includes 2.5 hours of training and team member migration. The typical turnaround time is 10 days starting from the first training.\n\nSchedule Consultation:\nI\'ve created a booking site to help start the process, please click here {Insert Payroll Consultation link} to schedule our consultation call.\n\nIf possible, try and schedule the consultation call in the next 2-3 days. The consultation is important to make sure we can start setting up your account.\n\nAfter our first call we will be setting up a Payroll Training, then plan for your first pay run, which we can go into more detail about on our consultation call.\n\n\u{1F534} First Priority: An activated subscription to Payroll is required to schedule the Payroll Training.\nNavigate to www.squareup.com and login to your Square Dashboard. You\'ll navigate to the Staff & Payroll tab on the left side of your dashboard, press Payroll, click Start Free Trial.\n\nYou\'ll need to enter the following information:\n\u2022 Legal Business Name and Business Type\n\u2022 Business Address\n\u2022 Number of employees\n\u2022 Business Phone Number\n\u2022 Tax info\n\u2022 Payroll bank account\n\n\u{1F7E1} Second Priority: Items needed from you:\n\u2022 Quarterly or Annual Filings from Previous Year\n\u2022 Date of last pay run and pay period\n\u2022 Previous Payroll provider (Paychex, QuickBooks, ADP, etc)\n\u2022 Date of Anticipated First Pay Date with Square Payroll (Please keep in mind we need 10 business days from when we receive all of your information.)\n\u2022 Pay Cadence (Weekly, Biweekly, Semimonthly, Monthly)\n\u2022 Any Withholdings that need to be accounted for in Payroll (i.e. medical benefits, 401K etc.)\n\u2022 Do Employees earn Paid Time Off and Sick Time? If so, how is it calculated?\n\u2022 Are there any garnishments that need to be accounted for? Provide details per employee.\n\u2022 Are any employees tip eligible? If so, how are tips calculated and paid?\n\n\u{1F7E2} Third Priority: Provide your YTD payroll history. Please upload your 2025 YTD report as soon as possible in this {Insert Secured Workspace Link}\n\nBest,\n'+pm+'\nImplementation Specialist\nSquare Payroll';
+  document.getElementById('prEmailIntro').textContent=emailIntro;
+  document.getElementById('prEmailIntro').dataset.rawText=emailIntro;
+
+  // 1ST REMINDER
+  var email1st='Hello Team!\n\nI\'m checking in because I am excited to get you started. Your purchased Payroll onboarding package includes up to 2.5 total hours of training and/or consultation sessions.\n\nSchedule your Payroll Consultation: {Insert Payroll Consultation link}\n\nSubscribe to Payroll. Navigate to www.squareup.com and login to your Square Dashboard. You\'ll navigate to the Staff & Payroll tab on the left side of your dashboard, press Payroll, click Start Free Trial.\n\nYou\'ll need to enter the following information:\n\u2022 Legal Business Name and Business Type\n\u2022 Business Address\n\u2022 Number of employees\n\u2022 Business Phone Number\n\u2022 Tax info\n\u2022 Payroll bank account\n\nAnswer the following:\n\u2022 Quarterly or Annual Filings from Previous Year\n\u2022 Date of last pay run and pay period\n\u2022 Previous Payroll provider\n\u2022 Date of Anticipated First Pay Date with Square Payroll\n\u2022 Pay Cadence (Weekly, Biweekly, Semimonthly, Monthly)\n\u2022 Any Withholdings that need to be accounted for in Payroll\n\u2022 Do Employees earn PTO and Sick Time? If so, how is it calculated?\n\u2022 Are there any garnishments? Provide details per employee.\n\u2022 Are any employees tip eligible? How are tips calculated and paid?\n\nProvide your YTD payroll history. I have created a Secure Workspace for you to upload your YTD payroll history.\n\nPayroll Implementation Package Includes up to 2.5 hours of training/consultation:\n1: Payroll Consultation \u2014 An initial conversation to discuss Payroll goals, timeline and next steps.\n2: Payroll Training Deep Dive (1 hr) \u2014 A review of Staff and Payroll back-of-office tools.\n3: Payroll Run (1 hr) \u2014 A walk through of the first payroll run.\n\nIf at any time you are in need of immediate assistance, please contact our Customer Support at 855-700-6000.\n\nBest,\n'+pm;
+  document.getElementById('prEmail1st').textContent=email1st;
+  document.getElementById('prEmail1st').dataset.rawText=email1st;
+
+  // FINAL REMINDER
+  var emailFinal='Hi '+firstName+'!\n\nI haven\'t heard from you regarding your Square Payroll Implementation. If anything has changed or if you\'d like to push things back, please let me know.\n\nYour purchased Payroll onboarding package includes up to 2.5 total hours of training and/or consultation sessions. If you are interested in continuing, please follow the steps below:\n\n\u2022 Upload your most recent YTD from your current payroll provider in the Secured Workspace\n\u2022 Subscribe and complete the first 3 steps in the Payroll setup guide\n\u2022 Click here to schedule our {Insert Payroll Consultation link}\n\nPayroll Implementation Package Includes up to 2.5 hours of training/consultation:\n1: Payroll Consultation \u2014 An initial conversation to discuss Payroll goals, timeline and next steps.\n2: Payroll Training Deep Dive (1 hr) \u2014 A review of Staff and Payroll back-of-office tools.\n3: Payroll Run (1 hr) \u2014 A walk through of the first payroll run.\n\nIf at any time you are in need of immediate assistance, please contact our Customer Support at 855-700-6000.\n\nBest,\n'+pm;
+  document.getElementById('prEmailFinal').textContent=emailFinal;
+  document.getElementById('prEmailFinal').dataset.rawText=emailFinal;
+
+  // POST-TRAINING EMAIL
+  var emailPostTrain='Hello '+firstName+'!\n\nIt was a pleasure assisting you with setting up Square Payroll. Below are Support Articles based on our discussion:\n\nResources:\n\u2022 Create and edit permission sets\n\u2022 Add and manage team members\n\u2022 Add team members to Square Payroll\n\u2022 Run payroll for W-2 employees\n\u2022 Run payroll for contractors\n\nYour first pay run is scheduled for '+goLive+'.\n\nHere is our Google Meet Link for your first payroll run: {Insert Meet Link}\n\nIn order to run payroll, please make sure all team members have accepted their invitation to join your team as well as completed their personal payroll information.\n\nIf you have any questions, please let me know!\n\nBest,\n'+pm;
+  document.getElementById('prEmailPostTrain').textContent=emailPostTrain;
+  document.getElementById('prEmailPostTrain').dataset.rawText=emailPostTrain;
+
+  // SFR ASSISTANCE
+  var emailSFR='Hi '+firstName+',\n\nIt was a pleasure assisting you with setting up Square Payroll. If you\'d like my direct assistance with processing your first pay run with Square, I\'m happy to do so!\n\nYour first pay run is scheduled for '+goLive+'.\n\nIf you\'d like assistance, please book time on my calendar for '+goLive+' and I will call you at the scheduled time to assist you.\n\n{Calendly Link}\n\nBest,\n'+pm+'\nImplementation Specialist\nSquare Payroll';
+  document.getElementById('prEmailSFR').textContent=emailSFR;
+  document.getElementById('prEmailSFR').dataset.rawText=emailSFR;
+
+  // PPH REQUEST
+  var emailPPH='Hi '+firstName+',\n\nThank you for providing the requested information. The next step in the implementation process is providing your YTD payroll history report. This report will allow us to gather the information we need to start entering your information for your account.\n\nAs you have [provider name] please follow the below instructions to pull this report.\n\nInstructions for pulling payroll report:\n[Insert provider-specific instructions]\n\nI have created a workspace for us to send documents to each other safely. Please use this link to access this workspace. You will use the email associated with your Square account to access this workspace.\n\n{unique link to workspace}\n\nOnce you post your YTD payroll report, please reply to this email that it has been completed. We will then pre-fill the spreadsheet that we will utilize to enter your employees into Square Payroll.\n\nPlease let me know if you have any questions.\n\nBest,\n'+pm+'\nImplementation Specialist\nSquare Payroll';
+  document.getElementById('prEmailPPH').textContent=emailPPH;
+  document.getElementById('prEmailPPH').dataset.rawText=emailPPH;
+
+  // POST-1ST RUN PPH COLLECTION
+  var emailPostRunPPH='Hi '+firstName+',\n\nCongratulations on completing your first payroll run with Square Payroll! \u{1F389}\n\nThe next step is to transfer your previous payroll into our system to ensure all your tax filings are accurate and complete. As you have [provider name] please follow the below instructions to pull this report.\n\nInstructions for pulling payroll report:\n[Insert provider-specific instructions]\n\nOnce you have the most recent YTD Payroll details report, please upload the file under the History & Reports section of your Square Payroll dashboard to ensure this sensitive information is protected.\n\nIn order to upload the document you will want to click Record W-2 Payroll History HERE\nThen you will click YES. This is where you will upload the document.\nYou will drag and drop the file into the section that says Drag and Drop your file here.\n\nPlease let us know when the above steps are completed.\n\nOnce we have reviewed your updated payroll history, we will proceed with forwarding your information to our data entry team for final processing.\n\nPlease be sure you do not send any additional pay runs outside of Square Payroll as only one entity may file on your behalf.\n\nWelcome to Square Payroll!\n\nBest,\n'+pm+'\nImplementation Specialist\nSquare Payroll';
+  document.getElementById('prEmailPostRunPPH').textContent=emailPostRunPPH;
+  document.getElementById('prEmailPostRunPPH').dataset.rawText=emailPostRunPPH;
+
+  // IMPLEMENTATION COMPLETE
+  var emailComplete='Hi '+firstName+',\n\nThank you for confirming the information that was transferred. Now that this is complete your account has been successfully implemented.\n\nShould you have any questions in the future a member of our Support Team will be happy to assist you. Please see below for their contact information.\n\nSquare Support\nMonday-Friday 6:00 AM - 6:00 PM (PT)\nPhone: 855-700-6000\n\nOr follow these steps:\n\u2022 Visit the Contact Us Page\n\u2022 Search or Select your issue. If you don\'t see your issue \u2014 hit > More.\n\u2022 Once you hit > More, you\'ll see an option at the bottom that says > I Don\'t See My Issue. From there it will give you the option to call us as long as you\'re logged in.\n\nIt was a pleasure working with you to get started with Square Payroll!\n\nBest,\n'+pm+'\nImplementation Specialist\nSquare Payroll';
+  document.getElementById('prEmailComplete').textContent=emailComplete;
+  document.getElementById('prEmailComplete').dataset.rawText=emailComplete;
+
+  showToast('\u2705 All payroll deliverables generated!');
 }
 
 function loadPayrollChecks(){
