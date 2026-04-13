@@ -4015,13 +4015,15 @@ Example:
 
 <div style="background:#1a1a3e;border:1px solid #2d2d5e;border-radius:10px;padding:20px;margin-bottom:16px">
 <h3 style="font-size:15px;margin-bottom:4px">&#129309; P3 Partner-Led Optimization Session</h3>
-<p style="color:#94a3b8;font-size:12px;margin-bottom:16px">Generate pre-session activity notes for a third-party technician. Choose between two prompt formats below.</p>
+<p id="p3SectionDesc" style="color:#94a3b8;font-size:12px;margin-bottom:16px">Generate pre-session activity notes or post-call DSR chatter for a P3 partner-led optimization session.</p>
 
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
 <button class="btn btn-sm p3-prompt-btn" onclick="switchP3Prompt('script')" id="p3Btn-script" style="background:#22c55e;color:#fff">&#128220; Script + Activity Note</button>
 <button class="btn btn-sm p3-prompt-btn" onclick="switchP3Prompt('activity')" id="p3Btn-activity" style="background:#1a1a3e;color:#006AFF;border:1px solid #006AFF44">&#128203; Activity Note Only</button>
+<button class="btn btn-sm p3-prompt-btn" onclick="switchP3Prompt('postcall')" id="p3Btn-postcall" style="background:#1a1a3e;color:#a855f7;border:1px solid #a855f744">&#128221; Post-Call Chatter</button>
 </div>
 
+<div id="p3PreSessionFields">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
 <div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Business Name</label>
 <input type="text" id="p3BizName" placeholder="e.g. 3135 Hospitality" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
@@ -4050,6 +4052,68 @@ Example:
 <span id="p3NoteCount" style="font-size:11px;color:#64748b;align-self:center">0 characters</span>
 </div>
 </div>
+
+</div><!-- end p3PreSessionFields -->
+
+<!-- POST-CALL CHATTER FIELDS -->
+<div id="p3PostCallFields" style="display:none">
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Business Name</label>
+<input type="text" id="p3pcBizName" placeholder="e.g. 3135 Hospitality" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Seller Name(s) on Call</label>
+<input type="text" id="p3pcSeller" placeholder="e.g. Marcus, Sarah" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">AE/AM Name (chatter recipient)</label>
+<input type="text" id="p3pcAEName" placeholder="e.g. AE, Megan Smith" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Date</label>
+<input type="date" id="p3pcCallDate" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Recording Link</label>
+<input type="text" id="p3pcRecording" placeholder="https://analytics.revenue.io/..." style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+<div><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Go-Live / Install Date</label>
+<input type="text" id="p3pcGoLive" placeholder="e.g. April 15 or N/A" style="width:100%;padding:8px 12px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:6px;color:#e2e8f0;font-size:13px"></div>
+</div>
+
+<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">My Notes / Brain Dump</label>
+<textarea id="p3pcBrainDump" rows="3" placeholder="Quick thoughts from the call..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:inherit;resize:vertical"></textarea></div>
+
+<div style="margin-bottom:12px"><label style="font-size:11px;color:#64748b;display:block;margin-bottom:4px">Call Transcript</label>
+<textarea id="p3pcTranscript" rows="6" placeholder="Paste your Revenue.io transcript here..." style="width:100%;padding:10px 14px;background:#0f0f23;border:1px solid #2d2d5e;border-radius:8px;color:#e2e8f0;font-size:12px;font-family:monospace;resize:vertical"></textarea></div>
+
+<h4 style="font-size:13px;margin-bottom:8px;color:#ff6b35">&#128279; Topics Discussed (check all that apply)</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:16px;font-size:12px" id="p3pcTopicsGrid">
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Customer Directory" data-url="https://squareup.com/help/us/en/article/5498-manage-your-customer-directory-online" style="accent-color:#ff6b35"> Customer Directory</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Gift Cards" data-url="https://squareup.com/help/us/en/article/6000-square-egift-cards" style="accent-color:#ff6b35"> Gift Cards</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Accept Gift Cards" data-url="https://squareup.com/help/us/en/article/8404-accept-gift-cards" style="accent-color:#ff6b35"> Accept Gift Cards</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Team Permissions" data-url="https://squareup.com/help/us/en/article/5822-employee-permissions" style="accent-color:#ff6b35"> Team Permissions</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Require Passcodes at POS" data-url="https://squareup.com/help/us/en/article/8357-require-passcodes-at-point-of-sale" style="accent-color:#ff6b35"> Require Passcodes at POS</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Add/Manage Team Members" data-url="https://squareup.com/help/us/en/article/8356-add-and-manage-team-members" style="accent-color:#ff6b35"> Add/Manage Team Members</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Device Management" data-url="https://squareup.com/help/us/en/article/7664-manage-your-devices" style="accent-color:#ff6b35"> Device Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Hardware Setup" data-url="https://squareup.com/help/us/en/topic/hardware" style="accent-color:#ff6b35"> Hardware Setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Inventory Management" data-url="https://squareup.com/help/us/en/article/6110-manage-inventory-with-the-retail-pos-app" style="accent-color:#ff6b35"> Inventory Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Purchase Orders" data-url="https://squareup.com/help/us/en/article/8258-create-purchase-orders-with-square-for-retail" style="accent-color:#ff6b35"> Purchase Orders</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Online Ordering / Square Online" data-url="https://squareup.com/help/us/en/article/7178-get-started-with-square-online" style="accent-color:#ff6b35"> Online Ordering / Square Online</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Appointments / Scheduling" data-url="https://squareup.com/help/us/en/article/6318-get-started-with-square-appointments" style="accent-color:#ff6b35"> Appointments / Scheduling</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Employee Time Tracking" data-url="https://squareup.com/help/us/en/article/5765-track-employee-hours" style="accent-color:#ff6b35"> Employee Time Tracking</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Loyalty Program" data-url="https://squareup.com/help/us/en/article/5765-set-up-square-loyalty" style="accent-color:#ff6b35"> Loyalty Program</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Marketing Campaigns" data-url="https://squareup.com/help/us/en/article/6103-get-started-with-square-marketing" style="accent-color:#ff6b35"> Marketing Campaigns</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Printer Profiles" data-url="https://squareup.com/help/us/en/article/7665-create-and-manage-printer-profiles" style="accent-color:#ff6b35"> Printer Profiles</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Refunds &amp; Returns" data-url="https://squareup.com/help/us/en/article/5060-issue-refunds-with-square" style="accent-color:#ff6b35"> Refunds &amp; Returns</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Sales Reports" data-url="https://squareup.com/help/us/en/article/5059-view-sales-reports" style="accent-color:#ff6b35"> Sales Reports</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Modifiers" data-url="https://squareup.com/help/us/en/article/5379-create-modifier-sets" style="accent-color:#ff6b35"> Modifiers</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Discounts" data-url="https://squareup.com/help/us/en/article/5164-create-and-manage-discounts" style="accent-color:#ff6b35"> Discounts</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Sales Tax Setup" data-url="https://squareup.com/help/us/en/article/5061-set-up-sales-tax" style="accent-color:#ff6b35"> Sales Tax Setup</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="KDS (Kitchen Display)" data-url="https://squareup.com/help/us/en/article/7630-get-started-with-square-kds" style="accent-color:#ff6b35"> KDS (Kitchen Display)</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Cash Management" data-url="https://squareup.com/help/us/en/article/5265-manage-your-cash-drawer" style="accent-color:#ff6b35"> Cash Management</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Payroll" data-url="https://squareup.com/help/us/en/article/5765-get-started-with-square-payroll" style="accent-color:#ff6b35"> Payroll</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Invoices" data-url="https://squareup.com/help/us/en/article/5642-create-and-send-invoices" style="accent-color:#ff6b35"> Invoices</label>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" class="p3pc-topic" data-name="Barcode Scanning" data-url="https://squareup.com/help/us/en/article/5096-manage-your-inventory" style="accent-color:#ff6b35"> Barcode Scanning</label>
+</div>
+
+<div style="display:flex;gap:8px;margin-bottom:10px">
+<button class="btn btn-sm" style="background:#2d2d5e;color:#94a3b8" onclick="pullP3PostCallFromGenerator()">&#128260; Pull from Generator</button>
+</div>
+
+</div><!-- end p3PostCallFields -->
 
 <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
 <button class="btn btn-green" onclick="copyP3Prompt()">&#128203; Copy Prompt to Clipboard</button>
@@ -8963,9 +9027,15 @@ function loadPayrollChecks(){
 function switchP3Prompt(type){
   document.querySelectorAll('.p3-prompt-btn').forEach(function(b){b.style.background='#1a1a3e';b.style.color='#006AFF';b.style.border='1px solid #006AFF44'});
   var btn=document.getElementById('p3Btn-'+type);
-  if(btn){btn.style.background=type==='script'?'#22c55e':'#006AFF';btn.style.color='#fff';btn.style.border='none'}
+  var colors={'script':'#22c55e','activity':'#006AFF','postcall':'#a855f7'};
+  if(btn){btn.style.background=colors[type]||'#006AFF';btn.style.color='#fff';btn.style.border='none'}
   // Store which prompt type is selected
   document.getElementById('optiType-p3').dataset.promptType=type;
+  // Toggle pre-session vs post-call fields
+  var pre=document.getElementById('p3PreSessionFields');
+  var post=document.getElementById('p3PostCallFields');
+  if(pre)pre.style.display=type==='postcall'?'none':'';
+  if(post)post.style.display=type==='postcall'?'':'none';
 }
 
 function pullP3FromGenerator(){
@@ -8993,6 +9063,8 @@ function updateP3Count(){
 }
 
 function copyP3Prompt(){
+  var promptType=(document.getElementById('optiType-p3').dataset.promptType)||'script';
+  if(promptType==='postcall'){copyP3PostCallPrompt();return}
   var bizName=document.getElementById('p3BizName').value.trim()||'[Business Name]';
   var bizType=document.getElementById('p3BizType').value;
   var contact=document.getElementById('p3Contact').value.trim()||'[Primary Contact]';
@@ -9102,13 +9174,114 @@ function parseP3Response(){
 }
 
 function clearP3Form(){
-  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse'].forEach(function(id){
+  ['p3BizName','p3Contact','p3AEName','p3Attendees','p3Focus','p3AENotes','p3Response','optiChatterAE','optiChatterDeadline','pko-seller','pko-ae','pko-goLive','pko-recording','pko-brainDump','pko-transcript','pko-callDate','pko-nextSession','pko-deliverables','pko-gptResponse','p3pcBizName','p3pcSeller','p3pcAEName','p3pcCallDate','p3pcRecording','p3pcGoLive','p3pcBrainDump','p3pcTranscript'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value='';
   });
   document.getElementById('p3BizType').selectedIndex=0;
+  document.querySelectorAll('.p3pc-topic').forEach(function(cb){cb.checked=false});
   document.getElementById('p3PromptCopied').style.display='none';
   document.getElementById('p3Output').style.display='none';
   updateP3Count();
+}
+
+function pullP3PostCallFromGenerator(){
+  var biz=document.getElementById('genBusiness');
+  var seller=document.getElementById('genSeller');
+  var ae=document.getElementById('genAE');
+  var recording=document.getElementById('genRecording');
+  var goLive=document.getElementById('genGoLive');
+  var transcript=document.getElementById('genTranscript');
+  if(biz&&biz.value)document.getElementById('p3pcBizName').value=biz.value;
+  if(seller&&seller.value)document.getElementById('p3pcSeller').value=seller.value;
+  if(ae&&ae.value)document.getElementById('p3pcAEName').value=ae.value;
+  if(recording&&recording.value)document.getElementById('p3pcRecording').value=recording.value;
+  if(goLive&&goLive.value)document.getElementById('p3pcGoLive').value=goLive.value;
+  if(transcript&&transcript.value)document.getElementById('p3pcTranscript').value=transcript.value;
+  showToast('\u2705 Fields pulled from Generator!');
+}
+
+function copyP3PostCallPrompt(){
+  var bizName=document.getElementById('p3pcBizName').value.trim()||'[Business Name]';
+  var seller=document.getElementById('p3pcSeller').value.trim()||'[Seller Name]';
+  var aeName=document.getElementById('p3pcAEName').value.trim()||'[AE/AM Name]';
+  var callDate=document.getElementById('p3pcCallDate').value||'[Call Date]';
+  var recording=document.getElementById('p3pcRecording').value.trim()||'';
+  var goLive=document.getElementById('p3pcGoLive').value.trim()||'N/A';
+  var brainDump=document.getElementById('p3pcBrainDump').value.trim()||'';
+  var transcript=document.getElementById('p3pcTranscript').value.trim()||'';
+  var topics=[];
+  document.querySelectorAll('.p3pc-topic:checked').forEach(function(cb){
+    topics.push({name:cb.dataset.name,url:cb.dataset.url});
+  });
+  var p='';
+  p+='DELIVERABLES REQUESTED: (B DSR Chatter) \u2190 produce ONLY this deliverable.\n\n';
+  p+='SESSION TYPE: P3 Partner-Led Optimization Call\n';
+  p+='PACKAGE: OPTIMIZATION\n';
+  p+='CALL DATE: '+callDate+'\n';
+  p+='BUSINESS: '+bizName+'\n';
+  p+='SELLER: '+seller+'\n';
+  p+='AE/AM: '+aeName+'\n';
+  p+='GO-LIVE/INSTALL: '+goLive+'\n';
+  if(recording)p+='RECORDING LINK: '+recording+'\n';
+  p+='\n';
+  if(topics.length>0){
+    p+='TOPICS DISCUSSED WITH HELP LINKS:\n';
+    topics.forEach(function(t){p+='- '+t.name+': '+t.url+'\n';});
+    p+='\n';
+  }
+  p+='MY NOTES (brain dump):\n'+(brainDump||'None provided')+'\n\n';
+  p+='TRANSCRIPT:\n'+(transcript||'No transcript provided - use notes only.')+'\n\n';
+  p+='---\n\n';
+  p+='INSTRUCTIONS FOR DELIVERABLE B:\n\n';
+  p+='## B) Internal DSR Chatter Notes (P3 Partner-Led Optimization)\n';
+  p+='Write internal post-call notes for the AE/AM on the DSR Chatter in Salesforce. This was a P3 Partner-Led Optimization session \u2014 a one-time, one-hour session conducted by a third-party technician. Structure:\n\n';
+  p+='1. Open: "Hi **'+aeName+'**," then one-line summary: "P3 Partner-Led Optimization session completed today with **'+seller+'** at **'+bizName+'**. [One sentence on what the seller used the session for]."\n';
+  p+='2. **Go-live status:** brief assessment based on transcript\n';
+  p+='3. Bold line: "**This Optimization Implementation is Complete.**"\n';
+  if(recording)p+='4. **Recording:** '+recording+'\n';
+  else p+='4. **Recording:** [link]\n';
+  p+='5. ### Risks / AE Action Items - Two sub-sections:\n';
+  p+='   - **Risks** - bullet list of adoption/trust/operational risks identified from the call\n';
+  p+='   - **AE/AM Action Items** - bullet list of specific things the AE should do next\n';
+  p+='6. ### Concise Summary - bullet list of what was actually covered/discussed during the session\n';
+  p+='7. ### Seller Homework - bullet list of specific, actionable tasks the seller should do next\n';
+  p+='8. ### Detailed Topic Breakdown - For each major topic discussed, create a numbered sub-section with:\n';
+  p+='   - Bold topic title\n';
+  p+='   - 2-4 bullet points explaining what was discussed, what was resolved, what remains open\n';
+  p+='   - Where applicable, reference Square help article links\n';
+  p+='9. ### Recommended Resources\n';
+  p+='   Include a curated list of Square Help Center resources relevant to the topics discussed. Format each as:\n';
+  p+='   - **Topic Name**: brief one-line description\n';
+  p+='     https://squareup.com/help/us/en/article/XXXX-article-slug\n';
+  p+='   Use real, complete URLs from https://squareup.com/help/us/en/. Include resources for every topic covered in the session plus any related features the seller should explore next.\n';
+  if(topics.length>0){
+    p+='   The following topics were checked as discussed \u2014 ensure each has a corresponding resource link:\n';
+    topics.forEach(function(t){p+='   - '+t.name+': '+t.url+'\n';});
+  }
+  p+='10. ### Goals, Complexity, Dependencies\n';
+  p+='   - **Goals** - bullet list\n';
+  p+='   - **Complexity** - one-line assessment (Low/Medium/High) with brief rationale\n';
+  p+='   - **Dependencies** - bullet list of blockers or prerequisites\n';
+  p+='11. ### RAID\n';
+  p+='   - **Risks** - bullet list\n';
+  p+='   - **Issues** - bullet list\n';
+  p+='   - **Assumptions** - bullet list\n';
+  p+='   - **Decisions** - bullet list\n\n';
+  p+='---\n';
+  p+='STYLE RULES:\n';
+  p+='- Professional but human. Not robotic.\n';
+  p+='- Use seller\'s actual name(s) from the transcript.\n';
+  p+='- Reference specific moments/quotes from the transcript to show depth.\n';
+  p+='- Square help links should use real, complete URLs from https://squareup.com/help/us/en/\n';
+  p+='- DSR Chatter (B) is addressed TO the AE/AM: '+aeName+'\n';
+  p+='- This was a P3 Partner-Led session. The technician conducted the call, not the PM.\n';
+  p+='- Do NOT include a training schedule section. Instead use: "**This Optimization Implementation is Complete.**"\n';
+  p+='- Use markdown formatting throughout.\n';
+  p+='- Produce ONLY deliverable B. Do not produce A (Seller Email) or C (Internal Analysis).\n';
+  navigator.clipboard.writeText(p).then(function(){
+    document.getElementById('p3PromptCopied').style.display='block';
+    showToast('\u2705 P3 Post-Call Chatter prompt copied! ('+p.length+' chars)');
+  });
 }
 
 
