@@ -9214,7 +9214,27 @@ function copyP3PostCallPrompt(){
     topics.push({name:cb.dataset.name,url:cb.dataset.url});
   });
   var p='';
-  p+='DELIVERABLES REQUESTED: (B DSR Chatter) \u2190 produce ONLY this deliverable.\n\n';
+  // === MASTER PROMPT PREAMBLE ===
+  p+='You are my GSO PM Assistant. Generate post-call deliverables for a completed Square implementation session.\n\n';
+  p+='IMPORTANT: We no longer use Implementation Pages/Highspot. Do not reference or mention them.\n\n';
+  p+='GLOBAL OUTPUT RULES\n';
+  p+='- Prefer clarity + forward motion over volume.\n';
+  p+='- Separate: Risks vs Issues vs Decisions.\n';
+  p+='- Always capture: Go-live status (if applicable), seller homework, open items.\n';
+  p+='- If something is unknown, mark it as "Unknown" (don\'t invent).\n\n';
+  p+='OPEN QUESTIONS GUARDRAIL (Critical)\n';
+  p+='- If there are material open questions, technician deferrals, or unclear commitments that would change next steps, PAUSE normal deliverables and output:\n';
+  p+='  (1) Open Question\n';
+  p+='  (2) Context from call\n';
+  p+='  (3) What was said so far\n';
+  p+='  (4) Proposed answer options / what we need to confirm\n';
+  p+='Then stop. Do not draft DSR until those are resolved.\n\n';
+  p+='BLOAT CONTROL\n';
+  p+='- DSR: detailed but structured; no walls of text.\n';
+  p+='- Never repeat the same point in multiple sections.\n\n';
+  // === SESSION CONTEXT ===
+  p+='---\n\n';
+  p+='DELIVERABLES REQUESTED: (B DSR Chatter) \u2190 produce ONLY this deliverable. Do NOT produce A (Seller Email) or C (Internal Analysis).\n\n';
   p+='SESSION TYPE: P3 Partner-Led Optimization Call\n';
   p+='PACKAGE: OPTIMIZATION\n';
   p+='CALL DATE: '+callDate+'\n';
@@ -9224,6 +9244,8 @@ function copyP3PostCallPrompt(){
   p+='GO-LIVE/INSTALL: '+goLive+'\n';
   if(recording)p+='RECORDING LINK: '+recording+'\n';
   p+='\n';
+  p+='P3 SESSION CONTEXT:\n';
+  p+='This was a P3 Partner-Led Optimization session \u2014 a one-time, one-hour session conducted by a third-party technician (not the PM). The technician has no ongoing relationship with the seller. All post-session follow-up is owned by the AE/AM. The PM coordinated the session and is producing these notes from the transcript + brain dump.\n\n';
   if(topics.length>0){
     p+='TOPICS DISCUSSED WITH HELP LINKS:\n';
     topics.forEach(function(t){p+='- '+t.name+': '+t.url+'\n';});
@@ -9231,53 +9253,45 @@ function copyP3PostCallPrompt(){
   }
   p+='MY NOTES (brain dump):\n'+(brainDump||'None provided')+'\n\n';
   p+='TRANSCRIPT:\n'+(transcript||'No transcript provided - use notes only.')+'\n\n';
+  // === DELIVERABLE B INSTRUCTIONS ===
   p+='---\n\n';
-  p+='INSTRUCTIONS FOR DELIVERABLE B:\n\n';
-  p+='## B) Internal DSR Chatter Notes (P3 Partner-Led Optimization)\n';
-  p+='Write internal post-call notes for the AE/AM on the DSR Chatter in Salesforce. This was a P3 Partner-Led Optimization session \u2014 a one-time, one-hour session conducted by a third-party technician. Structure:\n\n';
-  p+='1. Open: "Hi **'+aeName+'**," then one-line summary: "P3 Partner-Led Optimization session completed today with **'+seller+'** at **'+bizName+'**. [One sentence on what the seller used the session for]."\n';
-  p+='2. **Go-live status:** brief assessment based on transcript\n';
-  p+='3. Bold line: "**This Optimization Implementation is Complete.**"\n';
-  if(recording)p+='4. **Recording:** '+recording+'\n';
-  else p+='4. **Recording:** [link]\n';
-  p+='5. ### Risks / AE Action Items - Two sub-sections:\n';
-  p+='   - **Risks** - bullet list of adoption/trust/operational risks identified from the call\n';
-  p+='   - **AE/AM Action Items** - bullet list of specific things the AE should do next\n';
-  p+='6. ### Concise Summary - bullet list of what was actually covered/discussed during the session\n';
-  p+='7. ### Seller Homework - bullet list of specific, actionable tasks the seller should do next\n';
-  p+='8. ### Detailed Topic Breakdown - For each major topic discussed, create a numbered sub-section with:\n';
-  p+='   - Bold topic title\n';
-  p+='   - 2-4 bullet points explaining what was discussed, what was resolved, what remains open\n';
-  p+='   - Where applicable, reference Square help article links\n';
-  p+='9. ### Recommended Resources\n';
-  p+='   Include a curated list of Square Help Center resources relevant to the topics discussed. Format each as:\n';
+  p+='B) Internal DSR Chatter Notes (Salesforce) \u2014 addressed to '+aeName+' as "you" or by name (do not say "AE/AM")\n\n';
+  p+='Must be scannable, with most important items at the top.\n\n';
+  p+='Required order:\n';
+  p+='1) \ud83d\udea8 Risks / Your Action Items (top-loaded, bullets)\n';
+  p+='2) \ud83d\udcc5 Go-live / Install Status (changed? on track? or N/A)\n';
+  p+='3) \u2705 Training Schedule \u2014 USE EXACTLY: "**This Optimization Implementation is Complete.**" Do NOT list upcoming sessions or future training.\n';
+  p+='4) \ud83e\udde0 Seller Sentiment Snapshot (1\u20132 lines)\n';
+  p+='5) \ud83d\udccc Decisions Made (bullets)\n';
+  p+='6) \ud83e\uddf3 Summary (3\u20135 bullets max)\n';
+  p+='7) \ud83e\uddf1 Seller Homework (owner + due)\n';
+  p+='8) \ud83e\udde9 PM Next Steps (what I\'m doing next)\n';
+  p+='9) \ud83d\udd0e Detailed Topic Breakdown (bullets + sub-bullets; include what was covered/answered; keep tight)\n';
+  p+='10) \ud83d\udcda Recommended Resources\n';
+  p+='   Include a curated list of Square Help Center resources the seller can use next. These should be relevant to the topics discussed plus any related features worth exploring. Format each as:\n';
   p+='   - **Topic Name**: brief one-line description\n';
   p+='     https://squareup.com/help/us/en/article/XXXX-article-slug\n';
-  p+='   Use real, complete URLs from https://squareup.com/help/us/en/. Include resources for every topic covered in the session plus any related features the seller should explore next.\n';
+  p+='   Use real, complete URLs from https://squareup.com/help/us/en/.\n';
   if(topics.length>0){
-    p+='   The following topics were checked as discussed \u2014 ensure each has a corresponding resource link:\n';
+    p+='   The following topics were discussed \u2014 ensure each has a corresponding resource link:\n';
     topics.forEach(function(t){p+='   - '+t.name+': '+t.url+'\n';});
   }
-  p+='10. ### Goals, Complexity, Dependencies\n';
-  p+='   - **Goals** - bullet list\n';
-  p+='   - **Complexity** - one-line assessment (Low/Medium/High) with brief rationale\n';
-  p+='   - **Dependencies** - bullet list of blockers or prerequisites\n';
-  p+='11. ### RAID\n';
-  p+='   - **Risks** - bullet list\n';
-  p+='   - **Issues** - bullet list\n';
-  p+='   - **Assumptions** - bullet list\n';
-  p+='   - **Decisions** - bullet list\n\n';
+  p+='\n';
+  p+='Also include:\n';
+  p+='- Call recording link\n';
+  p+='- If internal timeline/milestone shifted, state it explicitly.\n\n';
+  // === STYLE RULES ===
   p+='---\n';
   p+='STYLE RULES:\n';
   p+='- Professional but human. Not robotic.\n';
   p+='- Use seller\'s actual name(s) from the transcript.\n';
   p+='- Reference specific moments/quotes from the transcript to show depth.\n';
-  p+='- Square help links should use real, complete URLs from https://squareup.com/help/us/en/\n';
-  p+='- DSR Chatter (B) is addressed TO the AE/AM: '+aeName+'\n';
+  p+='- Square help links must use real, complete URLs from https://squareup.com/help/us/en/\n';
+  p+='- DSR Chatter (B) is addressed TO '+aeName+'.\n';
   p+='- This was a P3 Partner-Led session. The technician conducted the call, not the PM.\n';
-  p+='- Do NOT include a training schedule section. Instead use: "**This Optimization Implementation is Complete.**"\n';
+  p+='- Do NOT include a training schedule. Replace with: "**This Optimization Implementation is Complete.**"\n';
   p+='- Use markdown formatting throughout.\n';
-  p+='- Produce ONLY deliverable B. Do not produce A (Seller Email) or C (Internal Analysis).\n';
+  p+='- Produce ONLY deliverable B.\n';
   navigator.clipboard.writeText(p).then(function(){
     document.getElementById('p3PromptCopied').style.display='block';
     showToast('\u2705 P3 Post-Call Chatter prompt copied! ('+p.length+' chars)');
