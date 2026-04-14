@@ -45,6 +45,27 @@ html.light-mode{
   --table-header:#f1f5f9;
   --shadow:0 1px 3px rgba(0,0,0,0.08);
 }
+html.barbie-mode{
+  --bg-body:#fff0f6;
+  --bg-card:#ffffff;
+  --bg-input:#fff5f9;
+  --bg-nav:#ff69b4;
+  --border:#f9a8d4;
+  --border-light:#f9a8d422;
+  --text-primary:#831843;
+  --text-secondary:#9d174d;
+  --text-muted:#be185d;
+  --text-bright:#500724;
+  --accent-blue:#e91e90;
+  --accent-green:#f472b6;
+  --accent-yellow:#fb7185;
+  --accent-red:#e11d48;
+  --accent-orange:#ec4899;
+  --accent-purple:#c026d3;
+  --hover-bg:#fce7f3;
+  --table-header:#fce7f3;
+  --shadow:0 2px 8px rgba(236,72,153,0.15);
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-body);color:var(--text-primary);min-height:100vh;transition:background .3s,color .3s}
 nav{position:fixed;top:0;left:0;z-index:100;background:var(--bg-nav);border-right:1px solid var(--border);box-shadow:var(--shadow);padding:14px 10px;display:flex;flex-direction:column;align-items:stretch;gap:4px;width:180px;height:100vh;overflow-y:auto}
@@ -490,6 +511,97 @@ html.light-mode .cl-text{color:var(--text-primary)!important}
 /* Theme toggle */
 html.light-mode .theme-toggle{background:var(--hover-bg)!important;color:var(--text-primary)!important;border-color:var(--border)!important}
 
+/* ===== BARBIE MODE ===== */
+html.barbie-mode body,html.barbie-mode{font-family:'Trebuchet MS','Comic Sans MS',cursive,sans-serif!important}
+html.barbie-mode nav{background:linear-gradient(180deg,#ff69b4 0%,#ff1493 100%)!important;border-right:2px solid #ec4899!important}
+html.barbie-mode nav .logo{color:#fff!important;text-shadow:0 1px 4px rgba(0,0,0,0.2)}
+html.barbie-mode nav .logo span{color:#fce7f3!important}
+html.barbie-mode .tab-btn{color:#fce7f3!important;background:transparent!important;border:none!important}
+html.barbie-mode .tab-btn:hover{background:rgba(255,255,255,0.2)!important;color:#fff!important}
+html.barbie-mode .tab-btn.active{background:#fff!important;color:#ec4899!important}
+html.barbie-mode .tab-btn.generator-btn{background:rgba(255,255,255,0.15)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.3)!important}
+html.barbie-mode .tab-btn.generator-btn.active{background:#fff!important;color:#ec4899!important}
+html.barbie-mode .theme-toggle{background:rgba(255,255,255,0.2)!important;color:#fff!important;border-color:rgba(255,255,255,0.4)!important}
+
+/* Barbie backgrounds */
+html.barbie-mode [style*="background:#0f0f23"]{background:var(--bg-input)!important}
+html.barbie-mode [style*="background:#1a1a3e"]{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode [style*="background:#2d2d5e"]{background:#fce7f3!important}
+html.barbie-mode [style*="background:#0d1117"]{background:var(--bg-body)!important}
+
+/* Barbie text colors */
+html.barbie-mode [style*="color:#e2e8f0"]{color:var(--text-primary)!important}
+html.barbie-mode [style*="color:#cbd5e1"]{color:var(--text-secondary)!important}
+html.barbie-mode [style*="color:#94a3b8"]{color:var(--text-muted)!important}
+html.barbie-mode [style*="color:#64748b"]{color:var(--text-muted)!important}
+html.barbie-mode [style*="color:#f1f5f9"]{color:var(--text-primary)!important}
+html.barbie-mode [style*="color:#f8fafc"]{color:var(--text-primary)!important}
+html.barbie-mode [style*="color:#ffaa80"]{color:#ec4899!important}
+html.barbie-mode [style*="color:#60a5fa"]{color:#e91e90!important}
+
+/* Barbie accent overrides - everything pink! */
+html.barbie-mode [style*="color:#22c55e"]{color:#ec4899!important}
+html.barbie-mode [style*="color:#006AFF"]{color:#e91e90!important}
+html.barbie-mode [style*="color:#eab308"]{color:#f472b6!important}
+html.barbie-mode [style*="color:#ff6b35"]{color:#db2777!important}
+html.barbie-mode [style*="color:#ef4444"]{color:#e11d48!important}
+html.barbie-mode [style*="color:#a855f7"]{color:#c026d3!important}
+
+/* Barbie borders */
+html.barbie-mode [style*="border:1px solid #2d2d5e"]{border-color:var(--border)!important}
+html.barbie-mode [style*="border:1px solid #2d2d5e44"]{border-color:var(--border)!important}
+html.barbie-mode [style*="border-top:2px solid #2d2d5e"]{border-color:var(--border)!important}
+html.barbie-mode [style*="border-bottom:1px solid #2d2d5e"]{border-color:var(--border)!important}
+html.barbie-mode [style*="border:1px dashed"]{border-color:#f9a8d4!important}
+
+/* Barbie buttons - pink everything */
+html.barbie-mode [style*="background:#22c55e"]{background:#ec4899!important}
+html.barbie-mode [style*="background:#006AFF"]{background:#e91e90!important}
+html.barbie-mode .btn-green{background:#ec4899!important}
+html.barbie-mode .btn-blue{background:#e91e90!important}
+
+/* Barbie accent borders on cards */
+html.barbie-mode [style*="border:1px solid #22c55e44"]{border-color:#f9a8d4!important}
+html.barbie-mode [style*="border:1px solid #006AFF44"]{border-color:#f472b6!important}
+html.barbie-mode [style*="border:1px solid #ff6b3544"]{border-color:#f9a8d4!important}
+html.barbie-mode [style*="border:1px solid #a855f744"]{border-color:#e879f9!important}
+html.barbie-mode [style*="border:1px solid #eab30844"]{border-color:#f9a8d4!important}
+
+/* Barbie inputs */
+html.barbie-mode input,html.barbie-mode select,html.barbie-mode textarea{background:var(--bg-input)!important;color:var(--text-primary)!important;border-color:var(--border)!important}
+html.barbie-mode input::placeholder,html.barbie-mode textarea::placeholder{color:#f9a8d4!important}
+html.barbie-mode input[type="checkbox"]{accent-color:#ec4899!important}
+
+/* Barbie components */
+html.barbie-mode .toast{background:#fff!important;border-color:#f9a8d4!important;color:#831843!important}
+html.barbie-mode table th{background:#fce7f3!important;color:#831843!important}
+html.barbie-mode table td{color:var(--text-primary)!important;border-color:var(--border)!important}
+html.barbie-mode .acc-header{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .acc-body{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .gen-section{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .gen-section h2{color:#ec4899!important}
+html.barbie-mode .card{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .card h3{color:var(--text-primary)!important}
+html.barbie-mode .card p{color:var(--text-secondary)!important}
+html.barbie-mode .stat{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .cl-section{background:var(--bg-card)!important;border-color:var(--border)!important}
+html.barbie-mode .cl-item{color:var(--text-primary)!important}
+html.barbie-mode .cl-text{color:var(--text-primary)!important}
+html.barbie-mode .training-section,html.barbie-mode .rst-pos-section,html.barbie-mode .rtl-pos-section,html.barbie-mode .rtl-training-section{color:var(--text-primary)}
+html.barbie-mode .training-section *,html.barbie-mode .rst-pos-section *,html.barbie-mode .rtl-pos-section *,html.barbie-mode .rtl-training-section *{color:inherit}
+html.barbie-mode .slide-cue{background:#fff0f6!important;border-color:#f9a8d466!important;color:#831843!important}
+html.barbie-mode .slide-cue b{color:#be185d!important}
+html.barbie-mode .slide-cue .slide-content{color:var(--text-secondary)!important}
+html.barbie-mode .slide-badge{background:#fce7f3!important;color:#ec4899!important;border-color:#f9a8d4!important}
+html.barbie-mode .empty-state{color:var(--text-primary)!important}
+html.barbie-mode .empty-state p{color:var(--text-secondary)!important}
+
+/* Barbie scrollbar */
+html.barbie-mode nav::-webkit-scrollbar-thumb{background:#f9a8d4!important;border-radius:4px}
+html.barbie-mode ::-webkit-scrollbar{width:6px}
+html.barbie-mode ::-webkit-scrollbar-thumb{background:#f9a8d4;border-radius:4px}
+html.barbie-mode ::-webkit-scrollbar-track{background:#fff0f6}
+
 /* Sidebar scrollbar */
 nav::-webkit-scrollbar{width:4px}
 nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
@@ -522,7 +634,7 @@ nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 <button class="tab-btn" onclick="showTab('payroll')" style="background:#22c55e22;color:#22c55e;border:1px solid #22c55e44">💰 Payroll</button>
 <button class="tab-btn" onclick="showTab('subPlans')" style="background:#a855f722;color:#a855f7;border:1px solid #a855f744">💎 Sub Plans</button>
 <button class="tab-btn" onclick="showTab('study')">📚 Study Guide</button>
-<button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode">🌑</button>
+<button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Current: Dark mode">🌑</button>
 </nav>
 <div class="container">
 
@@ -5292,9 +5404,19 @@ function mdToHtml(md){
 // Theme toggle
 function toggleTheme(){
   var html=document.documentElement;
-  var isLight=html.classList.toggle('light-mode');
-  localStorage.setItem('gso-theme',isLight?'light':'dark');
-  document.getElementById('themeToggle').textContent=isLight?'😎':'🌑';
+  var isLight=html.classList.contains('light-mode');
+  var isBarbie=html.classList.contains('barbie-mode');
+  // Cycle: dark -> light -> barbie -> dark
+  html.classList.remove('light-mode','barbie-mode');
+  var next;
+  if(!isLight&&!isBarbie){next='light';html.classList.add('light-mode')}
+  else if(isLight){next='barbie';html.classList.add('barbie-mode')}
+  else{next='dark'}
+  localStorage.setItem('gso-theme',next);
+  var icons={'dark':'\ud83c\udf11','light':'\ud83d\ude0e','barbie':'\ud83d\udc85'};
+  document.getElementById('themeToggle').textContent=icons[next]||'\ud83c\udf11';
+  var titles={'dark':'Toggle light/dark/barbie mode','light':'Toggle light/dark/barbie mode','barbie':'Toggle light/dark/barbie mode'};
+  document.getElementById('themeToggle').title='Current: '+next.charAt(0).toUpperCase()+next.slice(1)+' mode';
 }
 (function(){
   var saved=localStorage.getItem('gso-theme');
@@ -5302,7 +5424,13 @@ function toggleTheme(){
     document.documentElement.classList.add('light-mode');
     document.addEventListener('DOMContentLoaded',function(){
       var btn=document.getElementById('themeToggle');
-      if(btn)btn.textContent='😎';
+      if(btn){btn.textContent='\ud83d\ude0e';btn.title='Current: Light mode'}
+    });
+  } else if(saved==='barbie'){
+    document.documentElement.classList.add('barbie-mode');
+    document.addEventListener('DOMContentLoaded',function(){
+      var btn=document.getElementById('themeToggle');
+      if(btn){btn.textContent='\ud83d\udc85';btn.title='Current: Barbie mode'}
     });
   }
 })();
