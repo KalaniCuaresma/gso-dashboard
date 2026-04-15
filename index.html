@@ -1657,7 +1657,8 @@ Examples:
 <label style="font-size:13px;font-weight:700;color:var(--text-primary,#e2e8f0)">&#128204; Implementation Type:</label>
 <select id="koTypeSelector" onchange="switchKOType(this.value)" style="padding:10px 16px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:8px;color:var(--text-primary,#e2e8f0);font-size:14px;font-weight:600;min-width:240px;cursor:pointer">
 <option value="plus" style="padding:8px">&#128994; Plus ($699)</option>
-<option value="premium" style="padding:8px">&#128081; Premium / Onsite ($1,499+)</option>
+<option value="premium" style="padding:8px">&#128081; Premium ($1,499+)</option>
+<option value="onsite" style="padding:8px">&#127959;&#65039; Onsite ($2,199+)</option>
 </select>
 <span id="koTypeLabel" style="font-size:12px;color:#22c55e;font-weight:600">&#128994; Plus Checklist Active</span>
 </div>
@@ -2353,6 +2354,188 @@ Example:
 <button class="btn btn-green btn-sm" onclick="exportPremKONotes()">&#128203; Export Notes</button>
 </div>
 </div><!-- end koType-premium -->
+<!-- ONSITE KO CONTENT -->
+<div id="koType-onsite" style="display:none">
+
+<!-- Slide Deck Template Link -->
+<div style="background:#ef444411;border:1px solid #ef444444;border-radius:10px;padding:16px 18px;margin-bottom:12px">
+<p style="font-size:14px;margin-bottom:6px">&#128206; <b>Slide Deck Template:</b> <a href="https://docs.google.com/presentation/d/10xwcLR6vEvhAvfVcZibcvrU3aNaoQ0azMOMGOG3nMTI/edit?slide=id.g3c612f234e2_0_6#slide=id.g3c612f234e2_0_6" target="_blank" style="color:#ef4444;text-decoration:underline;font-weight:700;font-size:14px">Premium/Onsite KO Slides &mdash; Make a Copy &rarr;</a></p>
+</div>
+
+<!-- Progress Bar -->
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+<div style="flex:1;background:#2d2d5e;border-radius:6px;height:8px;overflow:hidden"><div id="onsiteKOProgressFill" style="background:linear-gradient(90deg,#ef4444,#f97316);height:100%;width:0%;transition:width .4s ease;border-radius:6px"></div></div>
+<span id="onsiteKOProgressText" style="font-size:13px;font-weight:700;color:#ef4444;min-width:40px;text-align:right">0%</span>
+</div>
+
+<!-- ===== SECTION 1: INTROS + ALIGNMENT ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128075;</span> Intros + Alignment + Timeline <span class="cl-count" id="onsiteKO-s1-count">0/6</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Can everyone briefly introduce themselves and share their role in the business?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Can you give me a quick overview of your business and how you operate day to day?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"You selected the Plus implementation package &mdash; does that still sound right for what you need?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Our goal is to help you feel confident using the parts of Square that matter most to your business &mdash; how does that sound?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What is your ideal go-live date with Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What are you hoping Square helps improve or solve for your business?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 2: POS + HARDWARE + ONSITE SERVICE ===== -->
+<div class="cl-section" style="border-color:#ef444444;background:#ef444408">
+<h3><span class="cl-icon">&#128179;</span> POS (Hardware + Checkout) + Onsite Service <span class="cl-count" id="onsiteKO-s2-count">0/11</span></h3>
+
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Can you walk me through what a typical checkout looks like today and how you plan to use each device?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What hardware/devices will you be using, and have they already been ordered?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you have someone handling the set-up of your cabling and network?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What onsite services would you like?" <span style="font-size:11px;color:#64748b">(Hardware setup / Staff Training / Both)</span></span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<!-- Site Survey Scheduling -->
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#eab308">&#128197; Site Survey Scheduling</strong><br>
+<span style="color:#94a3b8">&#8226; Site survey can be completed ASAP<br>
+&#8226; Approximately a 1 hour appointment &mdash; POC should be available onsite but does not need full, undivided attention</span>
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Please give a preferred date and time, and a few alternatives for your site survey."</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<!-- Installation Scheduling -->
+<div style="background:#eab30815;border:1px solid #eab30844;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#eab308">&#128197; Installation Scheduling</strong><br>
+<span style="color:#94a3b8">&#8226; Aim to schedule for a date when remote training is complete, site survey action items are done, Square account is fully configured, and seller is ready to go live<br>
+&#8226; Usually a 4&ndash;8 hour appointment depending on business size and number of devices<br>
+&#8226; POC should be onsite and fully engaged for the duration</span>
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Please give a preferred date and time, and a few alternatives for your installation."</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<!-- Hardware Details -->
+<div style="background:#006AFF10;border:1px solid #006AFF33;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#006AFF">&#128187; Review Hardware List on DSR &amp; Gather Details</strong><br>
+<span style="color:#94a3b8">&#8226; Are they using Registers or Stands?<br>
+&#8226; Are devices standalone or part of a kit?<br>
+&#8226; Where each POS will be located in the business?<br>
+&#8226; How will the Terminals be used (tableside service? Pass thru the drive thru window for payment?)</span>
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">Review hardware list on DSR &amp; gather details about devices (Registers vs Stands, standalone vs kit, location, Terminal usage)</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Is this a new business? If not, who is the current POS/processor?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you manage your own network or does your current POS provider handle this?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<!-- Cabling Talk Track -->
+<div style="background:#ff6b3515;border:1px solid #ff6b3544;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#ff6b35">&#128268; Cabling Talk Track</strong><br>
+<span style="color:#94a3b8">&#8226; Square recommends <b>hardwiring all devices</b> whenever possible for the most stable and reliable performance. Wi-Fi compatible devices can operate wirelessly, but hardwiring is best practice.<br>
+&#8226; The cost of cabling is <b>NOT included</b> in the Square implementation fee; the seller is responsible for incurred cabling costs.<br>
+&#8226; Price: <b>$250 per cable run</b>. The survey results will list how many cable runs are needed.<br>
+&#8226; After survey results, you&rsquo;ll review together and create an action plan (new cables, switches, wifi, etc.).<br>
+&#8226; If cabling costs are a barrier, request a discount in <b>#3p-dispatch-assistance</b> channel.</span>
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">Discuss the potential need for cabling &mdash; explain pricing ($250/run), hardwiring recommendation, and post-survey action plan</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+
+<!-- KDS Mounting Talk Track -->
+<div style="background:#a855f715;border:1px solid #a855f744;border-radius:8px;padding:12px 16px;margin:10px 0;font-size:12px">
+<strong style="color:#a855f7">&#128187; KDS Mounting Talk Track</strong><br>
+<span style="color:#94a3b8">&#8226; KDS services are limited to <b>device configuration only</b>.<br>
+&#8226; For a <b>$50 fee per mount</b>, techs will affix a mount to <b>drywall only</b>.<br>
+&#8226; Cannot mount to stainless steel, tile, concrete, or brick. Seller can hire a contractor or use alternative mounting (standing mounts, clamps) to an existing structure.<br>
+&#8226; The AE should be flagged to ship any mounting accessories.</span>
+</div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">Discuss KDS mounting needs &mdash; $50/mount (drywall only), limitations, alternative mounting options</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 3: MENU / CATALOG / DATA REVIEW ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128203;</span> Menu / Catalog / Data Review <span class="cl-count" id="onsiteKO-s3-count">0/6</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Is everything you sell reflected in the files we reviewed, or is anything missing?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Are there any key modifiers, variations, or discounts we need to account for?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Are there any changes or updates you expect before go-live?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Are there any modifiers or options your team uses that aren&rsquo;t listed in your menu files?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you want multiple menus or just one main menu?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"RTL: Do you rely on inventory tracking today, and should we plan for a stock import?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 4: STAFF + LABOR ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128101;</span> Staff + Labor <span class="cl-count" id="onsiteKO-s4-count">0/1</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Will you be tracking staff time or scheduling in Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 5: CATEGORIES + REPORTING ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128194;</span> Categories + Reporting <span class="cl-count" id="onsiteKO-s5-count">0/1</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Does your current setup match how you want categories and reporting to work in Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 6: LOYALTY + MARKETING + GIFT CARDS ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127873;</span> Loyalty + Marketing + Gift Cards <span class="cl-count" id="onsiteKO-s6-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you have an existing loyalty or marketing program, or will you be starting fresh with Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you have any gift card data you will need to transfer over to Square?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What data should we bring over (customers, inventory, gift cards, etc.)?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 7: ONLINE + FULFILLMENT ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127760;</span> Online + Fulfillment <span class="cl-count" id="onsiteKO-s7-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you plan to use Square Online or keep things in-store only?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Will you offer pickup, delivery, shipping, or QR ordering?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 8: SCHEDULING + AVAILABILITY ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#128339;</span> Scheduling + Availability <span class="cl-count" id="onsiteKO-s8-count">0/3</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"What does your availability look like over the next week for training?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Would you prefer one 90-minute training or two 45-minute training sessions?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Who should attend each training session?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- ===== SECTION 9: WRAP-UP ===== -->
+<div class="cl-section">
+<h3><span class="cl-icon">&#127937;</span> Wrap-Up <span class="cl-count" id="onsiteKO-s9-count">0/2</span></h3>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Do you have any questions or concerns before we wrap today?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+<div class="cl-item"><input type="checkbox" data-cl="onsiteKO" onchange="updateOnsiteKO()"><span class="cl-text">"Are you comfortable with the timeline and next steps we discussed?"</span></div>
+<div class="cl-notes"><textarea data-notes="onsiteKO" placeholder="Notes..." oninput="saveOnsiteKONotes()"></textarea></div>
+</div>
+
+<!-- Export / Clear -->
+<div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+<button class="btn btn-green" onclick="exportOnsiteKONotes()">&#128203; Export All Notes</button>
+<button class="btn btn-sm" style="background:#ef4444;color:#fff" onclick="if(confirm('Clear all Onsite KO checkboxes and notes?')){clearOnsiteKO()}">&#128465; Clear All</button>
+</div>
+
+</div><!-- end koType-onsite -->
+
 
 <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--border,#2d2d5e);display:flex;gap:8px;align-items:center">
 <button class="btn btn-green" onclick="saveDeal()" style="display:inline-flex;align-items:center;gap:6px">&#128190; Save Deal</button>
@@ -8736,14 +8919,20 @@ document.addEventListener('DOMContentLoaded',function(){
 function switchKOType(type){
   document.getElementById('koType-plus').style.display=type==='plus'?'block':'none';
   document.getElementById('koType-premium').style.display=type==='premium'?'block':'none';
+  var onsiteEl=document.getElementById('koType-onsite');
+  if(onsiteEl)onsiteEl.style.display=type==='onsite'?'block':'none';
   var label=document.getElementById('koTypeLabel');
   if(type==='plus'){
     label.textContent='\u{1F7E2} Plus Checklist Active';
     label.style.color='#22c55e';
+  }else if(type==='onsite'){
+    label.textContent='\u{1F3D7}\uFE0F Onsite Checklist Active';
+    label.style.color='#ef4444';
   }else{
-    label.textContent='\u{1F451} Premium / Onsite Checklist Active';
+    label.textContent='\u{1F451} Premium Checklist Active';
     label.style.color='#eab308';
   }
+  if(type==='onsite'){updateOnsiteKO();loadOnsiteKOChecks();loadOnsiteKONotes()}
 }
 
 function showPostKOSub(id){
@@ -9489,6 +9678,78 @@ function exportPremKONotes(){
 }
 document.addEventListener('DOMContentLoaded',function(){loadPremKONotes()});
 
+// ===== ONSITE KO CHECKLIST =====
+function updateOnsiteKO(){
+  var sections={};
+  document.querySelectorAll('#koType-onsite .cl-section').forEach(function(sec,idx){
+    var sNum=idx+1;
+    var checks=sec.querySelectorAll('input[data-cl="onsiteKO"]');
+    var done=0;
+    checks.forEach(function(cb){if(cb.checked)done++});
+    var countEl=document.getElementById('onsiteKO-s'+sNum+'-count');
+    if(countEl){countEl.textContent=done+'/'+checks.length;if(done===checks.length&&checks.length>0)countEl.classList.add('done');else countEl.classList.remove('done')}
+    sections[sNum]={done:done,total:checks.length};
+  });
+  var totalDone=0,totalAll=0;
+  for(var k in sections){totalDone+=sections[k].done;totalAll+=sections[k].total}
+  var pct=totalAll>0?Math.round(totalDone/totalAll*100):0;
+  var fill=document.getElementById('onsiteKOProgressFill');
+  var txt=document.getElementById('onsiteKOProgressText');
+  if(fill)fill.style.width=pct+'%';
+  if(txt)txt.textContent=pct+'%';
+  // Save checks
+  var states=[];
+  document.querySelectorAll('#koType-onsite input[data-cl="onsiteKO"]').forEach(function(cb){states.push(cb.checked)});
+  try{localStorage.setItem('gso-onsiteKO-checks',JSON.stringify(states))}catch(e){}
+}
+function loadOnsiteKOChecks(){
+  try{
+    var s=localStorage.getItem('gso-onsiteKO-checks');
+    if(s){var a=JSON.parse(s);document.querySelectorAll('#koType-onsite input[data-cl="onsiteKO"]').forEach(function(cb,i){if(a[i]!==undefined)cb.checked=a[i]})}
+  }catch(e){}
+  updateOnsiteKO();
+}
+function saveOnsiteKONotes(){
+  var notes=[];
+  document.querySelectorAll('#koType-onsite textarea[data-notes="onsiteKO"]').forEach(function(el){notes.push(el.value)});
+  try{localStorage.setItem('gso-onsiteKO-notes',JSON.stringify(notes))}catch(e){}
+}
+function loadOnsiteKONotes(){
+  try{
+    var s=localStorage.getItem('gso-onsiteKO-notes');
+    if(s){var a=JSON.parse(s);document.querySelectorAll('#koType-onsite textarea[data-notes="onsiteKO"]').forEach(function(el,i){if(a[i])el.value=a[i]})}
+  }catch(e){}
+}
+function exportOnsiteKONotes(){
+  var lines=['\u{1F3D7}\uFE0F ONSITE KICKOFF CALL QUESTION CHECKLIST',''];
+  document.querySelectorAll('#koType-onsite .cl-section').forEach(function(sec){
+    var h=sec.querySelector('h3');
+    if(h)lines.push('\n=== '+h.textContent.replace(/\d+\/\d+/g,'').trim()+' ===');
+    sec.querySelectorAll('.cl-item').forEach(function(item){
+      var cb=item.querySelector('input[type=checkbox]');
+      var txt=item.querySelector('.cl-text');
+      if(txt){
+        var status=cb&&cb.checked?'[x]':'[ ]';
+        lines.push(status+' '+txt.textContent.trim().substring(0,150));
+      }
+      var next=item.nextElementSibling;
+      if(next&&next.classList.contains('cl-notes')){
+        var ta=next.querySelector('textarea');
+        if(ta&&ta.value.trim())lines.push('   Notes: '+ta.value.trim());
+      }
+    });
+  });
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){showToast('\u2705 Onsite KO notes exported!')});
+}
+function clearOnsiteKO(){
+  document.querySelectorAll('#koType-onsite input[data-cl="onsiteKO"]').forEach(function(cb){cb.checked=false});
+  document.querySelectorAll('#koType-onsite textarea[data-notes="onsiteKO"]').forEach(function(ta){ta.value=''});
+  localStorage.removeItem('gso-onsiteKO-checks');
+  localStorage.removeItem('gso-onsiteKO-notes');
+  updateOnsiteKO();
+  showToast('\u2705 Onsite KO cleared!');
+}
+document.addEventListener('DOMContentLoaded',function(){loadOnsiteKONotes();loadOnsiteKOChecks()});
 
 
 // ===== POST-KO PROMPT BUILDER =====
