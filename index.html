@@ -1607,6 +1607,7 @@ Examples:
 <select id="preKO-package" onchange="this.dataset.userChanged='true'" style="width:100%;padding:8px 12px;background:var(--bg-input,#0f0f23);border:1px solid var(--border,#2d2d5e);border-radius:6px;color:var(--text-primary,#e2e8f0);font-size:13px">
 <option value="Plus">Plus ($699)</option>
 <option value="Premium">Premium ($1,499)</option>
+<option value="Onsite">Onsite ($2,199+)</option>
 <option value="Optimization">Optimization</option>
 </select></div>
 </div>
@@ -7410,6 +7411,46 @@ function generatePreKOEmail(){
     email+='Ongoing Support\n';
     email+='After your Go Live and our Health Check call, you\'ll continue to have access to Square\'s Customer Success Team for ongoing support. You can reach them through various channels \u2014 their phone number is: 855-700-6000.\n\n';
     email+='Thank you again \u2014 I\'m excited to support you and will be with you every step of the way. Once we connect for your Kick Off Call, I\'ll walk you through your personalized Implementation Page and we\'ll tailor your roadmap from there.\n\n';
+    email+='Best,\n'+you;
+  }else if(pkg==='Onsite'){
+    email+='Hello '+seller+' \u2014 it\'s great to meet you and welcome to Square and thank you '+ae+' for the introduction!\n\n';
+    email+='I\'m here to help ensure you have all the knowledge necessary to get up and running, and to help optimize your account for your use as we prepare for your Go Live.\n\n';
+    email+='My role is to support your set up and account optimization through virtual training sessions with you and your team on Square so you feel confident and supported from Day One.\n\n';
+    email+='To get started, please use the booking link included in the previous email to schedule our Kick Off Call at your earliest convenience. Once that\'s booked, we\'ll meet via Google Meet at your chosen date and time.\n\n';
+    email+='What to Expect During Implementation\n';
+    email+='We\'ll tailor your onboarding journey to your specific tools, business needs, and go-live date. The support we provide typically falls into the following four phases \u2014 we\'ll move through them together, and the order may shift depending on what\'s best for your business.\n\n';
+    email+='1. Kickoff + Planning\n';
+    email+='We\'ll begin with a Kick Off Call to review:\n';
+    email+='Goals,\n';
+    email+='Timelines (including scheduling),\n';
+    email+='Your Menu and other import needs, and get aligned on your setup needs.\n';
+    email+='If your onboarding includes any onsite installation support, we\'ll also work together to coordinate your Site Survey with our technical team.\n';
+    email+='(If your onboarding is fully virtual, no site work will be needed \u2014 we\'ll cover everything online.)\n\n';
+    email+='2. Background Setup Work\n';
+    email+='Behind the scenes, I\'ll begin prepping your Square account:\n';
+    email+='Building and importing your menu/inventory\n';
+    email+='Uploading any available gift card, customer, or loyalty data\n';
+    email+='Verifying hardware needs and ensuring you\'re set up for success before Go Live\n';
+    email+='(This stage typically wraps up just ahead of your go live date to ensure all final data is fresh.)\n\n';
+    email+='3. Live Virtual Trainings before your Launch Date\n';
+    email+='Your dedicated training sessions with me will focus on the specific tools you\'ll use with Square. These may include:\n';
+    email+='Dashboard Training (settings, menu/item management, reporting, employee setup)\n';
+    email+='POS Training (payments, day-to-day operations)\n';
+    email+='Menu Review (confirmation of a successful Menu Import and cataloging of necessary menu changes)\n';
+    email+='Square Online Training (optional, if using Online Store)\n';
+    email+='(Expect these calls to be scheduled within 2 weeks of your live launch date.)\n\n';
+    email+='4. Onsite Coordination & Setup (If Applicable)\n';
+    email+='If your onboarding includes onsite installation, I\'ll partner with you and our technicians to:\n';
+    email+='Complete your Site Survey\n';
+    email+='Align on any in-person work required for network, hardware, or cabling\n';
+    email+='Schedule a date for Onsite Installation or Partner support\n';
+    email+='(If your package does not include in-person setup, this section won\'t apply and we\'ll complete all training virtually.)\n\n';
+    email+='5. Following your Go Live\n';
+    email+='Health Check Call\u2014Post-Go-Live\n';
+    email+='Held within 5 business days after the launch with me, to wrap up your Onboarding Implementation Project.\n\n';
+    email+='Ongoing Support\n';
+    email+='After your Go Live and our Health Check call, you\'ll continue to have access to Square\'s Customer Success Team for ongoing support. You can reach them through various channels \u2014 their phone number is: 855-700-6000.\n\n';
+    email+='Thank you again \u2014 I\'m excited to support you and will be with you every step of the way. Once we connect for your Kick Off Call, I\'ll walk you through this process and we\'ll tailor your roadmap from there.\n\n';
     email+='Best,\n'+you;
   }else{
     email+='Hi '+seller+' \u2014 it\'s great to meet you, and welcome to Square!\n\n';
